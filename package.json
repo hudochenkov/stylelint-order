@@ -1,0 +1,42 @@
+{
+  "name": "stylelint-order",
+  "version": "0.1.0",
+  "description": "A collection of order related linting rules for stylelint.",
+  "keywords": [
+    "stylelint-plugin",
+    "stylelint",
+    "css",
+    "lint",
+    "order"
+  ],
+  "author": "Aleks Hudochenkov <aleks@hudochenkov.com>",
+  "license": "MIT",
+  "repository": "hudochenkov/stylelint-order",
+  "bugs": {
+    "url": "https://github.com/hudochenkov/stylelint-order/issues"
+  },
+  "homepage": "https://github.com/hudochenkov/stylelint-order",
+  "engines": {
+    "node": ">=4"
+  },
+  "files": [
+    "rules",
+    "utils",
+    "!**/tests",
+    "index.js"
+  ],
+  "main": "index.js",
+  "dependencies": {
+    "lodash": "^4.16.6",
+    "stylelint": "^7.5.0"
+  },
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "eslint": "^3.9.1",
+    "stylelint-test-rule-ava": "^0.1.0"
+  },
+  "scripts": {
+    "pretest": "eslint index.js **/tests/*.js",
+    "test": "ava **/tests/*.js"
+  }
+}
