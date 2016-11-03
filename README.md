@@ -49,6 +49,7 @@ Like so:
 ## List of rules
 
 * [`declaration-block-order`](./rules/declaration-block-order/README.md): Specify the order of content within declaration blocks.
+* [`declaration-block-properties-alphabetical-order`](./rules/declaration-block-properties-alphabetical-order/README.md): Specify the alphabetical order of properties within declaration blocks.
 * [`property-groups-structure`](./rules/property-groups-structure/README.md): Require or disallow an empty line before property groups.
 
 [ci-img]: https://travis-ci.org/hudochenkov/stylelint-order.svg
