@@ -26,21 +26,7 @@ Like so:
 			"custom-properties",
 			"declarations"
 		],
-		"order/property-groups-structure": [
-			{
-				"order": "strict",
-				"properties": [
-					"display"
-				]
-			},
-			{
-				"emptyLineBefore": "always",
-				"order": "strict",
-				"properties": [
-					"position"
-				]
-			}
-		]
+		"order/declaration-block-properties-alphabetical-order": true
 		// ...
 	}
 }
