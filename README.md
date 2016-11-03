@@ -38,6 +38,10 @@ Like so:
 * [`declaration-block-properties-alphabetical-order`](./rules/declaration-block-properties-alphabetical-order/README.md): Specify the alphabetical order of properties within declaration blocks.
 * [`property-groups-structure`](./rules/property-groups-structure/README.md): Require or disallow an empty line before property groups.
 
+## Thanks
+
+`declaration-block-properties-alphabetical-order` code and readme are based on `declaration-block-properties-order` rule which was a stylelint's core rule prior stylelint 8.0.0.
+
 [ci-img]: https://travis-ci.org/hudochenkov/stylelint-order.svg
 [ci]: https://travis-ci.org/hudochenkov/stylelint-order
 
