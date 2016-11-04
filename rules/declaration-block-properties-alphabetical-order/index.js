@@ -41,7 +41,6 @@ function rule(actual) {
 			const allPropData = [];
 
 			node.each(function processEveryNode(child) {
-				// Skip comments
 				if (child.type !== 'decl') {
 					return;
 				}
