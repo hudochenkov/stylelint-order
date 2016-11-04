@@ -1,4 +1,4 @@
-# property-groups-structure
+# declaration-block-property-groups-structure
 
 Require or disallow an empty line before property groups.
 

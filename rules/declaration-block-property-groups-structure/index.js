@@ -5,7 +5,7 @@ const vendor = require('postcss').vendor;
 const _ = require('lodash');
 const namespace = require('../../utils').namespace;
 
-const ruleName = namespace('property-groups-structure');
+const ruleName = namespace('declaration-block-property-groups-structure');
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
 	expected: (property) => `Expected an empty line before property "${property}"`,
