@@ -13,6 +13,7 @@ Specify the order of content within declaration blocks.
 Within an order array, you can include:
 
 - keywords:
+	- `mixins` — Less mixins (e. g., `div { .mixin(); }`)
 	- `custom-properties` — Custom properties (e. g., `--property: 10px;`)
 	- `dollar-variables` — Dollar variables (e. g., `$variable`)
 	- `declarations` — CSS declarations (e. g., `display: block`)
@@ -119,7 +120,25 @@ With `"top"`, unspecified elements are expected _before_ any specified propertie
 Given:
 
 ```js
-["custom-properties", "dollar-variables", "declarations", "rules", "at-rules"]
+["mixins", "custom-properties", "dollar-variables", "declarations", "rules", "at-rules"]
+```
+
+The following pattern are considered warnings:
+
+```css
+a {
+	color: pink;
+	.visited(pink);
+}
+```
+
+The following patterns are _not_ considered warnings:
+
+```css
+a {
+	.visited(pink);
+	color: pink;
+}
 ```
 
 The following patterns are considered warnings:
