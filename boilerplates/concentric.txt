@@ -1,3 +1,6 @@
+# Concentric CSS
+# http://rhodesmill.org/brandon/2011/concentric-css/
+
 [
   {
     "emptyLineBefore": "always",
