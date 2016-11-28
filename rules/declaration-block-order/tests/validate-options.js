@@ -49,6 +49,7 @@ testConfig({
 	description: 'valid keywords',
 	valid: true,
 	config: [
+		'mixins',
 		'custom-properties',
 		'dollar-variables',
 		'declarations',

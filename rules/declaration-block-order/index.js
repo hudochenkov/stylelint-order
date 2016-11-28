@@ -214,6 +214,7 @@ function createExpectedOrder(input) {
 
 function getDescription(item) {
 	const descriptions = {
+		mixins: 'mixin',
 		'custom-properties': 'custom property',
 		'dollar-variables': '$-variable',
 		declarations: 'declaration',
@@ -259,7 +260,11 @@ function getOrderData(expectedOrder, node) {
 			nodeType = 'declarations';
 		}
 	} else if (node.type === 'rule') {
-		nodeType = 'rules';
+		if (isMixin(node)) {
+			nodeType = 'mixins';
+		} else {
+			nodeType = 'rules';
+		}
 	} else if (node.type === 'atrule') {
 		nodeType = {
 			type: 'at-rule',
@@ -386,6 +391,10 @@ function isStandardSyntaxProperty(property) {
 	return true;
 }
 
+function isMixin(node) {
+	return node.ruleWithoutBody;
+}
+
 function validatePrimaryOption(actualOptions) {
 	// Otherwise, begin checking array options
 	if (!Array.isArray(actualOptions)) {
@@ -396,7 +405,7 @@ function validatePrimaryOption(actualOptions) {
 	// with a "type" property
 	if (!actualOptions.every((item) => {
 		if (_.isString(item)) {
-			return _.includes(['custom-properties', 'dollar-variables', 'declarations', 'rules', 'at-rules'], item);
+			return _.includes(['mixins', 'custom-properties', 'dollar-variables', 'declarations', 'rules', 'at-rules'], item);
 		}
 
 		return _.isPlainObject(item) && !_.isUndefined(item.type);
