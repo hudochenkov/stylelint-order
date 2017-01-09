@@ -19,6 +19,7 @@ Within an order array, you can include:
 	- `rules` — Nested rules (e. g., `a { span {} }`)
 	- `at-rules` — Nested at-rules (e. g., `div { @media () {} }`)
 - extended at-rules objects:
+
 	```js
 	{
 		type: 'at-rule',
