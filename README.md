@@ -1,6 +1,6 @@
 # stylelint-order [![Build Status][ci-img]][ci]
 
-A collection of order related linting rules for [stylelint] (in a form of a plugin).
+A plugin pack of order related linting rules for [stylelint].
 
 ## Installation
 
