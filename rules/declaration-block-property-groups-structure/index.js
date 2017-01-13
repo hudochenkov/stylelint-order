@@ -3,9 +3,9 @@
 const stylelint = require('stylelint');
 const vendor = require('postcss').vendor;
 const _ = require('lodash');
-const namespace = require('../../utils').namespace;
+const utils = require('../../utils');
 
-const ruleName = namespace('declaration-block-property-groups-structure');
+const ruleName = utils.namespace('declaration-block-property-groups-structure');
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
 	expected: (property) => `Expected an empty line before property "${property}"`,
@@ -67,7 +67,7 @@ function rule(expectation, options) {
 
 					nodeData.name = prop;
 
-					if (isStandardSyntaxProperty(prop) && !isCustomProperty(prop)) {
+					if (utils.isStandardSyntaxProperty(prop) && !utils.isCustomProperty(prop)) {
 						let unprefixedPropName = vendor.unprefixed(prop);
 
 						// Hack to allow -moz-osx-font-smoothing to be understood
@@ -90,7 +90,7 @@ function rule(expectation, options) {
 				}
 
 				// current node should be a standard declaration
-				if (!isStandardSyntaxProperty(nodeData.name) || isCustomProperty(nodeData.name)) {
+				if (!utils.isStandardSyntaxProperty(nodeData.name) || utils.isCustomProperty(nodeData.name)) {
 					return;
 				}
 
@@ -109,7 +109,7 @@ function rule(expectation, options) {
 				}
 
 				// previous node should be a standard declaration
-				if (!isStandardSyntaxProperty(previousNodeData.name) || isCustomProperty(previousNodeData.name)) {
+				if (!utils.isStandardSyntaxProperty(previousNodeData.name) || utils.isCustomProperty(previousNodeData.name)) {
 					return;
 				}
 
@@ -227,29 +227,6 @@ function hasEmptyLineBefore(decl) {
 	}
 
 	return false;
-}
-
-function isCustomProperty(property) {
-	return property.slice(0, 2) === '--';
-}
-
-function isStandardSyntaxProperty(property) {
-	// SCSS var (e.g. $var: x), list (e.g. $list: (x)) or map (e.g. $map: (key:value))
-	if (property[0] === '$') {
-		return false;
-	}
-
-	// Less var (e.g. @var: x)
-	if (property[0] === '@') {
-		return false;
-	}
-
-	// SCSS or Less interpolation
-	if (/#{.+?}|@{.+?}|\$\(.+?\)/.test(property)) {
-		return false;
-	}
-
-	return true;
 }
 
 function cleanConfig(initialConfig) {

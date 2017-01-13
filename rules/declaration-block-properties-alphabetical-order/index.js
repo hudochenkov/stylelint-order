@@ -80,7 +80,7 @@ function rule(actual) {
 					return;
 				}
 
-				const isCorrectOrder = checkAlpabeticalOrder(previousPropData, propData);
+				const isCorrectOrder = utils.checkAlpabeticalOrder(previousPropData, propData);
 
 				if (isCorrectOrder) {
 					return;
@@ -95,20 +95,6 @@ function rule(actual) {
 			});
 		}
 	};
-}
-
-function checkAlpabeticalOrder(firstPropData, secondPropData) {
-	// If unprefixed prop names are the same, compare the prefixed versions
-	if (firstPropData.unprefixedName === secondPropData.unprefixedName) {
-		// If first property has no prefix and second property has prefix
-		if (!postcss.vendor.prefix(firstPropData.name).length && postcss.vendor.prefix(secondPropData.name).length) {
-			return false;
-		}
-
-		return true;
-	}
-
-	return firstPropData.unprefixedName < secondPropData.unprefixedName;
 }
 
 module.exports = rule;

@@ -158,7 +158,7 @@ function rule(expectation, options) {
 					secondPropIsUnspecified &&
 					firstPropIsUnspecified
 				) {
-					if (checkAlpabeticalOrder(firstPropData, secondPropData)) {
+					if (utils.checkAlpabeticalOrder(firstPropData, secondPropData)) {
 						return true;
 					}
 
@@ -234,20 +234,6 @@ function getOrderData(expectedOrder, propName) {
 	}
 
 	return orderData;
-}
-
-function checkAlpabeticalOrder(firstPropData, secondPropData) {
-	// If unprefixed prop names are the same, compare the prefixed versions
-	if (firstPropData.unprefixedName === secondPropData.unprefixedName) {
-		// If first property has no prefix and second property has prefix
-		if (!postcss.vendor.prefix(firstPropData.name).length && postcss.vendor.prefix(secondPropData.name).length) {
-			return false;
-		}
-
-		return true;
-	}
-
-	return firstPropData.unprefixedName < secondPropData.unprefixedName;
 }
 
 function validatePrimaryOption(actualOptions) {

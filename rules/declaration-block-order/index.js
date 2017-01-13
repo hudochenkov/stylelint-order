@@ -2,9 +2,9 @@
 
 const stylelint = require('stylelint');
 const _ = require('lodash');
-const namespace = require('../../utils').namespace;
+const utils = require('../../utils');
 
-const ruleName = namespace('declaration-block-order');
+const ruleName = utils.namespace('declaration-block-order');
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
 	expected: (first, second) => `Expected ${first} to come before ${second}`
@@ -251,11 +251,11 @@ function getOrderData(expectedOrder, node) {
 	let nodeType;
 
 	if (node.type === 'decl') {
-		if (isCustomProperty(node.prop)) {
+		if (utils.isCustomProperty(node.prop)) {
 			nodeType = 'custom-properties';
-		} else if (isDollarVariable(node.prop)) {
+		} else if (utils.isDollarVariable(node.prop)) {
 			nodeType = 'dollar-variables';
-		} else if (isStandardSyntaxProperty(node.prop)) {
+		} else if (utils.isStandardSyntaxProperty(node.prop)) {
 			nodeType = 'declarations';
 		}
 	} else if (node.type === 'rule') {
@@ -357,33 +357,6 @@ function calcPatternPriority(pattern, node) {
 	}
 
 	return priority;
-}
-
-function isDollarVariable(property) {
-	return property[0] === '$';
-}
-
-function isCustomProperty(property) {
-	return property.slice(0, 2) === '--';
-}
-
-function isStandardSyntaxProperty(property) {
-	// SCSS var (e.g. $var: x), list (e.g. $list: (x)) or map (e.g. $map: (key:value))
-	if (property[0] === '$') {
-		return false;
-	}
-
-	// Less var (e.g. @var: x)
-	if (property[0] === '@') {
-		return false;
-	}
-
-	// SCSS or Less interpolation
-	if (/#{.+?}|@{.+?}|\$\(.+?\)/.test(property)) {
-		return false;
-	}
-
-	return true;
 }
 
 function validatePrimaryOption(actualOptions) {
