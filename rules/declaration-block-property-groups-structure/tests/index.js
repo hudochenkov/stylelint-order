@@ -10,21 +10,18 @@ testRule(propertyGroupStructure, {
 	config: [[
 		{
 			emptyLineBefore: 'always',
-			order: 'strict',
 			properties: [
 				'display',
 			],
 		},
 		{
 			emptyLineBefore: 'always',
-			order: 'strict',
 			properties: [
 				'position',
 			],
 		},
 		{
 			emptyLineBefore: 'always',
-			order: 'flexible',
 			properties: [
 				'border-bottom',
 				'font-style',
@@ -43,18 +40,6 @@ testRule(propertyGroupStructure, {
 
 					border-bottom: 1px solid red;
 					font-style: italic;
-				}
-			`,
-		},
-		{
-			code: `
-				a {
-					display: none;
-
-					position: absolute;
-
-					font-style: italic;
-					border-bottom: 1px solid red;
 				}
 			`,
 		},
@@ -203,18 +188,6 @@ testRule(propertyGroupStructure, {
 			code: `
 				a {
 					display: none;
-
-					position: absolute;
-					font-style: italic;
-					border-bottom: 1px solid red;
-				}
-			`,
-			message: propertyGroupStructure.messages.expected('font-style'),
-		},
-		{
-			code: `
-				a {
-					display: none;
 					position: absolute;
 
 					font-style: italic;
@@ -276,21 +249,18 @@ testRule(propertyGroupStructure, {
 	config: [[
 		{
 			emptyLineBefore: 'never',
-			order: 'strict',
 			properties: [
 				'display',
 			],
 		},
 		{
 			emptyLineBefore: 'never',
-			order: 'strict',
 			properties: [
 				'position',
 			],
 		},
 		{
 			emptyLineBefore: 'never',
-			order: 'flexible',
 			properties: [
 				'border-bottom',
 				'font-style',
@@ -307,16 +277,6 @@ testRule(propertyGroupStructure, {
 					position: absolute;
 					border-bottom: 1px solid red;
 					font-style: italic;
-				}
-			`,
-		},
-		{
-			code: `
-				a {
-					display: none;
-					position: absolute;
-					font-style: italic;
-					border-bottom: 1px solid red;
 				}
 			`,
 		},
@@ -459,18 +419,6 @@ testRule(propertyGroupStructure, {
 			code: `
 				a {
 					display: none;
-
-					position: absolute;
-					font-style: italic;
-					border-bottom: 1px solid red;
-				}
-			`,
-			message: propertyGroupStructure.messages.rejected('position'),
-		},
-		{
-			code: `
-				a {
-					display: none;
 					position: absolute;
 
 					font-style: italic;
@@ -537,7 +485,6 @@ testRule(propertyGroupStructure, {
 	config: [[
 		{
 			emptyLineBefore: 'always',
-			order: 'flexible',
 			properties: [
 				'border-bottom',
 				'font-style',
@@ -545,14 +492,12 @@ testRule(propertyGroupStructure, {
 		},
 		{
 			emptyLineBefore: 'never',
-			order: 'strict',
 			properties: [
 				'position',
 			],
 		},
 		{
 			emptyLineBefore: 'always',
-			order: 'strict',
 			properties: [
 				'display',
 			],
@@ -566,17 +511,6 @@ testRule(propertyGroupStructure, {
 				a {
 					border-bottom: 1px solid red;
 					font-style: italic;
-					position: absolute;
-
-					display: none;
-				}
-			`,
-		},
-		{
-			code: `
-				a {
-					font-style: italic;
-					border-bottom: 1px solid red;
 					position: absolute;
 
 					display: none;
@@ -714,19 +648,6 @@ testRule(propertyGroupStructure, {
 				a {
 					border-bottom: 1px solid red;
 					font-style: italic;
-
-					position: absolute;
-
-					display: none;
-				}
-			`,
-			message: propertyGroupStructure.messages.rejected('position'),
-		},
-		{
-			code: `
-				a {
-					font-style: italic;
-					border-bottom: 1px solid red;
 
 					position: absolute;
 
@@ -792,7 +713,6 @@ testRule(propertyGroupStructure, {
 		'width',
 		{
 			emptyLineBefore: 'always',
-			order: 'strict',
 			properties: [
 				'display',
 			],
@@ -913,14 +833,12 @@ testRule(propertyGroupStructure, {
 	config: [[
 		{
 			emptyLineBefore: 'always',
-			order: 'strict',
 			properties: [
 				'display',
 			],
 		},
 		{
 			emptyLineBefore: 'always',
-			order: 'strict',
 			properties: [
 				'border',
 			],
@@ -958,13 +876,11 @@ testRule(propertyGroupStructure, {
 	config: [[
 		{
 			emptyLineBefore: 'always',
-			order: 'strict',
 			properties: [
 				'display',
 			],
 		},
 		{
-			order: 'strict',
 			properties: [
 				'position',
 			],

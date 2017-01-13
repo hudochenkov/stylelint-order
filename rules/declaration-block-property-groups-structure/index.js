@@ -4,6 +4,7 @@ const stylelint = require('stylelint');
 const vendor = require('postcss').vendor;
 const _ = require('lodash');
 const utils = require('../../utils');
+const declarationBlockPropertiesSpecifiedOrder = require('../declaration-block-properties-specified-order');
 
 const ruleName = utils.namespace('declaration-block-property-groups-structure');
 
@@ -29,11 +30,11 @@ function rule(expectation, options) {
 
 		// remove emptyLineBefore from config
 		const cleanedConfig = cleanConfig(expectation);
-		const runPropertiesOrder = stylelint.rules['declaration-block-properties-order'](cleanedConfig, options);
+		const runPropertiesOrder = declarationBlockPropertiesSpecifiedOrder(cleanedConfig, options);
 
 		if (!_.isUndefined(result.stylelint.ruleSeverities) && !_.isUndefined(result.stylelint.ruleSeverities[ruleName])) {
 			// set the same severity level
-			result.stylelint.ruleSeverities['declaration-block-properties-order'] = result.stylelint.ruleSeverities[ruleName];
+			result.stylelint.ruleSeverities[utils.namespace('declaration-block-properties-specified-order')] = result.stylelint.ruleSeverities[ruleName];
 		}
 
 		// run declaration-block-properties-order rule
@@ -230,11 +231,9 @@ function hasEmptyLineBefore(decl) {
 }
 
 function cleanConfig(initialConfig) {
-	// cloning config to prevent config mutations
-	// using cloneDeep(), because array contain objects and with clone() these objects are mutating
-	return _.cloneDeep(initialConfig).map(function (item) {
-		if (_.isPlainObject(item) && !_.isUndefined(item.emptyLineBefore)) {
-			delete item.emptyLineBefore;
+	return _.flatMap(initialConfig, function (item) {
+		if (_.isPlainObject(item)) {
+			return item.properties;
 		}
 
 		return item;
