@@ -6,7 +6,7 @@ Rule is designed to run stylelint's [`declaration-block-properties-order`] rule 
 
 **Don't configure `declaration-block-properties-order` separately, otherwise this rule will run twice.**
 
-Plugin will check empty lines between declaration _only_. However, “shared” comments ignored by plugin. “Shared” comment is a comment on the same line as declaration before this comment.
+Plugin will check empty lines between declaration _only_. However, shared-line comments ignored by plugin. Shared-line comment is a comment on the same line as declaration before this comment.
 
 Given:
 
@@ -33,7 +33,7 @@ This patterns will be checked:
 
 ```css
 a {
-	display: none; /* shared comment */
+	display: none; /* shared-line comment */
 
 	position: absolute;
 }
@@ -41,7 +41,7 @@ a {
 
 ```css
 a {
-	display: none; /* shared comment */
+	display: none; /* shared-line comment */
 	position: absolute;
 }
 ```
@@ -51,7 +51,7 @@ This patterns will _not_ be checked:
 ```css
 a {
 	display: none;
-	/* not shared comment */
+	/* not shared-line comment */
 	position: absolute;
 }
 ```
@@ -59,7 +59,7 @@ a {
 ```css
 a {
 	display: none;
-	/* not shared comment */
+	/* not shared-line comment */
 
 	position: absolute;
 }

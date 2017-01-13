@@ -94,7 +94,7 @@ function rule(expectation, options) {
 					return;
 				}
 
-				// if previous node is shared comment, use second previous node
+				// if previous node is shared-line comment, use second previous node
 				if (previousNodeData && previousNodeData.node.type === 'comment' && previousNodeData.node.raw('before').indexOf('\n') === -1) {
 					previousNodeData = _.nth(allNodesData, -3);
 				}
