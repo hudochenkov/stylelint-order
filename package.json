@@ -27,14 +27,14 @@
   ],
   "main": "index.js",
   "dependencies": {
-    "lodash": "^4.16.6",
-    "postcss": "^5.2.5",
-    "stylelint": "^7.5.0"
+    "lodash": "^4.17.4",
+    "postcss": "^5.2.11",
+    "stylelint": "^7.8.0"
   },
   "devDependencies": {
-    "ava": "^0.16.0",
-    "eslint": "^3.9.1",
-    "stylelint-test-rule-ava": "^0.1.0"
+    "ava": "^0.18.1",
+    "eslint": "^3.15.0",
+    "stylelint-test-rule-ava": "^0.2.0"
   },
   "scripts": {
     "pretest": "eslint index.js **/tests/*.js",

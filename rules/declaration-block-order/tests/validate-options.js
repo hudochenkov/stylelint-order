@@ -20,7 +20,7 @@ function testConfig(input) {
 	testFn(input.description, (t) => {
 		const config = {
 			plugins: [
-				'../../../'
+				'./'
 			],
 			rules: {
 				[ruleName]: input.config
