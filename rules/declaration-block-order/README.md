@@ -29,6 +29,10 @@ Within an order array, you can include:
 	}
 	```
 
+**By default, unlisted elements will be ignored.** So if you specify an array and do not include `declarations`, that means that all declarations can be included before or after any other element. _This can be changed with the `unspecified` option (see below)._
+
+#### Extended at-rules objects
+
 Extended at-rules objects have different parameters and variations.
 
 Object parameters:
@@ -100,8 +104,6 @@ Matches all at-rules with specific name and parameter, which have nested element
 ```
 
 Each described above variant has more priority than its previous variant. For example, `{ type: 'at-rule', name: 'media' }` will be applied to an element if both `{ type: 'at-rule', name: 'media' }` and `{ type: 'at-rule', hasBlock: true }` can be applied to an element.
-
-**By default, unlisted elements will be ignored.** So if you specify an array and do not include `declarations`, that means that all declarations can be included before or after any other element. _This can be changed with the `unspecified` option (see below)._
 
 ### Optional secondary option
 
