@@ -7,7 +7,7 @@ const utils = require('../../utils');
 const ruleName = utils.namespace('declaration-block-order');
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
-	expected: (first, second) => `Expected ${first} to come before ${second}`
+	expected: (first, second) => `Expected ${first} to come before ${second}`,
 });
 
 function rule(expectation, options) {
@@ -175,7 +175,7 @@ function createExpectedOrder(input) {
 			// Convert 'at-rules' into extended pattern
 			if (item === 'at-rules') {
 				item = {
-					type: 'at-rule'
+					type: 'at-rule',
 				};
 			}
 
@@ -264,7 +264,7 @@ function getOrderData(expectedOrder, node) {
 		nodeType = {
 			type: 'at-rule',
 			name: node.name,
-			hasBlock: false
+			hasBlock: false,
 		};
 
 		if (node.nodes && node.nodes.length) {
@@ -303,7 +303,7 @@ function getOrderData(expectedOrder, node) {
 
 	// Return only description if there no patterns for that node
 	return {
-		description: getDescription(nodeType)
+		description: getDescription(nodeType),
 	};
 }
 

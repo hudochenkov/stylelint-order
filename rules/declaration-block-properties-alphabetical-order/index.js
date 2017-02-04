@@ -8,7 +8,7 @@ const utils = require('../../utils');
 const ruleName = utils.namespace('declaration-block-properties-alphabetical-order');
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
-	expected: (first, second) => `Expected ${first} to come before ${second}`
+	expected: (first, second) => `Expected ${first} to come before ${second}`,
 });
 
 function rule(actual) {
@@ -17,7 +17,7 @@ function rule(actual) {
 			result,
 			ruleName,
 			{
-				actual
+				actual,
 			}
 		);
 

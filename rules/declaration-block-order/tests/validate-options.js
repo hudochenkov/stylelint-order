@@ -20,11 +20,11 @@ function testConfig(input) {
 	testFn(input.description, (t) => {
 		const config = {
 			plugins: [
-				'./'
+				'./',
 			],
 			rules: {
-				[ruleName]: input.config
-			}
+				[ruleName]: input.config,
+			},
 		};
 
 		return stylelint.lint({
@@ -64,7 +64,7 @@ testConfig({
 		{
 			type: 'at-rule',
 			name: 'include',
-			hasBlock: true
+			hasBlock: true,
 		},
 		{
 			type: 'at-rule',
@@ -72,11 +72,11 @@ testConfig({
 		},
 		{
 			type: 'at-rule',
-			hasBlock: true
+			hasBlock: true,
 		},
 		{
 			type: 'at-rule',
-		}
+		},
 	],
 });
 
@@ -117,7 +117,7 @@ testConfig({
 	valid: false,
 	config: [
 		{
-			type: 'atrule'
+			type: 'atrule',
 		},
 	],
 	message: `Invalid option "[{"type":"atrule"}]" for rule ${ruleName}`,
@@ -129,7 +129,7 @@ testConfig({
 	config: [
 		{
 			type: 'at-rule',
-			hasBlock: 'yes'
+			hasBlock: 'yes',
 		},
 	],
 	message: `Invalid option "[{"type":"at-rule","hasBlock":"yes"}]" for rule ${ruleName}`,
@@ -141,7 +141,7 @@ testConfig({
 	config: [
 		{
 			type: 'at-rule',
-			name: ''
+			name: '',
 		},
 	],
 	message: `Invalid option "[{"type":"at-rule","name":""}]" for rule ${ruleName}`,
@@ -154,7 +154,7 @@ testConfig({
 		{
 			type: 'at-rule',
 			hasBlock: true,
-			name: ''
+			name: '',
 		},
 	],
 	message: `Invalid option "[{"type":"at-rule","hasBlock":true,"name":""}]" for rule ${ruleName}`,
@@ -167,7 +167,7 @@ testConfig({
 		{
 			type: 'at-rule',
 			name: 'include',
-			parameter: 'media'
+			parameter: 'media',
 		},
 	],
 });
@@ -179,7 +179,7 @@ testConfig({
 		{
 			type: 'at-rule',
 			name: 'include',
-			parameter: /$media/
+			parameter: /$media/,
 		},
 	],
 });
@@ -191,7 +191,7 @@ testConfig({
 		{
 			type: 'at-rule',
 			name: 'include',
-			parameter: ''
+			parameter: '',
 		},
 	],
 	message: `Invalid option "[{"type":"at-rule","name":"include","parameter":""}]" for rule ${ruleName}`,
@@ -204,7 +204,7 @@ testConfig({
 		{
 			type: 'at-rule',
 			name: 'include',
-			parameter: null
+			parameter: null,
 		},
 	],
 	message: `Invalid option "[{"type":"at-rule","name":"include","parameter":null}]" for rule ${ruleName}`,
@@ -216,7 +216,7 @@ testConfig({
 	config: [
 		{
 			type: 'at-rule',
-			parameter: 'media'
+			parameter: 'media',
 		},
 	],
 	message: `Invalid option "[{"type":"at-rule","parameter":"media"}]" for rule ${ruleName}`,

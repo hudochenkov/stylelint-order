@@ -8,9 +8,7 @@ const messages = rule.messages;
 
 testRule(rule, {
 	ruleName,
-	config: [
-		true
-	],
+	config: [true],
 	skipBasicChecks: true,
 
 	accept: [

@@ -80,7 +80,7 @@ testRule(rule, {
 		},
 		{
 			code: 'a { display: none; top: 0; color: pink; width: 0; height: 0; }',
-		}
+		},
 	],
 
 	reject: [
@@ -128,7 +128,7 @@ testRule(rule, {
 			code: 'a { @media (min-width: 10px) { color: pink; top: 0; } transform: scale(1); }',
 			description: 'media query nested in rule can violates its own ordering',
 			message: messages.expected('top', 'color'),
-		}
+		},
 	],
 });
 
@@ -170,7 +170,7 @@ testRule(rule, {
 		},
 		{
 			code: 'a { border: 1px solid #fff; border-top: none; border-right-color: #000; }',
-		}
+		},
 	],
 
 	reject: [
@@ -185,7 +185,7 @@ testRule(rule, {
 		{
 			code: 'a { padding-right: 1px; padding-top: 0; color: pink;  }',
 			message: messages.expected('padding-top', 'padding-right'),
-		}
+		},
 	],
 });
 
@@ -198,8 +198,8 @@ testRule(rule, {
 			'color',
 		],
 		{
-			unspecified: 'top'
-		}
+			unspecified: 'top',
+		},
 	],
 
 	accept: [
@@ -208,7 +208,7 @@ testRule(rule, {
 		},
 		{
 			code: 'a { bottom: 0; top: 0; }',
-		}
+		},
 	],
 
 	reject: [
@@ -219,7 +219,7 @@ testRule(rule, {
 		{
 			code: 'a { color: 1px; top: 0; }',
 			message: messages.expected('top', 'color'),
-		}
+		},
 	],
 });
 
@@ -232,8 +232,8 @@ testRule(rule, {
 			'color',
 		],
 		{
-			unspecified: 'bottom'
-		}
+			unspecified: 'bottom',
+		},
 	],
 
 	accept: [
@@ -242,7 +242,7 @@ testRule(rule, {
 		},
 		{
 			code: 'a { bottom: 0; top: 0; }',
-		}
+		},
 	],
 
 	reject: [
@@ -253,7 +253,7 @@ testRule(rule, {
 		{
 			code: 'a { bottom: 0; color: 1px; }',
 			message: messages.expected('color', 'bottom'),
-		}
+		},
 	],
 });
 
@@ -267,8 +267,8 @@ testRule(rule, {
 		],
 		{
 			unspecified:
-			'bottomAlphabetical'
-		}
+			'bottomAlphabetical',
+		},
 	],
 
 	accept: [
@@ -280,7 +280,7 @@ testRule(rule, {
 		},
 		{
 			code: 'a { all: initial; compose: b; bottom: 0; top: 0; }',
-		}
+		},
 	],
 
 	reject: [
@@ -291,7 +291,7 @@ testRule(rule, {
 		{
 			code: 'a { compose: b; top: 0; bottom: 0; }',
 			message: messages.expected('bottom', 'top'),
-		}
+		},
 	],
 });
 

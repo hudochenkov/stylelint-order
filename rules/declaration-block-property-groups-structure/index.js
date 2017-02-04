@@ -10,7 +10,7 @@ const ruleName = utils.namespace('declaration-block-property-groups-structure');
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
 	expected: (property) => `Expected an empty line before property "${property}"`,
-	rejected: (property) => `Unexpected an empty line before property "${property}"`
+	rejected: (property) => `Unexpected an empty line before property "${property}"`,
 });
 
 function rule(expectation, options) {
@@ -186,8 +186,6 @@ function createExpectedOrder(input) {
 		}
 
 		appendGroup(item.properties);
-
-		return;
 	}
 
 	return order;

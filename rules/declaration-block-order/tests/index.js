@@ -124,7 +124,7 @@ testRule(declarationBlockOrder, {
 					span {}
 				}
 			`,
-		}
+		},
 	],
 });
 
@@ -135,17 +135,17 @@ testRule(declarationBlockOrder, {
 			type: 'at-rule',
 			name: 'include',
 			parameter: 'media',
-			hasBlock: true
+			hasBlock: true,
 		},
 		{
 			type: 'at-rule',
 			name: 'include',
-			parameter: 'media'
+			parameter: 'media',
 		},
 		{
 			type: 'at-rule',
 			name: 'include',
-			hasBlock: true
+			hasBlock: true,
 		},
 		{
 			type: 'at-rule',
@@ -153,11 +153,11 @@ testRule(declarationBlockOrder, {
 		},
 		{
 			type: 'at-rule',
-			hasBlock: true
+			hasBlock: true,
 		},
 		{
 			type: 'at-rule',
-		}
+		},
 	]],
 	skipBasicChecks: true,
 
@@ -244,7 +244,7 @@ testRule(declarationBlockOrder, {
 		{
 			type: 'at-rule',
 			name: 'include',
-			hasBlock: true
+			hasBlock: true,
 		},
 		{
 			type: 'at-rule',
@@ -252,18 +252,18 @@ testRule(declarationBlockOrder, {
 		},
 		{
 			type: 'at-rule',
-			hasBlock: true
-		},
-		{
-			type: 'at-rule',
-			name: 'include',
-			parameter: 'media'
+			hasBlock: true,
 		},
 		{
 			type: 'at-rule',
 			name: 'include',
 			parameter: 'media',
-			hasBlock: true
+		},
+		{
+			type: 'at-rule',
+			name: 'include',
+			parameter: 'media',
+			hasBlock: true,
 		},
 	]],
 	skipBasicChecks: true,
@@ -426,8 +426,8 @@ testRule(declarationBlockOrder, {
 			'declarations',
 		],
 		{
-			unspecified: 'top'
-		}
+			unspecified: 'top',
+		},
 	],
 	skipBasicChecks: true,
 
@@ -479,8 +479,8 @@ testRule(declarationBlockOrder, {
 			'declarations',
 		],
 		{
-			unspecified: 'bottom'
-		}
+			unspecified: 'bottom',
+		},
 	],
 	skipBasicChecks: true,
 

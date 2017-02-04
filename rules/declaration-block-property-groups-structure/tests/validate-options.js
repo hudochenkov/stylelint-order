@@ -20,11 +20,11 @@ function testConfig(input) {
 	testFn(input.description, (t) => {
 		const config = {
 			plugins: [
-				'./'
+				'./',
 			],
 			rules: {
-				[ruleName]: input.config
-			}
+				[ruleName]: input.config,
+			},
 		};
 
 		return stylelint.lint({
