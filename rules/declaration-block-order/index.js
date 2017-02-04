@@ -163,15 +163,53 @@ function createExpectedOrder(input) {
 	input.forEach((item) => {
 		expectedPosition += 1;
 
-		if (_.isString(item) && item !== 'at-rules') {
+		if (
+			_.isString(item)
+			&& item !== 'at-rules'
+			&& item !== 'rules'
+		) {
 			order[item] = {
 				expectedPosition,
 				description: getDescription(item),
 			};
-		} else {
-			// If it's an object
-			// Currently 'at-rules' only
+		}
 
+		if (
+			item === 'rules'
+			|| item.type === 'rule'
+		) {
+			// Convert 'rules' into extended pattern
+			if (item === 'rules') {
+				item = {
+					type: 'rule',
+				};
+			}
+
+			// It there are no nodes like that create array for them
+			if (!order[item.type]) {
+				order[item.type] = [];
+			}
+
+			const nodeData = {
+				expectedPosition,
+				description: getDescription(item),
+			};
+
+			if (item.selector) {
+				nodeData.selector = item.selector;
+
+				if (_.isString(item.selector)) {
+					nodeData.selector = new RegExp(item.selector);
+				}
+			}
+
+			order[item.type].push(nodeData);
+		}
+
+		if (
+			item === 'at-rules'
+			|| item.type === 'at-rule'
+		) {
 			// Convert 'at-rules' into extended pattern
 			if (item === 'at-rules') {
 				item = {
@@ -217,26 +255,36 @@ function getDescription(item) {
 		'custom-properties': 'custom property',
 		'dollar-variables': '$-variable',
 		declarations: 'declaration',
-		rules: 'nested rule',
 	};
 
-	// Currently 'at-rule' only
 	if (_.isPlainObject(item)) {
-		let text = 'at-rule';
+		let text;
 
-		if (item.name) {
-			text = `@${item.name}`;
+		if (item.type === 'at-rule') {
+			text = 'at-rule';
+
+			if (item.name) {
+				text = `@${item.name}`;
+			}
+
+			if (item.parameter) {
+				text += ` "${item.parameter}"`;
+			}
+
+			if (item.hasOwnProperty('hasBlock')) {
+				if (item.hasBlock) {
+					text += ' with a block';
+				} else {
+					text = `blockless ${text}`;
+				}
+			}
 		}
 
-		if (item.parameter) {
-			text += ` "${item.parameter}"`;
-		}
+		if (item.type === 'rule') {
+			text = 'nested rule';
 
-		if (item.hasOwnProperty('hasBlock')) {
-			if (item.hasBlock) {
-				text += ' with a block';
-			} else {
-				text = `blockless ${text}`;
+			if (item.selector) {
+				text += ` with selector matching "${item.selector}"`;
 			}
 		}
 
@@ -259,7 +307,31 @@ function getOrderData(expectedOrder, node) {
 			nodeType = 'declarations';
 		}
 	} else if (node.type === 'rule') {
-		nodeType = 'rules';
+		nodeType = {
+			type: 'rule',
+			selector: node.selector,
+		};
+
+		const rules = expectedOrder.rule;
+
+		// Looking for most specified pattern, because it can match many patterns
+		if (rules && rules.length) {
+			let prioritizedPattern;
+			let max = 0;
+
+			rules.forEach(function (pattern) {
+				const priority = calcRulePatternPriority(pattern, nodeType);
+
+				if (priority > max) {
+					max = priority;
+					prioritizedPattern = pattern;
+				}
+			});
+
+			if (max) {
+				return prioritizedPattern;
+			}
+		}
 	} else if (node.type === 'atrule') {
 		nodeType = {
 			type: 'at-rule',
@@ -283,7 +355,7 @@ function getOrderData(expectedOrder, node) {
 			let max = 0;
 
 			atRules.forEach(function (pattern) {
-				const priority = calcPatternPriority(pattern, nodeType);
+				const priority = calcAtRulePatternPriority(pattern, nodeType);
 
 				if (priority > max) {
 					max = priority;
@@ -307,7 +379,7 @@ function getOrderData(expectedOrder, node) {
 	};
 }
 
-function calcPatternPriority(pattern, node) {
+function calcAtRulePatternPriority(pattern, node) {
 	// 0 — it pattern doesn't match
 	// 1 — pattern without `name` and `hasBlock`
 	// 10010 — pattern match `hasBlock`
@@ -359,6 +431,26 @@ function calcPatternPriority(pattern, node) {
 	return priority;
 }
 
+function calcRulePatternPriority(pattern, node) {
+	// 0 — it pattern doesn't match
+	// 1 — pattern without `selector`
+	// 2 — pattern match `selector`
+
+	let priority = 0;
+
+	// doesn't have `selector`
+	if (!pattern.hasOwnProperty('selector')) {
+		priority = 1;
+	}
+
+	// match `selector`
+	if (pattern.hasOwnProperty('selector') && pattern.selector.test(node.selector)) {
+		priority = 2;
+	}
+
+	return priority;
+}
+
 function validatePrimaryOption(actualOptions) {
 	// Otherwise, begin checking array options
 	if (!Array.isArray(actualOptions)) {
@@ -382,25 +474,33 @@ function validatePrimaryOption(actualOptions) {
 	if (!objectItems.every((item) => {
 		let result = true;
 
-		if (item.type !== 'at-rule') {
+		if (item.type !== 'at-rule' && item.type !== 'rule') {
 			return false;
 		}
 
-		// if parameter is specified, name should be specified also
-		if (!_.isUndefined(item.parameter) && _.isUndefined(item.name)) {
-			return false;
+		if (item.type === 'at-rule') {
+			// if parameter is specified, name should be specified also
+			if (!_.isUndefined(item.parameter) && _.isUndefined(item.name)) {
+				return false;
+			}
+
+			if (!_.isUndefined(item.hasBlock)) {
+				result = item.hasBlock === true || item.hasBlock === false;
+			}
+
+			if (!_.isUndefined(item.name)) {
+				result = _.isString(item.name) && item.name.length;
+			}
+
+			if (!_.isUndefined(item.parameter)) {
+				result = (_.isString(item.parameter) && item.parameter.length) || _.isRegExp(item.parameter);
+			}
 		}
 
-		if (!_.isUndefined(item.hasBlock)) {
-			result = item.hasBlock === true || item.hasBlock === false;
-		}
-
-		if (!_.isUndefined(item.name)) {
-			result = _.isString(item.name) && item.name.length;
-		}
-
-		if (!_.isUndefined(item.parameter)) {
-			result = (_.isString(item.parameter) && item.parameter.length) || _.isRegExp(item.parameter);
+		if (item.type === 'rule') {
+			if (!_.isUndefined(item.selector)) {
+				result = (_.isString(item.selector) && item.selector.length) || _.isRegExp(item.selector);
+			}
 		}
 
 		return result;

@@ -523,3 +523,199 @@ testRule(declarationBlockOrder, {
 		},
 	],
 });
+
+testRule(declarationBlockOrder, {
+	ruleName,
+	config: [[
+		{
+			type: 'rule',
+			selector: '^a',
+		},
+		{
+			type: 'rule',
+			selector: /^&/,
+		},
+		{
+			type: 'rule',
+		},
+	]],
+	skipBasicChecks: true,
+
+	accept: [
+		{
+			code: `
+				a {
+					a {}
+					abbr {}
+					&:hover {}
+					span {}
+				}
+			`,
+		},
+		{
+			code: `
+				a {
+					abbr {}
+					a {}
+					&:hover {}
+					span {}
+				}
+			`,
+		},
+		{
+			code: `
+				a {
+					a {}
+					span {}
+				}
+			`,
+		},
+	],
+
+	reject: [
+		{
+			code: `
+				a {
+					a {}
+					&:hover {}
+					abbr {}
+					span {}
+				}
+			`,
+		},
+		{
+			code: `
+				a {
+					span {}
+					&:hover {}
+				}
+			`,
+		},
+		{
+			code: `
+				a {
+					span {}
+					abbr {}
+				}
+			`,
+		},
+	],
+});
+
+testRule(declarationBlockOrder, {
+	ruleName,
+	config: [[
+		{
+			type: 'rule',
+			selector: /^&/,
+		},
+		{
+			type: 'rule',
+			selector: /^&:\w/,
+		},
+		{
+			type: 'rule',
+		},
+	]],
+	skipBasicChecks: true,
+
+	accept: [
+		{
+			code: `
+				a {
+					&:hover {}
+					& b {}
+					b & {}
+				}
+			`,
+		},
+		{
+			code: `
+				a {
+					& b {}
+					&:hover {}
+					b & {}
+				}
+			`,
+		},
+	],
+
+	reject: [
+		{
+			code: `
+				a {
+					& b {}
+					b & {}
+					&:hover {}
+				}
+			`,
+		},
+		{
+			code: `
+				a {
+					&:hover {}
+					b & {}
+					& b {}
+				}
+			`,
+		},
+	],
+});
+
+testRule(declarationBlockOrder, {
+	ruleName,
+	config: [[
+		{
+			type: 'rule',
+		},
+		{
+			type: 'rule',
+			selector: /^&:\w/,
+		},
+		{
+			type: 'rule',
+			selector: /^&/,
+		},
+	]],
+	skipBasicChecks: true,
+
+	accept: [
+		{
+			code: `
+				a {
+					b & {}
+					&:hover {}
+					& b {}
+				}
+			`,
+		},
+		{
+			code: `
+				a {
+					b & {}
+					& b {}
+				}
+			`,
+		},
+	],
+
+	reject: [
+		{
+			code: `
+				a {
+					b & {}
+					& b {}
+					&:hover {}
+				}
+			`,
+		},
+		{
+			code: `
+				a {
+					&:hover {}
+					b & {}
+				}
+			`,
+		},
+	],
+});

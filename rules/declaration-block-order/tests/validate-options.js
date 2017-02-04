@@ -81,6 +81,24 @@ testConfig({
 });
 
 testConfig({
+	description: 'valid rules variants',
+	valid: true,
+	config: [
+		{
+			type: 'rule',
+			selector: /^&:\w/,
+		},
+		{
+			type: 'rule',
+			selector: '^&:\\w',
+		},
+		{
+			type: 'rule',
+		},
+	],
+});
+
+testConfig({
 	description: 'valid keyword with at-rule variant (keyword last)',
 	valid: true,
 	config: [
@@ -220,4 +238,50 @@ testConfig({
 		},
 	],
 	message: `Invalid option "[{"type":"at-rule","parameter":"media"}]" for rule ${ruleName}`,
+});
+
+testConfig({
+	description: 'valid selector (string)',
+	valid: true,
+	config: [
+		{
+			type: 'rule',
+			selector: '^&:hover',
+		},
+	],
+});
+
+testConfig({
+	description: 'valid selector (RegExp)',
+	valid: true,
+	config: [
+		{
+			type: 'rule',
+			selector: /^&:\w/,
+		},
+	],
+});
+
+testConfig({
+	description: 'invalid. selector is empty',
+	valid: false,
+	config: [
+		{
+			type: 'rule',
+			selector: '',
+		},
+	],
+	message: `Invalid option "[{"type":"rule","selector":""}]" for rule ${ruleName}`,
+});
+
+testConfig({
+	description: 'invalid. selector is not a string',
+	valid: false,
+	config: [
+		{
+			type: 'rule',
+			selector: null,
+		},
+	],
+	message: `Invalid option "[{"type":"rule","selector":null}]" for rule ${ruleName}`,
 });

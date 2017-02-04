@@ -18,7 +18,7 @@ Within an order array, you can include:
 	- `declarations` — CSS declarations (e. g., `display: block`)
 	- `rules` — Nested rules (e. g., `a { span {} }`)
 	- `at-rules` — Nested at-rules (e. g., `div { @media () {} }`)
-- extended at-rules objects:
+- extended at-rule objects:
 
 	```js
 	{
@@ -29,11 +29,20 @@ Within an order array, you can include:
 	}
 	```
 
+- extended rule objects:
+
+	```js
+	{
+		type: 'rule',
+		selector: 'div'
+	}
+	```
+
 **By default, unlisted elements will be ignored.** So if you specify an array and do not include `declarations`, that means that all declarations can be included before or after any other element. _This can be changed with the `unspecified` option (see below)._
 
-#### Extended at-rules objects
+#### Extended at-rule objects
 
-Extended at-rules objects have different parameters and variations.
+Extended at-rule objects have different parameters and variations.
 
 Object parameters:
 
@@ -104,6 +113,41 @@ Matches all at-rules with specific name and parameter, which have nested element
 ```
 
 Each described above variant has more priority than its previous variant. For example, `{ type: 'at-rule', name: 'media' }` will be applied to an element if both `{ type: 'at-rule', name: 'media' }` and `{ type: 'at-rule', hasBlock: true }` can be applied to an element.
+
+#### Extended rule objects
+
+Object parameters:
+
+* `type`: always `"rule"`
+* `selector`: `string`|`regex`. Selector pattern. A string will be translated into a RegExp — `new RegExp(yourString)` — so _be sure to escape properly_. Examples:
+	* `selector: /^&:[\w-]+$/` matches simple pseudo-classes. E. g., `&:hover`, `&:first-child`. Doesn't match complex pseudo-classes, e. g. `&:not(.is-visible)`.
+	* `selector: /^&::[\w-]+$/` matches pseudo-elements. E. g. `&::before`, `&::placeholder`.
+
+Matches all rules:
+
+```js
+{
+	type: 'rule'
+}
+```
+
+Or keyword `rules`.
+
+Matches all rules with selector matching pattern:
+
+```js
+{
+	type: 'rule',
+	selector: 'div'
+}
+```
+
+```js
+{
+	type: 'rule',
+	selector: /^&:\w+$/
+}
+```
 
 ### Optional secondary option
 
@@ -373,6 +417,142 @@ a {
 a {
 	--height: 10px;
 	width: 20px;
+}
+```
+
+---
+
+Given:
+
+```js
+[
+	{
+		type: 'rule',
+		selector: '^a'
+	},
+	{
+		type: 'rule',
+		selector: /^&/
+	},
+	'rules'
+]
+```
+
+The following patterns are considered warnings:
+
+```scss
+a {
+	a {}
+	&:hover {}
+	abbr {}
+	span {}
+}
+```
+
+```scss
+a {
+	span {}
+	&:hover {}
+}
+```
+
+```scss
+a {
+	span {}
+	abbr {}
+}
+```
+
+The following patterns are _not_ considered warnings:
+
+```scss
+a {
+	a {}
+	abbr {}
+	&:hover {}
+	span {}
+}
+```
+
+```scss
+a {
+	abbr {}
+	a {}
+}
+```
+
+```scss
+a {
+	abbr {}
+	span {}
+}
+```
+
+---
+
+Given:
+
+```js
+[
+	{
+		type: 'rule',
+		selector: /^&/
+	},
+	{
+		type: 'rule',
+		selector: /^&:\w/
+	}
+]
+```
+
+The following patterns are _not_ considered warnings:
+
+```scss
+a {
+	&:hover {}
+	& b {}
+}
+```
+
+```scss
+a {
+	& b {}
+	&:hover {}
+}
+```
+
+---
+
+Given:
+
+```js
+[
+	{
+		type: 'rule',
+		selector: /^&:\w/
+	},
+	{
+		type: 'rule',
+		selector: /^&/
+	}
+]
+```
+
+The following pattern is considered warnings:
+
+```scss
+a {
+	& b {}
+	&:hover {}
+}
+```
+
+The following pattern is _not_ considered warnings:
+
+```scss
+a {
+	&:hover {}
+	& b {}
 }
 ```
 
