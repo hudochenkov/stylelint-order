@@ -37,7 +37,7 @@
     "stylelint-test-rule-ava": "^0.2.0"
   },
   "scripts": {
-    "pretest": "eslint index.js **/tests/*.js",
+    "pretest": "eslint .",
     "test": "ava **/tests/*.js"
   }
 }
