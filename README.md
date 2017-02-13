@@ -46,4 +46,4 @@ Like so:
 [ci-img]: https://travis-ci.org/hudochenkov/stylelint-order.svg
 [ci]: https://travis-ci.org/hudochenkov/stylelint-order
 
-[stylelint]: http://stylelint.io/
+[stylelint]: https://stylelint.io/
