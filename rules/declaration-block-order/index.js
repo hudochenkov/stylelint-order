@@ -164,9 +164,12 @@ function createExpectedOrder(input) {
 		expectedPosition += 1;
 
 		if (
-			_.isString(item)
-			&& item !== 'at-rules'
-			&& item !== 'rules'
+			(
+				_.isString(item)
+				&& item !== 'at-rules'
+				&& item !== 'rules'
+			)
+			|| item === 'less-mixins'
 		) {
 			order[item] = {
 				expectedPosition,
@@ -255,6 +258,7 @@ function getDescription(item) {
 		'custom-properties': 'custom property',
 		'dollar-variables': '$-variable',
 		'at-variables': '@-variable',
+		'less-mixins': 'Less mixin',
 		declarations: 'declaration',
 	};
 
@@ -309,6 +313,12 @@ function getOrderData(expectedOrder, node) {
 		} else if (utils.isStandardSyntaxProperty(node.prop)) {
 			nodeType = 'declarations';
 		}
+	} else if (
+		node.type === 'rule'
+		&& node.ruleWithoutBody
+		&& !node.extendRule
+	) {
+		nodeType = 'less-mixins';
 	} else if (node.type === 'rule') {
 		nodeType = {
 			type: 'rule',
@@ -464,7 +474,7 @@ function validatePrimaryOption(actualOptions) {
 	// with a "type" property
 	if (!actualOptions.every((item) => {
 		if (_.isString(item)) {
-			return _.includes(['custom-properties', 'dollar-variables', 'at-variables', 'declarations', 'rules', 'at-rules'], item);
+			return _.includes(['custom-properties', 'dollar-variables', 'at-variables', 'declarations', 'rules', 'at-rules', 'less-mixins'], item);
 		}
 
 		return _.isPlainObject(item) && !_.isUndefined(item.type);

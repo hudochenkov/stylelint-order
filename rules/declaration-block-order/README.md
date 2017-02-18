@@ -19,6 +19,7 @@ Within an order array, you can include:
 	- `declarations` — CSS declarations (e. g., `display: block`)
 	- `rules` — Nested rules (e. g., `a { span {} }`)
 	- `at-rules` — Nested at-rules (e. g., `div { @media () {} }`)
+	- `less-mixins` — Mixins in Less syntax (e. g., `.mixin();`)
 - extended at-rule objects:
 
 	```js

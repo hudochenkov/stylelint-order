@@ -773,3 +773,53 @@ testRule(declarationBlockOrder, {
 		},
 	],
 });
+
+testRule(declarationBlockOrder, {
+	ruleName,
+	syntax: 'less',
+	config: [[
+		'less-mixins',
+		'rules',
+	]],
+	skipBasicChecks: true,
+
+	accept: [
+		{
+			code: `
+				a {
+					.mixin();
+					span {}
+				}
+			`,
+		},
+		{
+			code: `
+				a {
+					.mixin();
+					&:extend(.class1);
+				}
+			`,
+		},
+	],
+
+	reject: [
+		{
+			code: `
+				a {
+					span {}
+					.mixin();
+				}
+			`,
+			message: declarationBlockOrder.messages.expected('Less mixin', 'rule'),
+		},
+		{
+			code: `
+				a {
+					&:extend(.class1);
+					.mixin();
+				}
+			`,
+			message: declarationBlockOrder.messages.expected('Less mixin', 'rule'),
+		},
+	],
+});

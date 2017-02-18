@@ -55,6 +55,7 @@ testConfig({
 		'declarations',
 		'rules',
 		'at-rules',
+		'less-mixins',
 	],
 });
 
