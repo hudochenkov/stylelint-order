@@ -3,5 +3,6 @@ module.exports = {
 	isCustomProperty: require('./isCustomProperty'),
 	isStandardSyntaxProperty: require('./isStandardSyntaxProperty'),
 	isDollarVariable: require('./isDollarVariable'),
+	isAtVariable: require('./isAtVariable'),
 	checkAlpabeticalOrder: require('./checkAlpabeticalOrder'),
 };

@@ -719,3 +719,57 @@ testRule(declarationBlockOrder, {
 		},
 	],
 });
+
+testRule(declarationBlockOrder, {
+	ruleName,
+	syntax: 'less',
+	config: [[
+		'custom-properties',
+		'at-variables',
+		'declarations',
+		'rules',
+		'at-rules',
+	]],
+	skipBasicChecks: true,
+
+	accept: [
+		{
+			code: `
+				a {
+					--width: 10px;
+					@size: 30px;
+					display: none;
+
+					span {}
+
+					@media (min-width: 100px) {}
+				}
+			`,
+		},
+		{
+			code: `
+				div {
+					a {
+						@hello: 10px;
+						color: blue;
+						top: 0;
+					}
+				}
+			`,
+		},
+	],
+
+	reject: [
+		{
+			code: `
+				div {
+					a {
+						color: blue;
+						top: 0;
+						@hello: 10px;
+					}
+				}
+			`,
+		},
+	],
+});

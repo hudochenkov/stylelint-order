@@ -51,6 +51,7 @@ testConfig({
 	config: [
 		'custom-properties',
 		'dollar-variables',
+		'at-variables',
 		'declarations',
 		'rules',
 		'at-rules',

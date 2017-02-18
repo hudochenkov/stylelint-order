@@ -15,6 +15,7 @@ Within an order array, you can include:
 - keywords:
 	- `custom-properties` — Custom properties (e. g., `--property: 10px;`)
 	- `dollar-variables` — Dollar variables (e. g., `$variable`)
+	- `at-variables` — At-variables (e. g., `@variable` available in Less syntax)
 	- `declarations` — CSS declarations (e. g., `display: block`)
 	- `rules` — Nested rules (e. g., `a { span {} }`)
 	- `at-rules` — Nested at-rules (e. g., `div { @media () {} }`)

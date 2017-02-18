@@ -254,6 +254,7 @@ function getDescription(item) {
 	const descriptions = {
 		'custom-properties': 'custom property',
 		'dollar-variables': '$-variable',
+		'at-variables': '@-variable',
 		declarations: 'declaration',
 	};
 
@@ -303,6 +304,8 @@ function getOrderData(expectedOrder, node) {
 			nodeType = 'custom-properties';
 		} else if (utils.isDollarVariable(node.prop)) {
 			nodeType = 'dollar-variables';
+		} else if (utils.isAtVariable(node.prop)) {
+			nodeType = 'at-variables';
 		} else if (utils.isStandardSyntaxProperty(node.prop)) {
 			nodeType = 'declarations';
 		}
@@ -461,7 +464,7 @@ function validatePrimaryOption(actualOptions) {
 	// with a "type" property
 	if (!actualOptions.every((item) => {
 		if (_.isString(item)) {
-			return _.includes(['custom-properties', 'dollar-variables', 'declarations', 'rules', 'at-rules'], item);
+			return _.includes(['custom-properties', 'dollar-variables', 'at-variables', 'declarations', 'rules', 'at-rules'], item);
 		}
 
 		return _.isPlainObject(item) && !_.isUndefined(item.type);
