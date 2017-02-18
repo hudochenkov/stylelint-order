@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.3.0
+* Changed: Breaking! `declaration-block-property-groups-structure` now uses `declaration-block-properties-specified-order` rather stylelint's deprecated `declaration-block-properties-order`. Flexible group order isn't supported anymore
+* Added: `declaration-block-order` support new `rule` extended object, which have new `selector` option. Rules in order can be specified by their selector
+* Added: New keyword `at-variables` in `declaration-block-order`
+* Added: New keyword `less-mixins` in `declaration-block-order`
+
 ## 0.2.2
 * Fixed tests for `declaration-block-property-groups-structure` which were broken by previous fix ¯﻿\﻿_﻿(﻿ツ﻿)﻿_﻿/﻿¯
 
