@@ -281,7 +281,7 @@ function getDescription(item) {
 		}
 
 		if (item.type === 'rule') {
-			text = 'nested rule';
+			text = 'rule';
 
 			if (item.selector) {
 				text += ` with selector matching "${item.selector}"`;
