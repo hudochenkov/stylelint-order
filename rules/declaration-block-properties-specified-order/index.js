@@ -234,12 +234,12 @@ function createExpectedOrder(input) {
 			}
 
 			order[item] = { expectedPosition };
+
 			return;
 		}
 
 		if (!item.order || item.order === 'strict') {
 			appendGroup(item.properties);
-			return;
 		} else if (item.order === 'flexible') {
 			expectedPosition += 1;
 			item.properties.forEach((property) => {
