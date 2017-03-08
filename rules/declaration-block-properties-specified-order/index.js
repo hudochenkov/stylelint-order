@@ -218,36 +218,6 @@ function createExpectedOrder(input) {
 		};
 	});
 
-	appendGroup(input);
-
-	function appendGroup(items) {
-		items.forEach((item) => appendItem(item, false));
-	}
-
-	function appendItem(item, inFlexibleGroup) {
-		if (_.isString(item)) {
-			// In flexible groups, the expectedPosition does not ascend
-			// to make that flexibility work;
-			// otherwise, it will always ascend
-			if (!inFlexibleGroup) {
-				expectedPosition += 1;
-			}
-
-			order[item] = { expectedPosition };
-
-			return;
-		}
-
-		if (!item.order || item.order === 'strict') {
-			appendGroup(item.properties);
-		} else if (item.order === 'flexible') {
-			expectedPosition += 1;
-			item.properties.forEach((property) => {
-				appendItem(property, true);
-			});
-		}
-	}
-
 	return order;
 }
 
@@ -272,19 +242,8 @@ function validatePrimaryOption(actualOptions) {
 		return false;
 	}
 
-	const objectItems = actualOptions.filter(_.isPlainObject);
-
-	// Every object-item's "order" property must be "strict" or "flexible"
-	if (!objectItems.every((item) => {
-		if (_.isUndefined(item.order)) {
-			return true;
-		}
-
-		return _.includes([
-			'strict',
-			'flexible',
-		], item.order);
-	})) {
+	// Every item in the array must be a string
+	if (!actualOptions.every((item) => _.isString(item))) {
 		return false;
 	}
 
