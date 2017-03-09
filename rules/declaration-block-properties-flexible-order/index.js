@@ -43,7 +43,7 @@ function createExpectedOrder(input) {
 			return;
 		}
 
-		if (!item.order || item.order === 'strict') {
+		if (!item.order) {
 			appendGroup(item.properties);
 		} else if (item.order === 'flexible') {
 			expectedPosition += 1;
