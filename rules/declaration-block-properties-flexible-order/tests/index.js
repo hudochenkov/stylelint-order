@@ -39,34 +39,3 @@ testRule(rule, {
 		},
 	],
 });
-
-testRule(rule, {
-	ruleName,
-
-	config: [[
-		'position',
-		{
-			order: 'strict',
-			properties: ['top', 'right', 'bottom', 'left'],
-		},
-		'margin',
-		'padding',
-	]],
-
-	accept: [
-		{
-			code: '.foo { position: absolute; margin: 0; }',
-		},
-	],
-
-	reject: [
-		{
-			code: '.foo { position: absolute; margin: 0; top: 0; }',
-			message: messages.expected('top', 'margin'),
-		},
-		{
-			code: '.foo { position: absolute; right: 0; top: 0; padding: 0; }',
-			message: messages.expected('top', 'right'),
-		},
-	],
-});
