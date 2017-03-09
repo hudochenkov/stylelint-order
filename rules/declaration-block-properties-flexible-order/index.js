@@ -43,14 +43,10 @@ function createExpectedOrder(input) {
 			return;
 		}
 
-		if (!item.order) {
-			appendGroup(item.properties);
-		} else if (item.order === 'flexible') {
-			expectedPosition += 1;
-			item.properties.forEach((property) => {
-				appendItem(property, true);
-			});
-		}
+		expectedPosition += 1;
+		item.properties.forEach((property) => {
+			appendItem(property, true);
+		});
 	}
 
 	return order;
@@ -62,16 +58,17 @@ function validatePrimaryOption(actualOptions) {
 		return false;
 	}
 
-    // Every item in the array must be a string or an object
-    // with a "properties" property
-    if (!actualOptions.every(item => {
-        if (_.isString(item)) {
-            return true
-        }
-        return _.isPlainObject(item) && !_.isUndefined(item.properties)
-    })) {
-        return false
-    }
+	// Every item in the array must be a string or an object
+	// with a "properties" property
+	if (!actualOptions.every((item) => {
+		if (_.isString(item)) {
+			return true;
+		}
+
+		return _.isPlainObject(item) && !_.isUndefined(item.properties);
+	})) {
+		return false;
+	}
 
 	return true;
 }
