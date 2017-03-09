@@ -15,10 +15,10 @@ function rule(expectation, options) {
 	return function (root, result) {
 		const validOptions = stylelint.utils.validateOptions(
 			result,
-			ruleName,
+			module.exports.ruleName,
 			{
 				actual: expectation,
-				possible: validatePrimaryOption,
+				possible: module.exports.validatePrimaryOption,
 			},
 			{
 				actual: options,
@@ -33,7 +33,7 @@ function rule(expectation, options) {
 			return;
 		}
 
-		const expectedOrder = createExpectedOrder(expectation);
+		const expectedOrder = module.exports.createExpectedOrder(expectation);
 
 		// By default, ignore unspecified properties
 		const unspecified = _.get(options, ['unspecified'], 'ignore');
@@ -79,7 +79,7 @@ function rule(expectation, options) {
 				const propData = {
 					name: prop,
 					unprefixedName: unprefixedPropName,
-					orderData: getOrderData(expectedOrder, unprefixedPropName),
+					orderData: module.exports.getOrderData(expectedOrder, unprefixedPropName),
 					before: child.raw('before'),
 					index: allPropData.length,
 					node: child,
@@ -101,7 +101,7 @@ function rule(expectation, options) {
 				}
 
 				complain({
-					message: messages.expected(propData.name, previousPropData.name),
+					message: module.exports.messages.expected(propData.name, previousPropData.name),
 					node: child,
 				});
 			});
@@ -135,7 +135,7 @@ function rule(expectation, options) {
 						priorSpecifiedPropData.orderData.expectedPosition > secondPropData.orderData.expectedPosition
 					) {
 						complain({
-							message: messages.expected(secondPropData.name, priorSpecifiedPropData.name),
+							message: module.exports.messages.expected(secondPropData.name, priorSpecifiedPropData.name),
 							node: secondPropData.node,
 						});
 
@@ -200,7 +200,7 @@ function rule(expectation, options) {
 				message,
 				node,
 				result,
-				ruleName,
+				ruleName: module.exports.ruleName,
 			});
 		}
 	};
@@ -230,7 +230,7 @@ function getOrderData(expectedOrder, propName) {
 	if (!orderData && propName.lastIndexOf('-') !== -1) {
 		const propNamePreHyphen = propName.slice(0, propName.lastIndexOf('-'));
 
-		orderData = getOrderData(expectedOrder, propNamePreHyphen);
+		orderData = module.exports.getOrderData(expectedOrder, propNamePreHyphen);
 	}
 
 	return orderData;
@@ -255,3 +255,8 @@ rule.primaryOptionArray = true;
 module.exports = rule;
 module.exports.ruleName = ruleName;
 module.exports.messages = messages;
+
+// Export methods to make them overwritable
+module.exports.createExpectedOrder = createExpectedOrder;
+module.exports.getOrderData = getOrderData;
+module.exports.validatePrimaryOption = validatePrimaryOption;
