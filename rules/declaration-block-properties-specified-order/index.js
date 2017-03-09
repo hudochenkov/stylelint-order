@@ -4,6 +4,8 @@ const stylelint = require('stylelint');
 const _ = require('lodash');
 const postcss = require('postcss');
 const utils = require('../../utils');
+const getOrderData = require('../getOrderData');
+const createExpectedOrder = require('../createExpectedOrder');
 
 const ruleName = utils.namespace('declaration-block-properties-specified-order');
 
@@ -15,10 +17,10 @@ function rule(expectation, options) {
 	return function (root, result) {
 		const validOptions = stylelint.utils.validateOptions(
 			result,
-			module.exports.ruleName,
+			ruleName,
 			{
 				actual: expectation,
-				possible: module.exports.validatePrimaryOption,
+				possible: validatePrimaryOption,
 			},
 			{
 				actual: options,
@@ -33,7 +35,7 @@ function rule(expectation, options) {
 			return;
 		}
 
-		const expectedOrder = module.exports.createExpectedOrder(expectation);
+		const expectedOrder = createExpectedOrder(expectation);
 
 		// By default, ignore unspecified properties
 		const unspecified = _.get(options, ['unspecified'], 'ignore');
@@ -79,7 +81,7 @@ function rule(expectation, options) {
 				const propData = {
 					name: prop,
 					unprefixedName: unprefixedPropName,
-					orderData: module.exports.getOrderData(expectedOrder, unprefixedPropName),
+					orderData: getOrderData(expectedOrder, unprefixedPropName),
 					before: child.raw('before'),
 					index: allPropData.length,
 					node: child,
@@ -101,7 +103,7 @@ function rule(expectation, options) {
 				}
 
 				complain({
-					message: module.exports.messages.expected(propData.name, previousPropData.name),
+					message: messages.expected(propData.name, previousPropData.name),
 					node: child,
 				});
 			});
@@ -135,7 +137,7 @@ function rule(expectation, options) {
 						priorSpecifiedPropData.orderData.expectedPosition > secondPropData.orderData.expectedPosition
 					) {
 						complain({
-							message: module.exports.messages.expected(secondPropData.name, priorSpecifiedPropData.name),
+							message: messages.expected(secondPropData.name, priorSpecifiedPropData.name),
 							node: secondPropData.node,
 						});
 
@@ -200,40 +202,10 @@ function rule(expectation, options) {
 				message,
 				node,
 				result,
-				ruleName: module.exports.ruleName,
+				ruleName,
 			});
 		}
 	};
-}
-
-function createExpectedOrder(input) {
-	const order = {};
-	let expectedPosition = 0;
-
-	input.forEach((item) => {
-		expectedPosition += 1;
-
-		order[item] = {
-			expectedPosition,
-		};
-	});
-
-	return order;
-}
-
-function getOrderData(expectedOrder, propName) {
-	let orderData = expectedOrder[propName];
-
-	// If prop was not specified but has a hyphen
-	// (e.g. `padding-top`), try looking for the segment preceding the hyphen
-	// and use that index
-	if (!orderData && propName.lastIndexOf('-') !== -1) {
-		const propNamePreHyphen = propName.slice(0, propName.lastIndexOf('-'));
-
-		orderData = module.exports.getOrderData(expectedOrder, propNamePreHyphen);
-	}
-
-	return orderData;
 }
 
 function validatePrimaryOption(actualOptions) {
@@ -255,8 +227,3 @@ rule.primaryOptionArray = true;
 module.exports = rule;
 module.exports.ruleName = ruleName;
 module.exports.messages = messages;
-
-// Export methods to make them overwritable
-module.exports.createExpectedOrder = createExpectedOrder;
-module.exports.getOrderData = getOrderData;
-module.exports.validatePrimaryOption = validatePrimaryOption;
