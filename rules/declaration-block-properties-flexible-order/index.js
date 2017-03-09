@@ -62,21 +62,16 @@ function validatePrimaryOption(actualOptions) {
 		return false;
 	}
 
-	const objectItems = actualOptions.filter(_.isPlainObject);
-
-	// Every object-item's "order" property must be "strict" or "flexible"
-	if (!objectItems.every((item) => {
-		if (_.isUndefined(item.order)) {
-			return true;
-		}
-
-		return _.includes([
-			'strict',
-			'flexible',
-		], item.order);
-	})) {
-		return false;
-	}
+    // Every item in the array must be a string or an object
+    // with a "properties" property
+    if (!actualOptions.every(item => {
+        if (_.isString(item)) {
+            return true
+        }
+        return _.isPlainObject(item) && !_.isUndefined(item.properties)
+    })) {
+        return false
+    }
 
 	return true;
 }
