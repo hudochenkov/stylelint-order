@@ -1,8 +1,6 @@
 'use strict';
 
-const testRule = require('stylelint-test-rule-ava');
 const rule = require('..');
-
 const ruleName = rule.ruleName;
 const messages = rule.messages;
 
@@ -17,7 +15,6 @@ testRule(rule, {
 		'border',
 		'color',
 	]],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -302,8 +299,6 @@ testRule(rule, {
 		'left',
 		'margin',
 	]],
-
-	skipBasicChecks: true,
 
 	accept: [{
 		code: '.foo { left: 0; color: pink; margin: 0; }',

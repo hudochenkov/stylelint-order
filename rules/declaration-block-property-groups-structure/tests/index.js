@@ -1,11 +1,10 @@
 'use strict';
 
-const testRule = require('stylelint-test-rule-ava');
-const propertyGroupStructure = require('..');
+const rule = require('..');
+const ruleName = rule.ruleName;
+const messages = rule.messages;
 
-const ruleName = propertyGroupStructure.ruleName;
-
-testRule(propertyGroupStructure, {
+testRule(rule, {
 	ruleName,
 	config: [[
 		{
@@ -28,7 +27,6 @@ testRule(propertyGroupStructure, {
 			],
 		},
 	]],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -170,7 +168,7 @@ testRule(propertyGroupStructure, {
 					font-style: italic;
 				}
 			`,
-			message: propertyGroupStructure.messages.expected('position'),
+			message: messages.expected('position'),
 		},
 		{
 			code: `
@@ -182,7 +180,7 @@ testRule(propertyGroupStructure, {
 					font-style: italic;
 				}
 			`,
-			message: propertyGroupStructure.messages.expected('border-bottom'),
+			message: messages.expected('border-bottom'),
 		},
 		{
 			code: `
@@ -193,7 +191,7 @@ testRule(propertyGroupStructure, {
 					font-style: italic;
 				}
 			`,
-			message: propertyGroupStructure.messages.expected('position'),
+			message: messages.expected('position'),
 		},
 		{
 			code: `
@@ -202,7 +200,7 @@ testRule(propertyGroupStructure, {
 					font-style: italic;
 				}
 			`,
-			message: propertyGroupStructure.messages.expected('font-style'),
+			message: messages.expected('font-style'),
 		},
 		{
 			code: `
@@ -211,7 +209,7 @@ testRule(propertyGroupStructure, {
 					border-bottom: 1px solid red;
 				}
 			`,
-			message: propertyGroupStructure.messages.expected('border-bottom'),
+			message: messages.expected('border-bottom'),
 		},
 		{
 			code: `
@@ -220,7 +218,7 @@ testRule(propertyGroupStructure, {
 					border-bottom: 1px solid red;
 				}
 			`,
-			message: propertyGroupStructure.messages.expected('border-bottom'),
+			message: messages.expected('border-bottom'),
 		},
 		{
 			code: `
@@ -229,7 +227,7 @@ testRule(propertyGroupStructure, {
 					position: absolute;
 				}
 			`,
-			message: propertyGroupStructure.messages.expected('position'),
+			message: messages.expected('position'),
 		},
 		{
 			code: `
@@ -239,12 +237,12 @@ testRule(propertyGroupStructure, {
 					position: absolute;
 				}
 			`,
-			message: propertyGroupStructure.messages.expected('position'),
+			message: messages.expected('position'),
 		},
 	],
 });
 
-testRule(propertyGroupStructure, {
+testRule(rule, {
 	ruleName,
 	config: [[
 		{
@@ -267,7 +265,6 @@ testRule(propertyGroupStructure, {
 			],
 		},
 	]],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -401,7 +398,7 @@ testRule(propertyGroupStructure, {
 					font-style: italic;
 				}
 			`,
-			message: propertyGroupStructure.messages.rejected('border-bottom'),
+			message: messages.rejected('border-bottom'),
 		},
 		{
 			code: `
@@ -413,7 +410,7 @@ testRule(propertyGroupStructure, {
 					font-style: italic;
 				}
 			`,
-			message: propertyGroupStructure.messages.rejected('position'),
+			message: messages.rejected('position'),
 		},
 		{
 			code: `
@@ -424,7 +421,7 @@ testRule(propertyGroupStructure, {
 					font-style: italic;
 				}
 			`,
-			message: propertyGroupStructure.messages.rejected('font-style'),
+			message: messages.rejected('font-style'),
 		},
 		{
 			code: `
@@ -434,7 +431,7 @@ testRule(propertyGroupStructure, {
 					font-style: italic;
 				}
 			`,
-			message: propertyGroupStructure.messages.rejected('font-style'),
+			message: messages.rejected('font-style'),
 		},
 		{
 			code: `
@@ -444,7 +441,7 @@ testRule(propertyGroupStructure, {
 					border-bottom: 1px solid red;
 				}
 			`,
-			message: propertyGroupStructure.messages.rejected('border-bottom'),
+			message: messages.rejected('border-bottom'),
 		},
 		{
 			code: `
@@ -454,7 +451,7 @@ testRule(propertyGroupStructure, {
 					border-bottom: 1px solid red;
 				}
 			`,
-			message: propertyGroupStructure.messages.rejected('border-bottom'),
+			message: messages.rejected('border-bottom'),
 		},
 		{
 			code: `
@@ -464,7 +461,7 @@ testRule(propertyGroupStructure, {
 					position: absolute;
 				}
 			`,
-			message: propertyGroupStructure.messages.rejected('position'),
+			message: messages.rejected('position'),
 		},
 		{
 			code: `
@@ -475,12 +472,12 @@ testRule(propertyGroupStructure, {
 					position: absolute;
 				}
 			`,
-			message: propertyGroupStructure.messages.rejected('position'),
+			message: messages.rejected('position'),
 		},
 	],
 });
 
-testRule(propertyGroupStructure, {
+testRule(rule, {
 	ruleName,
 	config: [[
 		{
@@ -503,7 +500,6 @@ testRule(propertyGroupStructure, {
 			],
 		},
 	]],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -641,7 +637,7 @@ testRule(propertyGroupStructure, {
 					display: none;
 				}
 			`,
-			message: propertyGroupStructure.messages.expected('display'),
+			message: messages.expected('display'),
 		},
 		{
 			code: `
@@ -654,7 +650,7 @@ testRule(propertyGroupStructure, {
 					display: none;
 				}
 			`,
-			message: propertyGroupStructure.messages.rejected('position'),
+			message: messages.rejected('position'),
 		},
 		{
 			code: `
@@ -664,7 +660,7 @@ testRule(propertyGroupStructure, {
 					display: none;
 				}
 			`,
-			message: propertyGroupStructure.messages.expected('display'),
+			message: messages.expected('display'),
 		},
 		{
 			code: `
@@ -673,7 +669,7 @@ testRule(propertyGroupStructure, {
 					display: none;
 				}
 			`,
-			message: propertyGroupStructure.messages.expected('display'),
+			message: messages.expected('display'),
 		},
 		{
 			code: `
@@ -683,7 +679,7 @@ testRule(propertyGroupStructure, {
 					position: absolute;
 				}
 			`,
-			message: propertyGroupStructure.messages.rejected('position'),
+			message: messages.rejected('position'),
 		},
 		{
 			code: `
@@ -692,7 +688,7 @@ testRule(propertyGroupStructure, {
 					display: none;
 				}
 			`,
-			message: propertyGroupStructure.messages.expected('display'),
+			message: messages.expected('display'),
 		},
 		{
 			code: `
@@ -701,12 +697,12 @@ testRule(propertyGroupStructure, {
 					display: none;
 				}
 			`,
-			message: propertyGroupStructure.messages.expected('display'),
+			message: messages.expected('display'),
 		},
 	],
 });
 
-testRule(propertyGroupStructure, {
+testRule(rule, {
 	ruleName,
 	config: [[
 		'height',
@@ -718,7 +714,6 @@ testRule(propertyGroupStructure, {
 			],
 		},
 	]],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -804,7 +799,7 @@ testRule(propertyGroupStructure, {
 					display: none;
 				}
 			`,
-			message: propertyGroupStructure.messages.expected('display'),
+			message: messages.expected('display'),
 		},
 		{
 			code: `
@@ -813,7 +808,7 @@ testRule(propertyGroupStructure, {
 					display: none;
 				}
 			`,
-			message: propertyGroupStructure.messages.expected('display'),
+			message: messages.expected('display'),
 		},
 		{
 			code: `
@@ -823,12 +818,12 @@ testRule(propertyGroupStructure, {
 					display: none;
 				}
 			`,
-			message: propertyGroupStructure.messages.expected('display'),
+			message: messages.expected('display'),
 		},
 	],
 });
 
-testRule(propertyGroupStructure, {
+testRule(rule, {
 	ruleName,
 	config: [[
 		{
@@ -844,7 +839,6 @@ testRule(propertyGroupStructure, {
 			],
 		},
 	]],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -866,12 +860,12 @@ testRule(propertyGroupStructure, {
 					border-top: absolute;
 				}
 			`,
-			message: propertyGroupStructure.messages.expected('border-top'),
+			message: messages.expected('border-top'),
 		},
 	],
 });
 
-testRule(propertyGroupStructure, {
+testRule(rule, {
 	ruleName,
 	config: [[
 		{
@@ -886,7 +880,6 @@ testRule(propertyGroupStructure, {
 			],
 		},
 	]],
-	skipBasicChecks: true,
 
 	accept: [
 		{

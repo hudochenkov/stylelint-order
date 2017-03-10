@@ -1,11 +1,10 @@
 'use strict';
 
-const testRule = require('stylelint-test-rule-ava');
-const declarationBlockOrder = require('..');
+const rule = require('..');
+const ruleName = rule.ruleName;
+const messages = rule.messages;
 
-const ruleName = declarationBlockOrder.ruleName;
-
-testRule(declarationBlockOrder, {
+testRule(rule, {
 	ruleName,
 	config: [[
 		'custom-properties',
@@ -14,7 +13,6 @@ testRule(declarationBlockOrder, {
 		'rules',
 		'at-rules',
 	]],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -77,7 +75,7 @@ testRule(declarationBlockOrder, {
 					--width: 10px;
 				}
 			`,
-			message: declarationBlockOrder.messages.expected('custom property', 'declaration'),
+			message: messages.expected('custom property', 'declaration'),
 		},
 		{
 			code: `
@@ -128,7 +126,7 @@ testRule(declarationBlockOrder, {
 	],
 });
 
-testRule(declarationBlockOrder, {
+testRule(rule, {
 	ruleName,
 	config: [[
 		{
@@ -159,7 +157,6 @@ testRule(declarationBlockOrder, {
 			type: 'at-rule',
 		},
 	]],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -238,7 +235,7 @@ testRule(declarationBlockOrder, {
 	],
 });
 
-testRule(declarationBlockOrder, {
+testRule(rule, {
 	ruleName,
 	config: [[
 		{
@@ -266,7 +263,6 @@ testRule(declarationBlockOrder, {
 			hasBlock: true,
 		},
 	]],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -354,7 +350,7 @@ testRule(declarationBlockOrder, {
 	],
 });
 
-testRule(declarationBlockOrder, {
+testRule(rule, {
 	ruleName,
 	config: [[
 		'declarations',
@@ -362,7 +358,6 @@ testRule(declarationBlockOrder, {
 			type: 'at-rule',
 		},
 	]],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -387,13 +382,12 @@ testRule(declarationBlockOrder, {
 	],
 });
 
-testRule(declarationBlockOrder, {
+testRule(rule, {
 	ruleName,
 	config: [[
 		'declarations',
 		'at-rules',
 	]],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -418,7 +412,7 @@ testRule(declarationBlockOrder, {
 	],
 });
 
-testRule(declarationBlockOrder, {
+testRule(rule, {
 	ruleName,
 	config: [
 		[
@@ -429,7 +423,6 @@ testRule(declarationBlockOrder, {
 			unspecified: 'top',
 		},
 	],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -471,7 +464,7 @@ testRule(declarationBlockOrder, {
 	],
 });
 
-testRule(declarationBlockOrder, {
+testRule(rule, {
 	ruleName,
 	config: [
 		[
@@ -482,7 +475,6 @@ testRule(declarationBlockOrder, {
 			unspecified: 'bottom',
 		},
 	],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -524,7 +516,7 @@ testRule(declarationBlockOrder, {
 	],
 });
 
-testRule(declarationBlockOrder, {
+testRule(rule, {
 	ruleName,
 	config: [[
 		{
@@ -539,7 +531,6 @@ testRule(declarationBlockOrder, {
 			type: 'rule',
 		},
 	]],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -602,7 +593,7 @@ testRule(declarationBlockOrder, {
 	],
 });
 
-testRule(declarationBlockOrder, {
+testRule(rule, {
 	ruleName,
 	config: [[
 		{
@@ -617,7 +608,6 @@ testRule(declarationBlockOrder, {
 			type: 'rule',
 		},
 	]],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -662,7 +652,7 @@ testRule(declarationBlockOrder, {
 	],
 });
 
-testRule(declarationBlockOrder, {
+testRule(rule, {
 	ruleName,
 	config: [[
 		{
@@ -677,7 +667,6 @@ testRule(declarationBlockOrder, {
 			selector: /^&/,
 		},
 	]],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -720,7 +709,7 @@ testRule(declarationBlockOrder, {
 	],
 });
 
-testRule(declarationBlockOrder, {
+testRule(rule, {
 	ruleName,
 	syntax: 'less',
 	config: [[
@@ -730,7 +719,6 @@ testRule(declarationBlockOrder, {
 		'rules',
 		'at-rules',
 	]],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -774,14 +762,13 @@ testRule(declarationBlockOrder, {
 	],
 });
 
-testRule(declarationBlockOrder, {
+testRule(rule, {
 	ruleName,
 	syntax: 'less',
 	config: [[
 		'less-mixins',
 		'rules',
 	]],
-	skipBasicChecks: true,
 
 	accept: [
 		{
@@ -810,7 +797,7 @@ testRule(declarationBlockOrder, {
 					.mixin();
 				}
 			`,
-			message: declarationBlockOrder.messages.expected('Less mixin', 'rule'),
+			message: messages.expected('Less mixin', 'rule'),
 		},
 		{
 			code: `
@@ -819,7 +806,7 @@ testRule(declarationBlockOrder, {
 					.mixin();
 				}
 			`,
-			message: declarationBlockOrder.messages.expected('Less mixin', 'rule'),
+			message: messages.expected('Less mixin', 'rule'),
 		},
 	],
 });

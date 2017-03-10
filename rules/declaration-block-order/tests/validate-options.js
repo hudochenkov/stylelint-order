@@ -1,51 +1,9 @@
 'use strict';
 
-const stylelint = require('stylelint');
-const test = require('ava');
 const ruleName = require('..').ruleName;
 
-function testConfig(input) {
-	let testFn;
-
-	if (input.only) {
-		testFn = test.only;
-	} else if (input.skip) {
-		testFn = test.skip;
-	} else if (input.failing) {
-		testFn = test.failing;
-	} else {
-		testFn = test;
-	}
-
-	testFn(input.description, (t) => {
-		const config = {
-			plugins: [
-				'./',
-			],
-			rules: {
-				[ruleName]: input.config,
-			},
-		};
-
-		return stylelint.lint({
-			code: '',
-			config,
-		}).then(function (data) {
-			const invalidOptionWarnings = data.results[0].invalidOptionWarnings;
-
-			if (input.valid) {
-				t.is(invalidOptionWarnings.length, 0);
-			} else {
-				t.is(
-					invalidOptionWarnings[0].text,
-					input.message
-				);
-			}
-		});
-	});
-}
-
 testConfig({
+	ruleName,
 	description: 'valid keywords',
 	valid: true,
 	config: [
@@ -60,6 +18,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'valid at-rules variants',
 	valid: true,
 	config: [
@@ -83,6 +42,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'valid rules variants',
 	valid: true,
 	config: [
@@ -101,6 +61,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'valid keyword with at-rule variant (keyword last)',
 	valid: true,
 	config: [
@@ -112,6 +73,7 @@ testConfig({
 });
 
 // testConfig({
+// 	ruleName,
 // 	description: 'valid keyword with at-rule variant (keyword first)',
 // 	valid: true,
 // 	failing: true,
@@ -124,6 +86,7 @@ testConfig({
 // });
 
 testConfig({
+	ruleName,
 	description: 'invalid keyword',
 	valid: false,
 	config: [
@@ -133,6 +96,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'invalid at-rule type',
 	valid: false,
 	config: [
@@ -144,6 +108,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'invalid hasBlock property',
 	valid: false,
 	config: [
@@ -156,6 +121,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'invalid name property',
 	valid: false,
 	config: [
@@ -168,6 +134,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'invalid name property with hasBlock defined',
 	valid: false,
 	config: [
@@ -181,6 +148,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'valid parameter (string) and name',
 	valid: true,
 	config: [
@@ -193,6 +161,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'valid parameter (RegExp) and name',
 	valid: true,
 	config: [
@@ -205,6 +174,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'invalid. parameter is empty',
 	valid: false,
 	config: [
@@ -218,6 +188,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'invalid. parameter is not a string',
 	valid: false,
 	config: [
@@ -231,6 +202,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'invalid. parameter without "name" property',
 	valid: false,
 	config: [
@@ -243,6 +215,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'valid selector (string)',
 	valid: true,
 	config: [
@@ -254,6 +227,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'valid selector (RegExp)',
 	valid: true,
 	config: [
@@ -265,6 +239,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'invalid. selector is empty',
 	valid: false,
 	config: [
@@ -277,6 +252,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'invalid. selector is not a string',
 	valid: false,
 	config: [

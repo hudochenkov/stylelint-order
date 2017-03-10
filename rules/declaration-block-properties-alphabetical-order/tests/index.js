@@ -1,15 +1,12 @@
 'use strict';
 
-const testRule = require('stylelint-test-rule-ava');
 const rule = require('..');
-
 const ruleName = rule.ruleName;
 const messages = rule.messages;
 
 testRule(rule, {
 	ruleName,
 	config: [true],
-	skipBasicChecks: true,
 
 	accept: [
 		{

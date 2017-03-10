@@ -1,51 +1,9 @@
 'use strict';
 
-const stylelint = require('stylelint');
-const test = require('ava');
 const ruleName = require('..').ruleName;
 
-function testConfig(input) {
-	let testFn;
-
-	if (input.only) {
-		testFn = test.only;
-	} else if (input.skip) {
-		testFn = test.skip;
-	} else if (input.failing) {
-		testFn = test.failing;
-	} else {
-		testFn = test;
-	}
-
-	testFn(input.description, (t) => {
-		const config = {
-			plugins: [
-				'./',
-			],
-			rules: {
-				[ruleName]: input.config,
-			},
-		};
-
-		return stylelint.lint({
-			code: '',
-			config,
-		}).then(function (data) {
-			const invalidOptionWarnings = data.results[0].invalidOptionWarnings;
-
-			if (input.valid) {
-				t.is(invalidOptionWarnings.length, 0);
-			} else {
-				t.is(
-					invalidOptionWarnings[0].text,
-					input.message
-				);
-			}
-		});
-	});
-}
-
 testConfig({
+	ruleName,
 	description: 'valid groups with emptyLineBefore: "always"',
 	valid: true,
 	config: [
@@ -75,6 +33,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'valid group and declaration',
 	valid: true,
 	config: [
@@ -91,6 +50,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'valid groups (one without emptyLineBefore)',
 	valid: true,
 	config: [
@@ -110,6 +70,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'empty properties',
 	valid: true,
 	config: [
@@ -122,6 +83,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'invalid emptyLineBefore',
 	valid: false,
 	config: [
@@ -138,6 +100,7 @@ testConfig({
 });
 
 testConfig({
+	ruleName,
 	description: 'properties should be an array',
 	valid: false,
 	config: [
