@@ -7,7 +7,7 @@ const utils = require('../../utils');
 const getOrderData = require('../getOrderData');
 const createExpectedOrder = require('../createExpectedOrder');
 
-const ruleName = utils.namespace('declaration-block-properties-specified-order');
+const ruleName = utils.namespace('declaration-block-properties-flexible-order');
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
 	expected: (first, second) => `Expected ${first} to come before ${second}`,
@@ -214,8 +214,15 @@ function validatePrimaryOption(actualOptions) {
 		return false;
 	}
 
-	// Every item in the array must be a string
-	if (!actualOptions.every((item) => _.isString(item))) {
+	// Every item in the array must be a string or an object
+	// with a "properties" property
+	if (!actualOptions.every((item) => {
+		if (_.isString(item)) {
+			return true;
+		}
+
+		return _.isPlainObject(item) && !_.isUndefined(item.properties);
+	})) {
 		return false;
 	}
 

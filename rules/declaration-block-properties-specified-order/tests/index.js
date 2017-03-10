@@ -314,4 +314,3 @@ testRule(rule, {
 		message: messages.expected('left', 'margin'),
 	}],
 });
-
