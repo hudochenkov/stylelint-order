@@ -28,8 +28,8 @@
   "main": "index.js",
   "dependencies": {
     "lodash": "^4.17.4",
-    "postcss": "^5.2.14",
-    "stylelint": "^7.8.0"
+    "postcss": "^5.2.16",
+    "stylelint": "^7.9.0"
   },
   "devDependencies": {
     "eslint": "^3.17.1",
