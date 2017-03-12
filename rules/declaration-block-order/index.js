@@ -259,7 +259,7 @@ function getDescription(item) {
 		'dollar-variables': '$-variable',
 		'at-variables': '@-variable',
 		'less-mixins': 'Less mixin',
-		declarations: 'declaration',
+		'declarations': 'declaration',
 	};
 
 	if (_.isPlainObject(item)) {
