@@ -4,4 +4,5 @@ module.exports = {
 	'declaration-block-properties-flexible-order': require('./declaration-block-properties-flexible-order'),
 	'declaration-block-order': require('./declaration-block-order'),
 	'declaration-block-property-groups-structure': require('./declaration-block-property-groups-structure'),
+	'declaration-block-properties-order': require('./declaration-block-properties-order'),
 };
