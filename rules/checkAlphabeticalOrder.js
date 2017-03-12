@@ -1,6 +1,6 @@
 const postcss = require('postcss');
 
-module.exports = function checkAlpabeticalOrder(firstPropData, secondPropData) {
+module.exports = function checkAlphabeticalOrder(firstPropData, secondPropData) {
 	// If unprefixed prop names are the same, compare the prefixed versions
 	if (firstPropData.unprefixedName === secondPropData.unprefixedName) {
 		// If first property has no prefix and second property has prefix

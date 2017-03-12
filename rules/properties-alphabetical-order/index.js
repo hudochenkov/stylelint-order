@@ -3,6 +3,7 @@
 const stylelint = require('stylelint');
 const _ = require('lodash');
 const postcss = require('postcss');
+const checkAlphabeticalOrder = require('../checkAlphabeticalOrder');
 const utils = require('../../utils');
 
 const ruleName = utils.namespace('properties-alphabetical-order');
@@ -82,7 +83,7 @@ function rule(actual) {
 					return;
 				}
 
-				const isCorrectOrder = utils.checkAlpabeticalOrder(previousPropData, propData);
+				const isCorrectOrder = checkAlphabeticalOrder(previousPropData, propData);
 
 				if (isCorrectOrder) {
 					return;

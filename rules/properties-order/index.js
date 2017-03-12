@@ -3,6 +3,7 @@
 const stylelint = require('stylelint');
 const _ = require('lodash');
 const postcss = require('postcss');
+const checkAlphabeticalOrder = require('../checkAlphabeticalOrder');
 const utils = require('../../utils');
 
 const ruleName = utils.namespace('properties-order');
@@ -198,7 +199,7 @@ const rule = function (expectation, options) {
 					&& secondPropIsUnspecified
 					&& firstPropIsUnspecified
 				) {
-					if (utils.checkAlpabeticalOrder(firstPropData, secondPropData)) {
+					if (checkAlphabeticalOrder(firstPropData, secondPropData)) {
 						return true;
 					}
 
