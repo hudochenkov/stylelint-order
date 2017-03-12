@@ -5,7 +5,7 @@ const _ = require('lodash');
 const postcss = require('postcss');
 const utils = require('../../utils');
 
-const ruleName = utils.namespace('declaration-block-properties-order');
+const ruleName = utils.namespace('properties-order');
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
 	expected: (first, second) => `Expected "${first}" to come before "${second}"`,

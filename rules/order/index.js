@@ -4,7 +4,7 @@ const stylelint = require('stylelint');
 const _ = require('lodash');
 const utils = require('../../utils');
 
-const ruleName = utils.namespace('declaration-block-order');
+const ruleName = utils.namespace('order');
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
 	expected: (first, second) => `Expected ${first} to come before ${second}`,
@@ -12,6 +12,8 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 
 function rule(expectation, options) {
 	return function (root, result) {
+		utils.renamedRuleWarning('declaration-block-order', ruleName, result);
+
 		const validOptions = stylelint.utils.validateOptions(
 			result,
 			ruleName,

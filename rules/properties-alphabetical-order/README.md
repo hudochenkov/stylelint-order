@@ -1,4 +1,4 @@
-# declaration-block-properties-alphabetical-order
+# properties-alphabetical-order
 
 Specify the alphabetical order of properties within declaration blocks.
 

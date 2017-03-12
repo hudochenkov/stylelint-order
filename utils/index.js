@@ -5,4 +5,5 @@ module.exports = {
 	isDollarVariable: require('./isDollarVariable'),
 	isAtVariable: require('./isAtVariable'),
 	checkAlpabeticalOrder: require('./checkAlpabeticalOrder'),
+	renamedRuleWarning: require('./renamedRuleWarning'),
 };

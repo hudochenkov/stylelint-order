@@ -1,4 +1,4 @@
-# declaration-block-order
+# order
 
 Specify the order of content within declaration blocks.
 

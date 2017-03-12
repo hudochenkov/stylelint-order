@@ -22,11 +22,11 @@ Like so:
 	],
 	"rules": {
 		// ...
-		"order/declaration-block-order": [
+		"order/order": [
 			"custom-properties",
 			"declarations"
 		],
-		"order/declaration-block-properties-alphabetical-order": true
+		"order/properties-alphabetical-order": true
 		// ...
 	}
 }
@@ -34,16 +34,13 @@ Like so:
 
 ## List of rules
 
-* [`declaration-block-order`](./rules/declaration-block-order/README.md): Specify the order of content within declaration blocks.
-* [`declaration-block-properties-order`](./rules/declaration-block-properties-order/README.md): Specify the order of properties within declaration blocks.
-* [`declaration-block-properties-specified-order`](./rules/declaration-block-properties-specified-order/README.md): Specify the almost strict order of properties within declaration blocks.
-* [`declaration-block-properties-flexible-order`](./rules/declaration-block-properties-flexible-order/README.md): Specify the almost strict order of properties within declaration blocks with support for flexible grouping.
-* [`declaration-block-properties-alphabetical-order`](./rules/declaration-block-properties-alphabetical-order/README.md): Specify the alphabetical order of properties within declaration blocks.
-* [`declaration-block-property-groups-structure`](./rules/declaration-block-property-groups-structure/README.md): Require or disallow an empty line before property groups.
+* [`order`](./rules/order/README.md): Specify the order of content within declaration blocks.
+* [`properties-order`](./rules/properties-order/README.md): Specify the order of properties within declaration blocks.
+* [`properties-alphabetical-order`](./rules/properties-alphabetical-order/README.md): Specify the alphabetical order of properties within declaration blocks.
 
 ## Thanks
 
-`declaration-block-properties-specified-order` and `declaration-block-properties-alphabetical-order` code and readme are based on `declaration-block-properties-order` rule which was a stylelint's core rule prior stylelint 8.0.0.
+`properties-order` and `properties-alphabetical-order` code and readme are based on `declaration-block-properties-order` rule which was a stylelint's core rule prior stylelint 8.0.0.
 
 [ci-img]: https://travis-ci.org/hudochenkov/stylelint-order.svg
 [ci]: https://travis-ci.org/hudochenkov/stylelint-order

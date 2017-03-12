@@ -1,8 +1,12 @@
 module.exports = {
-	'declaration-block-order': require('./declaration-block-order'),
-	'declaration-block-properties-order': require('./declaration-block-properties-order'),
-	'declaration-block-properties-alphabetical-order': require('./declaration-block-properties-alphabetical-order'),
+	'order': require('./order'),
+	'properties-order': require('./properties-order'),
+	'properties-alphabetical-order': require('./properties-alphabetical-order'),
 
+	// Deprecated
+	'declaration-block-order': require('./order'),
+	'declaration-block-properties-order': require('./properties-order'),
+	'declaration-block-properties-alphabetical-order': require('./properties-alphabetical-order'),
 	'declaration-block-properties-specified-order': require('./deprecated/declaration-block-properties-specified-order'),
 	'declaration-block-property-groups-structure': require('./deprecated/declaration-block-property-groups-structure'),
 };

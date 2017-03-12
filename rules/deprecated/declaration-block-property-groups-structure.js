@@ -8,7 +8,7 @@ function rule() {
 	return function (root, result) {
 		result.warn(
 			(
-				`"${ruleName}" has been removed in 0.4. Instead use "${utils.namespace('declaration-block-properties-order')}" rule.`
+				`"${ruleName}" has been removed in 0.4. Instead use "${utils.namespace('properties-order')}" rule.`
 			),
 			{
 				stylelintType: 'deprecation',
