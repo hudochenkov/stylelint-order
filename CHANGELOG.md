@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.4.0
+* Removed `declaration-block-properties-specified-order`. Instead use `properties-order` rule.
+* Removed `declaration-block-property-groups-structure`. Instead use `properties-order` rule.
+* Renamed `declaration-block-order` to `order`
+* Renamed `declaration-block-properties-alphabetical-order` to `properties-alphabetical-order`
+* Added `properties-order` rule. It combines removed `declaration-block-properties-specified-order`, `declaration-block-property-groups-structure`, and now support flexible order. Basically it's like [`declaration-block-properties-order` in stylelint 6.5.0](https://github.com/stylelint/stylelint/tree/6.5.0/src/rules/declaration-block-properties-order), but better :)
+
 ## 0.3.0
 * Changed: Breaking! `declaration-block-property-groups-structure` now uses `declaration-block-properties-specified-order` rather stylelint's deprecated `declaration-block-properties-order`. Flexible group order isn't supported anymore
 * Added: `declaration-block-order` support new `rule` extended object, which have new `selector` option. Rules in order can be specified by their selector
