@@ -96,7 +96,12 @@ const rule = function (expectation, options) {
 
 				allNodesData.push(nodeData);
 
-				if (child.type !== 'decl') {
+				// current node should be a standard declaration
+				if (
+					child.type !== 'decl'
+					|| !utils.isStandardSyntaxProperty(nodeData.node.prop)
+					|| utils.isCustomProperty(nodeData.node.prop)
+				) {
 					return;
 				}
 

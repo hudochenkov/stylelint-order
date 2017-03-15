@@ -168,6 +168,44 @@ testRule(rule, {
 				}
 			`,
 		},
+		{
+			description: '13.1',
+			code: `
+				a {
+					$display: none;
+					position: absolute;
+				}
+			`,
+		},
+		{
+			description: '13.2',
+			code: `
+				a {
+					$display: none;
+
+					position: absolute;
+				}
+			`,
+		},
+		{
+			description: '13.3',
+			code: `
+				a {
+					position: absolute;
+					$display: none;
+				}
+			`,
+		},
+		{
+			description: '13.4',
+			code: `
+				a {
+					position: absolute;
+
+					$display: none;
+				}
+			`,
+		},
 	],
 
 	reject: [
