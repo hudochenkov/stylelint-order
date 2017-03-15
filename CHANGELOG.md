@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.4.1
+* Fixed `properties-order` bug, when non-standard declaration is following after a standard one
+
 ## 0.4.0
 * Removed `declaration-block-properties-specified-order`. Instead use `properties-order` rule.
 * Removed `declaration-block-property-groups-structure`. Instead use `properties-order` rule.
