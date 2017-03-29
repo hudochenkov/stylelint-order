@@ -810,3 +810,82 @@ testRule(rule, {
 		},
 	],
 });
+
+testRule(rule, {
+	ruleName,
+	syntax: 'scss',
+	config: [[
+		'declarations',
+		'rules',
+	]],
+
+	accept: [
+		{
+			description: 'scss 1',
+			code: `a {
+				margin: {
+					top: 3px;
+					right: 6px;
+					bottom: 3px;
+					left: 7px;
+				}
+				padding: 0;
+
+				b {}
+			}`,
+		},
+		{
+			description: 'scss 2',
+			code: `a {
+				padding: 0;
+				margin: {
+					top: 3px;
+					right: 6px;
+					bottom: 3px;
+					left: 7px;
+				}
+
+				b {}
+			}`,
+		},
+		{
+			description: 'scss 3',
+			code: `a {
+				margin: 0 {
+					left: 7px;
+				}
+				padding: 0;
+
+				b {}
+			}`,
+		},
+	],
+
+	reject: [
+		{
+			description: 'scss 4',
+			code: `a {
+				padding: 0;
+				b {}
+				margin: {
+					top: 3px;
+					right: 6px;
+					bottom: 3px;
+					left: 7px;
+				}
+			}`,
+			message: messages.expected('declaration', 'rule'),
+		},
+		{
+			description: 'scss 5',
+			code: `a {
+				padding: 0;
+				b {}
+				margin: 0 {
+					left: 7px;
+				}
+			}`,
+			message: messages.expected('declaration', 'rule'),
+		},
+	],
+});

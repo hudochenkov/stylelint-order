@@ -68,8 +68,15 @@ const rule = function (expectation, options) {
 					node: child,
 				};
 
-				if (child.type === 'decl') {
-					const prop = child.prop;
+				if (
+					child.type === 'decl'
+					|| utils.isScssNestedPropertiesRoot(child)
+				) {
+					let prop = child.prop;
+
+					if (utils.isScssNestedPropertiesRoot(child)) {
+						prop = child.selector.slice(0, -1);
+					}
 
 					if (
 						utils.isStandardSyntaxProperty(prop)
@@ -96,11 +103,19 @@ const rule = function (expectation, options) {
 
 				allNodesData.push(nodeData);
 
-				// current node should be a standard declaration
 				if (
 					child.type !== 'decl'
-					|| !utils.isStandardSyntaxProperty(nodeData.node.prop)
-					|| utils.isCustomProperty(nodeData.node.prop)
+					&& !utils.isScssNestedPropertiesRoot(child)
+				) {
+					return;
+				}
+
+				// current node should have standard property name
+				const propertyName = utils.isScssNestedPropertiesRoot(child) ? nodeData.name : nodeData.node.prop;
+
+				if (
+					!utils.isStandardSyntaxProperty(propertyName)
+					|| utils.isCustomProperty(propertyName)
 				) {
 					return;
 				}

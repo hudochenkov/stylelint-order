@@ -321,6 +321,18 @@ function getOrderData(expectedOrder, node) {
 		&& !node.extendRule
 	) {
 		nodeType = 'less-mixins';
+	} else if (
+		node.type === 'rule'
+		&& utils.isScssNestedPropertiesRoot(node)
+	) {
+		const prop = node.selector.slice(0, -1);
+
+		if (
+			utils.isStandardSyntaxProperty(prop)
+			&& !utils.isCustomProperty(prop)
+		) {
+			nodeType = 'declarations';
+		}
 	} else if (node.type === 'rule') {
 		nodeType = {
 			type: 'rule',

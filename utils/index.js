@@ -4,5 +4,6 @@ module.exports = {
 	isStandardSyntaxProperty: require('./isStandardSyntaxProperty'),
 	isDollarVariable: require('./isDollarVariable'),
 	isAtVariable: require('./isAtVariable'),
+	isScssNestedPropertiesRoot: require('./isScssNestedPropertiesRoot'),
 	renamedRuleWarning: require('./renamedRuleWarning'),
 };
