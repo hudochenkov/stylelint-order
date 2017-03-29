@@ -1,6 +1,6 @@
 {
   "name": "stylelint-order",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "A collection of order related linting rules for stylelint.",
   "keywords": [
     "stylelint-plugin",
