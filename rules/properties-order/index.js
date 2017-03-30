@@ -114,7 +114,8 @@ const rule = function (expectation, options) {
 				const propertyName = utils.isScssNestedPropertiesRoot(child) ? nodeData.name : nodeData.node.prop;
 
 				if (
-					!utils.isStandardSyntaxProperty(propertyName)
+					!propertyName
+					|| !utils.isStandardSyntaxProperty(propertyName)
 					|| utils.isCustomProperty(propertyName)
 				) {
 					return;
