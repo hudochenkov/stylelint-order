@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.4.4
+* Fixed false negative for blockless at-rules in `order`.
+
 ## 0.4.3
 * Fixed regression in `properties-order` introduced in 0.4.2.
 
