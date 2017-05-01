@@ -353,6 +353,74 @@ testRule(rule, {
 testRule(rule, {
 	ruleName,
 	config: [[
+		{
+			type: 'at-rule',
+			hasBlock: false,
+		},
+		'declarations',
+	]],
+
+	accept: [
+		{
+			code: `
+				a {
+					@include hello;
+					@include hello {
+						display: block;
+					}
+					display: none;
+				}
+			`,
+		},
+		{
+			code: `
+				a {
+					@include hello {
+						display: block;
+					}
+					@include hello;
+					display: none;
+				}
+			`,
+		},
+		{
+			code: `
+				a {
+					@include hello;
+					display: none;
+					@include hello {
+						display: block;
+					}
+				}
+			`,
+		},
+		{
+			code: `
+				a {
+					display: none;
+					@include hello {
+						display: block;
+					}
+				}
+			`,
+		},
+	],
+
+	reject: [
+		{
+			code: `
+				a {
+					display: none;
+					@include hello;
+				}
+			`,
+		},
+	],
+});
+
+testRule(rule, {
+	ruleName,
+	config: [[
 		'declarations',
 		{
 			type: 'at-rule',

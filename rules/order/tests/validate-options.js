@@ -37,6 +37,10 @@ testConfig({
 		},
 		{
 			type: 'at-rule',
+			hasBlock: false,
+		},
+		{
+			type: 'at-rule',
 		},
 	],
 });

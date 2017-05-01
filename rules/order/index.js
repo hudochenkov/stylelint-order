@@ -244,7 +244,7 @@ function createExpectedOrder(input) {
 				}
 			}
 
-			if (item.hasBlock) {
+			if (!_.isUndefined(item.hasBlock)) {
 				nodeData.hasBlock = item.hasBlock;
 			}
 
