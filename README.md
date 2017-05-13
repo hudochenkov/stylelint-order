@@ -1,4 +1,4 @@
-# stylelint-order [![Build Status][ci-img]][ci]
+# stylelint-order [![Build Status][ci-img]][ci] [![npm version][npm-version-img]][npm] [![npm downloads last month][npm-downloads-img]][npm] [![Dependency status][dependencies-img]][dependencies-status]
 
 A plugin pack of order related linting rules for [stylelint].
 
@@ -44,5 +44,10 @@ Like so:
 
 [ci-img]: https://travis-ci.org/hudochenkov/stylelint-order.svg
 [ci]: https://travis-ci.org/hudochenkov/stylelint-order
+[npm-version-img]: https://img.shields.io/npm/v/stylelint-order.svg
+[npm-downloads-img]: https://img.shields.io/npm/dm/stylelint-order.svg
+[dependencies-img]: https://img.shields.io/gemnasium/hudochenkov/stylelint-order.svg
+[dependencies-status]: https://gemnasium.com/github.com/hudochenkov/stylelint-order
+[npm]: https://www.npmjs.com/package/stylelint-order
 
 [stylelint]: https://stylelint.io/
