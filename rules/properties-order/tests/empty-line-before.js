@@ -958,7 +958,7 @@ testRule(rule, {
 				a {
 					display: none;
 
-					border-top: absolute;
+					border: none;
 				}
 			`,
 		},
@@ -970,10 +970,10 @@ testRule(rule, {
 			code: `
 				a {
 					display: none;
-					border-top: absolute;
+					border: none;
 				}
 			`,
-			message: messages.expectedEmptyLineBefore('border-top'),
+			message: messages.expectedEmptyLineBefore('border'),
 		},
 	],
 });

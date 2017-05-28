@@ -52,22 +52,7 @@ testRule(rule, {
 			code: 'a { border: 1px solid; color: pink; }',
 		},
 		{
-			code: 'a { border-top: 1px solid; color: pink; }',
-		},
-		{
-			code: 'a { border-left: 1px solid; color: pink; }',
-		},
-		{
-			code: 'a { border-left: 1px solid; border-right: 0; color: pink; }',
-		},
-		{
-			code: 'a { border-right: 1px solid; border-left: 0; color: pink; }',
-		},
-		{
 			code: 'a { transition: none; border: 1px solid; }',
-		},
-		{
-			code: 'a { transition-name: "foo"; border-top: 1px solid; }',
 		},
 		{
 			code: 'a { top: 0; color: pink; width: 0; height: 0; display: none; }',
@@ -98,28 +83,12 @@ testRule(rule, {
 			message: messages.expected('-webkit-font-smoothing', 'color'),
 		},
 		{
-			code: 'a { my-property: 2em; -webkit-font-smoothing: antialiased; my-other-property: 1em; }',
-			message: messages.expected('my-other-property', '-webkit-font-smoothing'),
-		},
-		{
 			code: 'a { color: pink; border: 1px solid; }',
 			message: messages.expected('border', 'color'),
 		},
 		{
-			code: 'a { color: pink; border-top: 1px solid; }',
-			message: messages.expected('border-top', 'color'),
-		},
-		{
-			code: 'a { color: pink; border-bottom: 1px solid; }',
-			message: messages.expected('border-bottom', 'color'),
-		},
-		{
-			code: 'a { border-right: 0; color: pink; border-bottom: 1px solid; }',
-			message: messages.expected('border-bottom', 'color'),
-		},
-		{
-			code: 'a { border-top: 1px solid; transition-name: "foo"; }',
-			message: messages.expected('transition-name', 'border-top'),
+			code: 'a { border: 1px solid; transition: "foo"; }',
+			message: messages.expected('transition', 'border'),
 		},
 		{
 			code: 'a { @media (min-width: 10px) { color: pink; top: 0; } transform: scale(1); }',

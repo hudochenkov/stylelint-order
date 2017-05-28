@@ -31,14 +31,6 @@ There are some important details to keep in mind:
 
 **By default, unlisted properties will be ignored.** So if you specify an array and do not include `display`, that means that the `display` property can be included before or after any other property. *This can be changed with the `unspecified` option* (see below).
 
-**If an (unprefixed) property name is not included in your array and it contains a hyphen (e.g. `padding-left`), this rule will look for the string before that first hyphen in your array (e.g. `padding`) and use that position.** This means that you do not have to specify each extension of the root property; you can just specify the root property and the extensions will be accounted for.
-
-For example, if you have included `border` in your array but not `border-top`, the rule will expect `border-top` to appear in the same relative position as `border`.
-
-Other relevant rules include `margin`, `border`, `animation`, `transition`, etc.
-
-Using this fallback, the order of these hyphenated relative to their peer extensions (e.g. `border-top` to `border-bottom`) will be *arbitrary*. If you would like to enforce a specific ordering (e.g. always put `border-right` before `border-left`), you should specify those particular names in your array.
-
 Given:
 
 ```js
@@ -90,7 +82,7 @@ a {
 Given:
 
 ```js
-["padding", "color"]
+["padding", "color", "padding-top"]
 ```
 
 The following patterns are considered warnings:
@@ -104,16 +96,8 @@ a {
 
 ```css
 a {
-	color: pink;
 	padding-top: 1em;
-}
-```
-
-```css
-a {
-	padding-left: 2em;
 	color: pink;
-	padding-top: 1em;
 }
 ```
 
@@ -128,34 +112,18 @@ a {
 
 ```css
 a {
-	padding-top: 1em;
 	color: pink;
-}
-```
-
-```css
-a {
-	padding-left: 2em;
 	padding-top: 1em;
-	color: pink;
-}
-```
-
-```css
-a {
-	padding-top: 1em;
-	padding-left: 2em;
-	color: pink;
 }
 ```
 
 Given:
 
 ```js
-["my", "font-smoothing", "color"]
+["font-smoothing", "color"]
 ```
 
-Where `font-smoothing` is the unprefixed version of proprietary browser property `-webkit-font-smoothing` and `my` is a user-defined shorthand property.
+Where `font-smoothing` is the unprefixed version of proprietary browser property `-webkit-font-smoothing`.
 
 The following patterns are considered warnings:
 
@@ -168,16 +136,8 @@ a {
 
 ```css
 a {
-	-webkit-font-smoothing: antialiased;
-	my-property: 2em;
-}
-```
-
-```css
-a {
-	my-property: 2em;
 	color: pink;
-	my-other-property: 1em;
+	font-smoothing: antialiased;
 }
 ```
 
@@ -192,23 +152,7 @@ a {
 
 ```css
 a {
-	my-property: 2em;
-	-webkit-font-smoothing: antialiased;
-}
-```
-
-```css
-a {
-	my-property: 2em;
-	my-other-property: 1em;
-	color: pink;
-}
-```
-
-```css
-a {
-	my-other-property: 1em;
-	my-property: 2em;
+	font-smoothing: antialiased;
 	color: pink;
 }
 ```
