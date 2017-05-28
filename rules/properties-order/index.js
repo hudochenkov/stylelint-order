@@ -321,7 +321,7 @@ function createExpectedOrder(input) {
 
 		// If item is not a string, it's a group...
 		if (item.emptyLineBefore) {
-		  separatedGroup += 1;
+			separatedGroup += 1;
 		}
 
 		if (item.order && item.order === 'flexible') {
