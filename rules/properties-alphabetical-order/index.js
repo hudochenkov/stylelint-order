@@ -69,7 +69,6 @@ function rule(actual) {
 				const propData = {
 					name: prop,
 					unprefixedName: unprefixedPropName,
-					before: child.raw('before'),
 					index: allPropData.length,
 					node: child,
 				};
