@@ -4,5 +4,4 @@ module.exports = {
 	isStandardSyntaxProperty: require('./isStandardSyntaxProperty'),
 	isDollarVariable: require('./isDollarVariable'),
 	isAtVariable: require('./isAtVariable'),
-	renamedRuleWarning: require('./renamedRuleWarning'),
 };

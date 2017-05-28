@@ -14,8 +14,6 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 
 function rule(actual) {
 	return function (root, result) {
-		utils.renamedRuleWarning('declaration-block-properties-alphabetical-order', ruleName, result);
-
 		const validOptions = stylelint.utils.validateOptions(
 			result,
 			ruleName,

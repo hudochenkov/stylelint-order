@@ -12,8 +12,6 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 
 function rule(expectation, options) {
 	return function (root, result) {
-		utils.renamedRuleWarning('declaration-block-order', ruleName, result);
-
 		const validOptions = stylelint.utils.validateOptions(
 			result,
 			ruleName,
