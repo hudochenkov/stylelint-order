@@ -3,6 +3,7 @@
 const stylelint = require('stylelint');
 const _ = require('lodash');
 const postcss = require('postcss');
+const postcssSorting = require('postcss-sorting');
 const checkAlphabeticalOrder = require('../checkAlphabeticalOrder');
 const utils = require('../../utils');
 
@@ -12,17 +13,33 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 	expected: (first, second) => `Expected ${first} to come before ${second}`,
 });
 
-function rule(actual) {
+function rule(actual, options, context) {
 	return function (root, result) {
 		const validOptions = stylelint.utils.validateOptions(
 			result,
 			ruleName,
 			{
 				actual,
+				possible: _.isBoolean,
+			},
+			{
+				actual: options,
+				possible: {
+					disableFix: _.isBoolean,
+				},
+				optional: true,
 			}
 		);
 
 		if (!validOptions) {
+			return;
+		}
+
+		const disableFix = _.get(options, ['disableFix'], false);
+
+		if (context.fix && !disableFix) {
+			postcssSorting({ 'properties-order': 'alphabetical' })(root);
+
 			return;
 		}
 
