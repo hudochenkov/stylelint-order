@@ -4,8 +4,6 @@ Specify the order of content within declaration blocks.
 
 ## Options
 
-### Primary option
-
 ```js
 ["array", "of", "keywords", "or", "expanded", "at-rule", "objects"]
 ```
@@ -42,7 +40,7 @@ Within an order array, you can include:
 
 **By default, unlisted elements will be ignored.** So if you specify an array and do not include `declarations`, that means that all declarations can be included before or after any other element. _This can be changed with the `unspecified` option (see below)._
 
-#### Extended at-rule objects
+### Extended at-rule objects
 
 Extended at-rule objects have different parameters and variations.
 
@@ -116,7 +114,7 @@ Matches all at-rules with specific name and parameter, which have nested element
 
 Each described above variant has more priority than its previous variant. For example, `{ type: 'at-rule', name: 'media' }` will be applied to an element if both `{ type: 'at-rule', name: 'media' }` and `{ type: 'at-rule', hasBlock: true }` can be applied to an element.
 
-#### Extended rule objects
+### Extended rule objects
 
 Object parameters:
 
@@ -151,17 +149,25 @@ Matches all rules with selector matching pattern:
 }
 ```
 
-### Optional secondary option
+## Optional secondary options
 
-```js
-unspecified: "top"|"bottom"|"ignore"
-```
+### `unspecified: "top"|"bottom"|"ignore"`
 
 Thes option only applies if you've defined your own array of elements.
 
 Default behavior is the same as `"ignore"`: an unspecified element can appear before or after any other property.
 
 With `"top"`, unspecified elements are expected _before_ any specified properties. With `"bottom"`, unspecified properties are expected _after_ any specified properties.
+
+### `disableFix: true`
+
+Disable autofixing. Autofixing is enabled by default if it's enabled in stylelint configuration.
+
+## Autofixing caveats
+
+Keywords `at-variables` and `less-mixins` aren't supported.
+
+`unspecified` secondary option is always set to `bottom`.
 
 ## Examples
 

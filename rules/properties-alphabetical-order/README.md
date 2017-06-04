@@ -60,3 +60,9 @@ a {
 	transform: scale(1);
 }
 ```
+
+## Optional secondary options
+
+### `disableFix: true`
+
+Disable autofixing. Autofixing is enabled by default if it's enabled in stylelint configuration.

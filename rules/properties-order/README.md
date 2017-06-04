@@ -17,7 +17,9 @@ This rule ignores variables (`$sass`, `@less`, `--custom-property`).
 
 ## Options
 
-## `["array", "of", "unprefixed", "property", "names", "or", "group", "objects"]`
+```
+["array", "of", "unprefixed", "property", "names", "or", "group", "objects"]
+```
 
 Within an order array, you can include
 
@@ -389,7 +391,7 @@ a {
 }
 ```
 
-## Optional options
+## Optional secondary options
 
 ### `unspecified: "top"|"bottom"|"bottomAlphabetical"|"ignore"`
 
@@ -530,5 +532,72 @@ a {
 	composes: b;
 	align-items: flex-end;
 	left: 0;
+}
+```
+
+### `disableFix: true`
+
+Disable autofixing. Autofixing is enabled by default if it's enabled in stylelint configuration.
+
+## Autofixing caveats
+
+Properties will be grouped together, if other node types between them (except comments). They will be groupped with the first found property. E. g.:
+
+```css
+/* Before: */
+a {
+	--custom-prop: 10px;
+	top: 0;
+	--another-custom-prop: 10px;
+	bottom: 2px;
+}
+
+/* After: */
+a {
+	--custom-prop: 10px;
+	top: 0;
+	bottom: 2px;
+	--another-custom-prop: 10px;
+}
+```
+
+If `unspecified` secondary option was set to `ignore`, it will be re-set to `bottom`.
+
+If `order: "flexible"` is using, for sorting it will be treated as `strict`. It might change properties order, but linting will not be broken.
+
+Given:
+
+```json
+{
+	"properties-order": [
+		{
+			"order": "flexible",
+			"properties": [
+				"color",
+				"font-size",
+				"font-weight"
+			]
+		}
+	]
+}
+```
+
+Before:
+
+```css
+a {
+	font-size: 1em;
+	color: pink;
+	font-weight: normal;
+}
+```
+
+After:
+
+```css
+a {
+	color: pink;
+	font-size: 1em;
+	font-weight: normal;
 }
 ```
