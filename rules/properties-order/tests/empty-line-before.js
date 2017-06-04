@@ -27,6 +27,7 @@ testRule(rule, {
 			],
 		},
 	]],
+	fix: true,
 
 	accept: [
 		{
@@ -128,28 +129,6 @@ testRule(rule, {
 			`,
 		},
 		{
-			description: '10',
-			code: `
-				a {
-					display: none;
-
-					@media (min-width: 100px) {}
-
-					position: absolute;
-				}
-			`,
-		},
-		{
-			description: '11',
-			code: `
-				a {
-					display: none;
-					@media (min-width: 100px) {}
-					position: absolute;
-				}
-			`,
-		},
-		{
 			description: '12',
 			code: `
 				a {
@@ -220,6 +199,16 @@ testRule(rule, {
 					font-style: italic;
 				}
 			`,
+			fixed: `
+				a {
+					display: none;
+
+					position: absolute;
+
+					border-bottom: 1px solid red;
+					font-style: italic;
+				}
+			`,
 			message: messages.expectedEmptyLineBefore('position'),
 		},
 		{
@@ -229,6 +218,16 @@ testRule(rule, {
 					display: none;
 
 					position: absolute;
+					border-bottom: 1px solid red;
+					font-style: italic;
+				}
+			`,
+			fixed: `
+				a {
+					display: none;
+
+					position: absolute;
+
 					border-bottom: 1px solid red;
 					font-style: italic;
 				}
@@ -245,6 +244,15 @@ testRule(rule, {
 					font-style: italic;
 				}
 			`,
+			fixed: `
+				a {
+					display: none;
+
+					position: absolute;
+
+					font-style: italic;
+				}
+			`,
 			message: messages.expectedEmptyLineBefore('position'),
 		},
 		{
@@ -252,6 +260,13 @@ testRule(rule, {
 			code: `
 				a {
 					display: none;
+					font-style: italic;
+				}
+			`,
+			fixed: `
+				a {
+					display: none;
+
 					font-style: italic;
 				}
 			`,
@@ -265,6 +280,13 @@ testRule(rule, {
 					border-bottom: 1px solid red;
 				}
 			`,
+			fixed: `
+				a {
+					position: absolute;
+
+					border-bottom: 1px solid red;
+				}
+			`,
 			message: messages.expectedEmptyLineBefore('border-bottom'),
 		},
 		{
@@ -275,6 +297,13 @@ testRule(rule, {
 					border-bottom: 1px solid red;
 				}
 			`,
+			fixed: `
+				a {
+					display: none;
+
+					border-bottom: 1px solid red;
+				}
+			`,
 			message: messages.expectedEmptyLineBefore('border-bottom'),
 		},
 		{
@@ -282,6 +311,13 @@ testRule(rule, {
 			code: `
 				a {
 					display: none; /* comment */
+					position: absolute;
+				}
+			`,
+			fixed: `
+				a {
+					display: none; /* comment */
+
 					position: absolute;
 				}
 			`,
@@ -296,7 +332,65 @@ testRule(rule, {
 					position: absolute;
 				}
 			`,
+			fixed: `
+				a {
+					/* comment */
+					display: none;
+
+					position: absolute;
+				}
+			`,
 			message: messages.expectedEmptyLineBefore('position'),
+		},
+	],
+});
+
+testRule(rule, {
+	ruleName,
+	config: [[
+		{
+			emptyLineBefore: 'always',
+			properties: [
+				'display',
+			],
+		},
+		{
+			emptyLineBefore: 'always',
+			properties: [
+				'position',
+			],
+		},
+		{
+			emptyLineBefore: 'always',
+			properties: [
+				'border-bottom',
+				'font-style',
+			],
+		},
+	]],
+
+	accept: [
+		{
+			description: '10',
+			code: `
+				a {
+					display: none;
+
+					@media (min-width: 100px) {}
+
+					position: absolute;
+				}
+			`,
+		},
+		{
+			description: '11',
+			code: `
+				a {
+					display: none;
+					@media (min-width: 100px) {}
+					position: absolute;
+				}
+			`,
 		},
 	],
 });
@@ -324,6 +418,7 @@ testRule(rule, {
 			],
 		},
 	]],
+	fix: true,
 
 	accept: [
 		{
@@ -417,28 +512,6 @@ testRule(rule, {
 			`,
 		},
 		{
-			description: '31',
-			code: `
-				a {
-					display: none;
-
-					@media (min-width: 100px) {}
-
-					position: absolute;
-				}
-			`,
-		},
-		{
-			description: '32',
-			code: `
-				a {
-					display: none;
-					@media (min-width: 100px) {}
-					position: absolute;
-				}
-			`,
-		},
-		{
 			description: '33',
 			code: `
 				a {
@@ -471,6 +544,14 @@ testRule(rule, {
 					font-style: italic;
 				}
 			`,
+			fixed: `
+				a {
+					display: none;
+					position: absolute;
+					border-bottom: 1px solid red;
+					font-style: italic;
+				}
+			`,
 			message: messages.rejectedEmptyLineBefore('border-bottom'),
 		},
 		{
@@ -479,6 +560,14 @@ testRule(rule, {
 				a {
 					display: none;
 
+					position: absolute;
+					border-bottom: 1px solid red;
+					font-style: italic;
+				}
+			`,
+			fixed: `
+				a {
+					display: none;
 					position: absolute;
 					border-bottom: 1px solid red;
 					font-style: italic;
@@ -496,6 +585,13 @@ testRule(rule, {
 					font-style: italic;
 				}
 			`,
+			fixed: `
+				a {
+					display: none;
+					position: absolute;
+					font-style: italic;
+				}
+			`,
 			message: messages.rejectedEmptyLineBefore('font-style'),
 		},
 		{
@@ -504,6 +600,12 @@ testRule(rule, {
 				a {
 					display: none;
 
+					font-style: italic;
+				}
+			`,
+			fixed: `
+				a {
+					display: none;
 					font-style: italic;
 				}
 			`,
@@ -518,6 +620,12 @@ testRule(rule, {
 					border-bottom: 1px solid red;
 				}
 			`,
+			fixed: `
+				a {
+					position: absolute;
+					border-bottom: 1px solid red;
+				}
+			`,
 			message: messages.rejectedEmptyLineBefore('border-bottom'),
 		},
 		{
@@ -529,6 +637,12 @@ testRule(rule, {
 					border-bottom: 1px solid red;
 				}
 			`,
+			fixed: `
+				a {
+					display: none;
+					border-bottom: 1px solid red;
+				}
+			`,
 			message: messages.rejectedEmptyLineBefore('border-bottom'),
 		},
 		{
@@ -537,6 +651,12 @@ testRule(rule, {
 				a {
 					display: none; /* comment */
 
+					position: absolute;
+				}
+			`,
+			fixed: `
+				a {
+					display: none; /* comment */
 					position: absolute;
 				}
 			`,
@@ -552,7 +672,64 @@ testRule(rule, {
 					position: absolute;
 				}
 			`,
+			fixed: `
+				a {
+					/* comment */
+					display: none;
+					position: absolute;
+				}
+			`,
 			message: messages.rejectedEmptyLineBefore('position'),
+		},
+	],
+});
+
+testRule(rule, {
+	ruleName,
+	config: [[
+		{
+			emptyLineBefore: 'never',
+			properties: [
+				'display',
+			],
+		},
+		{
+			emptyLineBefore: 'never',
+			properties: [
+				'position',
+			],
+		},
+		{
+			emptyLineBefore: 'never',
+			properties: [
+				'border-bottom',
+				'font-style',
+			],
+		},
+	]],
+
+	accept: [
+		{
+			description: '31',
+			code: `
+				a {
+					display: none;
+
+					@media (min-width: 100px) {}
+
+					position: absolute;
+				}
+			`,
+		},
+		{
+			description: '32',
+			code: `
+				a {
+					display: none;
+					@media (min-width: 100px) {}
+					position: absolute;
+				}
+			`,
 		},
 	],
 });
@@ -580,6 +757,7 @@ testRule(rule, {
 			],
 		},
 	]],
+	fix: true,
 
 	accept: [
 		{
@@ -678,28 +856,6 @@ testRule(rule, {
 			`,
 		},
 		{
-			description: '52',
-			code: `
-				a {
-					position: absolute;
-
-					@media (min-width: 100px) {}
-
-					display: none;
-				}
-			`,
-		},
-		{
-			description: '53',
-			code: `
-				a {
-					position: absolute;
-					@media (min-width: 100px) {}
-					display: none;
-				}
-			`,
-		},
-		{
 			description: '54',
 			code: `
 				a {
@@ -731,6 +887,15 @@ testRule(rule, {
 					display: none;
 				}
 			`,
+			fixed: `
+				a {
+					border-bottom: 1px solid red;
+					font-style: italic;
+					position: absolute;
+
+					display: none;
+				}
+			`,
 			message: messages.expectedEmptyLineBefore('display'),
 		},
 		{
@@ -740,6 +905,15 @@ testRule(rule, {
 					border-bottom: 1px solid red;
 					font-style: italic;
 
+					position: absolute;
+
+					display: none;
+				}
+			`,
+			fixed: `
+				a {
+					border-bottom: 1px solid red;
+					font-style: italic;
 					position: absolute;
 
 					display: none;
@@ -756,6 +930,14 @@ testRule(rule, {
 					display: none;
 				}
 			`,
+			fixed: `
+				a {
+					font-style: italic;
+					position: absolute;
+
+					display: none;
+				}
+			`,
 			message: messages.expectedEmptyLineBefore('display'),
 		},
 		{
@@ -763,6 +945,13 @@ testRule(rule, {
 			code: `
 				a {
 					font-style: italic;
+					display: none;
+				}
+			`,
+			fixed: `
+				a {
+					font-style: italic;
+
 					display: none;
 				}
 			`,
@@ -777,6 +966,12 @@ testRule(rule, {
 					position: absolute;
 				}
 			`,
+			fixed: `
+				a {
+					border-bottom: 1px solid red;
+					position: absolute;
+				}
+			`,
 			message: messages.rejectedEmptyLineBefore('position'),
 		},
 		{
@@ -784,6 +979,13 @@ testRule(rule, {
 			code: `
 				a {
 					border-bottom: 1px solid red;
+					display: none;
+				}
+			`,
+			fixed: `
+				a {
+					border-bottom: 1px solid red;
+
 					display: none;
 				}
 			`,
@@ -797,7 +999,64 @@ testRule(rule, {
 					display: none;
 				}
 			`,
+			fixed: `
+				a {
+					position: absolute; /* comment */
+
+					display: none;
+				}
+			`,
 			message: messages.expectedEmptyLineBefore('display'),
+		},
+	],
+});
+
+testRule(rule, {
+	ruleName,
+	config: [[
+		{
+			emptyLineBefore: 'always',
+			properties: [
+				'border-bottom',
+				'font-style',
+			],
+		},
+		{
+			emptyLineBefore: 'never',
+			properties: [
+				'position',
+			],
+		},
+		{
+			emptyLineBefore: 'always',
+			properties: [
+				'display',
+			],
+		},
+	]],
+
+	accept: [
+		{
+			description: '52',
+			code: `
+				a {
+					position: absolute;
+
+					@media (min-width: 100px) {}
+
+					display: none;
+				}
+			`,
+		},
+		{
+			description: '53',
+			code: `
+				a {
+					position: absolute;
+					@media (min-width: 100px) {}
+					display: none;
+				}
+			`,
 		},
 	],
 });
@@ -814,6 +1073,7 @@ testRule(rule, {
 			],
 		},
 	]],
+	fix: true,
 
 	accept: [
 		{
@@ -908,6 +1168,14 @@ testRule(rule, {
 					display: none;
 				}
 			`,
+			fixed: `
+				a {
+					height: 10px;
+					width: 10px;
+
+					display: none;
+				}
+			`,
 			message: messages.expectedEmptyLineBefore('display'),
 		},
 		{
@@ -915,6 +1183,13 @@ testRule(rule, {
 			code: `
 				a {
 					height: 10px;
+					display: none;
+				}
+			`,
+			fixed: `
+				a {
+					height: 10px;
+
 					display: none;
 				}
 			`,
@@ -926,6 +1201,14 @@ testRule(rule, {
 				a {
 					height: 10px;
 					width: 10px; /* comment */
+					display: none;
+				}
+			`,
+			fixed: `
+				a {
+					height: 10px;
+					width: 10px; /* comment */
+
 					display: none;
 				}
 			`,
@@ -950,6 +1233,7 @@ testRule(rule, {
 			],
 		},
 	]],
+	fix: true,
 
 	accept: [
 		{
@@ -973,6 +1257,13 @@ testRule(rule, {
 					border: none;
 				}
 			`,
+			fixed: `
+				a {
+					display: none;
+
+					border: none;
+				}
+			`,
 			message: messages.expectedEmptyLineBefore('border'),
 		},
 	],
@@ -993,6 +1284,7 @@ testRule(rule, {
 			],
 		},
 	]],
+	fix: true,
 
 	accept: [
 		{

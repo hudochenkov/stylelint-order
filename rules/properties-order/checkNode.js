@@ -64,7 +64,10 @@ module.exports = function checkNode(node, sharedInfo) {
 		const previousPropData = _.nth(allPropData, -2);
 
 		// Skip first decl
-		if (previousPropData) {
+		if (
+			previousPropData
+			&& (!sharedInfo.context.fix || sharedInfo.disableFix)
+		) {
 			const isCorrectOrder = checkOrder(previousPropData, nodeData, allPropData, sharedInfo);
 
 			if (!isCorrectOrder) {

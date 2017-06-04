@@ -15,6 +15,7 @@ testRule(rule, {
 		'border',
 		'color',
 	]],
+	fix: true,
 
 	accept: [
 		{
@@ -34,9 +35,6 @@ testRule(rule, {
 		},
 		{
 			code: 'a { -webkit-font-smoothing: antialiased; top: 0; color: pink; }',
-		},
-		{
-			code: 'a { my-property: 2em; -webkit-font-smoothing: antialiased; }',
 		},
 		{
 			code: 'a { top: 0; color: pink; width: 0; }',
@@ -60,38 +58,42 @@ testRule(rule, {
 		{
 			code: 'a { top: 0; color: pink; display: none; width: 0; height: 0; }',
 		},
-		{
-			code: 'a { display: none; top: 0; color: pink; width: 0; height: 0; }',
-		},
 	],
 
 	reject: [
 		{
 			code: 'a { color: pink; top: 0;  }',
+			fixed: 'a { top: 0; color: pink;  }',
 			message: messages.expected('top', 'color'),
 		},
 		{
 			code: 'a { top: 0; transform: scale(1); color: pink; }',
+			fixed: 'a { transform: scale(1); top: 0; color: pink; }',
 			message: messages.expected('transform', 'top'),
 		},
 		{
 			code: 'a { -moz-transform: scale(1); transform: scale(1); -webkit-transform: scale(1); }',
+			fixed: 'a { -moz-transform: scale(1); -webkit-transform: scale(1); transform: scale(1); }',
 			message: messages.expected('-webkit-transform', 'transform'),
 		},
 		{
 			code: 'a { color: pink; -webkit-font-smoothing: antialiased; }',
+			fixed: 'a { -webkit-font-smoothing: antialiased; color: pink; }',
 			message: messages.expected('-webkit-font-smoothing', 'color'),
 		},
 		{
 			code: 'a { color: pink; border: 1px solid; }',
+			fixed: 'a { border: 1px solid; color: pink; }',
 			message: messages.expected('border', 'color'),
 		},
 		{
 			code: 'a { border: 1px solid; transition: "foo"; }',
+			fixed: 'a { transition: "foo"; border: 1px solid; }',
 			message: messages.expected('transition', 'border'),
 		},
 		{
 			code: 'a { @media (min-width: 10px) { color: pink; top: 0; } transform: scale(1); }',
+			fixed: 'a { @media (min-width: 10px) { top: 0; color: pink; } transform: scale(1); }',
 			description: 'media query nested in rule can violates its own ordering',
 			message: messages.expected('top', 'color'),
 		},
@@ -100,7 +102,28 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
+	config: [[
+		'my',
+		'transform',
+		'font-smoothing',
+		'top',
+		'transition',
+		'border',
+		'color',
+	]],
 
+	accept: [
+		{
+			code: 'a { my-property: 2em; -webkit-font-smoothing: antialiased; }',
+		},
+		{
+			code: 'a { display: none; top: 0; color: pink; width: 0; height: 0; }',
+		},
+	],
+});
+
+testRule(rule, {
+	ruleName,
 	config: [[
 		'padding',
 		'padding-top',
@@ -111,6 +134,7 @@ testRule(rule, {
 		'border-right',
 		'color',
 	]],
+	fix: true,
 
 	accept: [
 		{
@@ -126,12 +150,6 @@ testRule(rule, {
 			code: 'a { padding-top: 1px; padding-right: 0; color: pink; }',
 		},
 		{
-			code: 'a { padding-bottom: 0; padding-top: 1px; padding-right: 0; padding-left: 0; color: pink; }',
-		},
-		{
-			code: 'a { padding: 1px; padding-bottom: 0; padding-left: 0; color: pink; }',
-		},
-		{
 			code: 'a { border: 1px solid #fff; border-right: 2px solid #fff; border-right-color: #000; }',
 		},
 		{
@@ -142,14 +160,17 @@ testRule(rule, {
 	reject: [
 		{
 			code: 'a { color: pink; padding: 1px; }',
+			fixed: 'a { padding: 1px; color: pink; }',
 			message: messages.expected('padding', 'color'),
 		},
 		{
 			code: 'a { color: pink; padding-top: 1px; }',
+			fixed: 'a { padding-top: 1px; color: pink; }',
 			message: messages.expected('padding-top', 'color'),
 		},
 		{
 			code: 'a { padding-right: 1px; padding-top: 0; color: pink;  }',
+			fixed: 'a { padding-top: 0; padding-right: 1px; color: pink;  }',
 			message: messages.expected('padding-top', 'padding-right'),
 		},
 	],
@@ -157,7 +178,29 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
+	config: [[
+		'padding',
+		'padding-top',
+		'padding-right',
+		'padding-left',
+		'border',
+		'border-top',
+		'border-right',
+		'color',
+	]],
 
+	accept: [
+		{
+			code: 'a { padding-bottom: 0; padding-top: 1px; padding-right: 0; padding-left: 0; color: pink; }',
+		},
+		{
+			code: 'a { padding: 1px; padding-bottom: 0; padding-left: 0; color: pink; }',
+		},
+	],
+});
+
+testRule(rule, {
+	ruleName,
 	config: [
 		[
 			'height',
@@ -167,6 +210,7 @@ testRule(rule, {
 			unspecified: 'top',
 		},
 	],
+	fix: true,
 
 	accept: [
 		{
@@ -180,10 +224,12 @@ testRule(rule, {
 	reject: [
 		{
 			code: 'a { height: 1px; top: 0; }',
+			fixed: 'a { top: 0; height: 1px; }',
 			message: messages.expected('top', 'height'),
 		},
 		{
 			code: 'a { color: 1px; top: 0; }',
+			fixed: 'a { top: 0; color: 1px; }',
 			message: messages.expected('top', 'color'),
 		},
 	],
@@ -191,7 +237,6 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
-
 	config: [
 		[
 			'height',
@@ -201,6 +246,7 @@ testRule(rule, {
 			unspecified: 'bottom',
 		},
 	],
+	fix: true,
 
 	accept: [
 		{
@@ -214,10 +260,12 @@ testRule(rule, {
 	reject: [
 		{
 			code: 'a { bottom: 0; height: 1px; }',
+			fixed: 'a { height: 1px; bottom: 0; }',
 			message: messages.expected('height', 'bottom'),
 		},
 		{
 			code: 'a { bottom: 0; color: 1px; }',
+			fixed: 'a { color: 1px; bottom: 0; }',
 			message: messages.expected('color', 'bottom'),
 		},
 	],
@@ -225,17 +273,16 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
-
 	config: [
 		[
 			'all',
 			'compose',
 		],
 		{
-			unspecified:
-			'bottomAlphabetical',
+			unspecified: 'bottomAlphabetical',
 		},
 	],
+	fix: true,
 
 	accept: [
 		{
@@ -252,10 +299,12 @@ testRule(rule, {
 	reject: [
 		{
 			code: 'a { align-items: flex-end; all: initial; }',
+			fixed: 'a { all: initial; align-items: flex-end; }',
 			message: messages.expected('all', 'align-items'),
 		},
 		{
 			code: 'a { compose: b; top: 0; bottom: 0; }',
+			fixed: 'a { compose: b; bottom: 0; top: 0; }',
 			message: messages.expected('bottom', 'top'),
 		},
 	],
@@ -263,7 +312,6 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
-
 	config: [[
 		'left',
 		'margin',
@@ -272,9 +320,19 @@ testRule(rule, {
 	accept: [{
 		code: '.foo { left: 0; color: pink; margin: 0; }',
 	}],
+});
+
+testRule(rule, {
+	ruleName,
+	config: [[
+		'left',
+		'margin',
+	]],
+	fix: true,
 
 	reject: [{
 		code: '.foo { margin: 0; color: pink; left: 0; }',
+		fixed: '.foo { left: 0; margin: 0; color: pink; }',
 		message: messages.expected('left', 'margin'),
 	}],
 });

@@ -10,6 +10,7 @@ testRule(rule, {
 		'top',
 		'color',
 	]],
+	fix: true,
 
 	accept: [
 		{
@@ -20,6 +21,7 @@ testRule(rule, {
 	reject: [
 		{
 			code: ':root {--foo: { color: pink; top: 0; } }',
+			fixed: ':root {--foo: { top: 0; color: pink; } }',
 			message: messages.expected('top', 'color'),
 		},
 	],

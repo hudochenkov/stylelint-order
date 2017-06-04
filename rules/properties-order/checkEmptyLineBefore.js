@@ -2,7 +2,9 @@
 
 const stylelint = require('stylelint');
 const _ = require('lodash');
+const addEmptyLineBefore = require('./addEmptyLineBefore');
 const hasEmptyLineBefore = require('./hasEmptyLineBefore');
+const removeEmptyLinesBefore = require('./removeEmptyLinesBefore');
 
 module.exports = function checkEmptyLineBefore(firstPropData, secondPropData, sharedInfo) {
 	const firstPropIsUnspecified = !firstPropData.orderData;
@@ -28,19 +30,27 @@ module.exports = function checkEmptyLineBefore(firstPropData, secondPropData, sh
 		const emptyLineBefore = _.get(groups[secondPropSeparatedGroup - 2], 'emptyLineBefore');
 
 		if (!hasEmptyLineBefore(secondPropData.node) && emptyLineBefore === 'always') {
-			stylelint.utils.report({
-				message: sharedInfo.messages.expectedEmptyLineBefore(secondPropData.name),
-				node: secondPropData.node,
-				result: sharedInfo.result,
-				ruleName: sharedInfo.ruleName,
-			});
+			if (sharedInfo.context.fix && !sharedInfo.disableFix) {
+				addEmptyLineBefore(secondPropData.node, sharedInfo.context.newline);
+			} else {
+				stylelint.utils.report({
+					message: sharedInfo.messages.expectedEmptyLineBefore(secondPropData.name),
+					node: secondPropData.node,
+					result: sharedInfo.result,
+					ruleName: sharedInfo.ruleName,
+				});
+			}
 		} else if (hasEmptyLineBefore(secondPropData.node) && emptyLineBefore === 'never') {
-			stylelint.utils.report({
-				message: sharedInfo.messages.rejectedEmptyLineBefore(secondPropData.name),
-				node: secondPropData.node,
-				result: sharedInfo.result,
-				ruleName: sharedInfo.ruleName,
-			});
+			if (sharedInfo.context.fix && !sharedInfo.disableFix) {
+				removeEmptyLinesBefore(secondPropData.node, sharedInfo.context.newline);
+			} else {
+				stylelint.utils.report({
+					message: sharedInfo.messages.rejectedEmptyLineBefore(secondPropData.name),
+					node: secondPropData.node,
+					result: sharedInfo.result,
+					ruleName: sharedInfo.ruleName,
+				});
+			}
 		}
 	}
 
