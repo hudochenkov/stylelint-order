@@ -105,9 +105,6 @@ global.testRule = (rule, schema) => {
 								const fixedCode = getOutputCss(output2);
 
 								expect(fixedCode).toBe(testCase.fixed);
-
-								// If fix enabled, there should be no warnings
-								expect(output2.results[0].warnings.length).toBe(0);
 							});
 						});
 					});

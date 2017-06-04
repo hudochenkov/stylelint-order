@@ -1148,3 +1148,81 @@ testRule(rule, {
 		},
 	],
 });
+
+testRule(rule, {
+	ruleName,
+	config: [
+		[
+			'custom-properties',
+			'dollar-variables',
+			'declarations',
+			'rules',
+			'at-rules',
+		],
+		{
+			disableFix: true,
+		},
+	],
+	fix: true,
+
+	accept: [
+		{
+			code: `
+				a {
+					--width: 10px;
+					$height: 20px;
+					display: none;
+
+					span {}
+
+					@media (min-width: 100px) {}
+				}
+			`,
+		},
+		{
+			code: `
+				a {
+					$height: 20px;
+
+					@media (min-width: 100px) {}
+				}
+			`,
+		},
+	],
+
+	reject: [
+		{
+			code: `
+				a {
+					display: none;
+					--width: 10px;
+				}
+			`,
+			fixed: `
+				a {
+					display: none;
+					--width: 10px;
+				}
+			`,
+			message: messages.expected('custom property', 'declaration'),
+			description: `shouldn't apply fixes`,
+		},
+		{
+			code: `
+				a {
+					--width: 10px;
+					display: none;
+					$height: 20px;
+				}
+			`,
+			fixed: `
+				a {
+					--width: 10px;
+					display: none;
+					$height: 20px;
+				}
+			`,
+			description: `shouldn't apply fixes`,
+		},
+	],
+});

@@ -336,3 +336,46 @@ testRule(rule, {
 		message: messages.expected('left', 'margin'),
 	}],
 });
+
+testRule(rule, {
+	ruleName,
+	config: [
+		[
+			'my',
+			'transform',
+			'font-smoothing',
+			'top',
+			'transition',
+			'border',
+			'color',
+		],
+		{
+			disableFix: true,
+		},
+	],
+	fix: true,
+
+	accept: [
+		{
+			code: 'a { color: pink; color: red; }',
+		},
+		{
+			code: 'a { top: 0; color: pink; }',
+		},
+	],
+
+	reject: [
+		{
+			code: 'a { color: pink; top: 0;  }',
+			fixed: 'a { color: pink; top: 0;  }',
+			message: messages.expected('top', 'color'),
+			description: `shouldn't apply fixes`,
+		},
+		{
+			code: 'a { top: 0; transform: scale(1); color: pink; }',
+			fixed: 'a { top: 0; transform: scale(1); color: pink; }',
+			message: messages.expected('transform', 'top'),
+			description: `shouldn't apply fixes`,
+		},
+	],
+});

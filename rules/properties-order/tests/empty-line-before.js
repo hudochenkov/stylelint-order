@@ -1311,3 +1311,107 @@ testRule(rule, {
 	reject: [
 	],
 });
+
+testRule(rule, {
+	ruleName,
+	config: [
+		[
+			{
+				emptyLineBefore: 'always',
+				properties: [
+					'display',
+				],
+			},
+			{
+				emptyLineBefore: 'always',
+				properties: [
+					'position',
+				],
+			},
+			{
+				emptyLineBefore: 'always',
+				properties: [
+					'border-bottom',
+					'font-style',
+				],
+			},
+		],
+		{
+			disableFix: true,
+		},
+	],
+	fix: true,
+
+	accept: [
+		{
+			description: '1',
+			code: `
+				a {
+					display: none;
+
+					position: absolute;
+
+					border-bottom: 1px solid red;
+					font-style: italic;
+				}
+			`,
+		},
+		{
+			description: '11',
+			code: `
+				a {
+					display: none;
+					@media (min-width: 100px) {}
+					position: absolute;
+				}
+			`,
+		},
+	],
+
+	reject: [
+		{
+			code: `
+				a {
+					display: none;
+					position: absolute;
+
+					border-bottom: 1px solid red;
+					font-style: italic;
+				}
+			`,
+			fixed: `
+				a {
+					display: none;
+					position: absolute;
+
+					border-bottom: 1px solid red;
+					font-style: italic;
+				}
+			`,
+			message: messages.expectedEmptyLineBefore('position'),
+			description: `shouldn't apply fixes`,
+		},
+		{
+			code: `
+				a {
+					display: none;
+
+					position: absolute;
+					border-bottom: 1px solid red;
+					font-style: italic;
+				}
+			`,
+			fixed: `
+				a {
+					display: none;
+
+					position: absolute;
+					border-bottom: 1px solid red;
+					font-style: italic;
+				}
+			`,
+			message: messages.expectedEmptyLineBefore('border-bottom'),
+			description: `shouldn't apply fixes`,
+		},
+	],
+});
