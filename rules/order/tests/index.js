@@ -13,6 +13,7 @@ testRule(rule, {
 		'rules',
 		'at-rules',
 	]],
+	fix: true,
 
 	accept: [
 		{
@@ -75,6 +76,12 @@ testRule(rule, {
 					--width: 10px;
 				}
 			`,
+			fixed: `
+				a {
+					--width: 10px;
+					display: none;
+				}
+			`,
 			message: messages.expected('custom property', 'declaration'),
 		},
 		{
@@ -83,6 +90,13 @@ testRule(rule, {
 					--width: 10px;
 					display: none;
 					$height: 20px;
+				}
+			`,
+			fixed: `
+				a {
+					--width: 10px;
+					$height: 20px;
+					display: none;
 				}
 			`,
 		},
@@ -96,6 +110,15 @@ testRule(rule, {
 					color: tomato;
 				}
 			`,
+			fixed: `
+				div {
+					color: tomato;
+					a {
+						color: blue;
+						top: 0;
+					}
+				}
+			`,
 		},
 		{
 			code: `
@@ -104,6 +127,15 @@ testRule(rule, {
 						color: blue;
 						top: 0;
 						$hello: 10px;
+					}
+				}
+			`,
+			fixed: `
+				div {
+					a {
+						$hello: 10px;
+						color: blue;
+						top: 0;
 					}
 				}
 			`,
@@ -122,6 +154,19 @@ testRule(rule, {
 					span {}
 				}
 			`,
+			fixed: `
+				a {
+					--width: 10px;
+					$height: 20px;
+					display: none;
+
+					span {}
+
+					span {}
+
+					@media (min-width: 100px) {}
+				}
+			`,
 		},
 	],
 });
@@ -157,6 +202,7 @@ testRule(rule, {
 			type: 'at-rule',
 		},
 	]],
+	fix: true,
 
 	accept: [
 		{
@@ -189,6 +235,14 @@ testRule(rule, {
 					}
 				}
 			`,
+			fixed: `
+				a {
+					@include hello {
+						display: block;
+					}
+					@include hello;
+				}
+			`,
 		},
 		{
 			code: `
@@ -198,6 +252,16 @@ testRule(rule, {
 					}
 					@include hello {
 						display: block;
+					}
+				}
+			`,
+			fixed: `
+				a {
+					@include hello {
+						display: block;
+					}
+					@mixin hiya {
+						display: none;
 					}
 				}
 			`,
@@ -213,11 +277,11 @@ testRule(rule, {
 					}
 				}
 			`,
-		},
-		{
-			code: `
+			fixed: `
 				a {
-					@extend .something;
+					@include media('palm') {
+						display: block;
+					}
 					@mixin hiya {
 						display: none;
 					}
@@ -228,7 +292,31 @@ testRule(rule, {
 			code: `
 				a {
 					@extend .something;
+					@mixin hiya {
+						display: none;
+					}
+				}
+			`,
+			fixed: `
+				a {
+					@mixin hiya {
+						display: none;
+					}
+					@extend .something;
+				}
+			`,
+		},
+		{
+			code: `
+				a {
+					@extend .something;
 					@include hello;
+				}
+			`,
+			fixed: `
+				a {
+					@include hello;
+					@extend .something;
 				}
 			`,
 		},
@@ -312,6 +400,37 @@ testRule(rule, {
 			`,
 		},
 	],
+});
+
+testRule(rule, {
+	ruleName,
+	config: [[
+		{
+			type: 'at-rule',
+			name: 'include',
+			hasBlock: true,
+		},
+		{
+			type: 'at-rule',
+			name: 'include',
+		},
+		{
+			type: 'at-rule',
+			hasBlock: true,
+		},
+		{
+			type: 'at-rule',
+			name: 'include',
+			parameter: 'media',
+		},
+		{
+			type: 'at-rule',
+			name: 'include',
+			parameter: 'media',
+			hasBlock: true,
+		},
+	]],
+	fix: true,
 
 	reject: [
 		{
@@ -324,6 +443,15 @@ testRule(rule, {
 					}
 				}
 			`,
+			fixed: `
+				a {
+					@include hello {
+						display: block;
+					}
+					@include hello;
+					@extend .something;
+				}
+			`,
 		},
 		{
 			code: `
@@ -332,6 +460,14 @@ testRule(rule, {
 						display: block;
 					}
 					@include media('desk');
+				}
+			`,
+			fixed: `
+				a {
+					@include media('desk');
+					@include media('palm') {
+						display: block;
+					}
 				}
 			`,
 		},
@@ -343,6 +479,16 @@ testRule(rule, {
 					}
 					@mixin media('palm') {
 						color: red;
+					}
+				}
+			`,
+			fixed: `
+				a {
+					@mixin media('palm') {
+						color: red;
+					}
+					@include media('palm') {
+						display: block;
 					}
 				}
 			`,
@@ -383,6 +529,21 @@ testRule(rule, {
 				}
 			`,
 		},
+	],
+});
+
+testRule(rule, {
+	ruleName,
+	config: [[
+		{
+			type: 'at-rule',
+			hasBlock: false,
+		},
+		'declarations',
+	]],
+	fix: true,
+
+	accept: [
 		{
 			code: `
 				a {
@@ -412,6 +573,12 @@ testRule(rule, {
 				a {
 					display: none;
 					@include hello;
+				}
+			`,
+			fixed: `
+				a {
+					@include hello;
+					display: none;
 				}
 			`,
 		},
@@ -426,6 +593,7 @@ testRule(rule, {
 			type: 'at-rule',
 		},
 	]],
+	fix: true,
 
 	accept: [
 		{
@@ -444,6 +612,12 @@ testRule(rule, {
 				a {
 					@include hello;
 					display: none;
+				}
+			`,
+			fixed: `
+				a {
+					display: none;
+					@include hello;
 				}
 			`,
 		},
@@ -456,6 +630,7 @@ testRule(rule, {
 		'declarations',
 		'at-rules',
 	]],
+	fix: true,
 
 	accept: [
 		{
@@ -474,6 +649,12 @@ testRule(rule, {
 				a {
 					@include hello;
 					display: none;
+				}
+			`,
+			fixed: `
+				a {
+					display: none;
+					@include hello;
 				}
 			`,
 		},
@@ -511,6 +692,20 @@ testRule(rule, {
 			`,
 		},
 	],
+});
+
+testRule(rule, {
+	ruleName,
+	config: [
+		[
+			'custom-properties',
+			'declarations',
+		],
+		{
+			unspecified: 'top',
+		},
+	],
+	fix: true,
 
 	reject: [
 		{
@@ -520,9 +715,21 @@ testRule(rule, {
 					$width: 5px;
 				}
 			`,
+			fixed: `
+				a {
+					display: none;
+					$width: 5px;
+				}
+			`,
 		},
 		{
 			code: `
+				a {
+					--height: 10px;
+					$width: 5px;
+				}
+			`,
+			fixed: `
 				a {
 					--height: 10px;
 					$width: 5px;
@@ -543,6 +750,7 @@ testRule(rule, {
 			unspecified: 'bottom',
 		},
 	],
+	fix: true,
 
 	accept: [
 		{
@@ -572,12 +780,24 @@ testRule(rule, {
 					display: none;
 				}
 			`,
+			fixed: `
+				a {
+					display: none;
+					$width: 5px;
+				}
+			`,
 		},
 		{
 			code: `
 				a {
 					$width: 5px;
 					--height: 10px;
+				}
+			`,
+			fixed: `
+				a {
+					--height: 10px;
+					$width: 5px;
 				}
 			`,
 		},
@@ -599,6 +819,7 @@ testRule(rule, {
 			type: 'rule',
 		},
 	]],
+	fix: true,
 
 	accept: [
 		{
@@ -641,6 +862,14 @@ testRule(rule, {
 					span {}
 				}
 			`,
+			fixed: `
+				a {
+					a {}
+					abbr {}
+					&:hover {}
+					span {}
+				}
+			`,
 		},
 		{
 			code: `
@@ -649,12 +878,24 @@ testRule(rule, {
 					&:hover {}
 				}
 			`,
+			fixed: `
+				a {
+					&:hover {}
+					span {}
+				}
+			`,
 		},
 		{
 			code: `
 				a {
 					span {}
 					abbr {}
+				}
+			`,
+			fixed: `
+				a {
+					abbr {}
+					span {}
 				}
 			`,
 		},
@@ -676,6 +917,7 @@ testRule(rule, {
 			type: 'rule',
 		},
 	]],
+	fix: true,
 
 	accept: [
 		{
@@ -707,6 +949,13 @@ testRule(rule, {
 					&:hover {}
 				}
 			`,
+			fixed: `
+				a {
+					& b {}
+					&:hover {}
+					b & {}
+				}
+			`,
 		},
 		{
 			code: `
@@ -714,6 +963,13 @@ testRule(rule, {
 					&:hover {}
 					b & {}
 					& b {}
+				}
+			`,
+			fixed: `
+				a {
+					&:hover {}
+					& b {}
+					b & {}
 				}
 			`,
 		},
@@ -735,6 +991,7 @@ testRule(rule, {
 			selector: /^&/,
 		},
 	]],
+	fix: true,
 
 	accept: [
 		{
@@ -765,12 +1022,25 @@ testRule(rule, {
 					&:hover {}
 				}
 			`,
+			fixed: `
+				a {
+					b & {}
+					&:hover {}
+					& b {}
+				}
+			`,
 		},
 		{
 			code: `
 				a {
 					&:hover {}
 					b & {}
+				}
+			`,
+			fixed: `
+				a {
+					b & {}
+					&:hover {}
 				}
 			`,
 		},
