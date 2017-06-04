@@ -28,13 +28,13 @@
   "main": "index.js",
   "dependencies": {
     "lodash": "^4.17.4",
-    "postcss": "^5.2.16",
-    "stylelint": "^7.9.0"
+    "postcss": "^6.0.1",
+    "stylelint": "^7.10.1"
   },
   "devDependencies": {
-    "eslint": "^3.17.1",
-    "eslint-config-hudochenkov": "^1.2.0",
-    "jest": "^19.0.2"
+    "eslint": "^3.19.0",
+    "eslint-config-hudochenkov": "^1.3.0",
+    "jest": "^20.0.4"
   },
   "scripts": {
     "pretest": "eslint .",
