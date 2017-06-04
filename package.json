@@ -29,7 +29,8 @@
   "dependencies": {
     "lodash": "^4.17.4",
     "postcss": "^6.0.1",
-    "stylelint": "^7.10.1"
+    "postcss-sorting": "github:hudochenkov/postcss-sorting#dev",
+    "stylelint": "github:stylelint/stylelint"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
