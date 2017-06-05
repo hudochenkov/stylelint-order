@@ -15,6 +15,12 @@ Prefixed properties *must always* precede the unprefixed version.
 
 This rule ignores variables (`$sass`, `@less`, `--custom-property`).
 
+* Options
+* Optional secondary options
+	* [`unspecified: "top"|"bottom"|"bottomAlphabetical"|"ignore"`](#unspecified-topbottombottomalphabeticalignore)
+	* [`disableFix: true`](#disablefix-true)
+* [Autofixing caveats](#autofixing-caveats)
+
 ## Options
 
 ```
