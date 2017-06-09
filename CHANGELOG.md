@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.5.0
+* Added autofixing for every rule! Please read docs before using this feature, because each rule has some caveats. stylelint 7.11+ is required for this feature.
+* Removed SCSS nested properties support.
+* Removed property shortcuts in `properties-order`. Before this version it was possible to define only e.g. `padding` and it would define position for all undefined `padding-*` properties. Now every property should be explicitly defined in a config.
+* Removed deprecation warnings:
+	* `declaration-block-order`
+	* `declaration-block-properties-order`
+	* `declaration-block-properties-alphabetical-order`
+	* `declaration-block-properties-specified-order`
+	* `declaration-block-property-groups-structure`
+
 ## 0.4.4
 * Fixed false negative for blockless at-rules in `order`.
 
