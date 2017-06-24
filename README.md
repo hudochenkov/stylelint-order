@@ -5,7 +5,7 @@ A plugin pack of order related linting rules for [stylelint]. Every rule support
 ## Installation
 
 ```
-npm install stylelint-order
+npm install stylelint-order --save-dev
 ```
 
 ## Usage
