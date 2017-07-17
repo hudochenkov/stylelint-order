@@ -20,8 +20,8 @@ module.exports = function getOrderData(expectedOrder, node) {
 		}
 	} else if (
 		node.type === 'rule'
-		&& node.ruleWithoutBody
-		&& !node.extendRule
+		&& node.empty
+		&& !node.extend
 	) {
 		nodeType = 'less-mixins';
 	} else if (node.type === 'rule') {
