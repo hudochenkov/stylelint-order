@@ -574,18 +574,16 @@ If `order: "flexible"` is using, for sorting it will be treated as `strict`. It 
 Given:
 
 ```json
-{
-	"properties-order": [
-		{
-			"order": "flexible",
-			"properties": [
-				"color",
-				"font-size",
-				"font-weight"
-			]
-		}
-	]
-}
+[
+	{
+		"order": "flexible",
+		"properties": [
+			"color",
+			"font-size",
+			"font-weight"
+		]
+	}
+]
 ```
 
 Before:
