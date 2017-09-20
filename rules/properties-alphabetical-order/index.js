@@ -73,6 +73,10 @@ function checkNode(node, result) {
 
 		const prop = child.prop;
 
+		if (utils.isIgnorable(prop)) {
+			return;
+		}
+
 		if (!utils.isStandardSyntaxProperty(prop)) {
 			return;
 		}
