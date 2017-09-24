@@ -35,14 +35,24 @@
   "devDependencies": {
     "eslint": "~4.7.2",
     "eslint-config-hudochenkov": "~2.0.0",
-    "jest": "^21.1.0"
+    "husky": "^0.14.3",
+    "jest": "^21.1.0",
+    "lint-staged": "^4.2.2"
   },
   "scripts": {
+    "precommit": "lint-staged",
     "pretest": "eslint .",
     "test": "jest",
     "jest": "jest",
     "watch": "jest --watch",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "fix": "npm run pretest -- --fix"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run fix",
+      "git add"
+    ]
   },
   "jest": {
     "setupFiles": [
