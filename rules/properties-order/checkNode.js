@@ -26,10 +26,7 @@ module.exports = function checkNode(node, sharedInfo) {
 		if (child.type === 'decl') {
 			const prop = child.prop;
 
-			if (
-				utils.isStandardSyntaxProperty(prop)
-				&& !utils.isCustomProperty(prop)
-			) {
+			if (utils.isStandardSyntaxProperty(prop) && !utils.isCustomProperty(prop)) {
 				let unprefixedPropName = postcss.vendor.unprefixed(prop);
 
 				// Hack to allow -moz-osx-font-smoothing to be understood
@@ -53,9 +50,9 @@ module.exports = function checkNode(node, sharedInfo) {
 
 		// current node should be a standard declaration
 		if (
-			child.type !== 'decl'
-			|| !utils.isStandardSyntaxProperty(nodeData.node.prop)
-			|| utils.isCustomProperty(nodeData.node.prop)
+			child.type !== 'decl' ||
+			!utils.isStandardSyntaxProperty(nodeData.node.prop) ||
+			utils.isCustomProperty(nodeData.node.prop)
 		) {
 			return;
 		}
@@ -64,10 +61,7 @@ module.exports = function checkNode(node, sharedInfo) {
 		const previousPropData = _.nth(allPropData, -2);
 
 		// Skip first decl
-		if (
-			previousPropData
-			&& (!sharedInfo.context.fix || sharedInfo.disableFix)
-		) {
+		if (previousPropData && (!sharedInfo.context.fix || sharedInfo.disableFix)) {
 			const isCorrectOrder = checkOrder(previousPropData, nodeData, allPropData, sharedInfo);
 
 			if (!isCorrectOrder) {
@@ -85,9 +79,9 @@ module.exports = function checkNode(node, sharedInfo) {
 
 		// if previous node is shared-line comment, use second previous node
 		if (
-			previousNodeData
-			&& previousNodeData.node.type === 'comment'
-			&& previousNodeData.node.raw('before').indexOf('\n') === -1
+			previousNodeData &&
+			previousNodeData.node.type === 'comment' &&
+			previousNodeData.node.raw('before').indexOf('\n') === -1
 		) {
 			previousNodeData = _.nth(allNodesData, -3);
 		}
@@ -103,8 +97,8 @@ module.exports = function checkNode(node, sharedInfo) {
 
 		// previous node should be a standard declaration
 		if (
-			!utils.isStandardSyntaxProperty(previousNodeData.node.prop)
-			|| utils.isCustomProperty(previousNodeData.node.prop)
+			!utils.isStandardSyntaxProperty(previousNodeData.node.prop) ||
+			utils.isCustomProperty(previousNodeData.node.prop)
 		) {
 			return;
 		}

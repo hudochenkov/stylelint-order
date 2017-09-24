@@ -6,27 +6,22 @@ const messages = rule.messages;
 
 testRule(rule, {
 	ruleName,
-	config: [[
-		{
-			emptyLineBefore: 'always',
-			properties: [
-				'display',
-			],
-		},
-		{
-			emptyLineBefore: 'always',
-			properties: [
-				'position',
-			],
-		},
-		{
-			emptyLineBefore: 'always',
-			properties: [
-				'border-bottom',
-				'font-style',
-			],
-		},
-	]],
+	config: [
+		[
+			{
+				emptyLineBefore: 'always',
+				properties: ['display'],
+			},
+			{
+				emptyLineBefore: 'always',
+				properties: ['position'],
+			},
+			{
+				emptyLineBefore: 'always',
+				properties: ['border-bottom', 'font-style'],
+			},
+		],
+	],
 	fix: true,
 
 	accept: [
@@ -347,27 +342,22 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
-	config: [[
-		{
-			emptyLineBefore: 'always',
-			properties: [
-				'display',
-			],
-		},
-		{
-			emptyLineBefore: 'always',
-			properties: [
-				'position',
-			],
-		},
-		{
-			emptyLineBefore: 'always',
-			properties: [
-				'border-bottom',
-				'font-style',
-			],
-		},
-	]],
+	config: [
+		[
+			{
+				emptyLineBefore: 'always',
+				properties: ['display'],
+			},
+			{
+				emptyLineBefore: 'always',
+				properties: ['position'],
+			},
+			{
+				emptyLineBefore: 'always',
+				properties: ['border-bottom', 'font-style'],
+			},
+		],
+	],
 
 	accept: [
 		{
@@ -397,27 +387,22 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
-	config: [[
-		{
-			emptyLineBefore: 'never',
-			properties: [
-				'display',
-			],
-		},
-		{
-			emptyLineBefore: 'never',
-			properties: [
-				'position',
-			],
-		},
-		{
-			emptyLineBefore: 'never',
-			properties: [
-				'border-bottom',
-				'font-style',
-			],
-		},
-	]],
+	config: [
+		[
+			{
+				emptyLineBefore: 'never',
+				properties: ['display'],
+			},
+			{
+				emptyLineBefore: 'never',
+				properties: ['position'],
+			},
+			{
+				emptyLineBefore: 'never',
+				properties: ['border-bottom', 'font-style'],
+			},
+		],
+	],
 	fix: true,
 
 	accept: [
@@ -686,27 +671,22 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
-	config: [[
-		{
-			emptyLineBefore: 'never',
-			properties: [
-				'display',
-			],
-		},
-		{
-			emptyLineBefore: 'never',
-			properties: [
-				'position',
-			],
-		},
-		{
-			emptyLineBefore: 'never',
-			properties: [
-				'border-bottom',
-				'font-style',
-			],
-		},
-	]],
+	config: [
+		[
+			{
+				emptyLineBefore: 'never',
+				properties: ['display'],
+			},
+			{
+				emptyLineBefore: 'never',
+				properties: ['position'],
+			},
+			{
+				emptyLineBefore: 'never',
+				properties: ['border-bottom', 'font-style'],
+			},
+		],
+	],
 
 	accept: [
 		{
@@ -736,27 +716,22 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
-	config: [[
-		{
-			emptyLineBefore: 'always',
-			properties: [
-				'border-bottom',
-				'font-style',
-			],
-		},
-		{
-			emptyLineBefore: 'never',
-			properties: [
-				'position',
-			],
-		},
-		{
-			emptyLineBefore: 'always',
-			properties: [
-				'display',
-			],
-		},
-	]],
+	config: [
+		[
+			{
+				emptyLineBefore: 'always',
+				properties: ['border-bottom', 'font-style'],
+			},
+			{
+				emptyLineBefore: 'never',
+				properties: ['position'],
+			},
+			{
+				emptyLineBefore: 'always',
+				properties: ['display'],
+			},
+		],
+	],
 	fix: true,
 
 	accept: [
@@ -1013,27 +988,22 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
-	config: [[
-		{
-			emptyLineBefore: 'always',
-			properties: [
-				'border-bottom',
-				'font-style',
-			],
-		},
-		{
-			emptyLineBefore: 'never',
-			properties: [
-				'position',
-			],
-		},
-		{
-			emptyLineBefore: 'always',
-			properties: [
-				'display',
-			],
-		},
-	]],
+	config: [
+		[
+			{
+				emptyLineBefore: 'always',
+				properties: ['border-bottom', 'font-style'],
+			},
+			{
+				emptyLineBefore: 'never',
+				properties: ['position'],
+			},
+			{
+				emptyLineBefore: 'always',
+				properties: ['display'],
+			},
+		],
+	],
 
 	accept: [
 		{
@@ -1063,16 +1033,16 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
-	config: [[
-		'height',
-		'width',
-		{
-			emptyLineBefore: 'always',
-			properties: [
-				'display',
-			],
-		},
-	]],
+	config: [
+		[
+			'height',
+			'width',
+			{
+				emptyLineBefore: 'always',
+				properties: ['display'],
+			},
+		],
+	],
 	fix: true,
 
 	accept: [
@@ -1219,20 +1189,18 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
-	config: [[
-		{
-			emptyLineBefore: 'always',
-			properties: [
-				'display',
-			],
-		},
-		{
-			emptyLineBefore: 'always',
-			properties: [
-				'border',
-			],
-		},
-	]],
+	config: [
+		[
+			{
+				emptyLineBefore: 'always',
+				properties: ['display'],
+			},
+			{
+				emptyLineBefore: 'always',
+				properties: ['border'],
+			},
+		],
+	],
 	fix: true,
 
 	accept: [
@@ -1271,19 +1239,17 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
-	config: [[
-		{
-			emptyLineBefore: 'always',
-			properties: [
-				'display',
-			],
-		},
-		{
-			properties: [
-				'position',
-			],
-		},
-	]],
+	config: [
+		[
+			{
+				emptyLineBefore: 'always',
+				properties: ['display'],
+			},
+			{
+				properties: ['position'],
+			},
+		],
+	],
 	fix: true,
 
 	accept: [
@@ -1308,8 +1274,7 @@ testRule(rule, {
 		},
 	],
 
-	reject: [
-	],
+	reject: [],
 });
 
 testRule(rule, {
@@ -1318,22 +1283,15 @@ testRule(rule, {
 		[
 			{
 				emptyLineBefore: 'always',
-				properties: [
-					'display',
-				],
+				properties: ['display'],
 			},
 			{
 				emptyLineBefore: 'always',
-				properties: [
-					'position',
-				],
+				properties: ['position'],
 			},
 			{
 				emptyLineBefore: 'always',
-				properties: [
-					'border-bottom',
-					'font-style',
-				],
+				properties: ['border-bottom', 'font-style'],
 			},
 		],
 		{

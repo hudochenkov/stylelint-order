@@ -8,7 +8,10 @@ const checkAlphabeticalOrder = require('../checkAlphabeticalOrder');
 module.exports = function checkOrder(firstPropData, secondPropData, allPropData, sharedInfo) {
 	if (firstPropData.unprefixedName === secondPropData.unprefixedName) {
 		// If first property has no prefix and second property has prefix
-		if (!postcss.vendor.prefix(firstPropData.name).length && postcss.vendor.prefix(secondPropData.name).length) {
+		if (
+			!postcss.vendor.prefix(firstPropData.name).length &&
+			postcss.vendor.prefix(secondPropData.name).length
+		) {
 			return false;
 		}
 
@@ -26,12 +29,12 @@ module.exports = function checkOrder(firstPropData, secondPropData, allPropData,
 	if (firstPropIsUnspecified && !secondPropIsUnspecified) {
 		// If first prop is unspecified, look for a specified prop before it to
 		// compare to the current prop
-		const priorSpecifiedPropData = _.findLast(allPropData.slice(0, -1), (d) => Boolean(d.orderData));
+		const priorSpecifiedPropData = _.findLast(allPropData.slice(0, -1), d => Boolean(d.orderData));
 
 		if (
-			priorSpecifiedPropData
-			&& priorSpecifiedPropData.orderData
-			&& priorSpecifiedPropData.orderData.expectedPosition > secondPropData.orderData.expectedPosition
+			priorSpecifiedPropData &&
+			priorSpecifiedPropData.orderData &&
+			priorSpecifiedPropData.orderData.expectedPosition > secondPropData.orderData.expectedPosition
 		) {
 			stylelint.utils.report({
 				message: sharedInfo.messages.expected(secondPropData.name, priorSpecifiedPropData.name),
@@ -48,19 +51,11 @@ module.exports = function checkOrder(firstPropData, secondPropData, allPropData,
 
 	// Now deal with unspecified props
 	// Starting with bottomAlphabetical as it requires more specific conditionals
-	if (
-		unspecified === 'bottomAlphabetical'
-		&& !firstPropIsUnspecified
-		&& secondPropIsUnspecified
-	) {
+	if (unspecified === 'bottomAlphabetical' && !firstPropIsUnspecified && secondPropIsUnspecified) {
 		return true;
 	}
 
-	if (
-		unspecified === 'bottomAlphabetical'
-		&& secondPropIsUnspecified
-		&& firstPropIsUnspecified
-	) {
+	if (unspecified === 'bottomAlphabetical' && secondPropIsUnspecified && firstPropIsUnspecified) {
 		if (checkAlphabeticalOrder(firstPropData, secondPropData)) {
 			return true;
 		}

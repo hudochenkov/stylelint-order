@@ -17,7 +17,7 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 function rule(expectation, options, context) {
 	context = context || {};
 
-	return function (root, result) {
+	return function(root, result) {
 		const validOptions = stylelint.utils.validateOptions(
 			result,
 			ruleName,

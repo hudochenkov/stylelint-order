@@ -6,14 +6,16 @@ const messages = rule.messages;
 
 testRule(rule, {
 	ruleName,
-	config: [[
-		'height',
-		'width',
-		{
-			order: 'flexible',
-			properties: ['color', 'font-size', 'font-weight'],
-		},
-	]],
+	config: [
+		[
+			'height',
+			'width',
+			{
+				order: 'flexible',
+				properties: ['color', 'font-size', 'font-weight'],
+			},
+		],
+	],
 
 	accept: [
 		{
@@ -49,14 +51,16 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
-	config: [[
-		'height',
-		'width',
-		{
-			order: 'flexible',
-			properties: ['color', 'font-size', 'font-weight'],
-		},
-	]],
+	config: [
+		[
+			'height',
+			'width',
+			{
+				order: 'flexible',
+				properties: ['color', 'font-size', 'font-weight'],
+			},
+		],
+	],
 	fix: true,
 
 	accept: [
@@ -107,16 +111,18 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
-	config: [[
-		{
-			order: 'flexible',
-			properties: ['width', 'height'],
-		},
-		{
-			order: 'flexible',
-			properties: ['color', 'font-size', 'font-weight'],
-		},
-	]],
+	config: [
+		[
+			{
+				order: 'flexible',
+				properties: ['width', 'height'],
+			},
+			{
+				order: 'flexible',
+				properties: ['color', 'font-size', 'font-weight'],
+			},
+		],
+	],
 
 	accept: [
 		{
@@ -136,16 +142,18 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
-	config: [[
-		{
-			order: 'flexible',
-			properties: ['width', 'height'],
-		},
-		{
-			order: 'flexible',
-			properties: ['color', 'font-size', 'font-weight'],
-		},
-	]],
+	config: [
+		[
+			{
+				order: 'flexible',
+				properties: ['width', 'height'],
+			},
+			{
+				order: 'flexible',
+				properties: ['color', 'font-size', 'font-weight'],
+			},
+		],
+	],
 	fix: true,
 
 	reject: [

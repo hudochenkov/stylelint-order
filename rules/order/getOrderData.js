@@ -18,11 +18,7 @@ module.exports = function getOrderData(expectedOrder, node) {
 		} else if (utils.isStandardSyntaxProperty(node.prop)) {
 			nodeType = 'declarations';
 		}
-	} else if (
-		node.type === 'rule'
-		&& node.empty
-		&& !node.extend
-	) {
+	} else if (node.type === 'rule' && node.empty && !node.extend) {
 		nodeType = 'less-mixins';
 	} else if (node.type === 'rule') {
 		nodeType = {
@@ -37,7 +33,7 @@ module.exports = function getOrderData(expectedOrder, node) {
 			let prioritizedPattern;
 			let max = 0;
 
-			rules.forEach(function (pattern) {
+			rules.forEach(function(pattern) {
 				const priority = calcRulePatternPriority(pattern, nodeType);
 
 				if (priority > max) {
@@ -72,7 +68,7 @@ module.exports = function getOrderData(expectedOrder, node) {
 			let prioritizedPattern;
 			let max = 0;
 
-			atRules.forEach(function (pattern) {
+			atRules.forEach(function(pattern) {
 				const priority = calcAtRulePatternPriority(pattern, nodeType);
 
 				if (priority > max) {

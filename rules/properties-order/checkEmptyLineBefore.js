@@ -11,17 +11,14 @@ module.exports = function checkEmptyLineBefore(firstPropData, secondPropData, sh
 	const secondPropIsUnspecified = !secondPropData.orderData;
 
 	// Now check newlines between ...
-	const firstPropSeparatedGroup = (!firstPropIsUnspecified)
+	const firstPropSeparatedGroup = !firstPropIsUnspecified
 		? firstPropData.orderData.separatedGroup
 		: sharedInfo.lastKnownSeparatedGroup;
-	const secondPropSeparatedGroup = (!secondPropIsUnspecified)
+	const secondPropSeparatedGroup = !secondPropIsUnspecified
 		? secondPropData.orderData.separatedGroup
 		: sharedInfo.lastKnownSeparatedGroup;
 
-	if (
-		firstPropSeparatedGroup !== secondPropSeparatedGroup
-		&& !secondPropIsUnspecified
-	) {
+	if (firstPropSeparatedGroup !== secondPropSeparatedGroup && !secondPropIsUnspecified) {
 		// Get an array of just the property groups, remove any solo properties
 		const groups = _.reject(sharedInfo.expectation, _.isString);
 

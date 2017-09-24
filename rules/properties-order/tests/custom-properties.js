@@ -6,10 +6,7 @@ const messages = rule.messages;
 
 testRule(rule, {
 	ruleName,
-	config: [[
-		'top',
-		'color',
-	]],
+	config: [['top', 'color']],
 	fix: true,
 
 	accept: [

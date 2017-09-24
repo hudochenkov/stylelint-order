@@ -6,13 +6,15 @@ const messages = rule.messages;
 
 testRule(rule, {
 	ruleName,
-	config: [[
-		'height',
-		'width',
-		{
-			properties: ['color', 'font-size', 'font-weight'],
-		},
-	]],
+	config: [
+		[
+			'height',
+			'width',
+			{
+				properties: ['color', 'font-size', 'font-weight'],
+			},
+		],
+	],
 
 	accept: [
 		{
@@ -28,13 +30,15 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
-	config: [[
-		'height',
-		'width',
-		{
-			properties: ['color', 'font-size', 'font-weight'],
-		},
-	]],
+	config: [
+		[
+			'height',
+			'width',
+			{
+				properties: ['color', 'font-size', 'font-weight'],
+			},
+		],
+	],
 	fix: true,
 
 	accept: [
@@ -82,14 +86,16 @@ testRule(rule, {
 
 testRule(rule, {
 	ruleName,
-	config: [[
-		{
-			properties: ['width', 'height'],
-		},
-		{
-			properties: ['color', 'font-size', 'font-weight'],
-		},
-	]],
+	config: [
+		[
+			{
+				properties: ['width', 'height'],
+			},
+			{
+				properties: ['color', 'font-size', 'font-weight'],
+			},
+		],
+	],
 	fix: true,
 
 	accept: [

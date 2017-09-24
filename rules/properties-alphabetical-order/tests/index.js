@@ -65,7 +65,8 @@ testRule(rule, {
 			code: 'a { --custom-property: 0; --another: 0; alpha: 0; }',
 		},
 		{
-			code: 'a { font-size: 1px; -moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialised; font-weight: bold; }',
+			code:
+				'a { font-size: 1px; -moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialised; font-weight: bold; }',
 		},
 	],
 
@@ -86,13 +87,17 @@ testRule(rule, {
 			message: messages.expected('top', 'transform'),
 		},
 		{
-			code: 'a { color: pink; top: 0; -moz-transform: scale(1); transform: scale(1); -webkit-transform: scale(1); }',
-			fixed: 'a { color: pink; top: 0; -moz-transform: scale(1); -webkit-transform: scale(1); transform: scale(1); }',
+			code:
+				'a { color: pink; top: 0; -moz-transform: scale(1); transform: scale(1); -webkit-transform: scale(1); }',
+			fixed:
+				'a { color: pink; top: 0; -moz-transform: scale(1); -webkit-transform: scale(1); transform: scale(1); }',
 			message: messages.expected('-webkit-transform', 'transform'),
 		},
 		{
-			code: 'a { color: pink; top: 0; transform: scale(0); -webkit-transform: scale(1); transform: scale(1); }',
-			fixed: 'a { color: pink; top: 0; -webkit-transform: scale(1); transform: scale(0); transform: scale(1); }',
+			code:
+				'a { color: pink; top: 0; transform: scale(0); -webkit-transform: scale(1); transform: scale(1); }',
+			fixed:
+				'a { color: pink; top: 0; -webkit-transform: scale(1); transform: scale(0); transform: scale(1); }',
 			message: messages.expected('-webkit-transform', 'transform'),
 		},
 		{

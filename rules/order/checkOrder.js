@@ -15,14 +15,20 @@ module.exports = function checkOrder(firstNodeData, secondNodeData, allNodesData
 	if (firstNodeIsUnspecified && !secondNodeIsUnspecified) {
 		// If first node is unspecified, look for a specified node before it to
 		// compare to the current node
-		const priorSpecifiedNodeData = _.findLast(allNodesData.slice(0, -1), (d) => Boolean(d.expectedPosition));
+		const priorSpecifiedNodeData = _.findLast(allNodesData.slice(0, -1), d =>
+			Boolean(d.expectedPosition)
+		);
 
 		if (
-			priorSpecifiedNodeData && priorSpecifiedNodeData.expectedPosition
-			&& priorSpecifiedNodeData.expectedPosition > secondNodeData.expectedPosition
+			priorSpecifiedNodeData &&
+			priorSpecifiedNodeData.expectedPosition &&
+			priorSpecifiedNodeData.expectedPosition > secondNodeData.expectedPosition
 		) {
 			stylelint.utils.report({
-				message: sharedInfo.messages.expected(secondNodeData.description, priorSpecifiedNodeData.description),
+				message: sharedInfo.messages.expected(
+					secondNodeData.description,
+					priorSpecifiedNodeData.description
+				),
 				node: secondNodeData.node,
 				result: sharedInfo.result,
 				ruleName: sharedInfo.ruleName,

@@ -10,7 +10,7 @@ module.exports = function createExpectedOrder(input) {
 	appendGroup(input);
 
 	function appendGroup(items) {
-		items.forEach((item) => appendItem(item, false));
+		items.forEach(item => appendItem(item, false));
 	}
 
 	function appendItem(item, inFlexibleGroup) {
@@ -35,7 +35,7 @@ module.exports = function createExpectedOrder(input) {
 		if (item.order && item.order === 'flexible') {
 			expectedPosition += 1;
 
-			item.properties.forEach((property) => {
+			item.properties.forEach(property => {
 				appendItem(property, true);
 			});
 		} else {

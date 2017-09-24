@@ -13,14 +13,14 @@ const ruleName = utils.namespace('properties-order');
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
 	expected: (first, second) => `Expected "${first}" to come before "${second}"`,
-	expectedEmptyLineBefore: (property) => `Expected an empty line before property "${property}"`,
-	rejectedEmptyLineBefore: (property) => `Unexpected an empty line before property "${property}"`,
+	expectedEmptyLineBefore: property => `Expected an empty line before property "${property}"`,
+	rejectedEmptyLineBefore: property => `Unexpected an empty line before property "${property}"`,
 });
 
-const rule = function (expectation, options, context) {
+const rule = function(expectation, options, context) {
 	context = context || {};
 
-	return function (root, result) {
+	return function(root, result) {
 		const validOptions = stylelint.utils.validateOptions(
 			result,
 			ruleName,
@@ -31,12 +31,7 @@ const rule = function (expectation, options, context) {
 			{
 				actual: options,
 				possible: {
-					unspecified: [
-						'top',
-						'bottom',
-						'ignore',
-						'bottomAlphabetical',
-					],
+					unspecified: ['top', 'bottom', 'ignore', 'bottomAlphabetical'],
 					disableFix: _.isBoolean,
 				},
 				optional: true,

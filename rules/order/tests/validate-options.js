@@ -93,9 +93,7 @@ testConfig({
 	ruleName,
 	description: 'invalid keyword',
 	valid: false,
-	config: [
-		'custom-property',
-	],
+	config: ['custom-property'],
 	message: `Invalid option "["custom-property"]" for rule ${ruleName}`,
 });
 
@@ -273,10 +271,7 @@ testConfig({
 	description: 'disableFix true',
 	valid: true,
 	config: [
-		[
-			'custom-properties',
-			'dollar-variables',
-		],
+		['custom-properties', 'dollar-variables'],
 		{
 			disableFix: true,
 		},
@@ -288,10 +283,7 @@ testConfig({
 	description: 'disableFix false',
 	valid: true,
 	config: [
-		[
-			'custom-properties',
-			'dollar-variables',
-		],
+		['custom-properties', 'dollar-variables'],
 		{
 			disableFix: false,
 		},
