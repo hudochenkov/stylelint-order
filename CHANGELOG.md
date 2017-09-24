@@ -2,9 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.7.0
+
+* Specified `stylelint` in `peerDependencies` rather in `dependencies`. Following [stylelint's plugin guide](https://github.com/stylelint/stylelint/blob/master/docs/developer-guide/plugins.md#peer-dependencies).
+
 ## 0.6.0
 
-* Migrate to `stylelint@8.0.0`.
+* Migrated to `stylelint@8.0.0`.
 
 ## 0.5.0
 * Added autofixing for every rule! Please read docs before using this feature, because each rule has some caveats. stylelint 7.11+ is required for this feature.
