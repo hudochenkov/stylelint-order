@@ -4,6 +4,14 @@ A plugin pack of order related linting rules for [stylelint]. Every rule support
 
 ## Installation
 
+First, install [stylelint]:
+
+```
+npm install stylelint --save-dev
+```
+
+Then install plugin:
+
 ```
 npm install stylelint-order --save-dev
 ```

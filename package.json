@@ -29,8 +29,10 @@
   "dependencies": {
     "lodash": "^4.17.4",
     "postcss": "^6.0.11",
-    "postcss-sorting": "^3.0.2",
-    "stylelint": "^8.1.1"
+    "postcss-sorting": "^3.0.2"
+  },
+  "peerDependencies": {
+    "stylelint": "^8.0.0"
   },
   "devDependencies": {
     "eslint": "~4.7.2",
@@ -40,7 +42,8 @@
     "husky": "^0.14.3",
     "jest": "^21.1.0",
     "lint-staged": "^4.2.2",
-    "prettier": "^1.7.0"
+    "prettier": "^1.7.0",
+    "stylelint": "^8.1.1"
   },
   "scripts": {
     "precommit": "lint-staged",
