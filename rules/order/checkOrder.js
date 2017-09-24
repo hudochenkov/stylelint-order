@@ -45,6 +45,7 @@ module.exports = function checkOrder(firstNodeData, secondNodeData, allNodesData
 	if (unspecified === 'top' && firstNodeIsUnspecified) {
 		return true;
 	}
+
 	if (unspecified === 'top' && secondNodeIsUnspecified) {
 		return false;
 	}
@@ -52,6 +53,7 @@ module.exports = function checkOrder(firstNodeData, secondNodeData, allNodesData
 	if (unspecified === 'bottom' && secondNodeIsUnspecified) {
 		return true;
 	}
+
 	if (unspecified === 'bottom' && firstNodeIsUnspecified) {
 		return false;
 	}

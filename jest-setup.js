@@ -45,6 +45,7 @@ global.testRule = (rule, schema) => {
 
 						return stylelint.lint(options).then((output) => {
 							expect(output.results[0].warnings).toEqual([]);
+
 							if (!schema.fix) {
 								return;
 							}

@@ -67,6 +67,7 @@ module.exports = function checkOrder(firstPropData, secondPropData, allPropData,
 
 		return false;
 	}
+
 	if (unspecified === 'bottomAlphabetical' && firstPropIsUnspecified) {
 		return false;
 	}
@@ -82,6 +83,7 @@ module.exports = function checkOrder(firstPropData, secondPropData, allPropData,
 	if (unspecified === 'top' && firstPropIsUnspecified) {
 		return true;
 	}
+
 	if (unspecified === 'top' && secondPropIsUnspecified) {
 		return false;
 	}
@@ -89,6 +91,7 @@ module.exports = function checkOrder(firstPropData, secondPropData, allPropData,
 	if (unspecified === 'bottom' && secondPropIsUnspecified) {
 		return true;
 	}
+
 	if (unspecified === 'bottom' && firstPropIsUnspecified) {
 		return false;
 	}
