@@ -1,5 +1,3 @@
-'use strict';
-
 const stylelint = require('stylelint');
 const _ = require('lodash');
 const postcssSorting = require('postcss-sorting');

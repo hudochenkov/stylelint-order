@@ -1,5 +1,3 @@
-'use strict';
-
 const ruleName = require('..').ruleName;
 
 testConfig({

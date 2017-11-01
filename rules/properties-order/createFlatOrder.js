@@ -1,5 +1,3 @@
-'use strict';
-
 const _ = require('lodash');
 
 module.exports = function createFlatOrder(order) {

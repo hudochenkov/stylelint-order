@@ -1,5 +1,3 @@
-'use strict';
-
 const utils = require('../../utils');
 const calcAtRulePatternPriority = require('./calcAtRulePatternPriority');
 const calcRulePatternPriority = require('./calcRulePatternPriority');

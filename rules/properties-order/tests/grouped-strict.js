@@ -1,5 +1,3 @@
-'use strict';
-
 const rule = require('..');
 const ruleName = rule.ruleName;
 const messages = rule.messages;

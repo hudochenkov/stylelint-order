@@ -1,5 +1,3 @@
-'use strict';
-
 const _ = require('lodash');
 
 // Add an empty line before a node. Mutates the node.

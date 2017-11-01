@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = function hasEmptyLineBefore(decl) {
 	if (/\r?\n\s*\r?\n/.test(decl.raw('before'))) {
 		return true;

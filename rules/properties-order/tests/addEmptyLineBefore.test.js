@@ -1,5 +1,3 @@
-'use strict';
-
 const addEmptyLineBefore = require('../addEmptyLineBefore');
 const postcss = require('postcss');
 

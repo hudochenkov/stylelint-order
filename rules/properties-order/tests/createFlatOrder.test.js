@@ -1,5 +1,3 @@
-'use strict';
-
 const createFlatOrder = require('../createFlatOrder');
 
 describe('createFlatOrder', () => {

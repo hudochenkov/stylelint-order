@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = function calcAtRulePatternPriority(pattern, node) {
 	// 0 — it pattern doesn't match
 	// 1 — pattern without `name` and `hasBlock`
