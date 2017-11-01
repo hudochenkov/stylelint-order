@@ -25,6 +25,15 @@
 				"singleQuote": true,
 				"trailingComma": "es5"
 			}
-		]
+		],
+		"prefer-destructuring": [
+			"error",
+			{
+		       "array": false,
+		       "object": true
+		    }
+		],
+		"prefer-rest-params": ["error"],
+		"prefer-spread": ["error"]
 	}
 }

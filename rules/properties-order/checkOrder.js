@@ -45,7 +45,7 @@ module.exports = function checkOrder(firstPropData, secondPropData, allPropData,
 		}
 	}
 
-	const unspecified = sharedInfo.unspecified;
+	const { unspecified } = sharedInfo;
 
 	// Now deal with unspecified props
 	// Starting with bottomAlphabetical as it requires more specific conditionals

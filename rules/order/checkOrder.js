@@ -40,7 +40,7 @@ module.exports = function checkOrder(firstNodeData, secondNodeData, allNodesData
 		return true;
 	}
 
-	const unspecified = sharedInfo.unspecified;
+	const { unspecified } = sharedInfo;
 
 	if (unspecified === 'ignore' && (firstNodeIsUnspecified || secondNodeIsUnspecified)) {
 		return true;

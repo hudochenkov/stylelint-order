@@ -69,7 +69,7 @@ function checkNode(node, result) {
 			return;
 		}
 
-		const prop = child.prop;
+		const { prop } = child;
 
 		if (!utils.isStandardSyntaxProperty(prop)) {
 			return;

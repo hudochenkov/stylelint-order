@@ -69,7 +69,7 @@ global.testRule = (rule, schema) => {
 						};
 
 						return stylelint.lint(options).then(output => {
-							const warnings = output.results[0].warnings;
+							const { warnings } = output.results[0];
 							const warning = warnings[0];
 
 							expect(warnings.length).toBeGreaterThanOrEqual(1);
@@ -143,7 +143,7 @@ global.testConfig = input => {
 				config,
 			})
 			.then(function(data) {
-				const invalidOptionWarnings = data.results[0].invalidOptionWarnings;
+				const { invalidOptionWarnings } = data.results[0];
 
 				if (input.valid) {
 					expect(invalidOptionWarnings.length).toBe(0);

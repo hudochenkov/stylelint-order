@@ -22,7 +22,7 @@ module.exports = function checkNode(node, sharedInfo) {
 		};
 
 		if (child.type === 'decl') {
-			const prop = child.prop;
+			const { prop } = child;
 
 			if (utils.isStandardSyntaxProperty(prop) && !utils.isCustomProperty(prop)) {
 				let unprefixedPropName = postcss.vendor.unprefixed(prop);

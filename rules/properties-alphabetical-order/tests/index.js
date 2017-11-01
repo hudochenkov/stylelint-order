@@ -1,6 +1,5 @@
 const rule = require('..');
-const ruleName = rule.ruleName;
-const messages = rule.messages;
+const { ruleName, messages } = rule;
 
 testRule(rule, {
 	ruleName,

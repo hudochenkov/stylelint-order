@@ -1,4 +1,4 @@
-const ruleName = require('..').ruleName;
+const { ruleName } = require('..');
 
 testConfig({
 	ruleName,
