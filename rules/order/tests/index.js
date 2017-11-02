@@ -346,6 +346,7 @@ testRule(rule, {
 			},
 		],
 	],
+	fix: true,
 
 	accept: [
 		{
@@ -504,6 +505,7 @@ testRule(rule, {
 			'declarations',
 		],
 	],
+	fix: true,
 
 	accept: [
 		{
@@ -669,6 +671,7 @@ testRule(rule, {
 			unspecified: 'top',
 		},
 	],
+	fix: true,
 
 	accept: [
 		{
@@ -1044,6 +1047,7 @@ testRule(rule, {
 	],
 });
 
+// Doesn't has fix, because postcss-sorting doesn't know about at-variables
 testRule(rule, {
 	ruleName,
 	syntax: 'less',
@@ -1091,6 +1095,7 @@ testRule(rule, {
 	],
 });
 
+// Doesn't has fix, because postcss-sorting doesn't know about less-mixins
 testRule(rule, {
 	ruleName,
 	syntax: 'less',
@@ -1205,6 +1210,32 @@ testRule(rule, {
 				}
 			`,
 			description: `shouldn't apply fixes`,
+		},
+	],
+});
+
+testRule(rule, {
+	ruleName,
+	config: [['custom-properties']],
+	fix: true,
+
+	accept: [
+		{
+			code: `
+				a {
+					--width: 10px;
+					display: none;
+				}
+			`,
+		},
+		{
+			description: 'should not fix if there no violation',
+			code: `
+				a {
+					display: none;
+					--width: 10px;
+				}
+			`,
 		},
 	],
 });

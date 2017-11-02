@@ -22,6 +22,13 @@ module.exports = function checkOrder(firstNodeData, secondNodeData, allNodesData
 			priorSpecifiedNodeData.expectedPosition &&
 			priorSpecifiedNodeData.expectedPosition > secondNodeData.expectedPosition
 		) {
+			if (sharedInfo.isFixEnabled) {
+				sharedInfo.shouldFix = true;
+
+				// Don't go further, fix will be applied
+				return;
+			}
+
 			stylelint.utils.report({
 				message: sharedInfo.messages.expected(
 					secondNodeData.description,

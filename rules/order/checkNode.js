@@ -44,6 +44,13 @@ module.exports = function checkNode(node, sharedInfo) {
 			return;
 		}
 
+		if (sharedInfo.isFixEnabled) {
+			sharedInfo.shouldFix = true;
+
+			// Don't go further, fix will be applied
+			return;
+		}
+
 		stylelint.utils.report({
 			message: sharedInfo.messages.expected(nodeData.description, previousNodeData.description),
 			node: child,
