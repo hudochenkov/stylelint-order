@@ -77,7 +77,9 @@ testConfig({
 			properties: ['border-bottom', 'font-style'],
 		},
 	],
-	message: `Invalid option "[{"emptyLineBefore":true,"order":"flexible","properties":["border-bottom","font-style"]}]" for rule ${ruleName}`,
+	message: `Invalid option "[{"emptyLineBefore":true,"order":"flexible","properties":["border-bottom","font-style"]}]" for rule ${
+		ruleName
+	}`,
 });
 
 testConfig({
@@ -91,7 +93,9 @@ testConfig({
 			properties: null,
 		},
 	],
-	message: `Invalid option "[{"emptyLineBefore":"always","order":"flexible","properties":null}]" for rule ${ruleName}`,
+	message: `Invalid option "[{"emptyLineBefore":"always","order":"flexible","properties":null}]" for rule ${
+		ruleName
+	}`,
 });
 
 testConfig({
