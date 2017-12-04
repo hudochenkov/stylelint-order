@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.8.0
+
+* Breaking change: Dropped Node.js 4 support. Use Node.js 6 or newer.
+* Changed: `order` and `properties-order` will no longer autofix proactively. If there no violations would be reported with autofix disabled, then nothing will be changed with autofix enabled. Previously, there were changes to `flexible` properties order ([#49](https://github.com/hudochenkov/stylelint-order/issues/49)) or to the order of content within declaration blocks ([#51](https://github.com/hudochenkov/stylelint-order/issues/51)).
+
 ## 0.7.0
 
 * Specified `stylelint` in `peerDependencies` rather in `dependencies`. Following [stylelint's plugin guide](https://github.com/stylelint/stylelint/blob/master/docs/developer-guide/plugins.md#peer-dependencies).
