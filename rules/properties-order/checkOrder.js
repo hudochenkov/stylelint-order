@@ -1,19 +1,26 @@
-const stylelint = require('stylelint');
 const postcss = require('postcss');
 const _ = require('lodash');
 const checkAlphabeticalOrder = require('../checkAlphabeticalOrder');
 
-module.exports = function checkOrder(firstPropData, secondPropData, allPropData, sharedInfo) {
+module.exports = function checkOrder({ firstPropData, secondPropData, allPropData, unspecified }) {
+	function report(result, firstNode = firstPropData, secondNode = secondPropData) {
+		return {
+			result,
+			firstNode,
+			secondNode,
+		};
+	}
+
 	if (firstPropData.unprefixedName === secondPropData.unprefixedName) {
 		// If first property has no prefix and second property has prefix
 		if (
 			!postcss.vendor.prefix(firstPropData.name).length &&
 			postcss.vendor.prefix(secondPropData.name).length
 		) {
-			return false;
+			return report(false);
 		}
 
-		return true;
+		return report(true);
 	}
 
 	const firstPropIsUnspecified = !firstPropData.orderData;
@@ -21,7 +28,9 @@ module.exports = function checkOrder(firstPropData, secondPropData, allPropData,
 
 	// Check actual known properties
 	if (!firstPropIsUnspecified && !secondPropIsUnspecified) {
-		return firstPropData.orderData.expectedPosition <= secondPropData.orderData.expectedPosition;
+		return report(
+			firstPropData.orderData.expectedPosition <= secondPropData.orderData.expectedPosition
+		);
 	}
 
 	if (firstPropIsUnspecified && !secondPropIsUnspecified) {
@@ -34,58 +43,49 @@ module.exports = function checkOrder(firstPropData, secondPropData, allPropData,
 			priorSpecifiedPropData.orderData &&
 			priorSpecifiedPropData.orderData.expectedPosition > secondPropData.orderData.expectedPosition
 		) {
-			stylelint.utils.report({
-				message: sharedInfo.messages.expected(secondPropData.name, priorSpecifiedPropData.name),
-				node: secondPropData.node,
-				result: sharedInfo.result,
-				ruleName: sharedInfo.ruleName,
-			});
-
-			return true; // avoid logging another warning
+			return report(false, priorSpecifiedPropData, secondPropData);
 		}
 	}
-
-	const { unspecified } = sharedInfo;
 
 	// Now deal with unspecified props
 	// Starting with bottomAlphabetical as it requires more specific conditionals
 	if (unspecified === 'bottomAlphabetical' && !firstPropIsUnspecified && secondPropIsUnspecified) {
-		return true;
+		return report(true);
 	}
 
-	if (unspecified === 'bottomAlphabetical' && secondPropIsUnspecified && firstPropIsUnspecified) {
+	if (unspecified === 'bottomAlphabetical' && firstPropIsUnspecified && secondPropIsUnspecified) {
 		if (checkAlphabeticalOrder(firstPropData, secondPropData)) {
-			return true;
+			return report(true);
 		}
 
-		return false;
+		return report(false);
 	}
 
 	if (unspecified === 'bottomAlphabetical' && firstPropIsUnspecified) {
-		return false;
+		return report(false);
 	}
 
 	if (firstPropIsUnspecified && secondPropIsUnspecified) {
-		return true;
+		return report(true);
 	}
 
 	if (unspecified === 'ignore' && (firstPropIsUnspecified || secondPropIsUnspecified)) {
-		return true;
+		return report(true);
 	}
 
 	if (unspecified === 'top' && firstPropIsUnspecified) {
-		return true;
+		return report(true);
 	}
 
 	if (unspecified === 'top' && secondPropIsUnspecified) {
-		return false;
+		return report(false);
 	}
 
 	if (unspecified === 'bottom' && secondPropIsUnspecified) {
-		return true;
+		return report(true);
 	}
 
 	if (unspecified === 'bottom' && firstPropIsUnspecified) {
-		return false;
+		return report(false);
 	}
 };

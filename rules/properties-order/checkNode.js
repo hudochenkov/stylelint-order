@@ -1,79 +1,85 @@
 const stylelint = require('stylelint');
 const postcss = require('postcss');
-const _ = require('lodash');
+const postcssSorting = require('postcss-sorting');
 const utils = require('../../utils');
 const checkEmptyLineBefore = require('./checkEmptyLineBefore');
 const checkOrder = require('./checkOrder');
+const getNodeData = require('./getNodeData');
+const createFlatOrder = require('./createFlatOrder');
 
 module.exports = function checkNode(node, sharedInfo) {
-	// Skip if it's an empty rule
-	if (!node.nodes || !node.nodes.length) {
-		return;
-	}
-
-	const allPropData = [];
 	const allNodesData = [];
 
-	sharedInfo.lastKnownSeparatedGroup = 1;
-
-	node.each(function processEveryNode(child) {
-		let nodeData = {
-			node: child,
-		};
-
-		if (child.type === 'decl') {
-			const { prop } = child;
-
-			if (utils.isStandardSyntaxProperty(prop) && !utils.isCustomProperty(prop)) {
-				let unprefixedPropName = postcss.vendor.unprefixed(prop);
-
-				// Hack to allow -moz-osx-font-smoothing to be understood
-				// just like -webkit-font-smoothing
-				if (unprefixedPropName.indexOf('osx-') === 0) {
-					unprefixedPropName = unprefixedPropName.slice(4);
-				}
-
-				nodeData = {
-					name: prop,
-					unprefixedName: unprefixedPropName,
-					orderData: sharedInfo.expectedOrder[unprefixedPropName],
-					node: child,
-				};
-
-				allPropData.push(nodeData);
-			}
-		}
+	// Collect order data for all nodes
+	node.each(function collectDataForEveryNode(child) {
+		const nodeData = getNodeData(child, sharedInfo.expectedOrder);
 
 		allNodesData.push(nodeData);
+	});
 
-		// current node should be a standard declaration
-		if (
-			child.type !== 'decl' ||
-			!utils.isStandardSyntaxProperty(nodeData.node.prop) ||
-			utils.isCustomProperty(nodeData.node.prop)
-		) {
+	const allPropData = allNodesData.filter(item => item.name);
+	let shouldFixOrder = false;
+
+	// First, check order
+	allPropData.forEach(function checkEveryPropForOrder(propData, index) {
+		// return early if we know there is a violation and auto fix should be applied
+		if (shouldFixOrder && sharedInfo.isFixEnabled) {
 			return;
 		}
 
-		// First, check order
-		const previousPropData = _.nth(allPropData, -2);
-
-		// Skip first decl
-		if (previousPropData && (!sharedInfo.context.fix || sharedInfo.disableFix)) {
-			const isCorrectOrder = checkOrder(previousPropData, nodeData, allPropData, sharedInfo);
-
-			if (!isCorrectOrder) {
-				stylelint.utils.report({
-					message: sharedInfo.messages.expected(nodeData.name, previousPropData.name),
-					node: child,
-					result: sharedInfo.result,
-					ruleName: sharedInfo.ruleName,
-				});
-			}
+		// current node should be a standard declaration
+		if (!utils.isProperty(propData.node)) {
+			return;
 		}
 
-		// Second, check emptyLineBefore
-		let previousNodeData = _.nth(allNodesData, -2);
+		const previousPropData = allPropData[index - 1];
+
+		// Skip first decl
+		if (previousPropData) {
+			const checkedOrder = checkOrder({
+				firstPropData: previousPropData,
+				secondPropData: propData,
+				unspecified: sharedInfo.unspecified,
+				allPropData: allPropData.slice(0, index),
+			});
+
+			if (!checkedOrder.result) {
+				if (sharedInfo.isFixEnabled) {
+					shouldFixOrder = true;
+				} else {
+					stylelint.utils.report({
+						message: sharedInfo.messages.expected(
+							checkedOrder.secondNode.name,
+							checkedOrder.firstNode.name
+						),
+						node: checkedOrder.secondNode.node,
+						result: sharedInfo.result,
+						ruleName: sharedInfo.ruleName,
+					});
+				}
+			}
+		}
+	});
+
+	if (shouldFixOrder && sharedInfo.isFixEnabled) {
+		const sortingOptions = {
+			'properties-order': createFlatOrder(sharedInfo.expectation),
+			'unspecified-properties-position':
+				sharedInfo.unspecified === 'ignore' ? 'bottom' : sharedInfo.unspecified,
+		};
+
+		// creating PostCSS Root node with current node as a child,
+		// so PostCSS Sorting can process it
+		const tempRoot = postcss.root({ nodes: [node] });
+
+		postcssSorting(sortingOptions)(tempRoot);
+	}
+
+	sharedInfo.lastKnownSeparatedGroup = 1;
+
+	// Second, check emptyLineBefore
+	allNodesData.forEach(function checkEveryPropForEmptyLine(nodeData, index) {
+		let previousNodeData = allNodesData[index - 1];
 
 		// if previous node is shared-line comment, use second previous node
 		if (
@@ -81,7 +87,7 @@ module.exports = function checkNode(node, sharedInfo) {
 			previousNodeData.node.type === 'comment' &&
 			previousNodeData.node.raw('before').indexOf('\n') === -1
 		) {
-			previousNodeData = _.nth(allNodesData, -3);
+			previousNodeData = allNodesData[index - 2];
 		}
 
 		// skip first decl
@@ -89,18 +95,11 @@ module.exports = function checkNode(node, sharedInfo) {
 			return;
 		}
 
-		if (previousNodeData.node.type !== 'decl') {
-			return;
-		}
-
 		// previous node should be a standard declaration
-		if (
-			!utils.isStandardSyntaxProperty(previousNodeData.node.prop) ||
-			utils.isCustomProperty(previousNodeData.node.prop)
-		) {
+		if (!utils.isProperty(previousNodeData.node)) {
 			return;
 		}
 
-		checkEmptyLineBefore(previousPropData, nodeData, sharedInfo);
+		checkEmptyLineBefore(previousNodeData, nodeData, sharedInfo);
 	});
 };

@@ -1,10 +1,8 @@
 const stylelint = require('stylelint');
 const _ = require('lodash');
-const postcssSorting = require('postcss-sorting');
 const utils = require('../../utils');
 const checkNode = require('./checkNode');
 const createExpectedOrder = require('./createExpectedOrder');
-const createFlatOrder = require('./createFlatOrder');
 const validatePrimaryOption = require('./validatePrimaryOption');
 
 const ruleName = utils.namespace('properties-order');
@@ -15,9 +13,7 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 	rejectedEmptyLineBefore: property => `Unexpected an empty line before property "${property}"`,
 });
 
-const rule = function(expectation, options, context) {
-	context = context || {};
-
+const rule = function(expectation, options, context = {}) {
 	return function(root, result) {
 		const validOptions = stylelint.utils.validateOptions(
 			result,
@@ -41,22 +37,9 @@ const rule = function(expectation, options, context) {
 		}
 
 		// By default, ignore unspecified properties
-		let unspecified = _.get(options, ['unspecified'], 'ignore');
-
-		const disableFix = _.get(options, ['disableFix'], false);
-
-		if (context.fix && !disableFix) {
-			if (unspecified === 'ignore') {
-				unspecified = 'bottom';
-			}
-
-			const sortingOptions = {
-				'properties-order': createFlatOrder(expectation),
-				'unspecified-properties-position': unspecified,
-			};
-
-			postcssSorting(sortingOptions)(root);
-		}
+		const unspecified = _.get(options, 'unspecified', 'ignore');
+		const disableFix = _.get(options, 'disableFix', false);
+		const isFixEnabled = context.fix && !disableFix;
 
 		const expectedOrder = createExpectedOrder(expectation);
 
@@ -68,12 +51,12 @@ const rule = function(expectation, options, context) {
 			ruleName,
 			result,
 			context,
-			disableFix,
+			isFixEnabled,
 		};
 
 		// Check all rules and at-rules recursively
 		root.walk(function processRulesAndAtrules(node) {
-			if (node.type === 'rule' || node.type === 'atrule') {
+			if (utils.isRuleWithNodes(node)) {
 				checkNode(node, sharedInfo);
 			}
 		});

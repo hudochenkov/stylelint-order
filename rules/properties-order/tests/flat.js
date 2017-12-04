@@ -51,6 +51,7 @@ testRule(rule, {
 
 	reject: [
 		{
+			// only: true,
 			code: 'a { color: pink; top: 0;  }',
 			fixed: 'a { top: 0; color: pink;  }',
 			message: messages.expected('top', 'color'),
@@ -305,6 +306,7 @@ testRule(rule, {
 
 	reject: [
 		{
+			description: `report incorrect order if there're properties with undefined order`,
 			code: '.foo { margin: 0; color: pink; left: 0; }',
 			fixed: '.foo { left: 0; margin: 0; color: pink; }',
 			message: messages.expected('left', 'margin'),

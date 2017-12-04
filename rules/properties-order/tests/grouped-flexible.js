@@ -13,6 +13,7 @@ testRule(rule, {
 			},
 		],
 	],
+	fix: true,
 
 	accept: [
 		{
@@ -43,24 +44,6 @@ testRule(rule, {
 			code: 'a { background: orange; font-weight: bold; }',
 			description: 'unspecified before grouped specified',
 		},
-	],
-});
-
-testRule(rule, {
-	ruleName,
-	config: [
-		[
-			'height',
-			'width',
-			{
-				order: 'flexible',
-				properties: ['color', 'font-size', 'font-weight'],
-			},
-		],
-	],
-	fix: true,
-
-	accept: [
 		{
 			code: 'a { height: 1px; width: 2px; color: pink; font-size: 2px; font-weight: bold; }',
 		},
@@ -120,6 +103,7 @@ testRule(rule, {
 			},
 		],
 	],
+	fix: true,
 
 	accept: [
 		{
@@ -135,23 +119,6 @@ testRule(rule, {
 			code: 'a { width: 2px; height: 1px; font-weight: bold; font-size: 2px; color: pink; }',
 		},
 	],
-});
-
-testRule(rule, {
-	ruleName,
-	config: [
-		[
-			{
-				order: 'flexible',
-				properties: ['width', 'height'],
-			},
-			{
-				order: 'flexible',
-				properties: ['color', 'font-size', 'font-weight'],
-			},
-		],
-	],
-	fix: true,
 
 	reject: [
 		{

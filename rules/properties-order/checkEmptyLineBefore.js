@@ -16,6 +16,8 @@ module.exports = function checkEmptyLineBefore(firstPropData, secondPropData, sh
 		? secondPropData.orderData.separatedGroup
 		: sharedInfo.lastKnownSeparatedGroup;
 
+	sharedInfo.lastKnownSeparatedGroup = secondPropSeparatedGroup;
+
 	if (firstPropSeparatedGroup !== secondPropSeparatedGroup && !secondPropIsUnspecified) {
 		// Get an array of just the property groups, remove any solo properties
 		const groups = _.reject(sharedInfo.expectation, _.isString);
@@ -25,7 +27,7 @@ module.exports = function checkEmptyLineBefore(firstPropData, secondPropData, sh
 		const emptyLineBefore = _.get(groups[secondPropSeparatedGroup - 2], 'emptyLineBefore');
 
 		if (!hasEmptyLineBefore(secondPropData.node) && emptyLineBefore === 'always') {
-			if (sharedInfo.context.fix && !sharedInfo.disableFix) {
+			if (sharedInfo.isFixEnabled) {
 				addEmptyLineBefore(secondPropData.node, sharedInfo.context.newline);
 			} else {
 				stylelint.utils.report({
@@ -36,7 +38,7 @@ module.exports = function checkEmptyLineBefore(firstPropData, secondPropData, sh
 				});
 			}
 		} else if (hasEmptyLineBefore(secondPropData.node) && emptyLineBefore === 'never') {
-			if (sharedInfo.context.fix && !sharedInfo.disableFix) {
+			if (sharedInfo.isFixEnabled) {
 				removeEmptyLinesBefore(secondPropData.node, sharedInfo.context.newline);
 			} else {
 				stylelint.utils.report({
@@ -48,6 +50,4 @@ module.exports = function checkEmptyLineBefore(firstPropData, secondPropData, sh
 			}
 		}
 	}
-
-	sharedInfo.lastKnownSeparatedGroup = secondPropSeparatedGroup;
 };
