@@ -30,7 +30,7 @@ global.testRule = (rule, schema) => {
 				schema.accept.forEach(testCase => {
 					const spec = testCase.only ? it.only : it;
 
-					spec(testCase.description || 'no description', () => {
+					spec(testCase.description || testCase.code || 'no description', () => {
 						const options = {
 							code: testCase.code,
 							config: stylelintConfig,
@@ -61,7 +61,7 @@ global.testRule = (rule, schema) => {
 				schema.reject.forEach(testCase => {
 					const spec = testCase.only ? it.only : it;
 
-					spec(testCase.description || 'no description', () => {
+					spec(testCase.description || testCase.code || 'no description', () => {
 						const options = {
 							code: testCase.code,
 							config: stylelintConfig,
