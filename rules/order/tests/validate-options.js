@@ -184,9 +184,7 @@ testConfig({
 			parameter: '',
 		},
 	],
-	message: `Invalid option "[{"type":"at-rule","name":"include","parameter":""}]" for rule ${
-		ruleName
-	}`,
+	message: `Invalid option "[{"type":"at-rule","name":"include","parameter":""}]" for rule ${ruleName}`,
 });
 
 testConfig({
@@ -200,9 +198,7 @@ testConfig({
 			parameter: null,
 		},
 	],
-	message: `Invalid option "[{"type":"at-rule","name":"include","parameter":null}]" for rule ${
-		ruleName
-	}`,
+	message: `Invalid option "[{"type":"at-rule","name":"include","parameter":null}]" for rule ${ruleName}`,
 });
 
 testConfig({
