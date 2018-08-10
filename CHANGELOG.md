@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.0
+
+* Removed `stylelint@8` as a peer dependency.
+
 ## 0.8.1
 
 * Add `stylelint@9.0.0` as a peer dependency.
