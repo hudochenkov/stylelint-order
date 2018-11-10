@@ -59,7 +59,15 @@ global.testRule = (rule, schema) => {
 		if (schema.reject && schema.reject.length) {
 			describe('reject', () => {
 				schema.reject.forEach(testCase => {
-					const spec = testCase.only ? it.only : it;
+					let spec = it;
+
+					if (testCase.only) {
+						spec = it.only;
+					}
+
+					if (testCase.skip) {
+						spec = it.skip;
+					}
 
 					spec(testCase.description || testCase.code || 'no description', () => {
 						const options = {

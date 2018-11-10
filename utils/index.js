@@ -6,4 +6,5 @@ module.exports = {
 	isDollarVariable: require('./isDollarVariable'),
 	isAtVariable: require('./isAtVariable'),
 	isRuleWithNodes: require('./isRuleWithNodes'),
+	isLessMixin: require('./isLessMixin'),
 };

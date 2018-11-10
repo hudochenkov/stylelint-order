@@ -6,18 +6,18 @@ const getDescription = require('./getDescription');
 module.exports = function getOrderData(expectedOrder, node) {
 	let nodeType;
 
-	if (node.type === 'decl') {
+	if (utils.isAtVariable(node)) {
+		nodeType = 'at-variables';
+	} else if (utils.isLessMixin(node)) {
+		nodeType = 'less-mixins';
+	} else if (node.type === 'decl') {
 		if (utils.isCustomProperty(node.prop)) {
 			nodeType = 'custom-properties';
 		} else if (utils.isDollarVariable(node.prop)) {
 			nodeType = 'dollar-variables';
-		} else if (utils.isAtVariable(node.prop)) {
-			nodeType = 'at-variables';
 		} else if (utils.isStandardSyntaxProperty(node.prop)) {
 			nodeType = 'declarations';
 		}
-	} else if (node.type === 'rule' && node.empty && !node.extend) {
-		nodeType = 'less-mixins';
 	} else if (node.type === 'rule') {
 		nodeType = {
 			type: 'rule',

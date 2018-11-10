@@ -1,10 +1,7 @@
 /**
- * Check whether a property is a @-variable
- *
- * @param {string} property
- * @return {boolean} If `true`, property is a @-variable
+ * Check whether a property is a @-variable (Less)
  */
 
-module.exports = function isAtVariable(property) {
-	return property[0] === '@';
+module.exports = function isAtVariable(node) {
+	return node.type === 'atrule' && node.variable;
 };

@@ -1131,6 +1131,7 @@ testRule(rule, {
 			message: messages.expected('Less mixin', 'rule'),
 		},
 		{
+			skip: true,
 			code: `
 				a {
 					&:extend(.class1);
