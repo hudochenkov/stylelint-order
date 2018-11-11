@@ -3,9 +3,6 @@
 		"eslint-config-hudochenkov",
 		"eslint-config-prettier"
 	],
-	"plugins": [
-		"prettier"
-	],
 	"env": {
 		"browser": false,
 		"node": true,
@@ -17,15 +14,6 @@
 		"testRule": true
 	},
 	"rules": {
-		"prettier/prettier": [
-			"error",
-			{
-				"printWidth": 100,
-				"useTabs": true,
-				"singleQuote": true,
-				"trailingComma": "es5"
-			}
-		],
 		"prefer-destructuring": [
 			"error",
 			{
