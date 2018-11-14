@@ -20,17 +20,6 @@ module.exports = function checkNode(node, sharedInfo) {
 	const allPropData = allNodesData.filter(item => item.name);
 	let shouldFixOrder = false;
 
-	// for grouped properties, create a map to their group names (used for error messages)
-	const groupNamesByProperty = {};
-
-	for (const group of sharedInfo.expectation.filter(e => typeof e === 'object')) {
-		for (const prop of group.properties) {
-			if (group.name) {
-				groupNamesByProperty[prop] = group.name;
-			}
-		}
-	}
-
 	// First, check order
 	allPropData.forEach(function checkEveryPropForOrder(propData, index) {
 		// return early if we know there is a violation and auto fix should be applied
@@ -58,13 +47,13 @@ module.exports = function checkNode(node, sharedInfo) {
 				if (sharedInfo.isFixEnabled) {
 					shouldFixOrder = true;
 				} else {
-					const groupName = groupNamesByProperty[checkedOrder.secondNode.name];
+					const { orderData } = checkedOrder.secondNode;
 
 					stylelint.utils.report({
 						message: sharedInfo.messages.expected(
 							checkedOrder.secondNode.name,
 							checkedOrder.firstNode.name,
-							groupName
+							orderData && orderData.groupName
 						),
 						node: checkedOrder.secondNode.node,
 						result: sharedInfo.result,

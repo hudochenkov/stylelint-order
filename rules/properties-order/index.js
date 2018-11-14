@@ -9,9 +9,7 @@ const ruleName = utils.namespace('properties-order');
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
 	expected: (first, second, groupName) => `
-		Expected "${first}"${
-		groupName ? ` to be grouped with other "${groupName}" properties and` : ''
-	} to come before "${second}"`,
+	  Expected "${first}" to come before "${second}"${groupName ? ` in group "${groupName}"` : ''}`,
 	expectedEmptyLineBefore: property => `Expected an empty line before property "${property}"`,
 	rejectedEmptyLineBefore: property => `Unexpected an empty line before property "${property}"`,
 });
