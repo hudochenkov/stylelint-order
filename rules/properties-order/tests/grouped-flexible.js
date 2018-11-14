@@ -89,6 +89,36 @@ testRule(rule, {
 	],
 });
 
+// Also test with groupName
+testRule(rule, {
+	ruleName,
+	config: [
+		[
+			{
+				groupName: 'font',
+				order: 'flexible',
+				properties: ['font-size', 'font-weight'],
+			},
+			'height',
+			'width',
+		],
+	],
+
+	accept: [
+		{
+			code: 'a { font-size: 2px; font-weight: bold; height: 1px; width: 2px; }',
+		},
+	],
+	reject: [
+		{
+			code: 'a { height: 1px; font-weight: bold; }',
+			message: messages.expected('font-weight', 'height', 'font'),
+			line: 1,
+			column: 18,
+		},
+	],
+});
+
 testRule(rule, {
 	ruleName,
 	config: [
@@ -141,6 +171,40 @@ testRule(rule, {
 			message: messages.expected('width', 'color'),
 			line: 1,
 			column: 31,
+		},
+	],
+});
+
+// Also test with groupName
+testRule(rule, {
+	ruleName,
+	config: [
+		[
+			{
+				groupName: 'dimensions',
+				order: 'flexible',
+				properties: ['width', 'height'],
+			},
+			{
+				groupName: 'font',
+				order: 'flexible',
+				properties: ['color', 'font-size', 'font-weight'],
+			},
+		],
+	],
+
+	accept: [
+		{
+			code: 'a { height: 1px; width: 2px; color: pink; font-size: 2px; font-weight: bold; }',
+		},
+	],
+	reject: [
+		{
+			code: 'a { height: 1px; font-weight: bold; width: 2px; }',
+			fixed: 'a { width: 2px; height: 1px; font-weight: bold; }',
+			message: messages.expected('width', 'font-weight', 'dimensions'),
+			line: 1,
+			column: 37,
 		},
 	],
 });

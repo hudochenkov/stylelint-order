@@ -34,6 +34,7 @@ Within an order array, you can include
 	* `order: "flexible"`: If property isn't set (the default), the properties in this group must come in the order specified. If `"flexible"`, the properties can be in any order as long as they are grouped correctly.
 	* `properties (array of strings)`: The properties in this group.
 	* `emptyLineBefore ("always"|"never")`: If `always`, this group must be separated from other properties by an empty newline. If emptyLineBefore is `never`, the group must have no empty lines separating it from other properties. By default this property isn't set. Rule will check empty lines between properties _only_. However, shared-line comments ignored by rule. Shared-line comment is a comment on the same line as declaration before this comment.
+	* `groupName`: An optional name for the group. This will be used in error messages.
 
 There are some important details to keep in mind:
 
@@ -208,6 +209,7 @@ Given:
 ```js
 [
 	{
+		groupName: "dimensions",
 		emptyLineBefore: "always",
 		properties: [
 			"height",
@@ -215,6 +217,7 @@ Given:
 		],
 	},
 	{
+		groupName: "font",
 		emptyLineBefore: "always",
 		properties: [
 			"font-size",
