@@ -25,6 +25,41 @@ testRule(rule, {
 	],
 });
 
+// Also test with groupName
+testRule(rule, {
+	ruleName,
+	config: [
+		[
+			{
+				groupName: 'font',
+				properties: ['font-size', 'font-weight'],
+			},
+			'height',
+			'width',
+		],
+	],
+
+	accept: [
+		{
+			code: 'a { font-size: 2px; font-weight: bold; height: 1px; width: 2px; }',
+		},
+	],
+	reject: [
+		{
+			code: 'a { height: 1px; font-weight: bold; }',
+			message: messages.expected('font-weight', 'height', 'font'),
+			line: 1,
+			column: 18,
+		},
+		{
+			code: 'a { font-weight: bold; font-size: 2px; height: 1px; }',
+			message: messages.expected('font-size', 'font-weight', 'font'),
+			line: 1,
+			column: 24,
+		},
+	],
+});
+
 testRule(rule, {
 	ruleName,
 	config: [

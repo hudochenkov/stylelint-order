@@ -47,10 +47,13 @@ module.exports = function checkNode(node, sharedInfo) {
 				if (sharedInfo.isFixEnabled) {
 					shouldFixOrder = true;
 				} else {
+					const { orderData } = checkedOrder.secondNode;
+
 					stylelint.utils.report({
 						message: sharedInfo.messages.expected(
 							checkedOrder.secondNode.name,
-							checkedOrder.firstNode.name
+							checkedOrder.firstNode.name,
+							orderData && orderData.groupName
 						),
 						node: checkedOrder.secondNode.node,
 						result: sharedInfo.result,

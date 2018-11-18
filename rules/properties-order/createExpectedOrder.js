@@ -5,13 +5,13 @@ module.exports = function createExpectedOrder(input) {
 	let expectedPosition = 0;
 	let separatedGroup = 1;
 
-	appendGroup(input);
+	appendGroup({ properties: input });
 
-	function appendGroup(items) {
-		items.forEach(item => appendItem(item, false));
+	function appendGroup(group) {
+		group.properties.forEach(item => appendItem(item, false, group));
 	}
 
-	function appendItem(item, inFlexibleGroup) {
+	function appendItem(item, inFlexibleGroup, group) {
 		if (_.isString(item)) {
 			// In flexible groups, the expectedPosition does not ascend
 			// to make that flexibility work;
@@ -20,7 +20,7 @@ module.exports = function createExpectedOrder(input) {
 				expectedPosition += 1;
 			}
 
-			order[item] = { separatedGroup, expectedPosition };
+			order[item] = { separatedGroup, expectedPosition, groupName: group.groupName };
 
 			return;
 		}
@@ -34,10 +34,10 @@ module.exports = function createExpectedOrder(input) {
 			expectedPosition += 1;
 
 			item.properties.forEach(property => {
-				appendItem(property, true);
+				appendItem(property, true, item);
 			});
 		} else {
-			appendGroup(item.properties);
+			appendGroup(item);
 		}
 	}
 
