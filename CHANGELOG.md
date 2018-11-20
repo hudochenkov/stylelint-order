@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 2.0.0
+
+This is a major release, because this plugin requires stylelint@9.8.0+ to work correctly with Less files.
+
+* Add optional groupName property for properties-order.
+* Adopted `postcss-less@3` parser changes, which is dependency of `stylelint@9.7.0+`.
+* Fixed incorrect fixing when properties order and empty lines should be changed at the same time.
+
 ## 1.0.0
 
 * Removed `stylelint@8` as a peer dependency.
