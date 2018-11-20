@@ -23,7 +23,8 @@
     "rules",
     "utils",
     "!**/tests",
-    "index.js"
+    "index.js",
+    "!.DS_Store"
   ],
   "main": "index.js",
   "dependencies": {
