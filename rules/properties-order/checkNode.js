@@ -8,17 +8,11 @@ const getNodeData = require('./getNodeData');
 const createFlatOrder = require('./createFlatOrder');
 
 module.exports = function checkNode(node, sharedInfo) {
-	const allNodesData = [];
-
-	// Collect order data for all nodes
-	node.each(function collectDataForEveryNode(child) {
-		const nodeData = getNodeData(child, sharedInfo.expectedOrder);
-
-		allNodesData.push(nodeData);
-	});
-
-	const allPropData = allNodesData.filter(item => item.name);
 	let shouldFixOrder = false;
+
+	const allPropData = node.nodes
+		.filter(item => utils.isProperty(item))
+		.map(item => getNodeData(item, sharedInfo.expectedOrder));
 
 	// First, check order
 	allPropData.forEach(function checkEveryPropForOrder(propData, index) {
@@ -79,6 +73,10 @@ module.exports = function checkNode(node, sharedInfo) {
 	}
 
 	sharedInfo.lastKnownSeparatedGroup = 1;
+
+	const allNodesData = node.nodes.map(function collectDataForEveryNode(child) {
+		return getNodeData(child, sharedInfo.expectedOrder);
+	});
 
 	// Second, check emptyLineBefore
 	allNodesData.forEach(function checkEveryPropForEmptyLine(nodeData, index) {

@@ -1370,3 +1370,73 @@ testRule(rule, {
 		},
 	],
 });
+
+testRule(rule, {
+	ruleName,
+	config: [
+		[
+			{
+				emptyLineBefore: 'always',
+				properties: ['width', 'height'],
+			},
+			{
+				emptyLineBefore: 'always',
+				properties: ['font-size', 'font-family'],
+			},
+			{
+				emptyLineBefore: 'always',
+				properties: ['background-repeat'],
+			},
+		],
+	],
+	fix: true,
+
+	reject: [
+		{
+			description: 'fix order and empty line before',
+			code: `
+				a {
+					width: 100%;
+					font-size: 14px;
+					height: 100%;
+					font-family: "Arial", "Helvetica", sans-serif;
+					background-repeat: no-repeat;
+				}
+			`,
+			fixed: `
+				a {
+					width: 100%;
+					height: 100%;
+
+					font-size: 14px;
+					font-family: "Arial", "Helvetica", sans-serif;
+
+					background-repeat: no-repeat;
+				}
+			`,
+		},
+		{
+			description: 'fix empty line before, order is fine',
+			code: `
+				a {
+					width: 100%;
+					height: 100%;
+					font-size: 14px;
+					font-family: "Arial", "Helvetica", sans-serif;
+					background-repeat: no-repeat;
+				}
+			`,
+			fixed: `
+				a {
+					width: 100%;
+					height: 100%;
+
+					font-size: 14px;
+					font-family: "Arial", "Helvetica", sans-serif;
+
+					background-repeat: no-repeat;
+				}
+			`,
+		},
+	],
+});
