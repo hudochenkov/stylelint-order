@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 2.1.0
+
+* Added _experimental_ support for HTML style tag and attribute.
+* Added _experimental_ support for CSS-in-JS.
+
 ## 2.0.0
 
 This is a major release, because this plugin requires stylelint@9.8.0+ to work correctly with Less files.
