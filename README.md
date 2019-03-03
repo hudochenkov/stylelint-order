@@ -52,6 +52,8 @@ Every rule support autofixing (`stylelint --fix`). [postcss-sorting] is using in
 
 Automatic sortings has some limitation, which are described for every rule if any. Please, take a look at [how comments are handled](https://github.com/hudochenkov/postcss-sorting#handling-comments) by postcss-sorting.
 
+CSS-in-JS styles with template interpolation [could be ignored by autofixing](https://github.com/hudochenkov/postcss-sorting#css-in-js) to avoid styles corruption.
+
 Autofixing is enabled by default if it's enabled in stylelint configuration. Autofixing can be disabled on per rule basis using `disableFix: true` secondary option. E. g.:
 
 ```json

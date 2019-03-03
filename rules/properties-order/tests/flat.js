@@ -51,7 +51,6 @@ testRule(rule, {
 
 	reject: [
 		{
-			// only: true,
 			code: 'a { color: pink; top: 0;  }',
 			fixed: 'a { top: 0; color: pink;  }',
 			message: messages.expected('top', 'color'),
@@ -345,6 +344,236 @@ testRule(rule, {
 			fixed: 'a { top: 0; transform: scale(1); color: pink; }',
 			message: messages.expected('transform', 'top'),
 			description: `shouldn't apply fixes`,
+		},
+	],
+});
+
+testRule(rule, {
+	ruleName,
+	config: [['top', 'color']],
+	syntax: 'css-in-js',
+	fix: true,
+
+	accept: [
+		{
+			code: `
+				const Component = styled.div\`
+					top: 0;
+					color: tomato;
+				\`;
+			`,
+		},
+		{
+			code: `
+				const Component = styled.div\`
+					top: 0;
+					\${props => props.great && 'color: red;'}
+					color: tomato;
+				\`;
+			`,
+		},
+		{
+			code: `
+				const Component = styled.div\`
+					top: 0;
+					\${props => props.great && 'color: red;'}
+					color: tomato;
+
+					a {
+						top: 0;
+						color: tomato;
+					}
+				\`;
+			`,
+		},
+		{
+			code: `
+				const Component = styled.div\`
+					top: 0;
+					color: tomato;
+
+					a {
+						top: 0;
+						\${props => props.great && 'color: red;'}
+						color: tomato;
+					}
+				\`;
+			`,
+		},
+	],
+
+	reject: [
+		{
+			code: `
+				const Component = styled.div\`
+					color: tomato;
+					top: 0;
+				\`;
+			`,
+			fixed: `
+				const Component = styled.div\`
+					top: 0;
+					color: tomato;
+				\`;
+			`,
+		},
+		{
+			code: `
+				const Component = styled.div\`
+					color: tomato;
+					\${props => props.great && 'color: red;'}
+					top: 0;
+				\`;
+			`,
+			fixed: `
+				const Component = styled.div\`
+					color: tomato;
+					\${props => props.great && 'color: red;'}
+					top: 0;
+				\`;
+			`,
+		},
+		{
+			code: `
+				const Component = styled.div\`
+					color: tomato;
+					\${props => props.great && 'color: red;'}
+					top: 0;
+
+					a {
+						top: 0;
+						color: tomato;
+					}
+				\`;
+			`,
+			fixed: `
+				const Component = styled.div\`
+					color: tomato;
+					\${props => props.great && 'color: red;'}
+					top: 0;
+
+					a {
+						top: 0;
+						color: tomato;
+					}
+				\`;
+			`,
+		},
+		{
+			code: `
+				const Component = styled.div\`
+					top: 0;
+					color: tomato;
+
+					a {
+						color: tomato;
+						\${props => props.great && 'color: red;'}
+						top: 0;
+					}
+				\`;
+			`,
+			fixed: `
+				const Component = styled.div\`
+					top: 0;
+					color: tomato;
+
+					a {
+						color: tomato;
+						\${props => props.great && 'color: red;'}
+						top: 0;
+					}
+				\`;
+			`,
+		},
+	],
+});
+
+testRule(rule, {
+	ruleName,
+	config: [['top', 'color']],
+	syntax: 'html',
+	fix: true,
+
+	accept: [
+		{
+			code: `
+				<!DOCTYPE html>
+				<html>
+				<head>
+					<style>
+						a {
+							top: 0;
+							color: tomato;
+						}
+					</style>
+				</head>
+				<body>
+				</body>
+				</html>
+			`,
+		},
+		{
+			code: `
+				<!DOCTYPE html>
+				<html>
+				<body>
+					<div style="top: 0;color: tomato;"></div>
+				</body>
+				</html>
+			`,
+		},
+	],
+
+	reject: [
+		{
+			code: `
+				<!DOCTYPE html>
+				<html>
+				<head>
+					<style>
+						a {
+							color: tomato;
+							top: 0;
+						}
+					</style>
+				</head>
+				<body>
+				</body>
+				</html>
+			`,
+			fixed: `
+				<!DOCTYPE html>
+				<html>
+				<head>
+					<style>
+						a {
+							top: 0;
+							color: tomato;
+						}
+					</style>
+				</head>
+				<body>
+				</body>
+				</html>
+			`,
+		},
+		{
+			code: `
+				<!DOCTYPE html>
+				<html>
+				<body>
+					<div style="color: tomato;top: 0;"></div>
+				</body>
+				</html>
+			`,
+			fixed: `
+				<!DOCTYPE html>
+				<html>
+				<body>
+					<div style="top: 0;color: tomato;"></div>
+				</body>
+				</html>
+			`,
 		},
 	],
 });

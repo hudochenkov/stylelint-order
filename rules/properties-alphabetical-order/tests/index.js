@@ -164,3 +164,143 @@ testRule(rule, {
 		},
 	],
 });
+
+testRule(rule, {
+	ruleName,
+	config: [true],
+	syntax: 'css-in-js',
+	fix: true,
+
+	accept: [
+		{
+			code: `
+				const Component = styled.div\`
+					color: tomato;
+					top: 0;
+				\`;
+			`,
+		},
+		{
+			code: `
+				const Component = styled.div\`
+					color: tomato;
+					\${props => props.great && 'color: red;'}
+					top: 0;
+				\`;
+			`,
+		},
+		{
+			code: `
+				const Component = styled.div\`
+					color: tomato;
+					\${props => props.great && 'color: red;'}
+					top: 0;
+
+					a {
+						color: tomato;
+						top: 0;
+					}
+				\`;
+			`,
+		},
+		{
+			code: `
+				const Component = styled.div\`
+					color: tomato;
+					top: 0;
+
+					a {
+						color: tomato;
+						\${props => props.great && 'color: red;'}
+						top: 0;
+					}
+				\`;
+			`,
+		},
+	],
+
+	reject: [
+		{
+			code: `
+				const Component = styled.div\`
+					top: 0;
+					color: tomato;
+				\`;
+			`,
+			fixed: `
+				const Component = styled.div\`
+					color: tomato;
+					top: 0;
+				\`;
+			`,
+		},
+		{
+			code: `
+				const Component = styled.div\`
+					top: 0;
+					\${props => props.great && 'color: red;'}
+					color: tomato;
+				\`;
+			`,
+			fixed: `
+				const Component = styled.div\`
+					top: 0;
+					\${props => props.great && 'color: red;'}
+					color: tomato;
+				\`;
+			`,
+		},
+		{
+			code: `
+				const Component = styled.div\`
+					top: 0;
+					\${props => props.great && 'color: red;'}
+					color: tomato;
+
+					a {
+						color: tomato;
+						top: 0;
+					}
+				\`;
+			`,
+			fixed: `
+				const Component = styled.div\`
+					top: 0;
+					\${props => props.great && 'color: red;'}
+					color: tomato;
+
+					a {
+						color: tomato;
+						top: 0;
+					}
+				\`;
+			`,
+		},
+		{
+			code: `
+				const Component = styled.div\`
+					color: tomato;
+					top: 0;
+
+					a {
+						top: 0;
+						\${props => props.great && 'color: red;'}
+						color: tomato;
+					}
+				\`;
+			`,
+			fixed: `
+				const Component = styled.div\`
+					color: tomato;
+					top: 0;
+
+					a {
+						top: 0;
+						\${props => props.great && 'color: red;'}
+						color: tomato;
+					}
+				\`;
+			`,
+		},
+	],
+});

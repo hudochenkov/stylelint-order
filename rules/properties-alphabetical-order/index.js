@@ -43,9 +43,19 @@ function rule(actual, options, context) {
 			return;
 		}
 
-		// Check all rules and at-rules recursively
-		root.walk(function processRulesAndAtrules(node) {
-			if (node.type === 'rule' || node.type === 'atrule') {
+		const processedParents = [];
+
+		root.walk(function processRulesAndAtrules(input) {
+			const node = utils.getContainingNode(input);
+
+			// Avoid warnings duplication, caused by interfering in `root.walk()` algorigthm with `utils.getContainingNode()`
+			if (processedParents.includes(node)) {
+				return;
+			}
+
+			processedParents.push(node);
+
+			if (utils.isRuleWithNodes(node)) {
 				checkNode(node, result);
 			}
 		});
@@ -57,11 +67,6 @@ module.exports.ruleName = ruleName;
 module.exports.messages = messages;
 
 function checkNode(node, result) {
-	// Skip if it's an empty rule
-	if (!node.nodes || !node.nodes.length) {
-		return;
-	}
-
 	const allPropData = [];
 
 	node.each(function processEveryNode(child) {

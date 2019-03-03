@@ -30,7 +30,7 @@
   "dependencies": {
     "lodash": "^4.17.10",
     "postcss": "^7.0.2",
-    "postcss-sorting": "^4.0.1"
+    "postcss-sorting": "^4.1.0"
   },
   "peerDependencies": {
     "stylelint": "^9.10.1"

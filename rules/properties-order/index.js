@@ -55,10 +55,21 @@ const rule = function(expectation, options, context = {}) {
 			isFixEnabled,
 		};
 
+		const processedParents = [];
+
 		// Check all rules and at-rules recursively
-		root.walk(function processRulesAndAtrules(node) {
+		root.walk(function processRulesAndAtrules(input) {
+			const node = utils.getContainingNode(input);
+
+			// Avoid warnings duplication, caused by interfering in `root.walk()` algorigthm with `utils.getContainingNode()`
+			if (processedParents.includes(node)) {
+				return;
+			}
+
+			processedParents.push(node);
+
 			if (utils.isRuleWithNodes(node)) {
-				checkNode(node, sharedInfo);
+				checkNode(node, sharedInfo, input);
 			}
 		});
 	};

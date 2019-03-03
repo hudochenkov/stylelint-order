@@ -4,11 +4,6 @@ const checkOrder = require('./checkOrder');
 const getOrderData = require('./getOrderData');
 
 module.exports = function checkNode(node, sharedInfo) {
-	// Skip if it's an empty rule
-	if (!node.nodes || !node.nodes.length) {
-		return;
-	}
-
 	const allNodesData = [];
 
 	node.each(function processEveryNode(child) {

@@ -55,14 +55,25 @@ function rule(expectation, options, context) {
 			shouldFix: false,
 		};
 
+		const processedParents = [];
+
 		// Check all rules and at-rules recursively
-		root.walk(function processRulesAndAtrules(node) {
+		root.walk(function processRulesAndAtrules(input) {
 			// return early if we know there is a violation and auto fix should be applied
 			if (isFixEnabled && sharedInfo.shouldFix) {
 				return;
 			}
 
-			if (node.type === 'rule' || node.type === 'atrule') {
+			const node = utils.getContainingNode(input);
+
+			// Avoid warnings duplication, caused by interfering in `root.walk()` algorigthm with `utils.getContainingNode()`
+			if (processedParents.includes(node)) {
+				return;
+			}
+
+			processedParents.push(node);
+
+			if (utils.isRuleWithNodes(node)) {
 				checkNode(node, sharedInfo);
 			}
 		});

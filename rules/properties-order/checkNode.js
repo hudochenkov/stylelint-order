@@ -7,7 +7,7 @@ const checkOrder = require('./checkOrder');
 const getNodeData = require('./getNodeData');
 const createFlatOrder = require('./createFlatOrder');
 
-module.exports = function checkNode(node, sharedInfo) {
+module.exports = function checkNode(node, sharedInfo, originalNode) {
 	let shouldFixOrder = false;
 
 	const allPropData = node.nodes
@@ -67,7 +67,7 @@ module.exports = function checkNode(node, sharedInfo) {
 
 		// creating PostCSS Root node with current node as a child,
 		// so PostCSS Sorting can process it
-		const tempRoot = postcss.root({ nodes: [node] });
+		const tempRoot = postcss.root({ nodes: [originalNode] });
 
 		postcssSorting(sortingOptions)(tempRoot);
 	}
