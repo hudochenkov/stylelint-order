@@ -174,7 +174,7 @@ Disable autofixing. Autofixing is enabled by default if it's enabled in stylelin
 
 ## Autofixing caveats
 
-Keywords `at-variables` and `less-mixins` aren't supported.
+Keyword `less-mixins` aren't supported.
 
 `unspecified` secondary option is always set to `bottom`.
 

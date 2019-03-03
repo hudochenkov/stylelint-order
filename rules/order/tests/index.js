@@ -1047,11 +1047,11 @@ testRule(rule, {
 	],
 });
 
-// Doesn't has fix, because postcss-sorting doesn't know about at-variables
 testRule(rule, {
 	ruleName,
 	syntax: 'less',
 	config: [['custom-properties', 'at-variables', 'declarations', 'rules', 'at-rules']],
+	fix: true,
 
 	accept: [
 		{
@@ -1088,6 +1088,15 @@ testRule(rule, {
 						color: blue;
 						top: 0;
 						@hello: 10px;
+					}
+				}
+			`,
+			fixed: `
+				div {
+					a {
+						@hello: 10px;
+						color: blue;
+						top: 0;
 					}
 				}
 			`,
