@@ -276,14 +276,14 @@ Given:
 ```js
 [
 	{
-		emptyLineBefore: "false",
+		emptyLineBefore: "never",
 		properties: [
 			"height",
 			"width",
 		],
 	},
 	{
-		emptyLineBefore: "false",
+		emptyLineBefore: "never",
 		properties: [
 			"font-size",
 			"font-weight",
