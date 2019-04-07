@@ -4,10 +4,12 @@ module.exports = function createExpectedOrder(input) {
 	const order = {};
 	let expectedPosition = 0;
 	let separatedGroup = 1;
+	let groupPosition = -1;
 
 	appendGroup({ properties: input });
 
 	function appendGroup(group) {
+		groupPosition += 1;
 		group.properties.forEach(item => appendItem(item, false, group));
 	}
 
@@ -20,7 +22,13 @@ module.exports = function createExpectedOrder(input) {
 				expectedPosition += 1;
 			}
 
-			order[item] = { separatedGroup, expectedPosition, groupName: group.groupName };
+			order[item] = {
+				separatedGroup,
+				groupPosition,
+				expectedPosition,
+				groupName: group.groupName,
+				noEmptyLineBeforeInsideGroup: group.noEmptyLineBetween,
+			};
 
 			return;
 		}

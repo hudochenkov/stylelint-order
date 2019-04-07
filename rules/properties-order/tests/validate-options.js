@@ -68,6 +68,32 @@ testConfig({
 
 testConfig({
 	ruleName,
+	description: 'noEmptyLineBetween',
+	valid: true,
+	config: [
+		{
+			emptyLineBefore: 'always',
+			noEmptyLineBetween: true,
+			properties: [],
+		},
+	],
+});
+
+testConfig({
+	ruleName,
+	description: 'invalid noEmptyLineBetween',
+	valid: false,
+	config: [
+		{
+			noEmptyLineBetween: 'true',
+			properties: [],
+		},
+	],
+	message: `Invalid option "[{"noEmptyLineBetween":"true","properties":[]}]" for rule ${ruleName}`,
+});
+
+testConfig({
+	ruleName,
 	description: 'invalid emptyLineBefore',
 	valid: false,
 	config: [

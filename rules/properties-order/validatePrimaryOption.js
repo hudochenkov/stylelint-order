@@ -48,5 +48,18 @@ module.exports = function validatePrimaryOption(actualOptions) {
 		return false;
 	}
 
+	// Every object-item's "noEmptyLineBetween" must be a boolean
+	if (
+		!objectItems.every(item => {
+			if (_.isUndefined(item.noEmptyLineBetween)) {
+				return true;
+			}
+
+			return _.isBoolean(item.noEmptyLineBetween);
+		})
+	) {
+		return false;
+	}
+
 	return true;
 };

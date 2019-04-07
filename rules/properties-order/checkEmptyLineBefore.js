@@ -8,7 +8,7 @@ module.exports = function checkEmptyLineBefore(firstPropData, secondPropData, sh
 	const firstPropIsUnspecified = !firstPropData.orderData;
 	const secondPropIsUnspecified = !secondPropData.orderData;
 
-	// Now check newlines between ...
+	// Check newlines between groups
 	const firstPropSeparatedGroup = !firstPropIsUnspecified
 		? firstPropData.orderData.separatedGroup
 		: sharedInfo.lastKnownSeparatedGroup;
@@ -38,6 +38,28 @@ module.exports = function checkEmptyLineBefore(firstPropData, secondPropData, sh
 				});
 			}
 		} else if (hasEmptyLineBefore(secondPropData.node) && emptyLineBefore === 'never') {
+			if (sharedInfo.isFixEnabled) {
+				removeEmptyLinesBefore(secondPropData.node, sharedInfo.context.newline);
+			} else {
+				stylelint.utils.report({
+					message: sharedInfo.messages.rejectedEmptyLineBefore(secondPropData.name),
+					node: secondPropData.node,
+					result: sharedInfo.result,
+					ruleName: sharedInfo.ruleName,
+				});
+			}
+		}
+	}
+
+	// Check newlines between properties inside a group
+	if (
+		!firstPropIsUnspecified &&
+		!secondPropIsUnspecified &&
+		firstPropData.orderData.groupPosition === secondPropData.orderData.groupPosition
+	) {
+		const noEmptyLineBefore = secondPropData.orderData.noEmptyLineBeforeInsideGroup;
+
+		if (hasEmptyLineBefore(secondPropData.node) && noEmptyLineBefore) {
 			if (sharedInfo.isFixEnabled) {
 				removeEmptyLinesBefore(secondPropData.node, sharedInfo.context.newline);
 			} else {
