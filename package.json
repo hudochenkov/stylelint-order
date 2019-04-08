@@ -33,7 +33,7 @@
     "postcss-sorting": "^4.1.0"
   },
   "peerDependencies": {
-    "stylelint": "^9.10.1"
+    "stylelint": "^9.10.1 || ^10.0.0"
   },
   "devDependencies": {
     "eslint": "~5.15.0",
