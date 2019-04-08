@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 2.2.0
+
+* Added `noEmptyLineBetween` for groups in `properties-order`.
+* Added `stylelint@10` as a peer dependency.
+
 ## 2.1.0
 
 * Added _experimental_ support for HTML style tag and attribute.
