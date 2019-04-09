@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 2.2.1
+
+* Fix false negatives with `noEmptyLineBetween` in combination with the `order: "flexible"`.
+
 ## 2.2.0
 
 * Added `noEmptyLineBetween` for groups in `properties-order`.
