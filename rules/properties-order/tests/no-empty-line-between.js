@@ -215,3 +215,96 @@ testRule(rule, {
 		},
 	],
 });
+
+testRule(rule, {
+	ruleName,
+	config: [
+		[
+			{
+				emptyLineBefore: 'always',
+				noEmptyLineBetween: true,
+				order: 'flexible',
+				properties: ['height', 'width'],
+			},
+			{
+				emptyLineBefore: 'always',
+				noEmptyLineBetween: true,
+				order: 'flexible',
+				properties: ['font-size', 'font-weight'],
+			},
+		],
+	],
+	fix: true,
+
+	accept: [
+		{
+			code: `
+				a {
+					height: 1px;
+					width: 2px;
+
+					font-size: 2px;
+					font-weight: bold;
+				}
+			`,
+		},
+		{
+			code: `
+				a {
+					height: 1px;
+					width: 2px;
+
+					font-weight: bold;
+					font-size: 2px;
+				}
+			`,
+		},
+	],
+
+	reject: [
+		{
+			code: `
+				a {
+					height: 1px;
+					width: 2px;
+
+					font-weight: bold;
+
+					font-size: 2px;
+				}
+			`,
+			fixed: `
+				a {
+					height: 1px;
+					width: 2px;
+
+					font-weight: bold;
+					font-size: 2px;
+				}
+			`,
+			message: messages.rejectedEmptyLineBefore('font-size'),
+		},
+		{
+			code: `
+				a {
+					height: 1px;
+					width: 2px;
+
+					font-size: 2px;
+
+					font-weight: bold;
+				}
+			`,
+			fixed: `
+				a {
+					height: 1px;
+					width: 2px;
+
+					font-size: 2px;
+					font-weight: bold;
+				}
+			`,
+			message: messages.rejectedEmptyLineBefore('font-weight'),
+		},
+	],
+});

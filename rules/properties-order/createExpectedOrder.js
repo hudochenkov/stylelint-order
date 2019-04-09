@@ -40,6 +40,7 @@ module.exports = function createExpectedOrder(input) {
 
 		if (item.order && item.order === 'flexible') {
 			expectedPosition += 1;
+			groupPosition += 1;
 
 			item.properties.forEach(property => {
 				appendItem(property, true, item);
