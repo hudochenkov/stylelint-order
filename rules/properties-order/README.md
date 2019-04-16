@@ -18,6 +18,7 @@ This rule ignores variables (`$sass`, `@less`, `--custom-property`).
 * Options
 * Optional secondary options
 	* [`unspecified: "top"|"bottom"|"bottomAlphabetical"|"ignore"`](#unspecified-topbottombottomalphabeticalignore)
+	* [`emptyLineBeforeUnspecified: "always"|"never"`](#emptyLineBeforeUnspecified-alwaysnever)
 	* [`disableFix: true`](#disablefix-true)
 * [Autofixing caveats](#autofixing-caveats)
 
@@ -591,6 +592,54 @@ a {
 	composes: b;
 	align-items: flex-end;
 	left: 0;
+}
+```
+
+### `emptyLineBeforeUnspecified: "always"|"never"`
+
+Default behavior does not enforce the presence of an empty line before an unspecified block of properties.
+
+If `"always"`, the unspecified group must be separated from other properties by an empty newline. If `"never"`, the unspecified group must have no empty lines separating it from other properties.
+
+Given:
+
+```js
+[
+    [
+        "height",
+        "width",
+    ],
+    {
+        unspecified: 'bottom',
+        emptyLineBeforeUnspecified: 'always'
+    }
+]
+```
+
+The following pattern is considered warnings:
+
+```css
+a {
+	height: 1px;
+	width: 2px;
+
+	font-size: 2px;
+	font-weight: bold;
+	color: blue;
+}
+```
+
+The following patterns is *not* considered warnings:
+
+```css
+a {
+	height: 1px;
+	width: 2px;
+
+	font-size: 2px;
+	font-weight: bold;
+
+	color: blue;
 }
 ```
 

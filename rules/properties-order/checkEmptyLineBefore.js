@@ -18,13 +18,19 @@ module.exports = function checkEmptyLineBefore(firstPropData, secondPropData, sh
 
 	sharedInfo.lastKnownSeparatedGroup = secondPropSeparatedGroup;
 
-	if (firstPropSeparatedGroup !== secondPropSeparatedGroup && !secondPropIsUnspecified) {
+	const betweenGroupsInSpecified =
+		firstPropSeparatedGroup !== secondPropSeparatedGroup && !secondPropIsUnspecified;
+	const startOfUnspecifiedGroup = !firstPropIsUnspecified && secondPropIsUnspecified;
+
+	if (betweenGroupsInSpecified || startOfUnspecifiedGroup) {
 		// Get an array of just the property groups, remove any solo properties
 		const groups = _.reject(sharedInfo.expectation, _.isString);
 
-		// secondProp seperatedGroups start at 2 so we minus 2 to get the 1st item
-		// from our groups array
-		const emptyLineBefore = _.get(groups[secondPropSeparatedGroup - 2], 'emptyLineBefore');
+		const emptyLineBefore = !startOfUnspecifiedGroup
+			? // secondProp seperatedGroups start at 2 so we minus 2 to get the
+			  // 1st item from our groups array
+			  _.get(groups[secondPropSeparatedGroup - 2], 'emptyLineBefore')
+			: sharedInfo.emptyLineBeforeUnspecified;
 
 		if (!hasEmptyLineBefore(secondPropData.node) && emptyLineBefore === 'always') {
 			if (sharedInfo.isFixEnabled) {
