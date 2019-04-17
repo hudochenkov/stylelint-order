@@ -27,6 +27,7 @@ const rule = function(expectation, options, context = {}) {
 				actual: options,
 				possible: {
 					unspecified: ['top', 'bottom', 'ignore', 'bottomAlphabetical'],
+					emptyLineBeforeUnspecified: ['always', 'never'],
 					disableFix: _.isBoolean,
 				},
 				optional: true,
@@ -39,6 +40,7 @@ const rule = function(expectation, options, context = {}) {
 
 		// By default, ignore unspecified properties
 		const unspecified = _.get(options, 'unspecified', 'ignore');
+		const emptyLineBeforeUnspecified = _.get(options, 'emptyLineBeforeUnspecified', '');
 		const disableFix = _.get(options, 'disableFix', false);
 		const isFixEnabled = context.fix && !disableFix;
 
@@ -48,6 +50,7 @@ const rule = function(expectation, options, context = {}) {
 			expectedOrder,
 			expectation,
 			unspecified,
+			emptyLineBeforeUnspecified,
 			messages,
 			ruleName,
 			result,
