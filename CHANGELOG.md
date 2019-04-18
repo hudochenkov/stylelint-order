@@ -2,9 +2,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 3.0.0
+
+* Dropped Node.js 6 support. Node.js 8.7.0 or greater is now required.
+* Removed stylelint@9 as a peer dependency. stylelint 10 or greater is now required.
+* Added `emptyLineBeforeUnspecified` option for `properties-order`.
+
 ## 2.2.1
 
-* Fix false negatives with `noEmptyLineBetween` in combination with the `order: "flexible"`.
+* Fixed false negatives with `noEmptyLineBetween` in combination with the `order: "flexible"`.
 
 ## 2.2.0
 
@@ -20,7 +26,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 This is a major release, because this plugin requires stylelint@9.8.0+ to work correctly with Less files.
 
-* Add optional groupName property for properties-order.
+* Added optional groupName property for properties-order.
 * Adopted `postcss-less@3` parser changes, which is dependency of `stylelint@9.7.0+`.
 * Fixed incorrect fixing when properties order and empty lines should be changed at the same time.
 
