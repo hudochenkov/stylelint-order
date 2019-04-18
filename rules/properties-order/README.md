@@ -610,8 +610,8 @@ Given:
         "width",
     ],
     {
-        unspecified: 'bottom',
-        emptyLineBeforeUnspecified: 'always'
+        unspecified: "bottom",
+        emptyLineBeforeUnspecified: "always"
     }
 ]
 ```
@@ -622,9 +622,6 @@ The following pattern is considered warnings:
 a {
 	height: 1px;
 	width: 2px;
-
-	font-size: 2px;
-	font-weight: bold;
 	color: blue;
 }
 ```
@@ -635,9 +632,6 @@ The following patterns is *not* considered warnings:
 a {
 	height: 1px;
 	width: 2px;
-
-	font-size: 2px;
-	font-weight: bold;
 
 	color: blue;
 }
