@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/hudochenkov/stylelint-order",
   "engines": {
-    "node": ">=6"
+    "node": ">=8.7.0"
   },
   "files": [
     "rules",
