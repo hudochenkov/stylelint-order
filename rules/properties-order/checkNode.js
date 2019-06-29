@@ -19,6 +19,11 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 		let shouldFixOrder = false;
 
 		allPropData.forEach(function checkEveryPropForOrder2(propData, index) {
+			// Skip first decl
+			if (index === 0) {
+				return;
+			}
+
 			// return early if we know there is a violation and auto fix should be applied
 			if (shouldFixOrder) {
 				return;
@@ -26,18 +31,15 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 
 			const previousPropData = allPropData[index - 1];
 
-			// Skip first decl
-			if (previousPropData) {
-				const checkedOrder = checkOrder({
-					firstPropData: previousPropData,
-					secondPropData: propData,
-					unspecified: sharedInfo.unspecified,
-					allPropData: allPropData.slice(0, index),
-				});
+			const checkedOrder = checkOrder({
+				firstPropData: previousPropData,
+				secondPropData: propData,
+				unspecified: sharedInfo.unspecified,
+				allPropData: allPropData.slice(0, index),
+			});
 
-				if (!checkedOrder.result) {
-					shouldFixOrder = true;
-				}
+			if (!checkedOrder.result) {
+				shouldFixOrder = true;
 			}
 		});
 
@@ -93,31 +95,33 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 	});
 
 	function checkEveryPropForOrder(propData, index, listOfProps) {
+		// Skip first decl
+		if (index === 0) {
+			return;
+		}
+
 		const previousPropData = listOfProps[index - 1];
 
-		// Skip first decl
-		if (previousPropData) {
-			const checkedOrder = checkOrder({
-				firstPropData: previousPropData,
-				secondPropData: propData,
-				unspecified: sharedInfo.unspecified,
-				allPropData: listOfProps.slice(0, index),
+		const checkedOrder = checkOrder({
+			firstPropData: previousPropData,
+			secondPropData: propData,
+			unspecified: sharedInfo.unspecified,
+			allPropData: listOfProps.slice(0, index),
+		});
+
+		if (!checkedOrder.result) {
+			const { orderData } = checkedOrder.secondNode;
+
+			stylelint.utils.report({
+				message: sharedInfo.messages.expected(
+					checkedOrder.secondNode.name,
+					checkedOrder.firstNode.name,
+					orderData && orderData.groupName
+				),
+				node: checkedOrder.secondNode.node,
+				result: sharedInfo.result,
+				ruleName: sharedInfo.ruleName,
 			});
-
-			if (!checkedOrder.result) {
-				const { orderData } = checkedOrder.secondNode;
-
-				stylelint.utils.report({
-					message: sharedInfo.messages.expected(
-						checkedOrder.secondNode.name,
-						checkedOrder.firstNode.name,
-						orderData && orderData.groupName
-					),
-					node: checkedOrder.secondNode.node,
-					result: sharedInfo.result,
-					ruleName: sharedInfo.ruleName,
-				});
-			}
 		}
 	}
 
