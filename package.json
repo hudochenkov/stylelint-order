@@ -36,12 +36,12 @@
     "stylelint": "^10.0.1"
   },
   "devDependencies": {
-    "eslint": "~5.16.0",
-    "eslint-config-hudochenkov": "~3.0.0",
-    "eslint-config-prettier": "~5.0.0",
-    "husky": "^2.4.1",
+    "eslint": "^6.0.1",
+    "eslint-config-hudochenkov": "^3.0.1",
+    "eslint-config-prettier": "^6.0.0",
+    "husky": "^3.0.0",
     "jest": "^24.8.0",
-    "lint-staged": "^8.2.1",
+    "lint-staged": "^9.1.0",
     "prettier": "~1.18.2",
     "stylelint": "^10.1.0"
   },
