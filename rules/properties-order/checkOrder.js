@@ -3,9 +3,9 @@ const _ = require('lodash');
 const checkAlphabeticalOrder = require('../checkAlphabeticalOrder');
 
 module.exports = function checkOrder({ firstPropData, secondPropData, allPropData, unspecified }) {
-	function report(result, firstNode = firstPropData, secondNode = secondPropData) {
+	function report(isCorrect, firstNode = firstPropData, secondNode = secondPropData) {
 		return {
-			result,
+			isCorrect,
 			firstNode,
 			secondNode,
 		};
@@ -23,17 +23,17 @@ module.exports = function checkOrder({ firstPropData, secondPropData, allPropDat
 		return report(true);
 	}
 
-	const firstPropIsUnspecified = !firstPropData.orderData;
-	const secondPropIsUnspecified = !secondPropData.orderData;
+	const firstPropIsSpecified = Boolean(firstPropData.orderData);
+	const secondPropIsSpecified = Boolean(secondPropData.orderData);
 
 	// Check actual known properties
-	if (!firstPropIsUnspecified && !secondPropIsUnspecified) {
+	if (firstPropIsSpecified && secondPropIsSpecified) {
 		return report(
 			firstPropData.orderData.expectedPosition <= secondPropData.orderData.expectedPosition
 		);
 	}
 
-	if (firstPropIsUnspecified && !secondPropIsUnspecified) {
+	if (!firstPropIsSpecified && secondPropIsSpecified) {
 		// If first prop is unspecified, look for a specified prop before it to
 		// compare to the current prop
 		const priorSpecifiedPropData = _.findLast(allPropData.slice(0, -1), d => Boolean(d.orderData));
@@ -49,11 +49,11 @@ module.exports = function checkOrder({ firstPropData, secondPropData, allPropDat
 
 	// Now deal with unspecified props
 	// Starting with bottomAlphabetical as it requires more specific conditionals
-	if (unspecified === 'bottomAlphabetical' && !firstPropIsUnspecified && secondPropIsUnspecified) {
+	if (unspecified === 'bottomAlphabetical' && firstPropIsSpecified && !secondPropIsSpecified) {
 		return report(true);
 	}
 
-	if (unspecified === 'bottomAlphabetical' && firstPropIsUnspecified && secondPropIsUnspecified) {
+	if (unspecified === 'bottomAlphabetical' && !firstPropIsSpecified && !secondPropIsSpecified) {
 		if (checkAlphabeticalOrder(firstPropData, secondPropData)) {
 			return report(true);
 		}
@@ -61,31 +61,31 @@ module.exports = function checkOrder({ firstPropData, secondPropData, allPropDat
 		return report(false);
 	}
 
-	if (unspecified === 'bottomAlphabetical' && firstPropIsUnspecified) {
+	if (unspecified === 'bottomAlphabetical' && !firstPropIsSpecified) {
 		return report(false);
 	}
 
-	if (firstPropIsUnspecified && secondPropIsUnspecified) {
+	if (!firstPropIsSpecified && !secondPropIsSpecified) {
 		return report(true);
 	}
 
-	if (unspecified === 'ignore' && (firstPropIsUnspecified || secondPropIsUnspecified)) {
+	if (unspecified === 'ignore' && (!firstPropIsSpecified || !secondPropIsSpecified)) {
 		return report(true);
 	}
 
-	if (unspecified === 'top' && firstPropIsUnspecified) {
+	if (unspecified === 'top' && !firstPropIsSpecified) {
 		return report(true);
 	}
 
-	if (unspecified === 'top' && secondPropIsUnspecified) {
+	if (unspecified === 'top' && !secondPropIsSpecified) {
 		return report(false);
 	}
 
-	if (unspecified === 'bottom' && secondPropIsUnspecified) {
+	if (unspecified === 'bottom' && !secondPropIsSpecified) {
 		return report(true);
 	}
 
-	if (unspecified === 'bottom' && firstPropIsUnspecified) {
+	if (unspecified === 'bottom' && !firstPropIsSpecified) {
 		return report(false);
 	}
 };
