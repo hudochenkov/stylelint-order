@@ -4,9 +4,16 @@ const addEmptyLineBefore = require('./addEmptyLineBefore');
 const hasEmptyLineBefore = require('./hasEmptyLineBefore');
 const removeEmptyLinesBefore = require('./removeEmptyLinesBefore');
 
-module.exports = function checkEmptyLineBefore(firstPropData, secondPropData, sharedInfo) {
+module.exports = function checkEmptyLineBefore(
+	firstPropData,
+	secondPropData,
+	sharedInfo,
+	allNodesData
+) {
 	const firstPropIsUnspecified = !firstPropData.orderData;
 	const secondPropIsUnspecified = !secondPropData.orderData;
+	const belowEmptyLineThreshold =
+		allNodesData.length < sharedInfo.emptyLineMinimumPropertyThreshold;
 
 	// Check newlines between groups
 	const firstPropSeparatedGroup = !firstPropIsUnspecified
@@ -32,7 +39,11 @@ module.exports = function checkEmptyLineBefore(firstPropData, secondPropData, sh
 			  _.get(groups[secondPropSeparatedGroup - 2], 'emptyLineBefore')
 			: sharedInfo.emptyLineBeforeUnspecified;
 
-		if (!hasEmptyLineBefore(secondPropData.node) && emptyLineBefore === 'always') {
+		if (
+			!hasEmptyLineBefore(secondPropData.node) &&
+			emptyLineBefore === 'always' &&
+			!belowEmptyLineThreshold
+		) {
 			if (sharedInfo.isFixEnabled) {
 				addEmptyLineBefore(secondPropData.node, sharedInfo.context.newline);
 			} else {

@@ -91,7 +91,7 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 			return;
 		}
 
-		checkEmptyLineBefore(previousNodeData, nodeData, sharedInfo);
+		checkEmptyLineBefore(previousNodeData, nodeData, sharedInfo, allNodesData);
 	});
 
 	function checkEveryPropForOrder(propData, index, listOfProps) {
