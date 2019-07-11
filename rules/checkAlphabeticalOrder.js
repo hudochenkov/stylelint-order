@@ -4,7 +4,7 @@ const shorthandData = require('./shorthandData');
 function isShorthand(a, b) {
 	const longhands = shorthandData[a] || [];
 
-	return longhands.contains(b);
+	return longhands.includes(b);
 }
 
 module.exports = function checkAlphabeticalOrder(firstPropData, secondPropData) {
