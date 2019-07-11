@@ -12,7 +12,7 @@ a {
 ```
 
 Shorthand properties *must always* precede their longhand counterparts, even if that means they are not alphabetized.
-(See also [`declaration-block-no-shorthand-property-overrides`](https://github.com/stylelint/stylelint/tree/master/lib/rules/declaration-block-no-shorthand-property-overrides).)
+(See also [`declaration-block-no-shorthand-property-overrides`](https://stylelint.io/user-guide/rules/declaration-block-no-shorthand-property-overrides/).)
 
 Prefixed properties *must always* precede the unprefixed version.
 
