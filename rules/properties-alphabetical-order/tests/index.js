@@ -26,6 +26,9 @@ testRule(rule, {
 			code: 'a { color: pink; top: 0; transform: scale(1); }',
 		},
 		{
+			code: 'a { border-color: transparent; border-bottom-color: pink; }',
+		},
+		{
 			code: 'a { -moz-transform: scale(1); -webkit-transform: scale(1); transform: scale(1); }',
 		},
 		{
@@ -82,6 +85,11 @@ testRule(rule, {
 			code: 'a { color: pink; transform: scale(1); top: 0; }',
 			fixed: 'a { color: pink; top: 0; transform: scale(1); }',
 			message: messages.expected('top', 'transform'),
+		},
+		{
+			code: 'a { border-bottom-color: pink; border-color: transparent; }',
+			fixed: 'a { border-color: transparent; border-bottom-color: pink; }',
+			message: messages.expected('border-color', 'border-bottom-color'),
 		},
 		{
 			code:
