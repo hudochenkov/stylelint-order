@@ -6,15 +6,15 @@ testRule(rule, {
 	config: [
 		[
 			{
-				emptyLineBefore: 'always',
+				emptyLineBefore: 'threshold',
 				properties: ['display'],
 			},
 			{
-				emptyLineBefore: 'always',
+				emptyLineBefore: 'threshold',
 				properties: ['position'],
 			},
 			{
-				emptyLineBefore: 'always',
+				emptyLineBefore: 'threshold',
 				properties: ['border-bottom', 'font-style'],
 			},
 		],
@@ -176,10 +176,10 @@ testRule(rule, {
 			code: `
 				a {
 					display: 0;
-				
+
 					/* comment */
 					position: 0;
-				
+
 					/* comment */
 					border-bottom: 0;
 				}
@@ -255,7 +255,7 @@ testRule(rule, {
 			code: `
 				a {
 					display: none;
-					
+
 					font-style: italic;
 				}
 			`,
@@ -272,7 +272,7 @@ testRule(rule, {
 			code: `
 				a {
 					position: absolute;
-					
+
 					border-bottom: 1px solid red;
 				}
 			`,
@@ -289,7 +289,7 @@ testRule(rule, {
 			code: `
 				a {
 					display: none;
-					
+
 					border-bottom: 1px solid red;
 				}
 			`,
@@ -306,7 +306,7 @@ testRule(rule, {
 			code: `
 				a {
 					display: none; /* comment */
-					
+
 					position: absolute;
 				}
 			`,
@@ -324,7 +324,7 @@ testRule(rule, {
 				a {
 					/* comment */
 					display: none;
-					
+
 					position: absolute;
 				}
 			`,
@@ -342,20 +342,20 @@ testRule(rule, {
 			code: `
 				a {
 					display: absolute;
-				
+
 					--num: 0;
-				
+
 					position: var(--num);
-				
+
 					border-bottom: var(--num);
 				}
 			`,
 			fixed: `
 				a {
 					display: absolute;
-				
+
 					--num: 0;
-				
+
 					position: var(--num);
 					border-bottom: var(--num);
 				}
@@ -370,15 +370,15 @@ testRule(rule, {
 	config: [
 		[
 			{
-				emptyLineBefore: 'always',
+				emptyLineBefore: 'threshold',
 				properties: ['width', 'height'],
 			},
 			{
-				emptyLineBefore: 'always',
+				emptyLineBefore: 'threshold',
 				properties: ['font-size', 'font-family'],
 			},
 			{
-				emptyLineBefore: 'always',
+				emptyLineBefore: 'threshold',
 				properties: ['background-repeat'],
 			},
 		],
@@ -438,20 +438,84 @@ testRule(rule, {
 	],
 });
 
+// Ensure compatibility with emptyLineBeforeUnspecified
+testRule(rule, {
+	ruleName,
+	config: [
+		['height', 'width'],
+		{
+			unspecified: 'bottom',
+			emptyLineBeforeUnspecified: 'threshold',
+			emptyLineMinimumPropertyThreshold: 4,
+		},
+	],
+	fix: true,
+
+	accept: [
+		{
+			description: 'emptyLineBeforeUnspecified-compat-1',
+			code: `
+				a {
+					height: 1px;
+					width: 2px;
+					color: blue;
+				}
+			`,
+		},
+		{
+			description: 'emptyLineBeforeUnspecified-compat-2',
+			code: `
+				a {
+					height: 1px;
+					width: 2px;
+
+					color: blue;
+					transform: none;
+				}
+			`,
+		},
+	],
+
+	reject: [
+		{
+			description: 'emptyLineBeforeUnspecified-compat-3',
+			code: `
+				a {
+					height: 1px;
+					width: 2px;
+					color: blue;
+					transform: none;
+				}
+			`,
+			fixed: `
+				a {
+					height: 1px;
+					width: 2px;
+
+					color: blue;
+					transform: none;
+				}
+			`,
+			message: messages.expectedEmptyLineBefore('color'),
+		},
+	],
+});
+
+// Documented example verification
 testRule(rule, {
 	ruleName,
 	config: [
 		[
 			{
-				emptyLineBefore: 'always',
+				emptyLineBefore: 'threshold',
 				properties: ['display'],
 			},
 			{
-				emptyLineBefore: 'always',
+				emptyLineBefore: 'threshold',
 				properties: ['height', 'width'],
 			},
 			{
-				emptyLineBefore: 'always',
+				emptyLineBefore: 'threshold',
 				properties: ['border'],
 			},
 			{
@@ -481,10 +545,10 @@ testRule(rule, {
 			code: `
 				a {
 					display: block;
-				
+
 					height: 1px;
 					width: 2px;
-				
+
 					border: 0;
 				}
 			`,
@@ -494,10 +558,10 @@ testRule(rule, {
 			code: `
 				a {
 					display: block;
-				
+
 					height: 1px;
 					width: 2px;
-				
+
 					border: 0;
 					transform: none;
 				}
@@ -511,7 +575,7 @@ testRule(rule, {
 			code: `
 				a {
 					display: block;
-				
+
 					height: 1px;
 					width: 2px;
 				}

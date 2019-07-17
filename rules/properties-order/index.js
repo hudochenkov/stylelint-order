@@ -27,7 +27,7 @@ const rule = function(expectation, options, context = {}) {
 				actual: options,
 				possible: {
 					unspecified: ['top', 'bottom', 'ignore', 'bottomAlphabetical'],
-					emptyLineBeforeUnspecified: ['always', 'never'],
+					emptyLineBeforeUnspecified: ['always', 'never', 'threshold'],
 					disableFix: _.isBoolean,
 					emptyLineMinimumPropertyThreshold: _.isNumber,
 				},

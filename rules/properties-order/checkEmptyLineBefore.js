@@ -30,7 +30,6 @@ module.exports = function checkEmptyLineBefore(
 	// Line threshold logic
 	const belowEmptyLineThreshold =
 		allNodesData.length < sharedInfo.emptyLineMinimumPropertyThreshold;
-	const employEmptyLineThreshold = belowEmptyLineThreshold && !secondPropIsUnspecified;
 
 	if (betweenGroupsInSpecified || startOfUnspecifiedGroup) {
 		// Get an array of just the property groups, remove any solo properties
@@ -42,10 +41,15 @@ module.exports = function checkEmptyLineBefore(
 			  _.get(groups[secondPropSeparatedGroup - 2], 'emptyLineBefore')
 			: sharedInfo.emptyLineBeforeUnspecified;
 
+		// Threshold logic
+		const emptyLineThresholdInsertLines =
+			!belowEmptyLineThreshold && emptyLineBefore === 'threshold';
+		const emptyLineThresholdRemoveLines =
+			belowEmptyLineThreshold && emptyLineBefore === 'threshold';
+
 		if (
 			!hasEmptyLineBefore(secondPropData.node) &&
-			emptyLineBefore === 'always' &&
-			!employEmptyLineThreshold
+			(emptyLineBefore === 'always' || emptyLineThresholdInsertLines)
 		) {
 			if (sharedInfo.isFixEnabled) {
 				addEmptyLineBefore(secondPropData.node, sharedInfo.context.newline);
@@ -59,7 +63,7 @@ module.exports = function checkEmptyLineBefore(
 			}
 		} else if (
 			hasEmptyLineBefore(secondPropData.node) &&
-			(emptyLineBefore === 'never' || employEmptyLineThreshold)
+			(emptyLineBefore === 'never' || emptyLineThresholdRemoveLines)
 		) {
 			if (sharedInfo.isFixEnabled) {
 				removeEmptyLinesBefore(secondPropData.node, sharedInfo.context.newline);
