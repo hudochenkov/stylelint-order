@@ -18,8 +18,8 @@ This rule ignores variables (`$sass`, `@less`, `--custom-property`).
 * Options
 * Optional secondary options
 	* [`unspecified: "top"|"bottom"|"bottomAlphabetical"|"ignore"`](#unspecified-topbottombottomalphabeticalignore)
-	* [`emptyLineBeforeUnspecified: "always"|"never"`](#emptyLineBeforeUnspecified-alwaysnever)
-	* [`emptyLineMinimumPropertyThreshold: <number>`](#emptyLineBeforeUnspecified-number) —  Default: `0`
+	* [`emptyLineBeforeUnspecified: "always"|"never"|"threshold"`](#emptyLineBeforeUnspecified-alwaysneverthreshold)
+	* [`emptyLineMinimumPropertyThreshold: <number>`](#emptyLineBeforeMinimumThreshold-number) —  Default: `0`
 	* [`disableFix: true`](#disablefix-true)
 * [Autofixing caveats](#autofixing-caveats)
 
@@ -33,9 +33,14 @@ Within an order array, you can include
 
 * unprefixed property names
 * group objects with these properties:
-	* `order: "flexible"`: If property isn't set (the default), the properties in this group must come in the order specified. If `"flexible"`, the properties can be in any order as long as they are grouped correctly.
+	* `order: "flexible"`: If property isn't set (the default), the properties in this group must come in the order 
+	specified. If `"flexible"`, the properties can be in any order as long as they are grouped correctly.
 	* `properties (array of strings)`: The properties in this group.
-	* `emptyLineBefore ("always"|"never")`: If `always`, this group must be separated from other properties by an empty newline. If emptyLineBefore is `never`, the group must have no empty lines separating it from other properties. By default this property isn't set. Rule will check empty lines between properties _only_. However, shared-line comments ignored by rule. Shared-line comment is a comment on the same line as declaration before this comment.
+	* `emptyLineBefore ("always"|"never"|"threshold")`: If `always`, this group must be separated from other properties 
+	by an empty newline. If emptyLineBefore is `never`, the group must have no empty lines separating it from other 
+	properties. By default this property isn't set. Rule will check empty lines between properties _only_. However, 
+	shared-line comments ignored by rule. Shared-line comment is a comment on the same line as declaration before this 
+	comment. For `threshold`, refer to the [`emptyLineBeforeMinimumThreshold` documentation](#emptyLineBeforeMinimumThreshold-number).
 	* `noEmptyLineBetween`: If `true`, properties within group should not have empty lines between them.
 	* `groupName`: An optional name for the group. This will be used in error messages.
 
@@ -460,7 +465,9 @@ These options only apply if you've defined your own array of properties.
 
 Default behavior is the same as `"ignore"`: an unspecified property can appear before or after any other property.
 
-With `"top"`, unspecified properties are expected *before* any specified properties. With `"bottom"`, unspecified properties are expected *after* any specified properties. With `"bottomAlphabetical"`, unspecified properties are expected *after* any specified properties, and the unspecified properties are expected to be in alphabetical order.
+With `"top"`, unspecified properties are expected *before* any specified properties. With `"bottom"`, unspecified 
+properties are expected *after* any specified properties. With `"bottomAlphabetical"`, unspecified properties are 
+expected *after* any specified properties, and the unspecified properties are expected to be in alphabetical order.
 
 Given:
 
@@ -596,11 +603,15 @@ a {
 }
 ```
 
-### `emptyLineBeforeUnspecified: "always"|"never"`
+### `emptyLineBeforeUnspecified: "always"|"never"|"threshold"`
 
 Default behavior does not enforce the presence of an empty line before an unspecified block of properties.
 
-If `"always"`, the unspecified group must be separated from other properties by an empty newline. If `"never"`, the unspecified group must have no empty lines separating it from other properties.
+If `"always"`, the unspecified group must be separated from other properties by an empty newline. 
+If `"never"`, the unspecified group must have no empty lines separating it from other properties.
+
+When set to `"threshold"`, the behaviour switches between `"always"` and `"never"` based on the configured minimum 
+property threshold. See the [`emptyLineBeforeMinimumThreshold` documentation](#emptyLineBeforeMinimumThreshold-number) for more information.
 
 Given:
 
@@ -640,7 +651,10 @@ a {
 
 ### `emptyLineMinimumPropertyThreshold: <number>`
 
-Set a threshold (minimum number) of properties in the selector required for the grouping to be invoked. Default setting is `0` (disabled).
+Set a threshold (minimum number) of properties in the selector required for the grouping to be invoked. 
+Default setting is `0` (disabled).
+
+The threshold is invoked on groups (and unspecified) when they are set to `"threshold"`.
 
 e.g. with a setting of `5`, the `emptyLineBefore` will be invoked when there are _at least_ 5 properties.
 
@@ -650,11 +664,11 @@ Given:
 [
     [
         {
-            emptyLineBefore: 'always',
+            emptyLineBefore: 'threshold',
             properties: ['display'],
         },
         {
-            emptyLineBefore: 'always',
+            emptyLineBefore: 'threshold',
             properties: ['height', 'width'],
         },
         {
@@ -667,7 +681,9 @@ Given:
         },
     ],
     {
-        emptyLineMinimumPropertyThreshold: 4,
+       unspecified: 'bottom',
+       emptyLineBeforeUnspecified: 'threshold',
+       emptyLineMinimumPropertyThreshold: 4,
     }
 ]
 ```
@@ -680,20 +696,27 @@ a {
 
 	height: 1px;
     width: 2px;
+    color: blue;
 }
 
 a {
     display: block;
-	height: 1px;
+
+    height: 1px;
     width: 2px;
     border: 0;
+    color: blue;
 }
 
 a {
     display: block;
-	height: 1px;
+
+    height: 1px;
     width: 2px;
+    border: 0;
+
     transform: none;
+    color: blue;
 }
 ```
 
@@ -702,14 +725,14 @@ The following patterns is *not* considered warnings:
 ```css
 a {
     display: block;
-	height: 1px;
+    height: 1px;
     width: 2px;
 }
 
 a {
     display: block;
 
-	height: 1px;
+    height: 1px;
     width: 2px;
 
     border: 0;
@@ -718,11 +741,36 @@ a {
 a {
     display: block;
 
-	height: 1px;
+    height: 1px;
     width: 2px;
 
     border: 0;
     transform: none;
+}
+
+a {
+    display: block;
+    height: 1px;
+
+    border: 0;
+}
+
+a {
+    border: 0;
+    transform: none;
+    color: blue;
+}
+
+a {
+    display: block;
+
+    height: 1px;
+    width: 2px;
+
+    border: 0;
+    transform: none;
+
+    color: blue;
 }
 ```
 

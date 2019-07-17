@@ -515,7 +515,7 @@ testRule(rule, {
 				properties: ['height', 'width'],
 			},
 			{
-				emptyLineBefore: 'threshold',
+				emptyLineBefore: 'always',
 				properties: ['border'],
 			},
 			{
@@ -545,6 +545,17 @@ testRule(rule, {
 			code: `
 				a {
 					display: block;
+					height: 1px;
+
+					border: 0;
+				}
+			`,
+		},
+		{
+			description: 'example-accept-3',
+			code: `
+				a {
+					display: block;
 
 					height: 1px;
 					width: 2px;
@@ -554,7 +565,7 @@ testRule(rule, {
 			`,
 		},
 		{
-			description: 'example-accept-3',
+			description: 'example-accept-4',
 			code: `
 				a {
 					display: block;
@@ -594,6 +605,26 @@ testRule(rule, {
 			code: `
 				a {
 					display: block;
+
+					height: 1px;
+					border: 0;
+				}
+			`,
+			fixed: `
+				a {
+					display: block;
+					height: 1px;
+
+					border: 0;
+				}
+			`,
+			message: messages.rejectedEmptyLineBefore('height'),
+		},
+		{
+			description: 'example-reject-3',
+			code: `
+				a {
+					display: block;
 					height: 1px;
 					width: 2px;
 					border: 0;
@@ -612,7 +643,7 @@ testRule(rule, {
 			message: messages.expectedEmptyLineBefore('height'),
 		},
 		{
-			description: 'example-reject-3',
+			description: 'example-reject-4',
 			code: `
 				a {
 					display: block;
