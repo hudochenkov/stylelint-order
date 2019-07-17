@@ -22,92 +22,92 @@ testRule(rule, {
 	fix: true,
 
 	accept: [
-		// {
-		// 	description: '1',
-		// 	code: `
-		// 		a {
-		// 			display: none;
-		//
-		// 			position: absolute;
-		//
-		// 			border-bottom: 1px solid red;
-		// 			font-style: italic;
-		// 		}
-		// 	`,
-		// },
-		// {
-		// 	description: '2',
-		// 	code: `
-		// 		a {
-		// 			display: none;
-		//
-		// 			position: absolute;
-		//
-		// 			font-style: italic;
-		// 		}
-		// 	`,
-		// },
-		// {
-		// 	description: '3',
-		// 	code: `
-		// 		a {
-		// 			display: none;
-		//
-		// 			font-style: italic;
-		// 		}
-		// 	`,
-		// },
-		// {
-		// 	description: '4',
-		// 	code: `
-		// 		a {
-		// 			position: absolute;
-		//
-		// 			border-bottom: 1px solid red;
-		// 		}
-		// 	`,
-		// },
-		// {
-		// 	description: '5',
-		// 	code: `
-		// 		a {
-		// 			display: none;
-		//
-		// 			border-bottom: 1px solid red;
-		// 		}
-		// 	`,
-		// },
-		// {
-		// 	description: '6',
-		// 	code: `
-		// 		a {
-		// 			display: none; /* comment */
-		//
-		// 			position: absolute;
-		// 		}
-		// 	`,
-		// },
-		// {
-		// 	description: '7',
-		// 	code: `
-		// 		a {
-		// 			display: none;
-		// 			/* comment */
-		// 			position: absolute;
-		// 		}
-		// 	`,
-		// },
-		// {
-		// 	description: '8',
-		// 	code: `
-		// 		a {
-		// 			/* comment */
-		// 			display: none;
-		//
-		// 			position: absolute;
-		// 		}
-		// 	`,
-		// },
+		{
+			description: '1',
+			code: `
+				a {
+					display: none;
+
+					position: absolute;
+
+					border-bottom: 1px solid red;
+					font-style: italic;
+				}
+			`,
+		},
+		{
+			description: '2',
+			code: `
+				a {
+					display: none;
+
+					position: absolute;
+
+					font-style: italic;
+				}
+			`,
+		},
+		{
+			description: '3',
+			code: `
+				a {
+					display: none;
+
+					font-style: italic;
+				}
+			`,
+		},
+		{
+			description: '4',
+			code: `
+				a {
+					position: absolute;
+
+					border-bottom: 1px solid red;
+				}
+			`,
+		},
+		{
+			description: '5',
+			code: `
+				a {
+					display: none;
+
+					border-bottom: 1px solid red;
+				}
+			`,
+		},
+		{
+			description: '6',
+			code: `
+				a {
+					display: none; /* comment */
+
+					position: absolute;
+				}
+			`,
+		},
+		{
+			description: '7',
+			code: `
+				a {
+					display: none;
+					/* comment */
+					position: absolute;
+				}
+			`,
+		},
+		{
+			description: '8',
+			code: `
+				a {
+					/* comment */
+					display: none;
+
+					position: absolute;
+				}
+			`,
+		},
 		{
 			description: '9',
 			code: `
