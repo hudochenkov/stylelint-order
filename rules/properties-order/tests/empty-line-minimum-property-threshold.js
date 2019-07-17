@@ -171,6 +171,20 @@ testRule(rule, {
 				}
 			`,
 		},
+		{
+			description: '14',
+			code: `
+				a {
+					display: 0;
+				
+					/* comment */
+					position: 0;
+				
+					/* comment */
+					border-bottom: 0;
+				}
+			`,
+		},
 	],
 
 	reject: [
@@ -179,6 +193,7 @@ testRule(rule, {
 			code: `
 				a {
 					display: none;
+
 					position: absolute;
 
 					border-bottom: 1px solid red;
@@ -193,7 +208,7 @@ testRule(rule, {
 					font-style: italic;
 				}
 			`,
-			message: messages.rejectedEmptyLineBefore('border-bottom'),
+			message: messages.rejectedEmptyLineBefore('position'),
 		},
 		{
 			description: '15',
@@ -233,7 +248,7 @@ testRule(rule, {
 					font-style: italic;
 				}
 			`,
-			message: messages.expectedEmptyLineBefore('font-style'),
+			message: messages.rejectedEmptyLineBefore('font-style'),
 		},
 		{
 			description: '17',
@@ -321,6 +336,104 @@ testRule(rule, {
 				}
 			`,
 			message: messages.rejectedEmptyLineBefore('position'),
+		},
+		{
+			description: '22',
+			code: `
+				a {
+					display: absolute;
+				
+					--num: 0;
+				
+					position: var(--num);
+				
+					border-bottom: var(--num);
+				}
+			`,
+			fixed: `
+				a {
+					display: absolute;
+				
+					--num: 0;
+				
+					position: var(--num);
+					border-bottom: var(--num);
+				}
+			`,
+			message: messages.rejectedEmptyLineBefore('border-bottom'),
+		},
+	],
+});
+
+testRule(rule, {
+	ruleName,
+	config: [
+		[
+			{
+				emptyLineBefore: 'always',
+				properties: ['width', 'height'],
+			},
+			{
+				emptyLineBefore: 'always',
+				properties: ['font-size', 'font-family'],
+			},
+			{
+				emptyLineBefore: 'always',
+				properties: ['background-repeat'],
+			},
+		],
+		{
+			emptyLineMinimumPropertyThreshold: 4,
+		},
+	],
+	fix: true,
+
+	reject: [
+		{
+			description: 'fix order and empty line before',
+			code: `
+				a {
+					width: 100%;
+					font-size: 14px;
+					height: 100%;
+					font-family: "Arial", "Helvetica", sans-serif;
+					background-repeat: no-repeat;
+				}
+			`,
+			fixed: `
+				a {
+					width: 100%;
+					height: 100%;
+
+					font-size: 14px;
+					font-family: "Arial", "Helvetica", sans-serif;
+
+					background-repeat: no-repeat;
+				}
+			`,
+		},
+		{
+			description: 'fix empty line before, order is fine',
+			code: `
+				a {
+					width: 100%;
+					height: 100%;
+					font-size: 14px;
+					font-family: "Arial", "Helvetica", sans-serif;
+					background-repeat: no-repeat;
+				}
+			`,
+			fixed: `
+				a {
+					width: 100%;
+					height: 100%;
+
+					font-size: 14px;
+					font-family: "Arial", "Helvetica", sans-serif;
+
+					background-repeat: no-repeat;
+				}
+			`,
 		},
 	],
 });
