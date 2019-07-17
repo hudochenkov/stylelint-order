@@ -465,9 +465,7 @@ These options only apply if you've defined your own array of properties.
 
 Default behavior is the same as `"ignore"`: an unspecified property can appear before or after any other property.
 
-With `"top"`, unspecified properties are expected *before* any specified properties. With `"bottom"`, unspecified 
-properties are expected *after* any specified properties. With `"bottomAlphabetical"`, unspecified properties are 
-expected *after* any specified properties, and the unspecified properties are expected to be in alphabetical order.
+With `"top"`, unspecified properties are expected *before* any specified properties. With `"bottom"`, unspecified properties are expected *after* any specified properties. With `"bottomAlphabetical"`, unspecified properties are expected *after* any specified properties, and the unspecified properties are expected to be in alphabetical order.
 
 Given:
 
