@@ -634,3 +634,192 @@ testRule(rule, {
 		},
 	],
 });
+
+// Verify mix of settings
+testRule(rule, {
+	ruleName,
+	config: [
+		[
+			{
+				emptyLineBefore: 'threshold',
+				properties: ['display'],
+			},
+			{
+				emptyLineBefore: 'threshold',
+				properties: ['height', 'width'],
+			},
+			{
+				emptyLineBefore: 'always',
+				properties: ['border'],
+			},
+			{
+				emptyLineBefore: 'never',
+				properties: ['transform'],
+			},
+		],
+		{
+			unspecified: 'bottom',
+			emptyLineBeforeUnspecified: 'threshold',
+			emptyLineMinimumPropertyThreshold: 4,
+		},
+	],
+	fix: true,
+
+	accept: [
+		{
+			description: 'mixed-accept-1',
+			code: `
+				a {
+					display: block;
+					height: 1px;
+					width: 2px;
+				}
+			`,
+		},
+		{
+			description: 'mixed-accept-2',
+			code: `
+				a {
+					display: block;
+
+					height: 1px;
+					width: 2px;
+
+					border: 0;
+				}
+			`,
+		},
+		{
+			description: 'mixed-accept-3',
+			code: `
+				a {
+					display: block;
+
+					height: 1px;
+					width: 2px;
+
+					border: 0;
+					transform: none;
+				}
+			`,
+		},
+		{
+			description: 'mixed-accept-4',
+			code: `
+				a {
+					display: block;
+					height: 1px;
+
+					border: 0;
+				}
+			`,
+		},
+		{
+			description: 'mixed-accept-5',
+			code: `
+				a {
+					border: 0;
+					transform: none;
+					color: blue;
+				}
+			`,
+		},
+		{
+			description: 'mixed-accept-6',
+			code: `
+				a {
+					display: block;
+					
+					height: 1px;
+					width: 2px;
+					
+					border: 0;
+					transform: none;
+					
+					color: blue;
+				}
+			`,
+		},
+	],
+
+	reject: [
+		{
+			description: 'mixed-reject-1',
+			code: `
+				a {
+					display: block;
+
+					height: 1px;
+					width: 2px;
+					color: blue;
+				}
+			`,
+			fixed: `
+				a {
+					display: block;
+
+					height: 1px;
+					width: 2px;
+
+					color: blue;
+				}
+			`,
+			message: messages.expectedEmptyLineBefore('color'),
+		},
+		{
+			description: 'mixed-reject-2',
+			code: `
+				a {
+					display: block;
+
+					height: 1px;
+					width: 2px;
+					border: 0;
+					color: blue;
+				}
+			`,
+			fixed: `
+				a {
+					display: block;
+
+					height: 1px;
+					width: 2px;
+
+					border: 0;
+
+					color: blue;
+				}
+			`,
+			message: messages.expectedEmptyLineBefore('border'),
+		},
+		{
+			description: 'mixed-reject-3',
+			code: `
+				a {
+					display: block;
+
+					height: 1px;
+					width: 2px;
+					border: 0;
+
+					transform: none;
+					color: blue;
+				}
+			`,
+			fixed: `
+				a {
+					display: block;
+
+					height: 1px;
+					width: 2px;
+
+					border: 0;
+					transform: none;
+
+					color: blue;
+				}
+			`,
+			message: messages.expectedEmptyLineBefore('border'),
+		},
+	],
+});
