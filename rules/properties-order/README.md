@@ -19,6 +19,7 @@ This rule ignores variables (`$sass`, `@less`, `--custom-property`).
 * Optional secondary options
 	* [`unspecified: "top"|"bottom"|"bottomAlphabetical"|"ignore"`](#unspecified-topbottombottomalphabeticalignore)
 	* [`emptyLineBeforeUnspecified: "always"|"never"`](#emptyLineBeforeUnspecified-alwaysnever)
+	* [`emptyLineMinimumPropertyThreshold: <number>`](#emptyLineBeforeUnspecified-number) —  Default: `0`
 	* [`disableFix: true`](#disablefix-true)
 * [Autofixing caveats](#autofixing-caveats)
 
@@ -637,13 +638,101 @@ a {
 }
 ```
 
+### `emptyLineMinimumPropertyThreshold: <number>`
+
+Set a threshold (minimum number) of properties in the selector required for the grouping to be invoked. Default setting is `0` (disabled).
+
+e.g. with a setting of `5`, the `emptyLineBefore` will be invoked when there are _at least_ 5 properties.
+
+Given:
+
+```js
+[
+    [
+        {
+            emptyLineBefore: 'always',
+            properties: ['display'],
+        },
+        {
+            emptyLineBefore: 'always',
+            properties: ['height', 'width'],
+        },
+        {
+            emptyLineBefore: 'always',
+            properties: ['border'],
+        },
+        {
+            emptyLineBefore: 'never',
+            properties: ['transform'],
+        },
+    ],
+    {
+        emptyLineMinimumPropertyThreshold: 4,
+    }
+]
+```
+
+The following pattern is considered warnings:
+
+```css
+a {
+    display: block;
+
+	height: 1px;
+    width: 2px;
+}
+
+a {
+    display: block;
+	height: 1px;
+    width: 2px;
+    border: 0;
+}
+
+a {
+    display: block;
+	height: 1px;
+    width: 2px;
+    transform: none;
+}
+```
+
+The following patterns is *not* considered warnings:
+
+```css
+a {
+    display: block;
+	height: 1px;
+    width: 2px;
+}
+
+a {
+    display: block;
+
+	height: 1px;
+    width: 2px;
+
+    border: 0;
+}
+
+a {
+    display: block;
+
+	height: 1px;
+    width: 2px;
+
+    border: 0;
+    transform: none;
+}
+```
+
 ### `disableFix: true`
 
 Disable autofixing. Autofixing is enabled by default if it's enabled in stylelint configuration.
 
 ## Autofixing caveats
 
-Properties will be grouped together, if other node types between them (except comments). They will be groupped with the first found property. E. g.:
+Properties will be grouped together, if other node types between them (except comments). They will be grouped with the first found property. E.g.:
 
 ```css
 /* Before: */

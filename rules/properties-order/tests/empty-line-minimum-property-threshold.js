@@ -437,3 +437,136 @@ testRule(rule, {
 		},
 	],
 });
+
+testRule(rule, {
+	ruleName,
+	config: [
+		[
+			{
+				emptyLineBefore: 'always',
+				properties: ['display'],
+			},
+			{
+				emptyLineBefore: 'always',
+				properties: ['height', 'width'],
+			},
+			{
+				emptyLineBefore: 'always',
+				properties: ['border'],
+			},
+			{
+				emptyLineBefore: 'never',
+				properties: ['transform'],
+			},
+		],
+		{
+			emptyLineMinimumPropertyThreshold: 4,
+		},
+	],
+	fix: true,
+
+	accept: [
+		{
+			description: 'example-accept-1',
+			code: `
+				a {
+					display: block;
+					height: 1px;
+					width: 2px;
+				}
+			`,
+		},
+		{
+			description: 'example-accept-2',
+			code: `
+				a {
+					display: block;
+				
+					height: 1px;
+					width: 2px;
+				
+					border: 0;
+				}
+			`,
+		},
+		{
+			description: 'example-accept-3',
+			code: `
+				a {
+					display: block;
+				
+					height: 1px;
+					width: 2px;
+				
+					border: 0;
+					transform: none;
+				}
+			`,
+		},
+	],
+
+	reject: [
+		{
+			description: 'example-reject-1',
+			code: `
+				a {
+					display: block;
+				
+					height: 1px;
+					width: 2px;
+				}
+			`,
+			fixed: `
+				a {
+					display: block;
+					height: 1px;
+					width: 2px;
+				}
+			`,
+			message: messages.rejectedEmptyLineBefore('height'),
+		},
+		{
+			description: 'example-reject-2',
+			code: `
+				a {
+					display: block;
+					height: 1px;
+					width: 2px;
+					border: 0;
+				}
+			`,
+			fixed: `
+				a {
+					display: block;
+
+					height: 1px;
+					width: 2px;
+
+					border: 0;
+				}
+			`,
+			message: messages.expectedEmptyLineBefore('height'),
+		},
+		{
+			description: 'example-reject-3',
+			code: `
+				a {
+					display: block;
+					height: 1px;
+					width: 2px;
+					transform: none;
+				}
+			`,
+			fixed: `
+				a {
+					display: block;
+
+					height: 1px;
+					width: 2px;
+					transform: none;
+				}
+			`,
+			message: messages.expectedEmptyLineBefore('height'),
+		},
+	],
+});
