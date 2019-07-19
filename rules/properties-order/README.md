@@ -19,7 +19,7 @@ This rule ignores variables (`$sass`, `@less`, `--custom-property`).
 * Optional secondary options
 	* [`unspecified: "top"|"bottom"|"bottomAlphabetical"|"ignore"`](#unspecified-topbottombottomalphabeticalignore)
 	* [`emptyLineBeforeUnspecified: "always"|"never"|"threshold"`](#emptyLineBeforeUnspecified-alwaysneverthreshold)
-	* [`emptyLineMinimumPropertyThreshold: <number>`](#emptyLineBeforeMinimumThreshold-number) —  Default: `0`
+	* [`emptyLineMinimumPropertyThreshold: <number>`](#emptylineminimumpropertythreshold-number)
 	* [`disableFix: true`](#disablefix-true)
 * [Autofixing caveats](#autofixing-caveats)
 
