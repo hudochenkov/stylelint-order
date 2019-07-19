@@ -686,7 +686,7 @@ Given:
 ]
 ```
 
-The following pattern is considered warnings:
+The following patterns are considered warnings:
 
 ```css
 a {
