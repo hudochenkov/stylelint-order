@@ -649,7 +649,7 @@ a {
 
 ### `emptyLineMinimumPropertyThreshold: <number>`
 
-Set a threshold (minimum number) of properties in the selector required for the grouping to be invoked. 
+Set a threshold (minimum number) of properties in the rule required for the grouping to be invoked. 
 Default setting is `0` (disabled).
 
 The threshold is invoked on groups (and unspecified) when they are set to `"threshold"`.
