@@ -40,7 +40,7 @@ Within an order array, you can include
 	by an empty newline. If emptyLineBefore is `never`, the group must have no empty lines separating it from other 
 	properties. By default this property isn't set. Rule will check empty lines between properties _only_. However, 
 	shared-line comments ignored by rule. Shared-line comment is a comment on the same line as declaration before this 
-	comment. For `threshold`, refer to the [`emptyLineBeforeMinimumThreshold` documentation](#emptyLineBeforeMinimumThreshold-number).
+	comment. For `threshold`, refer to the [`emptyLineMinimumPropertyThreshold` documentation](#emptylineminimumpropertythreshold-number).
 	* `noEmptyLineBetween`: If `true`, properties within group should not have empty lines between them.
 	* `groupName`: An optional name for the group. This will be used in error messages.
 
