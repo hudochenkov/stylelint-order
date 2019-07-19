@@ -718,7 +718,7 @@ a {
 }
 ```
 
-The following patterns is *not* considered warnings:
+The following patterns are *not* considered warnings:
 
 ```css
 a {
