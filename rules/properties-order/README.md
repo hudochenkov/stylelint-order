@@ -608,8 +608,7 @@ Default behavior does not enforce the presence of an empty line before an unspec
 If `"always"`, the unspecified group must be separated from other properties by an empty newline. 
 If `"never"`, the unspecified group must have no empty lines separating it from other properties.
 
-When set to `"threshold"`, the behaviour switches between `"always"` and `"never"` based on the configured minimum 
-property threshold. See the [`emptyLineBeforeMinimumThreshold` documentation](#emptyLineBeforeMinimumThreshold-number) for more information.
+For `"threshold"`, see the [`emptyLineMinimumPropertyThreshold` documentation](#emptylineminimumpropertythreshold-number) for more information.
 
 Given:
 
@@ -655,6 +654,8 @@ Default setting is `0` (disabled).
 The threshold is invoked on groups (and unspecified) when they are set to `"threshold"`.
 
 e.g. with a setting of `5`, the `emptyLineBefore` will be invoked when there are _at least_ 5 properties.
+
+The same behaviour is applied to unspecified groups when `emptyLineBeforeUnspecified: "threshold"`.
 
 Given:
 
