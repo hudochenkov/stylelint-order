@@ -8,7 +8,7 @@ module.exports = function checkEmptyLineBefore(
 	firstPropData,
 	secondPropData,
 	sharedInfo,
-	allNodesData
+	propsCount
 ) {
 	const firstPropIsUnspecified = !firstPropData.orderData;
 	const secondPropIsUnspecified = !secondPropData.orderData;
@@ -28,8 +28,7 @@ module.exports = function checkEmptyLineBefore(
 	const startOfUnspecifiedGroup = !firstPropIsUnspecified && secondPropIsUnspecified;
 
 	// Line threshold logic
-	const belowEmptyLineThreshold =
-		allNodesData.length < sharedInfo.emptyLineMinimumPropertyThreshold;
+	const belowEmptyLineThreshold = propsCount < sharedInfo.emptyLineMinimumPropertyThreshold;
 
 	if (betweenGroupsInSpecified || startOfUnspecifiedGroup) {
 		// Get an array of just the property groups, remove any solo properties

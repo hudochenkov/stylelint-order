@@ -91,7 +91,9 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 			return;
 		}
 
-		checkEmptyLineBefore(previousNodeData, nodeData, sharedInfo, allNodesData);
+		const propsCount = node.nodes.filter(item => utils.isProperty(item));
+
+		checkEmptyLineBefore(previousNodeData, nodeData, sharedInfo, propsCount);
 	});
 
 	function checkEveryPropForOrder(propData, index, listOfProps) {
