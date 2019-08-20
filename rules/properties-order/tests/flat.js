@@ -290,18 +290,13 @@ testRule(rule, {
 testRule(rule, {
 	ruleName,
 	config: [['left', 'margin']],
+	fix: true,
 
 	accept: [
 		{
 			code: '.foo { left: 0; color: pink; margin: 0; }',
 		},
 	],
-});
-
-testRule(rule, {
-	ruleName,
-	config: [['left', 'margin']],
-	fix: true,
 
 	reject: [
 		{

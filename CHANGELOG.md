@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 3.0.1
+
+* Fixed `properties-order` not report warnings, if autofix didn't fix them.
+* Fixed `properties-alphabetical-order` now puts shorthands before their longhand forms even if that isn't alphabetical to avoid broken CSS. E. g. `border-color` will be before `border-bottom-color`.
+
 ## 3.0.0
 
 * Dropped Node.js 6 support. Node.js 8.7.0 or greater is now required.

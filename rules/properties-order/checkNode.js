@@ -38,7 +38,7 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 				allPropData: allPropData.slice(0, index),
 			});
 
-			if (!checkedOrder.result) {
+			if (!checkedOrder.isCorrect) {
 				shouldFixOrder = true;
 			}
 		});
@@ -111,7 +111,7 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 			allPropData: listOfProps.slice(0, index),
 		});
 
-		if (!checkedOrder.result) {
+		if (!checkedOrder.isCorrect) {
 			const { orderData } = checkedOrder.secondNode;
 
 			stylelint.utils.report({
