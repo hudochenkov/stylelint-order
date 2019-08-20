@@ -648,14 +648,13 @@ a {
 
 ### `emptyLineMinimumPropertyThreshold: <number>`
 
-Set a threshold (minimum number) of properties in the rule required for the grouping to be invoked. 
-Default setting is `0` (disabled).
+If a group is configured with `emptyLineBefore: 'threshold'`, the empty line behaviour toggles based on the number of properties in the rule.
 
-The threshold is invoked on groups (and unspecified) when they are set to `"threshold"`.
+When the configured minimum property threshold is reached, empty lines are **inserted**.  When the number of properties is **less than** the minimum property threshold, empty lines are **removed**.
 
-e.g. with a setting of `5`, the `emptyLineBefore` will be invoked when there are _at least_ 5 properties.
+ _e.g. threshold set to **3**, and there are **5** properties in total, then groups set to `'threshold'` will have an empty line inserted._
 
-The same behaviour is applied to unspecified groups when `emptyLineBeforeUnspecified: "threshold"`.
+The same behaviour is applied to unspecified groups when `emptyLineBeforeUnspecified: "threshold"`
 
 Given:
 
