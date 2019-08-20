@@ -4,7 +4,12 @@ const addEmptyLineBefore = require('./addEmptyLineBefore');
 const hasEmptyLineBefore = require('./hasEmptyLineBefore');
 const removeEmptyLinesBefore = require('./removeEmptyLinesBefore');
 
-module.exports = function checkEmptyLineBefore(firstPropData, secondPropData, sharedInfo) {
+module.exports = function checkEmptyLineBefore(
+	firstPropData,
+	secondPropData,
+	sharedInfo,
+	propsCount
+) {
 	const firstPropIsUnspecified = !firstPropData.orderData;
 	const secondPropIsUnspecified = !secondPropData.orderData;
 
@@ -22,6 +27,9 @@ module.exports = function checkEmptyLineBefore(firstPropData, secondPropData, sh
 		firstPropSeparatedGroup !== secondPropSeparatedGroup && !secondPropIsUnspecified;
 	const startOfUnspecifiedGroup = !firstPropIsUnspecified && secondPropIsUnspecified;
 
+	// Line threshold logic
+	const belowEmptyLineThreshold = propsCount < sharedInfo.emptyLineMinimumPropertyThreshold;
+
 	if (betweenGroupsInSpecified || startOfUnspecifiedGroup) {
 		// Get an array of just the property groups, remove any solo properties
 		const groups = _.reject(sharedInfo.expectation, _.isString);
@@ -32,7 +40,16 @@ module.exports = function checkEmptyLineBefore(firstPropData, secondPropData, sh
 			  _.get(groups[secondPropSeparatedGroup - 2], 'emptyLineBefore')
 			: sharedInfo.emptyLineBeforeUnspecified;
 
-		if (!hasEmptyLineBefore(secondPropData.node) && emptyLineBefore === 'always') {
+		// Threshold logic
+		const emptyLineThresholdInsertLines =
+			!belowEmptyLineThreshold && emptyLineBefore === 'threshold';
+		const emptyLineThresholdRemoveLines =
+			belowEmptyLineThreshold && emptyLineBefore === 'threshold';
+
+		if (
+			!hasEmptyLineBefore(secondPropData.node) &&
+			(emptyLineBefore === 'always' || emptyLineThresholdInsertLines)
+		) {
 			if (sharedInfo.isFixEnabled) {
 				addEmptyLineBefore(secondPropData.node, sharedInfo.context.newline);
 			} else {
@@ -43,7 +60,10 @@ module.exports = function checkEmptyLineBefore(firstPropData, secondPropData, sh
 					ruleName: sharedInfo.ruleName,
 				});
 			}
-		} else if (hasEmptyLineBefore(secondPropData.node) && emptyLineBefore === 'never') {
+		} else if (
+			hasEmptyLineBefore(secondPropData.node) &&
+			(emptyLineBefore === 'never' || emptyLineThresholdRemoveLines)
+		) {
 			if (sharedInfo.isFixEnabled) {
 				removeEmptyLinesBefore(secondPropData.node, sharedInfo.context.newline);
 			} else {

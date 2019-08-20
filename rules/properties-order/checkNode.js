@@ -10,6 +10,7 @@ const createFlatOrder = require('./createFlatOrder');
 module.exports = function checkNode(node, sharedInfo, originalNode) {
 	// First, check order
 	const allPropData = getAllPropData(node);
+	const propsCount = node.nodes.filter(item => utils.isProperty(item)).length;
 
 	if (!sharedInfo.isFixEnabled) {
 		allPropData.forEach(checkEveryPropForOrder);
@@ -91,7 +92,7 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 			return;
 		}
 
-		checkEmptyLineBefore(previousNodeData, nodeData, sharedInfo);
+		checkEmptyLineBefore(previousNodeData, nodeData, sharedInfo, propsCount);
 	});
 
 	function checkEveryPropForOrder(propData, index, listOfProps) {

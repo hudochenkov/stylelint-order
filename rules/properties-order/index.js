@@ -11,7 +11,7 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 	expected: (first, second, groupName) =>
 		`Expected "${first}" to come before "${second}"${groupName ? ` in group "${groupName}"` : ''}`,
 	expectedEmptyLineBefore: property => `Expected an empty line before property "${property}"`,
-	rejectedEmptyLineBefore: property => `Unexpected an empty line before property "${property}"`,
+	rejectedEmptyLineBefore: property => `Unexpected empty line before property "${property}"`,
 });
 
 const rule = function(expectation, options, context = {}) {
@@ -27,8 +27,9 @@ const rule = function(expectation, options, context = {}) {
 				actual: options,
 				possible: {
 					unspecified: ['top', 'bottom', 'ignore', 'bottomAlphabetical'],
-					emptyLineBeforeUnspecified: ['always', 'never'],
+					emptyLineBeforeUnspecified: ['always', 'never', 'threshold'],
 					disableFix: _.isBoolean,
+					emptyLineMinimumPropertyThreshold: _.isNumber,
 				},
 				optional: true,
 			}
@@ -41,6 +42,11 @@ const rule = function(expectation, options, context = {}) {
 		// By default, ignore unspecified properties
 		const unspecified = _.get(options, 'unspecified', 'ignore');
 		const emptyLineBeforeUnspecified = _.get(options, 'emptyLineBeforeUnspecified', '');
+		const emptyLineMinimumPropertyThreshold = _.get(
+			options,
+			'emptyLineMinimumPropertyThreshold',
+			0
+		);
 		const disableFix = _.get(options, 'disableFix', false);
 		const isFixEnabled = context.fix && !disableFix;
 
@@ -51,6 +57,7 @@ const rule = function(expectation, options, context = {}) {
 			expectation,
 			unspecified,
 			emptyLineBeforeUnspecified,
+			emptyLineMinimumPropertyThreshold,
 			messages,
 			ruleName,
 			result,
