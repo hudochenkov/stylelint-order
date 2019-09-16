@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 3.1.1
+
+* Added `stylelint@11` as a peer dependency.
+
 ## 3.1.0
 
 * Added `emptyLineBefore: "threshold"` option, and related options (`emptyLineMinimumPropertyThreshold`, `emptyLineBeforeUnspecified: "threshold"`) to `properties-order`.
