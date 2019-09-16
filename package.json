@@ -33,7 +33,7 @@
     "postcss-sorting": "^5.0.1"
   },
   "peerDependencies": {
-    "stylelint": "^10.0.1"
+    "stylelint": ">=10.0.1"
   },
   "devDependencies": {
     "eslint": "^6.2.2",
@@ -43,7 +43,7 @@
     "jest": "^24.9.0",
     "lint-staged": "^9.2.5",
     "prettier": "~1.18.2",
-    "stylelint": "^10.1.0"
+    "stylelint": "^11.0.0"
   },
   "scripts": {
     "pretest": "eslint .",
