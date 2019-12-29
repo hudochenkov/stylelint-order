@@ -87,8 +87,8 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 			return;
 		}
 
-		// previous node should be a standard declaration
-		if (!utils.isProperty(previousNodeData.node)) {
+		// Nodes should be standard declarations
+		if (!utils.isProperty(previousNodeData.node) || !utils.isProperty(nodeData.node)) {
 			return;
 		}
 

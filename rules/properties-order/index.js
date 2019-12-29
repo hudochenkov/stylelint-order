@@ -41,7 +41,7 @@ const rule = function(expectation, options, context = {}) {
 
 		// By default, ignore unspecified properties
 		const unspecified = _.get(options, 'unspecified', 'ignore');
-		const emptyLineBeforeUnspecified = _.get(options, 'emptyLineBeforeUnspecified', '');
+		const emptyLineBeforeUnspecified = _.get(options, 'emptyLineBeforeUnspecified');
 		const emptyLineMinimumPropertyThreshold = _.get(
 			options,
 			'emptyLineMinimumPropertyThreshold',
