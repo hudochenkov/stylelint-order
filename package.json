@@ -29,21 +29,21 @@
   "main": "index.js",
   "dependencies": {
     "lodash": "^4.17.15",
-    "postcss": "^7.0.17",
+    "postcss": "^7.0.25",
     "postcss-sorting": "^5.0.1"
   },
   "peerDependencies": {
     "stylelint": ">=10.0.1"
   },
   "devDependencies": {
-    "eslint": "^6.2.2",
+    "eslint": "^6.8.0",
     "eslint-config-hudochenkov": "^3.0.1",
-    "eslint-config-prettier": "^6.1.0",
-    "husky": "^3.0.4",
+    "eslint-config-prettier": "^6.9.0",
+    "husky": "^3.1.0",
     "jest": "^24.9.0",
-    "lint-staged": "^9.2.5",
-    "prettier": "~1.18.2",
-    "stylelint": "^11.0.0"
+    "lint-staged": "^9.5.0",
+    "prettier": "~1.19.1",
+    "stylelint": ">=12.0.1"
   },
   "scripts": {
     "pretest": "eslint .",
