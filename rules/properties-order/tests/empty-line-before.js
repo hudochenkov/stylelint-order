@@ -334,6 +334,51 @@ testRule(rule, {
 			`,
 			message: messages.expectedEmptyLineBefore('position'),
 		},
+		{
+			description: '22',
+			code: `
+				a {
+
+					display: none;
+				}
+			`,
+			fixed: `
+				a {
+					display: none;
+				}
+			`,
+			message: messages.rejectedEmptyLineBefore('display'),
+		},
+		{
+			description: '23',
+			code: `
+				a {
+
+					position: absolute;
+				}
+			`,
+			fixed: `
+				a {
+					position: absolute;
+				}
+			`,
+			message: messages.rejectedEmptyLineBefore('position'),
+		},
+		{
+			description: '24',
+			code: `
+				a {
+
+					font-style: italic;
+				}
+			`,
+			fixed: `
+				a {
+					font-style: italic;
+				}
+			`,
+			message: messages.rejectedEmptyLineBefore('font-style'),
+		},
 	],
 });
 
@@ -1073,15 +1118,6 @@ testRule(rule, {
 			`,
 		},
 		{
-			description: '66',
-			code: `
-				a {
-
-					display: none;
-				}
-			`,
-		},
-		{
 			description: '67',
 			code: `
 				a {
@@ -1180,6 +1216,21 @@ testRule(rule, {
 				}
 			`,
 			message: messages.expectedEmptyLineBefore('display'),
+		},
+		{
+			description: '73.1',
+			code: `
+				a {
+
+					display: none;
+				}
+			`,
+			fixed: `
+				a {
+					display: none;
+				}
+			`,
+			message: messages.rejectedEmptyLineBefore('display'),
 		},
 	],
 });

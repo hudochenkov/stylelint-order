@@ -167,6 +167,21 @@ testRule(rule, {
 			`,
 			message: messages.expectedEmptyLineBefore('font-style'),
 		},
+		{
+			description: '12',
+			code: `
+				a {
+
+					font-style: italic;
+				}
+			`,
+			fixed: `
+				a {
+					font-style: italic;
+				}
+			`,
+			message: messages.rejectedEmptyLineBefore('font-style'),
+		},
 	],
 });
 

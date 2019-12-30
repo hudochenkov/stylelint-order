@@ -3,6 +3,7 @@ const postcss = require('postcss');
 const postcssSorting = require('postcss-sorting');
 const utils = require('../../utils');
 const checkEmptyLineBefore = require('./checkEmptyLineBefore');
+const checkEmptyLineBeforeFirstProp = require('./checkEmptyLineBeforeFirstProp');
 const checkOrder = require('./checkOrder');
 const getNodeData = require('./getNodeData');
 const createFlatOrder = require('./createFlatOrder');
@@ -94,6 +95,11 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 
 		checkEmptyLineBefore(previousNodeData, nodeData, sharedInfo, propsCount);
 	});
+
+	// Check if empty line before first prop should be removed
+	if (utils.isProperty(allNodesData[0].node)) {
+		checkEmptyLineBeforeFirstProp(allNodesData[0], sharedInfo);
+	}
 
 	function checkEveryPropForOrder(propData, index, listOfProps) {
 		// Skip first decl
