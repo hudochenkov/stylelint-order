@@ -3,7 +3,7 @@ const calcAtRulePatternPriority = require('./calcAtRulePatternPriority');
 const calcRulePatternPriority = require('./calcRulePatternPriority');
 const getDescription = require('./getDescription');
 
-module.exports = function getOrderData(expectedOrder, node) {
+module.exports = function getOrderData(orderInfo, node) {
 	let nodeType;
 
 	if (utils.isAtVariable(node)) {
@@ -24,7 +24,7 @@ module.exports = function getOrderData(expectedOrder, node) {
 			selector: node.selector,
 		};
 
-		const rules = expectedOrder.rule;
+		const rules = orderInfo.rule;
 
 		// Looking for most specified pattern, because it can match many patterns
 		if (rules && rules.length) {
@@ -59,7 +59,7 @@ module.exports = function getOrderData(expectedOrder, node) {
 			nodeType.parameter = node.params;
 		}
 
-		const atRules = expectedOrder['at-rule'];
+		const atRules = orderInfo['at-rule'];
 
 		// Looking for most specified pattern, because it can match many patterns
 		if (atRules && atRules.length) {
@@ -81,8 +81,8 @@ module.exports = function getOrderData(expectedOrder, node) {
 		}
 	}
 
-	if (expectedOrder[nodeType]) {
-		return expectedOrder[nodeType];
+	if (orderInfo[nodeType]) {
+		return orderInfo[nodeType];
 	}
 
 	// Return only description if there no patterns for that node

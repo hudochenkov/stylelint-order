@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const getDescription = require('./getDescription');
 
-module.exports = function createExpectedOrder(input) {
+module.exports = function createOrderInfo(input) {
 	let order = {};
 	let expectedPosition = 0;
 

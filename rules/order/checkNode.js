@@ -1,5 +1,4 @@
 const stylelint = require('stylelint');
-const _ = require('lodash');
 const checkOrder = require('./checkOrder');
 const getOrderData = require('./getOrderData');
 
@@ -13,27 +12,24 @@ module.exports = function checkNode(node, sharedInfo) {
 		}
 
 		// Receive node description and expectedPosition
-		const nodeOrderData = getOrderData(sharedInfo.expectedOrder, child);
+		let nodeOrderData = getOrderData(sharedInfo.orderInfo, child);
 
-		const nodeData = {
-			description: nodeOrderData.description,
+		let nodeData = {
 			node: child,
+			description: nodeOrderData.description,
+			expectedPosition: nodeOrderData.expectedPosition,
 		};
 
-		if (nodeOrderData.expectedPosition) {
-			nodeData.expectedPosition = nodeOrderData.expectedPosition;
-		}
-
-		const previousNodeData = _.last(allNodesData);
-
 		allNodesData.push(nodeData);
+
+		let previousNodeData = allNodesData[allNodesData.length - 2];
 
 		// Skip first node
 		if (!previousNodeData) {
 			return;
 		}
 
-		const isCorrectOrder = checkOrder(previousNodeData, nodeData, allNodesData, sharedInfo);
+		let isCorrectOrder = checkOrder(previousNodeData, nodeData, allNodesData, sharedInfo);
 
 		if (isCorrectOrder) {
 			return;

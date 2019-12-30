@@ -1,19 +1,19 @@
-const stylelint = require('stylelint');
-const _ = require('lodash');
+let stylelint = require('stylelint');
+let _ = require('lodash');
 
 module.exports = function checkOrder(firstNodeData, secondNodeData, allNodesData, sharedInfo) {
-	const firstNodeIsUnspecified = !firstNodeData.expectedPosition;
-	const secondNodeIsUnspecified = !secondNodeData.expectedPosition;
+	let firstNodeIsSpecified = Boolean(firstNodeData.expectedPosition);
+	let secondNodeIsSpecified = Boolean(secondNodeData.expectedPosition);
 
 	// If both nodes have their position
-	if (!firstNodeIsUnspecified && !secondNodeIsUnspecified) {
+	if (firstNodeIsSpecified && secondNodeIsSpecified) {
 		return firstNodeData.expectedPosition <= secondNodeData.expectedPosition;
 	}
 
-	if (firstNodeIsUnspecified && !secondNodeIsUnspecified) {
-		// If first node is unspecified, look for a specified node before it to
-		// compare to the current node
-		const priorSpecifiedNodeData = _.findLast(allNodesData.slice(0, -1), d =>
+	if (!firstNodeIsSpecified && secondNodeIsSpecified) {
+		// If first node is unspecified, look for a specified node before it
+		// to compare to the current node
+		let priorSpecifiedNodeData = _.findLast(allNodesData.slice(0, -1), d =>
 			Boolean(d.expectedPosition)
 		);
 
@@ -43,29 +43,29 @@ module.exports = function checkOrder(firstNodeData, secondNodeData, allNodesData
 		}
 	}
 
-	if (firstNodeIsUnspecified && secondNodeIsUnspecified) {
+	if (!firstNodeIsSpecified && !secondNodeIsSpecified) {
 		return true;
 	}
 
-	const { unspecified } = sharedInfo;
+	let { unspecified } = sharedInfo;
 
-	if (unspecified === 'ignore' && (firstNodeIsUnspecified || secondNodeIsUnspecified)) {
+	if (unspecified === 'ignore' && (!firstNodeIsSpecified || !secondNodeIsSpecified)) {
 		return true;
 	}
 
-	if (unspecified === 'top' && firstNodeIsUnspecified) {
+	if (unspecified === 'top' && !firstNodeIsSpecified) {
 		return true;
 	}
 
-	if (unspecified === 'top' && secondNodeIsUnspecified) {
+	if (unspecified === 'top' && !secondNodeIsSpecified) {
 		return false;
 	}
 
-	if (unspecified === 'bottom' && secondNodeIsUnspecified) {
+	if (unspecified === 'bottom' && !secondNodeIsSpecified) {
 		return true;
 	}
 
-	if (unspecified === 'bottom' && firstNodeIsUnspecified) {
+	if (unspecified === 'bottom' && !firstNodeIsSpecified) {
 		return false;
 	}
 };
