@@ -14,9 +14,9 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 	rejectedEmptyLineBefore: property => `Unexpected empty line before property "${property}"`,
 });
 
-const rule = function(expectation, options, context = {}) {
+const rule = function(expectation, options = {}, context = {}) {
 	return function(root, result) {
-		const validOptions = stylelint.utils.validateOptions(
+		let validOptions = stylelint.utils.validateOptions(
 			result,
 			ruleName,
 			{
@@ -40,19 +40,15 @@ const rule = function(expectation, options, context = {}) {
 		}
 
 		// By default, ignore unspecified properties
-		const unspecified = _.get(options, 'unspecified', 'ignore');
-		const emptyLineBeforeUnspecified = _.get(options, 'emptyLineBeforeUnspecified');
-		const emptyLineMinimumPropertyThreshold = _.get(
-			options,
-			'emptyLineMinimumPropertyThreshold',
-			0
-		);
-		const disableFix = _.get(options, 'disableFix', false);
-		const isFixEnabled = context.fix && !disableFix;
+		let unspecified = options.unspecified || 'ignore';
+		let emptyLineMinimumPropertyThreshold = options.emptyLineMinimumPropertyThreshold || 0;
+		let { emptyLineBeforeUnspecified } = options;
+		let disableFix = options.disableFix || false;
+		let isFixEnabled = context.fix && !disableFix;
 
-		const expectedOrder = createExpectedOrder(expectation);
+		let expectedOrder = createExpectedOrder(expectation);
 
-		const sharedInfo = {
+		let sharedInfo = {
 			expectedOrder,
 			expectation,
 			unspecified,
@@ -65,11 +61,11 @@ const rule = function(expectation, options, context = {}) {
 			isFixEnabled,
 		};
 
-		const processedParents = [];
+		let processedParents = [];
 
 		// Check all rules and at-rules recursively
 		root.walk(function processRulesAndAtrules(input) {
-			const node = utils.getContainingNode(input);
+			let node = utils.getContainingNode(input);
 
 			// Avoid warnings duplication, caused by interfering in `root.walk()` algorigthm with `utils.getContainingNode()`
 			if (processedParents.includes(node)) {
@@ -86,7 +82,7 @@ const rule = function(expectation, options, context = {}) {
 };
 
 rule.primaryOptionArray = true;
-
 rule.ruleName = ruleName;
 rule.messages = messages;
+
 module.exports = rule;

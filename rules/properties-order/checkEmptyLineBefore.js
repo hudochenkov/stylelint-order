@@ -47,8 +47,8 @@ module.exports = function checkEmptyLineBefore(
 			belowEmptyLineThreshold && emptyLineBefore === 'threshold';
 
 		if (
-			!hasEmptyLineBefore(secondPropData.node) &&
-			(emptyLineBefore === 'always' || emptyLineThresholdInsertLines)
+			(emptyLineBefore === 'always' || emptyLineThresholdInsertLines) &&
+			!hasEmptyLineBefore(secondPropData.node)
 		) {
 			if (sharedInfo.isFixEnabled) {
 				addEmptyLineBefore(secondPropData.node, sharedInfo.context.newline);
@@ -61,8 +61,8 @@ module.exports = function checkEmptyLineBefore(
 				});
 			}
 		} else if (
-			hasEmptyLineBefore(secondPropData.node) &&
-			(emptyLineBefore === 'never' || emptyLineThresholdRemoveLines)
+			(emptyLineBefore === 'never' || emptyLineThresholdRemoveLines) &&
+			hasEmptyLineBefore(secondPropData.node)
 		) {
 			if (sharedInfo.isFixEnabled) {
 				removeEmptyLinesBefore(secondPropData.node, sharedInfo.context.newline);

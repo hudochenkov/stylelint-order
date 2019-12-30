@@ -11,18 +11,15 @@ module.exports = function validatePrimaryOption(actualOptions) {
 	if (
 		!actualOptions.every(item => {
 			if (_.isString(item)) {
-				return _.includes(
-					[
-						'custom-properties',
-						'dollar-variables',
-						'at-variables',
-						'declarations',
-						'rules',
-						'at-rules',
-						'less-mixins',
-					],
-					item
-				);
+				return [
+					'custom-properties',
+					'dollar-variables',
+					'at-variables',
+					'declarations',
+					'rules',
+					'at-rules',
+					'less-mixins',
+				].includes(item);
 			}
 
 			return _.isPlainObject(item) && !_.isUndefined(item.type);

@@ -12,7 +12,7 @@ module.exports = function getNodeData(node, expectedOrder) {
 
 		// Hack to allow -moz-osx-font-smoothing to be understood
 		// just like -webkit-font-smoothing
-		if (unprefixedPropName.indexOf('osx-') === 0) {
+		if (unprefixedPropName.startsWith('osx-')) {
 			unprefixedPropName = unprefixedPropName.slice(4);
 		}
 

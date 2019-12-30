@@ -12,11 +12,9 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 	expected: (first, second) => `Expected ${first} to come before ${second}`,
 });
 
-function rule(expectation, options, context) {
-	context = context || {};
-
+function rule(expectation, options = {}, context = {}) {
 	return function(root, result) {
-		const validOptions = stylelint.utils.validateOptions(
+		let validOptions = stylelint.utils.validateOptions(
 			result,
 			ruleName,
 			{
@@ -37,15 +35,15 @@ function rule(expectation, options, context) {
 			return;
 		}
 
-		const disableFix = _.get(options, 'disableFix', false);
-		const isFixEnabled = context.fix && !disableFix;
+		let disableFix = options.disableFix || false;
+		let isFixEnabled = context.fix && !disableFix;
 
-		const expectedOrder = createExpectedOrder(expectation);
+		let expectedOrder = createExpectedOrder(expectation);
 
 		// By default, ignore unspecified properties
-		const unspecified = _.get(options, 'unspecified', 'ignore');
+		let unspecified = options.unspecified || 'ignore';
 
-		const sharedInfo = {
+		let sharedInfo = {
 			expectedOrder,
 			unspecified,
 			messages,
@@ -55,7 +53,7 @@ function rule(expectation, options, context) {
 			shouldFix: false,
 		};
 
-		const processedParents = [];
+		let processedParents = [];
 
 		// Check all rules and at-rules recursively
 		root.walk(function processRulesAndAtrules(input) {
@@ -64,7 +62,7 @@ function rule(expectation, options, context) {
 				return;
 			}
 
-			const node = utils.getContainingNode(input);
+			let node = utils.getContainingNode(input);
 
 			// Avoid warnings duplication, caused by interfering in `root.walk()` algorigthm with `utils.getContainingNode()`
 			if (processedParents.includes(node)) {
@@ -84,8 +82,8 @@ function rule(expectation, options, context) {
 	};
 }
 
+rule.ruleName = ruleName;
+rule.messages = messages;
 rule.primaryOptionArray = true;
 
 module.exports = rule;
-module.exports.ruleName = ruleName;
-module.exports.messages = messages;

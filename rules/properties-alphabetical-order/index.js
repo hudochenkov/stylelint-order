@@ -11,21 +11,19 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 	expected: (first, second) => `Expected ${first} to come before ${second}`,
 });
 
-function rule(actual, options, context) {
-	context = context || {};
-
+function rule(actual, options = {}, context = {}) {
 	return function(root, result) {
-		const validOptions = stylelint.utils.validateOptions(
+		let validOptions = stylelint.utils.validateOptions(
 			result,
 			ruleName,
 			{
 				actual,
-				possible: _.isBoolean,
+				possible: Boolean,
 			},
 			{
 				actual: options,
 				possible: {
-					disableFix: _.isBoolean,
+					disableFix: Boolean,
 				},
 				optional: true,
 			}
@@ -35,7 +33,7 @@ function rule(actual, options, context) {
 			return;
 		}
 
-		const disableFix = _.get(options, ['disableFix'], false);
+		let disableFix = options.disableFix || false;
 
 		if (context.fix && !disableFix) {
 			postcssSorting({ 'properties-order': 'alphabetical' })(root);
@@ -43,10 +41,10 @@ function rule(actual, options, context) {
 			return;
 		}
 
-		const processedParents = [];
+		let processedParents = [];
 
 		root.walk(function processRulesAndAtrules(input) {
-			const node = utils.getContainingNode(input);
+			let node = utils.getContainingNode(input);
 
 			// Avoid warnings duplication, caused by interfering in `root.walk()` algorigthm with `utils.getContainingNode()`
 			if (processedParents.includes(node)) {
@@ -62,19 +60,20 @@ function rule(actual, options, context) {
 	};
 }
 
+rule.ruleName = ruleName;
+rule.messages = messages;
+
 module.exports = rule;
-module.exports.ruleName = ruleName;
-module.exports.messages = messages;
 
 function checkNode(node, result) {
-	const allPropData = [];
+	let allPropData = [];
 
 	node.each(function processEveryNode(child) {
 		if (child.type !== 'decl') {
 			return;
 		}
 
-		const { prop } = child;
+		let { prop } = child;
 
 		if (!utils.isStandardSyntaxProperty(prop)) {
 			return;
@@ -88,18 +87,18 @@ function checkNode(node, result) {
 
 		// Hack to allow -moz-osx-font-smoothing to be understood
 		// just like -webkit-font-smoothing
-		if (unprefixedPropName.indexOf('osx-') === 0) {
+		if (unprefixedPropName.startsWith('osx-')) {
 			unprefixedPropName = unprefixedPropName.slice(4);
 		}
 
-		const propData = {
+		let propData = {
 			name: prop,
 			unprefixedName: unprefixedPropName,
 			index: allPropData.length,
 			node: child,
 		};
 
-		const previousPropData = _.last(allPropData);
+		let previousPropData = _.last(allPropData);
 
 		allPropData.push(propData);
 
@@ -108,7 +107,7 @@ function checkNode(node, result) {
 			return;
 		}
 
-		const isCorrectOrder = checkAlphabeticalOrder(previousPropData, propData);
+		let isCorrectOrder = checkAlphabeticalOrder(previousPropData, propData);
 
 		if (isCorrectOrder) {
 			return;

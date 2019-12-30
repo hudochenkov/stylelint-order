@@ -6,5 +6,5 @@
  */
 
 module.exports = function isDollarVariable(property) {
-	return property[0] === '$';
+	return property.startsWith('$');
 };

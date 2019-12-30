@@ -1,7 +1,7 @@
 const _ = require('lodash');
 
 module.exports = function createExpectedOrder(input) {
-	const order = {};
+	let order = {};
 	let expectedPosition = 0;
 	let separatedGroup = 1;
 	let groupPosition = -1;

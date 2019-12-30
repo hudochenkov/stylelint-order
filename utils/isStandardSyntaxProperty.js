@@ -7,12 +7,12 @@
 
 module.exports = function isStandardSyntaxProperty(property) {
 	// SCSS var (e.g. $var: x), list (e.g. $list: (x)) or map (e.g. $map: (key:value))
-	if (property[0] === '$') {
+	if (property.startsWith('$')) {
 		return false;
 	}
 
 	// Less var (e.g. @var: x)
-	if (property[0] === '@') {
+	if (property.startsWith('@')) {
 		return false;
 	}
 

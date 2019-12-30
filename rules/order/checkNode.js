@@ -4,7 +4,7 @@ const checkOrder = require('./checkOrder');
 const getOrderData = require('./getOrderData');
 
 module.exports = function checkNode(node, sharedInfo) {
-	const allNodesData = [];
+	let allNodesData = [];
 
 	node.each(function processEveryNode(child) {
 		// Skip comments

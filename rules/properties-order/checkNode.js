@@ -78,7 +78,7 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 		if (
 			previousNodeData &&
 			previousNodeData.node.type === 'comment' &&
-			previousNodeData.node.raw('before').indexOf('\n') === -1
+			!previousNodeData.node.raw('before').includes('\n')
 		) {
 			previousNodeData = allNodesData[index - 2];
 		}
