@@ -1,7 +1,7 @@
 const stylelint = require('stylelint');
 const postcss = require('postcss');
 const postcssSorting = require('postcss-sorting');
-const utils = require('../../utils');
+const { isProperty } = require('../../utils');
 const checkEmptyLineBefore = require('./checkEmptyLineBefore');
 const checkEmptyLineBeforeFirstProp = require('./checkEmptyLineBeforeFirstProp');
 const checkOrder = require('./checkOrder');
@@ -10,8 +10,7 @@ const createFlatOrder = require('./createFlatOrder');
 
 module.exports = function checkNode(node, sharedInfo, originalNode) {
 	// First, check order
-	const allPropData = getAllPropData(node);
-	const propsCount = node.nodes.filter(item => utils.isProperty(item)).length;
+	let allPropData = getAllPropData(node);
 
 	if (!sharedInfo.isFixEnabled) {
 		allPropData.forEach(checkEveryPropForOrder);
@@ -20,6 +19,7 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 	if (sharedInfo.isFixEnabled) {
 		let shouldFixOrder = false;
 
+		// Check if there order violation to avoid running re-ordering unnecessery
 		allPropData.forEach(function checkEveryPropForOrder2(propData, index) {
 			// Skip first decl
 			if (index === 0) {
@@ -31,9 +31,9 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 				return;
 			}
 
-			const previousPropData = allPropData[index - 1];
+			let previousPropData = allPropData[index - 1];
 
-			const checkedOrder = checkOrder({
+			let checkedOrder = checkOrder({
 				firstPropData: previousPropData,
 				secondPropData: propData,
 				unspecified: sharedInfo.unspecified,
@@ -46,19 +46,19 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 		});
 
 		if (shouldFixOrder) {
-			const sortingOptions = {
-				'properties-order': createFlatOrder(sharedInfo.expectation),
+			let sortingOptions = {
+				'properties-order': createFlatOrder(sharedInfo.primaryOption),
 				'unspecified-properties-position':
 					sharedInfo.unspecified === 'ignore' ? 'bottom' : sharedInfo.unspecified,
 			};
 
 			// creating PostCSS Root node with current node as a child,
 			// so PostCSS Sorting can process it
-			const tempRoot = postcss.root({ nodes: [originalNode] });
+			let tempRoot = postcss.root({ nodes: [originalNode] });
 
 			postcssSorting(sortingOptions)(tempRoot);
 
-			const allPropData2 = getAllPropData(node);
+			let allPropData2 = getAllPropData(node);
 
 			allPropData2.forEach(checkEveryPropForOrder);
 		}
@@ -67,7 +67,8 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 	// Second, check emptyLineBefore
 	sharedInfo.lastKnownSeparatedGroup = 1;
 
-	const allNodesData = node.nodes.map(function collectDataForEveryNode(child) {
+	let propsCount = node.nodes.filter(item => isProperty(item)).length;
+	let allNodesData = node.nodes.map(function collectDataForEveryNode(child) {
 		return getNodeData(child, sharedInfo.expectedOrder);
 	});
 
@@ -89,7 +90,7 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 		}
 
 		// Nodes should be standard declarations
-		if (!utils.isProperty(previousNodeData.node) || !utils.isProperty(nodeData.node)) {
+		if (!isProperty(previousNodeData.node) || !isProperty(nodeData.node)) {
 			return;
 		}
 
@@ -97,7 +98,7 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 	});
 
 	// Check if empty line before first prop should be removed
-	if (utils.isProperty(allNodesData[0].node)) {
+	if (isProperty(allNodesData[0].node)) {
 		checkEmptyLineBeforeFirstProp(allNodesData[0], sharedInfo);
 	}
 
@@ -134,7 +135,7 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 
 	function getAllPropData(inputNode) {
 		return inputNode.nodes
-			.filter(item => utils.isProperty(item))
+			.filter(item => isProperty(item))
 			.map(item => getNodeData(item, sharedInfo.expectedOrder));
 	}
 };

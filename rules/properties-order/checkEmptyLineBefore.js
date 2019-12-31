@@ -1,8 +1,8 @@
-const stylelint = require('stylelint');
-const _ = require('lodash');
-const addEmptyLineBefore = require('./addEmptyLineBefore');
-const hasEmptyLineBefore = require('./hasEmptyLineBefore');
-const removeEmptyLinesBefore = require('./removeEmptyLinesBefore');
+let stylelint = require('stylelint');
+let _ = require('lodash');
+let addEmptyLineBefore = require('./addEmptyLineBefore');
+let hasEmptyLineBefore = require('./hasEmptyLineBefore');
+let removeEmptyLinesBefore = require('./removeEmptyLinesBefore');
 
 module.exports = function checkEmptyLineBefore(
 	firstPropData,
@@ -10,41 +10,36 @@ module.exports = function checkEmptyLineBefore(
 	sharedInfo,
 	propsCount
 ) {
-	const firstPropIsUnspecified = !firstPropData.orderData;
-	const secondPropIsUnspecified = !secondPropData.orderData;
+	let firstPropIsSpecified = Boolean(firstPropData.orderData);
+	let secondPropIsSpecified = Boolean(secondPropData.orderData);
 
 	// Check newlines between groups
-	const firstPropSeparatedGroup = !firstPropIsUnspecified
+	let firstPropGroup = firstPropIsSpecified
 		? firstPropData.orderData.separatedGroup
 		: sharedInfo.lastKnownSeparatedGroup;
-	const secondPropSeparatedGroup = !secondPropIsUnspecified
+	let secondPropGroup = secondPropIsSpecified
 		? secondPropData.orderData.separatedGroup
 		: sharedInfo.lastKnownSeparatedGroup;
 
-	sharedInfo.lastKnownSeparatedGroup = secondPropSeparatedGroup;
+	sharedInfo.lastKnownSeparatedGroup = secondPropGroup;
 
-	const betweenGroupsInSpecified =
-		firstPropSeparatedGroup !== secondPropSeparatedGroup && !secondPropIsUnspecified;
-	const startOfUnspecifiedGroup = !firstPropIsUnspecified && secondPropIsUnspecified;
+	let startOfSpecifiedGroup = secondPropIsSpecified && firstPropGroup !== secondPropGroup;
+	let startOfUnspecifiedGroup = firstPropIsSpecified && !secondPropIsSpecified;
 
-	// Line threshold logic
-	const belowEmptyLineThreshold = propsCount < sharedInfo.emptyLineMinimumPropertyThreshold;
-
-	if (betweenGroupsInSpecified || startOfUnspecifiedGroup) {
+	if (startOfSpecifiedGroup || startOfUnspecifiedGroup) {
 		// Get an array of just the property groups, remove any solo properties
-		const groups = _.reject(sharedInfo.expectation, _.isString);
+		let groups = _.reject(sharedInfo.primaryOption, _.isString);
 
-		const emptyLineBefore = !startOfUnspecifiedGroup
-			? // secondProp seperatedGroups start at 2 so we minus 2 to get the
-			  // 1st item from our groups array
-			  _.get(groups[secondPropSeparatedGroup - 2], 'emptyLineBefore')
-			: sharedInfo.emptyLineBeforeUnspecified;
+		let emptyLineBefore = _.get(groups[secondPropGroup - 2], 'emptyLineBefore');
+
+		if (startOfUnspecifiedGroup) {
+			emptyLineBefore = sharedInfo.emptyLineBeforeUnspecified;
+		}
 
 		// Threshold logic
-		const emptyLineThresholdInsertLines =
-			!belowEmptyLineThreshold && emptyLineBefore === 'threshold';
-		const emptyLineThresholdRemoveLines =
-			belowEmptyLineThreshold && emptyLineBefore === 'threshold';
+		let belowEmptyLineThreshold = propsCount < sharedInfo.emptyLineMinimumPropertyThreshold;
+		let emptyLineThresholdInsertLines = emptyLineBefore === 'threshold' && !belowEmptyLineThreshold;
+		let emptyLineThresholdRemoveLines = emptyLineBefore === 'threshold' && belowEmptyLineThreshold;
 
 		if (
 			(emptyLineBefore === 'always' || emptyLineThresholdInsertLines) &&
@@ -79,13 +74,14 @@ module.exports = function checkEmptyLineBefore(
 
 	// Check newlines between properties inside a group
 	if (
-		!firstPropIsUnspecified &&
-		!secondPropIsUnspecified &&
+		firstPropIsSpecified &&
+		secondPropIsSpecified &&
 		firstPropData.orderData.groupPosition === secondPropData.orderData.groupPosition
 	) {
-		const noEmptyLineBefore = secondPropData.orderData.noEmptyLineBeforeInsideGroup;
-
-		if (hasEmptyLineBefore(secondPropData.node) && noEmptyLineBefore) {
+		if (
+			secondPropData.orderData.noEmptyLineBeforeInsideGroup &&
+			hasEmptyLineBefore(secondPropData.node)
+		) {
 			if (sharedInfo.isFixEnabled) {
 				removeEmptyLinesBefore(secondPropData.node, sharedInfo.context.newline);
 			} else {

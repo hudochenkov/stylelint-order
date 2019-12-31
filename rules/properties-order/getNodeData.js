@@ -1,13 +1,13 @@
 const postcss = require('postcss');
-const utils = require('../../utils');
+const { isProperty } = require('../../utils');
 
 module.exports = function getNodeData(node, expectedOrder) {
-	const nodeData = {
+	let nodeData = {
 		node,
 	};
 
-	if (utils.isProperty(node)) {
-		const { prop } = node;
+	if (isProperty(node)) {
+		let { prop } = node;
 		let unprefixedPropName = postcss.vendor.unprefixed(prop);
 
 		// Hack to allow -moz-osx-font-smoothing to be understood

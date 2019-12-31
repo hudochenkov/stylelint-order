@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-module.exports = function createExpectedOrder(input) {
+module.exports = function createOrderInfo(input) {
 	let order = {};
 	let expectedPosition = 0;
 	let separatedGroup = 1;
@@ -38,7 +38,7 @@ module.exports = function createExpectedOrder(input) {
 			separatedGroup += 1;
 		}
 
-		if (item.order && item.order === 'flexible') {
+		if (item.order === 'flexible') {
 			expectedPosition += 1;
 			groupPosition += 1;
 

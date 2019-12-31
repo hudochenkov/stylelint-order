@@ -8,14 +8,14 @@ module.exports = function checkEmptyLineBeforeFirstProp(propData, sharedInfo) {
 
 	if (propData.orderData) {
 		// Get an array of just the property groups, remove any solo properties
-		const groups = _.reject(sharedInfo.expectation, _.isString);
+		let groups = _.reject(sharedInfo.primaryOption, _.isString);
 
 		emptyLineBefore = _.get(groups[propData.orderData.separatedGroup - 2], 'emptyLineBefore');
 	} else if (sharedInfo.emptyLineBeforeUnspecified) {
 		emptyLineBefore = true;
 	}
 
-	if (hasEmptyLineBefore(propData.node) && emptyLineBefore) {
+	if (emptyLineBefore && hasEmptyLineBefore(propData.node)) {
 		if (sharedInfo.isFixEnabled) {
 			removeEmptyLinesBefore(propData.node, sharedInfo.context.newline);
 		} else {

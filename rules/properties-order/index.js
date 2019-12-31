@@ -1,11 +1,11 @@
 const stylelint = require('stylelint');
 const _ = require('lodash');
-const utils = require('../../utils');
+const { namespace, getContainingNode, isRuleWithNodes } = require('../../utils');
 const checkNode = require('./checkNode');
-const createExpectedOrder = require('./createExpectedOrder');
+const createOrderInfo = require('./createOrderInfo');
 const validatePrimaryOption = require('./validatePrimaryOption');
 
-const ruleName = utils.namespace('properties-order');
+const ruleName = namespace('properties-order');
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
 	expected: (first, second, groupName) =>
@@ -14,13 +14,13 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 	rejectedEmptyLineBefore: property => `Unexpected empty line before property "${property}"`,
 });
 
-const rule = function(expectation, options = {}, context = {}) {
+function rule(primaryOption, options = {}, context = {}) {
 	return function(root, result) {
 		let validOptions = stylelint.utils.validateOptions(
 			result,
 			ruleName,
 			{
-				actual: expectation,
+				actual: primaryOption,
 				possible: validatePrimaryOption,
 			},
 			{
@@ -39,47 +39,40 @@ const rule = function(expectation, options = {}, context = {}) {
 			return;
 		}
 
-		// By default, ignore unspecified properties
-		let unspecified = options.unspecified || 'ignore';
-		let emptyLineMinimumPropertyThreshold = options.emptyLineMinimumPropertyThreshold || 0;
-		let { emptyLineBeforeUnspecified } = options;
 		let disableFix = options.disableFix || false;
-		let isFixEnabled = context.fix && !disableFix;
-
-		let expectedOrder = createExpectedOrder(expectation);
 
 		let sharedInfo = {
-			expectedOrder,
-			expectation,
-			unspecified,
-			emptyLineBeforeUnspecified,
-			emptyLineMinimumPropertyThreshold,
-			messages,
-			ruleName,
-			result,
 			context,
-			isFixEnabled,
+			emptyLineBeforeUnspecified: options.emptyLineBeforeUnspecified,
+			emptyLineMinimumPropertyThreshold: options.emptyLineMinimumPropertyThreshold || 0,
+			expectedOrder: createOrderInfo(primaryOption),
+			isFixEnabled: context.fix && !disableFix,
+			messages,
+			primaryOption,
+			result,
+			ruleName,
+			unspecified: options.unspecified || 'ignore',
 		};
 
 		let processedParents = [];
 
 		// Check all rules and at-rules recursively
 		root.walk(function processRulesAndAtrules(input) {
-			let node = utils.getContainingNode(input);
+			let node = getContainingNode(input);
 
-			// Avoid warnings duplication, caused by interfering in `root.walk()` algorigthm with `utils.getContainingNode()`
+			// Avoid warnings duplication, caused by interfering in `root.walk()` algorigthm with `getContainingNode()`
 			if (processedParents.includes(node)) {
 				return;
 			}
 
 			processedParents.push(node);
 
-			if (utils.isRuleWithNodes(node)) {
+			if (isRuleWithNodes(node)) {
 				checkNode(node, sharedInfo, input);
 			}
 		});
 	};
-};
+}
 
 rule.primaryOptionArray = true;
 rule.ruleName = ruleName;
