@@ -29,7 +29,7 @@
   "main": "index.js",
   "dependencies": {
     "lodash": "^4.17.15",
-    "postcss": "^7.0.25",
+    "postcss": "^7.0.26",
     "postcss-sorting": "^5.0.1"
   },
   "peerDependencies": {
@@ -43,7 +43,7 @@
     "jest": "^24.9.0",
     "lint-staged": "^9.5.0",
     "prettier": "~1.19.1",
-    "stylelint": ">=12.0.1"
+    "stylelint": "^12.0.1"
   },
   "scripts": {
     "pretest": "eslint .",
