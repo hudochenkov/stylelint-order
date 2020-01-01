@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 4.0.0
+
+* Breaking change: Dropped Node.js 8 support. Node.js 10 or greater is now required.
+* Breaking change: Always remove empty line before the first property if this property has any `emptyLineBefore*` option targeting it in `properties-order`. Even if option set to `always` empty line before the first property will be removed.
+* Fixed false positives for `emptyLineBeforeUnspecified`.
+
 ## 3.1.1
 
 * Added `stylelint@11` as a peer dependency.
