@@ -48,7 +48,7 @@ Like so:
 
 ## Autofixing
 
-Every rule support autofixing (`stylelint --fix`). [postcss-sorting] is using internally for order autofixing.
+Every rule supports autofixing (`stylelint --fix`). [postcss-sorting] is using internally for order autofixing.
 
 Automatic sortings has some limitation, which are described for every rule if any. Please, take a look at [how comments are handled](https://github.com/hudochenkov/postcss-sorting#handling-comments) by postcss-sorting.
 
