@@ -48,27 +48,26 @@ Like so:
 
 ## Autofixing
 
-Every rule supports autofixing (`stylelint --fix`). [postcss-sorting] is using internally for order autofixing.
+Every rule supports autofixing `stylelint --fix`). [postcss-sorting] is uses internally for order autofixing.
 
 Automatic sortings has some limitation, which are described for every rule if any. Please, take a look at [how comments are handled](https://github.com/hudochenkov/postcss-sorting#handling-comments) by postcss-sorting.
 
 CSS-in-JS styles with template interpolation [could be ignored by autofixing](https://github.com/hudochenkov/postcss-sorting#css-in-js) to avoid styles corruption.
 
-Autofixing is enabled by default if it's enabled in stylelint configuration. Autofixing can be disabled on per rule basis using `disableFix: true` secondary option. E. g.:
+Autofixing is enabled by default if it's enabled in stylelint configuration. Autofixing can be disabled on per rule basis using `disableFix: true` secondary option, such as:
 
 ```json
 {
-	"rules": {
-		"order/order": [
-			[
-				"custom-properties",
-				"declarations"
-			],
-			{
-				"disableFix": true
-			}
-		]
-	}
+  "plugins":[
+    "stylelint-order"
+  ],
+  "rules":{
+    "order/order":[
+      "custom-properties",
+      "declarations"
+    ],
+    "order/properties-alphabetical-order":true
+  }
 }
 ```
 
