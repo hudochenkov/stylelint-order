@@ -4,33 +4,42 @@ A plugin pack of order-related linting rules for [stylelint]. Every rule support
 
 ## Installation
 
-Install [stylelint] & `stylelint-oder`:
+1. If you haven't, install [stylelint]:
 
 ```
-npm install stylelint stylelint-order --save-dev
+npm install stylelint --save-dev
+```
+
+2.  Install `stylelint-oder`:
+
+```
+npm install stylelint-order --save-dev
 ```
 
 ## Usage
 
 Add `stylelint-order` to your stylelint config `plugins` array, then add rules you need to the rules list. All rules from stylelint-order need to be namespaced with `order`.
 
-### `.stylelintrc` Example
-
 ```json
 {
-  "plugins": ["stylelint-order"],
-  "rules": {
-    "order/order": ["custom-properties", "declarations"],
-    "order/properties-alphabetical-order": true
-  }
+	"plugins": [
+		"stylelint-order"
+	],
+	"rules": {
+		"order/order": [
+			"custom-properties",
+			"declarations"
+		],
+		"order/properties-alphabetical-order": true
+	}
 }
 ```
 
 ## Rules
 
-- [`order`](./rules/order/README.md): Specify the order of content within declaration blocks.
-- [`properties-order`](./rules/properties-order/README.md): Specify the order of properties within declaration blocks.
-- [`properties-alphabetical-order`](./rules/properties-alphabetical-order/README.md): Specify the alphabetical order of properties within declaration blocks.
+* [`order`](./rules/order/README.md): Specify the order of content within declaration blocks.
+* [`properties-order`](./rules/properties-order/README.md): Specify the order of properties within declaration blocks.
+* [`properties-alphabetical-order`](./rules/properties-alphabetical-order/README.md): Specify the alphabetical order of properties within declaration blocks.
 
 ## Autofixing
 
@@ -43,23 +52,24 @@ CSS-in-JS styles with template interpolation [could be ignored by autofixing](ht
 Autofixing is enabled by default if it's enabled in stylelint's configuration file. It can be disabled on a per rule basis using the secondary option `disableFix: true`. Here's an example:
 
 ```json
-{
-  "rules": {
-    "order/order": [
-      ["custom-properties", "declarations"],
-      {
-        "disableFix": true
-      }
-    ]
-  }
-}
+	"rules": {
+		"order/order": [
+			[
+				"custom-properties",
+				"declarations"
+			],
+			{
+				"disableFix": true
+			}
+		]
+	}
 ```
 
 Less may work but isn't officially supported.
 
 ## Thanks
 
-`properties-order`, `properties-alphabetical-order`, and this README are based on the `declaration-block-properties-order` rule which was a core rule prior to stylelint 8.0.0.
+`properties-order` and `properties-alphabetical-order` code and README are based on the `declaration-block-properties-order` rule which was a core rule prior to stylelint 8.0.0.
 
 [ci-img]: https://travis-ci.org/hudochenkov/stylelint-order.svg
 [ci]: https://travis-ci.org/hudochenkov/stylelint-order
