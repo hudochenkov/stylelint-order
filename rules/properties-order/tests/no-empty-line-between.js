@@ -1,4 +1,5 @@
 const rule = require('..');
+
 const { ruleName, messages } = rule;
 
 testRule(rule, {

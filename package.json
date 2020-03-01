@@ -34,8 +34,10 @@
   },
   "devDependencies": {
     "eslint": "^6.8.0",
-    "eslint-config-hudochenkov": "^3.0.1",
-    "eslint-config-prettier": "^6.9.0",
+    "eslint-config-hudochenkov": "^4.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-unicorn": "^16.1.1",
     "husky": "^3.1.0",
     "jest": "^24.9.0",
     "lint-staged": "^9.5.0",
@@ -43,16 +45,16 @@
     "stylelint": "^12.0.1"
   },
   "scripts": {
-    "pretest": "eslint .",
+    "pretest": "eslint . --max-warnings=0",
     "test": "jest",
     "jest": "jest",
     "watch": "jest --watch",
     "coverage": "jest --coverage",
-    "fix": "eslint . --fix && prettier '**/*.js' --write"
+    "fix": "eslint . --fix --max-warnings=0 && prettier '**/*.js' --write"
   },
   "lint-staged": {
     "*.js": [
-      "eslint --fix",
+      "eslint --fix --max-warnings=0",
       "prettier --write",
       "git add"
     ]

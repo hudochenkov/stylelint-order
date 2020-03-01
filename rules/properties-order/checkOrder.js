@@ -2,6 +2,7 @@ const postcss = require('postcss');
 const _ = require('lodash');
 const checkAlphabeticalOrder = require('../checkAlphabeticalOrder');
 
+// eslint-disable-next-line consistent-return
 module.exports = function checkOrder({ firstPropData, secondPropData, allPropData, unspecified }) {
 	function report(isCorrect, firstNode = firstPropData, secondNode = secondPropData) {
 		return {

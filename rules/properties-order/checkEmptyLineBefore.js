@@ -4,6 +4,7 @@ let addEmptyLineBefore = require('./addEmptyLineBefore');
 let hasEmptyLineBefore = require('./hasEmptyLineBefore');
 let removeEmptyLinesBefore = require('./removeEmptyLinesBefore');
 
+// eslint-disable-next-line max-params
 module.exports = function checkEmptyLineBefore(
 	firstPropData,
 	secondPropData,

@@ -31,7 +31,7 @@ module.exports = function getOrderData(orderInfo, node) {
 			let prioritizedPattern;
 			let max = 0;
 
-			rules.forEach(function(pattern) {
+			rules.forEach(pattern => {
 				const priority = calcRulePatternPriority(pattern, nodeType);
 
 				if (priority > max) {
@@ -66,7 +66,7 @@ module.exports = function getOrderData(orderInfo, node) {
 			let prioritizedPattern;
 			let max = 0;
 
-			atRules.forEach(function(pattern) {
+			atRules.forEach(pattern => {
 				const priority = calcAtRulePatternPriority(pattern, nodeType);
 
 				if (priority > max) {

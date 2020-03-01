@@ -4,6 +4,7 @@ let postcss = require('postcss');
 let checkAlphabeticalOrder = require('../checkAlphabeticalOrder');
 let { isStandardSyntaxProperty, isCustomProperty } = require('../../utils');
 
+// eslint-disable-next-line max-params
 module.exports = function checkNode(node, result, ruleName, messages) {
 	let allPropData = [];
 

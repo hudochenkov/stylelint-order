@@ -1,6 +1,7 @@
 let stylelint = require('stylelint');
 let _ = require('lodash');
 
+// eslint-disable-next-line max-params, consistent-return
 module.exports = function checkOrder(firstNodeData, secondNodeData, allNodesData, sharedInfo) {
 	let firstNodeIsSpecified = Boolean(firstNodeData.expectedPosition);
 	let secondNodeIsSpecified = Boolean(secondNodeData.expectedPosition);
@@ -26,7 +27,7 @@ module.exports = function checkOrder(firstNodeData, secondNodeData, allNodesData
 				sharedInfo.shouldFix = true;
 
 				// Don't go further, fix will be applied
-				return;
+				return; // eslint-disable-line consistent-return
 			}
 
 			stylelint.utils.report({
@@ -39,7 +40,8 @@ module.exports = function checkOrder(firstNodeData, secondNodeData, allNodesData
 				ruleName: sharedInfo.ruleName,
 			});
 
-			return true; // avoid logging another warning
+			// avoid logging another warning
+			return true;
 		}
 	}
 

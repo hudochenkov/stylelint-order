@@ -13,7 +13,7 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 });
 
 function rule(primaryOption, options = {}, context = {}) {
-	return function(root, result) {
+	return function ruleBody(root, result) {
 		let validOptions = stylelint.utils.validateOptions(
 			result,
 			ruleName,

@@ -1,5 +1,5 @@
 const stylelint = require('stylelint');
-const { ruleName } = require('../');
+const { ruleName } = require('..');
 
 test(`show warning if --fix enabled, but it didn't fix`, () => {
 	const code = `

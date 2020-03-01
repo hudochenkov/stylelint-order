@@ -10,7 +10,7 @@ let messages = stylelint.utils.ruleMessages(ruleName, {
 });
 
 function rule(actual, options = {}, context = {}) {
-	return function(root, result) {
+	return function ruleBody(root, result) {
 		let validOptions = stylelint.utils.validateOptions(
 			result,
 			ruleName,

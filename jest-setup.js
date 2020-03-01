@@ -45,7 +45,8 @@ global.testRule = (rule, schema) => {
 							}
 
 							// Check the fix
-							return stylelint.lint(Object.assign({ fix: true }, options)).then(output2 => {
+							// eslint-disable-next-line consistent-return
+							return stylelint.lint({ ...options, fix: true }).then(output2 => {
 								const fixedCode = getOutputCss(output2);
 
 								expect(fixedCode).toBe(testCase.code);
@@ -106,7 +107,8 @@ global.testRule = (rule, schema) => {
 							}
 
 							// Check the fix
-							return stylelint.lint(Object.assign({ fix: true }, options)).then(output2 => {
+							// eslint-disable-next-line consistent-return
+							return stylelint.lint({ ...options, fix: true }).then(output2 => {
 								const fixedCode = getOutputCss(output2);
 
 								expect(fixedCode).toBe(testCase.fixed);
@@ -150,7 +152,7 @@ global.testConfig = input => {
 				code: '',
 				config,
 			})
-			.then(function(data) {
+			.then(data => {
 				const { invalidOptionWarnings } = data.results[0];
 
 				if (input.valid) {
