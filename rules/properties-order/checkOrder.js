@@ -37,12 +37,15 @@ module.exports = function checkOrder({ firstPropData, secondPropData, allPropDat
 	if (!firstPropIsSpecified && secondPropIsSpecified) {
 		// If first prop is unspecified, look for a specified prop before it to
 		// compare to the current prop
-		const priorSpecifiedPropData = _.findLast(allPropData.slice(0, -1), d => Boolean(d.orderData));
+		const priorSpecifiedPropData = _.findLast(allPropData.slice(0, -1), (d) =>
+			Boolean(d.orderData)
+		);
 
 		if (
 			priorSpecifiedPropData &&
 			priorSpecifiedPropData.orderData &&
-			priorSpecifiedPropData.orderData.expectedPosition > secondPropData.orderData.expectedPosition
+			priorSpecifiedPropData.orderData.expectedPosition >
+				secondPropData.orderData.expectedPosition
 		) {
 			return report(false, priorSpecifiedPropData, secondPropData);
 		}

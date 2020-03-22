@@ -9,7 +9,7 @@ module.exports = function validatePrimaryOption(actualOptions) {
 	// Every item in the array must be a certain string or an object
 	// with a "type" property
 	if (
-		!actualOptions.every(item => {
+		!actualOptions.every((item) => {
 			if (_.isString(item)) {
 				return [
 					'custom-properties',
@@ -31,7 +31,7 @@ module.exports = function validatePrimaryOption(actualOptions) {
 	const objectItems = actualOptions.filter(_.isPlainObject);
 
 	if (
-		!objectItems.every(item => {
+		!objectItems.every((item) => {
 			let result = true;
 
 			if (item.type !== 'at-rule' && item.type !== 'rule') {
@@ -54,13 +54,16 @@ module.exports = function validatePrimaryOption(actualOptions) {
 
 				if (!_.isUndefined(item.parameter)) {
 					result =
-						(_.isString(item.parameter) && item.parameter.length) || _.isRegExp(item.parameter);
+						(_.isString(item.parameter) && item.parameter.length) ||
+						_.isRegExp(item.parameter);
 				}
 			}
 
 			if (item.type === 'rule') {
 				if (!_.isUndefined(item.selector)) {
-					result = (_.isString(item.selector) && item.selector.length) || _.isRegExp(item.selector);
+					result =
+						(_.isString(item.selector) && item.selector.length) ||
+						_.isRegExp(item.selector);
 				}
 			}
 

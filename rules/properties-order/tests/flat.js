@@ -18,10 +18,12 @@ testRule(rule, {
 			code: 'a { top: 0; color: pink; }',
 		},
 		{
-			code: 'a { -moz-transform: scale(1); -webkit-transform: scale(1); transform: scale(1); }',
+			code:
+				'a { -moz-transform: scale(1); -webkit-transform: scale(1); transform: scale(1); }',
 		},
 		{
-			code: 'a { -webkit-transform: scale(1); -moz-transform: scale(1); transform: scale(1); }',
+			code:
+				'a { -webkit-transform: scale(1); -moz-transform: scale(1); transform: scale(1); }',
 		},
 		{
 			code: 'a { -webkit-font-smoothing: antialiased; top: 0; color: pink; }',
@@ -62,8 +64,10 @@ testRule(rule, {
 			message: messages.expected('transform', 'top'),
 		},
 		{
-			code: 'a { -moz-transform: scale(1); transform: scale(1); -webkit-transform: scale(1); }',
-			fixed: 'a { -moz-transform: scale(1); -webkit-transform: scale(1); transform: scale(1); }',
+			code:
+				'a { -moz-transform: scale(1); transform: scale(1); -webkit-transform: scale(1); }',
+			fixed:
+				'a { -moz-transform: scale(1); -webkit-transform: scale(1); transform: scale(1); }',
 			message: messages.expected('-webkit-transform', 'transform'),
 		},
 		{
@@ -134,7 +138,8 @@ testRule(rule, {
 			code: 'a { padding-top: 1px; padding-right: 0; color: pink; }',
 		},
 		{
-			code: 'a { border: 1px solid #fff; border-right: 2px solid #fff; border-right-color: #000; }',
+			code:
+				'a { border: 1px solid #fff; border-right: 2px solid #fff; border-right-color: #000; }',
 		},
 		{
 			code: 'a { border: 1px solid #fff; border-top: none; border-right-color: #000; }',

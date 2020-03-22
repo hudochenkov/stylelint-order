@@ -10,7 +10,7 @@ module.exports = function createOrderInfo(input) {
 
 	function appendGroup(group) {
 		groupPosition += 1;
-		group.properties.forEach(item => appendItem(item, false, group));
+		group.properties.forEach((item) => appendItem(item, false, group));
 	}
 
 	function appendItem(item, inFlexibleGroup, group) {
@@ -42,7 +42,7 @@ module.exports = function createOrderInfo(input) {
 			expectedPosition += 1;
 			groupPosition += 1;
 
-			item.properties.forEach(property => {
+			item.properties.forEach((property) => {
 				appendItem(property, true, item);
 			});
 		} else {

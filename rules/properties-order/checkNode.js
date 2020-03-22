@@ -67,7 +67,7 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 	// Second, check emptyLineBefore
 	sharedInfo.lastKnownSeparatedGroup = 1;
 
-	let propsCount = node.nodes.filter(item => isProperty(item)).length;
+	let propsCount = node.nodes.filter((item) => isProperty(item)).length;
 	let allNodesData = node.nodes.map(function collectDataForEveryNode(child) {
 		return getNodeData(child, sharedInfo.expectedOrder);
 	});
@@ -135,7 +135,7 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 
 	function getAllPropData(inputNode) {
 		return inputNode.nodes
-			.filter(item => isProperty(item))
-			.map(item => getNodeData(item, sharedInfo.expectedOrder));
+			.filter((item) => isProperty(item))
+			.map((item) => getNodeData(item, sharedInfo.expectedOrder));
 	}
 };

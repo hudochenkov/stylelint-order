@@ -5,7 +5,7 @@ module.exports = function getContainingNode(node) {
 		node.type !== 'atrule' &&
 		node.parent.document &&
 		node.parent.document.nodes &&
-		node.parent.document.nodes.some(item => item.type === 'root')
+		node.parent.document.nodes.some((item) => item.type === 'root')
 	) {
 		return node.parent;
 	}

@@ -5,7 +5,7 @@ module.exports = function createOrderInfo(input) {
 	let order = {};
 	let expectedPosition = 0;
 
-	input.forEach(originalItem => {
+	input.forEach((originalItem) => {
 		let item = originalItem;
 
 		expectedPosition += 1;

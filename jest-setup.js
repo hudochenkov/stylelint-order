@@ -27,7 +27,7 @@ global.testRule = (rule, schema) => {
 
 		if (schema.accept && schema.accept.length) {
 			describe('accept', () => {
-				schema.accept.forEach(testCase => {
+				schema.accept.forEach((testCase) => {
 					const spec = testCase.only ? it.only : it;
 
 					spec(testCase.description || testCase.code || 'no description', () => {
@@ -37,7 +37,7 @@ global.testRule = (rule, schema) => {
 							syntax: schema.syntax,
 						};
 
-						return stylelint.lint(options).then(output => {
+						return stylelint.lint(options).then((output) => {
 							expect(output.results[0].warnings).toEqual([]);
 
 							if (!schema.fix) {
@@ -46,7 +46,7 @@ global.testRule = (rule, schema) => {
 
 							// Check the fix
 							// eslint-disable-next-line consistent-return
-							return stylelint.lint({ ...options, fix: true }).then(output2 => {
+							return stylelint.lint({ ...options, fix: true }).then((output2) => {
 								const fixedCode = getOutputCss(output2);
 
 								expect(fixedCode).toBe(testCase.code);
@@ -59,7 +59,7 @@ global.testRule = (rule, schema) => {
 
 		if (schema.reject && schema.reject.length) {
 			describe('reject', () => {
-				schema.reject.forEach(testCase => {
+				schema.reject.forEach((testCase) => {
 					let spec = it;
 
 					if (testCase.only) {
@@ -77,7 +77,7 @@ global.testRule = (rule, schema) => {
 							syntax: schema.syntax,
 						};
 
-						return stylelint.lint(options).then(output => {
+						return stylelint.lint(options).then((output) => {
 							const { warnings } = output.results[0];
 							const warning = warnings[0];
 
@@ -108,7 +108,7 @@ global.testRule = (rule, schema) => {
 
 							// Check the fix
 							// eslint-disable-next-line consistent-return
-							return stylelint.lint({ ...options, fix: true }).then(output2 => {
+							return stylelint.lint({ ...options, fix: true }).then((output2) => {
 								const fixedCode = getOutputCss(output2);
 
 								expect(fixedCode).toBe(testCase.fixed);
@@ -128,7 +128,7 @@ function getOutputCss(output) {
 	return css;
 }
 
-global.testConfig = input => {
+global.testConfig = (input) => {
 	let testFn;
 
 	if (input.only) {
@@ -152,7 +152,7 @@ global.testConfig = input => {
 				code: '',
 				config,
 			})
-			.then(data => {
+			.then((data) => {
 				const { invalidOptionWarnings } = data.results[0];
 
 				if (input.valid) {

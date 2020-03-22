@@ -43,7 +43,10 @@ module.exports = function checkNode(node, sharedInfo) {
 		}
 
 		stylelint.utils.report({
-			message: sharedInfo.messages.expected(nodeData.description, previousNodeData.description),
+			message: sharedInfo.messages.expected(
+				nodeData.description,
+				previousNodeData.description
+			),
 			node: child,
 			result: sharedInfo.result,
 			ruleName: sharedInfo.ruleName,

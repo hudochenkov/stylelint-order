@@ -30,10 +30,12 @@ testRule(rule, {
 			code: 'a { border-color: transparent; border-bottom-color: pink; }',
 		},
 		{
-			code: 'a { -moz-transform: scale(1); -webkit-transform: scale(1); transform: scale(1); }',
+			code:
+				'a { -moz-transform: scale(1); -webkit-transform: scale(1); transform: scale(1); }',
 		},
 		{
-			code: 'a { -webkit-transform: scale(1); -moz-transform: scale(1); transform: scale(1); }',
+			code:
+				'a { -webkit-transform: scale(1); -moz-transform: scale(1); transform: scale(1); }',
 		},
 		{
 			code: 'a { color: pink; -webkit-font-smoothing: antialiased; top: 0; }',

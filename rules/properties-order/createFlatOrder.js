@@ -6,7 +6,7 @@ module.exports = function createFlatOrder(order) {
 	appendGroup(order);
 
 	function appendGroup(items) {
-		items.forEach(item => appendItem(item));
+		items.forEach((item) => appendItem(item));
 	}
 
 	function appendItem(item) {

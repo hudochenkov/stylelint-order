@@ -14,7 +14,7 @@ module.exports = function checkOrder(firstNodeData, secondNodeData, allNodesData
 	if (!firstNodeIsSpecified && secondNodeIsSpecified) {
 		// If first node is unspecified, look for a specified node before it
 		// to compare to the current node
-		let priorSpecifiedNodeData = _.findLast(allNodesData.slice(0, -1), d =>
+		let priorSpecifiedNodeData = _.findLast(allNodesData.slice(0, -1), (d) =>
 			Boolean(d.expectedPosition)
 		);
 

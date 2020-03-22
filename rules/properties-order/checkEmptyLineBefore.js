@@ -39,8 +39,10 @@ module.exports = function checkEmptyLineBefore(
 
 		// Threshold logic
 		let belowEmptyLineThreshold = propsCount < sharedInfo.emptyLineMinimumPropertyThreshold;
-		let emptyLineThresholdInsertLines = emptyLineBefore === 'threshold' && !belowEmptyLineThreshold;
-		let emptyLineThresholdRemoveLines = emptyLineBefore === 'threshold' && belowEmptyLineThreshold;
+		let emptyLineThresholdInsertLines =
+			emptyLineBefore === 'threshold' && !belowEmptyLineThreshold;
+		let emptyLineThresholdRemoveLines =
+			emptyLineBefore === 'threshold' && belowEmptyLineThreshold;
 
 		if (
 			(emptyLineBefore === 'always' || emptyLineThresholdInsertLines) &&

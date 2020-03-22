@@ -9,7 +9,7 @@ module.exports = function validatePrimaryOption(actualOptions) {
 	// Every item in the array must be a string or an object
 	// with a "properties" property
 	if (
-		!actualOptions.every(item => {
+		!actualOptions.every((item) => {
 			if (_.isString(item)) {
 				return true;
 			}
@@ -24,12 +24,12 @@ module.exports = function validatePrimaryOption(actualOptions) {
 
 	// Every object-item's "properties" should be an array with no items, or with strings
 	if (
-		!objectItems.every(item => {
+		!objectItems.every((item) => {
 			if (!Array.isArray(item.properties)) {
 				return false;
 			}
 
-			return item.properties.every(property => _.isString(property));
+			return item.properties.every((property) => _.isString(property));
 		})
 	) {
 		return false;
@@ -37,7 +37,7 @@ module.exports = function validatePrimaryOption(actualOptions) {
 
 	// Every object-item's "emptyLineBefore" must be "always" or "never"
 	if (
-		!objectItems.every(item => {
+		!objectItems.every((item) => {
 			if (_.isUndefined(item.emptyLineBefore)) {
 				return true;
 			}
@@ -50,7 +50,7 @@ module.exports = function validatePrimaryOption(actualOptions) {
 
 	// Every object-item's "noEmptyLineBetween" must be a boolean
 	if (
-		!objectItems.every(item => {
+		!objectItems.every((item) => {
 			if (_.isUndefined(item.noEmptyLineBetween)) {
 				return true;
 			}

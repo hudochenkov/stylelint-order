@@ -24,7 +24,7 @@ test(`show warning if --fix enabled, but it didn't fix`, () => {
 		fix: true,
 	};
 
-	return stylelint.lint(options).then(output => {
+	return stylelint.lint(options).then((output) => {
 		expect(output.results[0].warnings.length).toBe(1);
 
 		const fixedCode = getOutputCss(output);
@@ -62,7 +62,7 @@ test(`show warning if --fix enabled, and it fixed`, () => {
 		fix: true,
 	};
 
-	return stylelint.lint(options).then(output => {
+	return stylelint.lint(options).then((output) => {
 		expect(output.results[0].warnings.length).toBe(0);
 
 		const fixedCode = getOutputCss(output);
