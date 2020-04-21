@@ -2,7 +2,7 @@ const rule = require('..');
 
 const { ruleName, messages } = rule;
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [['custom-properties', 'dollar-variables', 'declarations', 'rules', 'at-rules']],
 	fix: true,
@@ -163,7 +163,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -317,7 +317,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -399,7 +399,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -495,7 +495,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -534,7 +534,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -589,7 +589,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -630,7 +630,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [['declarations', 'at-rules']],
 	fix: true,
@@ -664,7 +664,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		['custom-properties', 'declarations'],
@@ -695,7 +695,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		['custom-properties', 'declarations'],
@@ -737,7 +737,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		['custom-properties', 'declarations'],
@@ -799,7 +799,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -899,7 +899,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -975,7 +975,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -1048,7 +1048,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	syntax: 'less',
 	config: [['custom-properties', 'at-variables', 'declarations', 'rules', 'at-rules']],
@@ -1106,7 +1106,7 @@ testRule(rule, {
 });
 
 // Doesn't has fix, because postcss-sorting doesn't know about less-mixins
-testRule(rule, {
+testRule({
 	ruleName,
 	syntax: 'less',
 	config: [['less-mixins', 'rules']],
@@ -1153,7 +1153,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		['custom-properties', 'dollar-variables', 'declarations', 'rules', 'at-rules'],
@@ -1225,7 +1225,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [['custom-properties']],
 	fix: true,
@@ -1251,7 +1251,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [['declarations', 'rules', 'at-rules']],
 	syntax: 'css-in-js',

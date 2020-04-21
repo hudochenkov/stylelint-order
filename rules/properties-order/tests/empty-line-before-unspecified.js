@@ -2,7 +2,7 @@ const rule = require('..');
 
 const { ruleName, messages } = rule;
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		['height', 'width'],
@@ -186,7 +186,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		['height', 'width'],

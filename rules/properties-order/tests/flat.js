@@ -2,7 +2,7 @@ const rule = require('..');
 
 const { ruleName, messages } = rule;
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [['my', 'transform', 'font-smoothing', 'top', 'transition', 'border', 'color']],
 	fix: true,
@@ -94,7 +94,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [['my', 'transform', 'font-smoothing', 'top', 'transition', 'border', 'color']],
 
@@ -108,7 +108,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -165,7 +165,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -191,7 +191,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		['height', 'color'],
@@ -224,7 +224,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		['height', 'color'],
@@ -257,7 +257,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		['all', 'compose'],
@@ -293,7 +293,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [['left', 'margin']],
 	fix: true,
@@ -314,7 +314,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		['my', 'transform', 'font-smoothing', 'top', 'transition', 'border', 'color'],
@@ -349,7 +349,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [['top', 'color']],
 	syntax: 'css-in-js',
@@ -489,7 +489,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [['top', 'color']],
 	syntax: 'html',

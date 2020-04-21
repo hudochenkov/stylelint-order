@@ -2,7 +2,7 @@ const rule = require('..');
 
 const { ruleName, messages } = rule;
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -91,7 +91,7 @@ testRule(rule, {
 });
 
 // Also test with groupName
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -120,7 +120,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -177,7 +177,7 @@ testRule(rule, {
 });
 
 // Also test with groupName
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[

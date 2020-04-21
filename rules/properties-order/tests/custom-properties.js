@@ -2,7 +2,7 @@ const rule = require('..');
 
 const { ruleName, messages } = rule;
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [['top', 'color']],
 	fix: true,

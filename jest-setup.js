@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const stylelint = require('stylelint');
 
-global.testRule = (rule, schema) => {
+global.testRule = (schema) => {
 	expect.extend({
 		toHaveMessage(testCase) {
 			if (testCase.message === undefined) {

@@ -2,7 +2,7 @@ const rule = require('..');
 
 const { ruleName, messages } = rule;
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -366,7 +366,7 @@ testRule(rule, {
 	],
 });
 
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -440,7 +440,7 @@ testRule(rule, {
 });
 
 // Ensure compatibility with emptyLineBeforeUnspecified
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		['height', 'width'],
@@ -503,7 +503,7 @@ testRule(rule, {
 });
 
 // Documented example verification
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -668,7 +668,7 @@ testRule(rule, {
 });
 
 // Verify mix of settings
-testRule(rule, {
+testRule({
 	ruleName,
 	config: [
 		[
@@ -761,13 +761,13 @@ testRule(rule, {
 			code: `
 				a {
 					display: block;
-					
+
 					height: 1px;
 					width: 2px;
-					
+
 					border: 0;
 					transform: none;
-					
+
 					color: blue;
 				}
 			`,
