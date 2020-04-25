@@ -1,7 +1,8 @@
 const stylelint = require('stylelint');
 const _ = require('lodash');
 const { namespace, getContainingNode, isRuleWithNodes } = require('../../utils');
-const checkNode = require('./checkNode');
+const checkNodeForOrder = require('./checkNodeForOrder');
+const checkNodeForEmptyLines = require('./checkNodeForEmptyLines');
 const createOrderInfo = require('./createOrderInfo');
 const validatePrimaryOption = require('./validatePrimaryOption');
 
@@ -70,7 +71,8 @@ function rule(primaryOption, options = {}, context = {}) {
 			processedParents.push(node);
 
 			if (isRuleWithNodes(node)) {
-				checkNode(node, sharedInfo, input);
+				checkNodeForOrder(node, sharedInfo, input);
+				checkNodeForEmptyLines(node, sharedInfo);
 			}
 		});
 	};
