@@ -336,13 +336,13 @@ testRule({
 	reject: [
 		{
 			code: 'a { color: pink; top: 0;  }',
-			fixed: 'a { color: pink; top: 0;  }',
+			unfixable: true,
 			message: messages.expected('top', 'color'),
 			description: `shouldn't apply fixes`,
 		},
 		{
 			code: 'a { top: 0; transform: scale(1); color: pink; }',
-			fixed: 'a { top: 0; transform: scale(1); color: pink; }',
+			unfixable: true,
 			message: messages.expected('transform', 'top'),
 			description: `shouldn't apply fixes`,
 		},
@@ -417,6 +417,7 @@ testRule({
 					color: tomato;
 				\`;
 			`,
+			message: messages.expected('top', 'color'),
 		},
 		{
 			code: `
@@ -426,13 +427,8 @@ testRule({
 					top: 0;
 				\`;
 			`,
-			fixed: `
-				const Component = styled.div\`
-					color: tomato;
-					\${props => props.great && 'color: red;'}
-					top: 0;
-				\`;
-			`,
+			unfixable: true,
+			message: messages.expected('top', 'color'),
 		},
 		{
 			code: `
@@ -447,18 +443,8 @@ testRule({
 					}
 				\`;
 			`,
-			fixed: `
-				const Component = styled.div\`
-					color: tomato;
-					\${props => props.great && 'color: red;'}
-					top: 0;
-
-					a {
-						top: 0;
-						color: tomato;
-					}
-				\`;
-			`,
+			unfixable: true,
+			message: messages.expected('top', 'color'),
 		},
 		{
 			code: `
@@ -473,18 +459,8 @@ testRule({
 					}
 				\`;
 			`,
-			fixed: `
-				const Component = styled.div\`
-					top: 0;
-					color: tomato;
-
-					a {
-						color: tomato;
-						\${props => props.great && 'color: red;'}
-						top: 0;
-					}
-				\`;
-			`,
+			unfixable: true,
+			message: messages.expected('top', 'color'),
 		},
 	],
 });
@@ -557,6 +533,7 @@ testRule({
 				</body>
 				</html>
 			`,
+			message: messages.expected('top', 'color'),
 		},
 		{
 			code: `
@@ -575,6 +552,7 @@ testRule({
 				</body>
 				</html>
 			`,
+			message: messages.expected('top', 'color'),
 		},
 	],
 });

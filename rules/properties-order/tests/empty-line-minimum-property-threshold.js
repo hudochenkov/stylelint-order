@@ -209,7 +209,14 @@ testRule({
 					font-style: italic;
 				}
 			`,
-			message: messages.rejectedEmptyLineBefore('position'),
+			warnings: [
+				{
+					message: messages.rejectedEmptyLineBefore('position'),
+				},
+				{
+					message: messages.rejectedEmptyLineBefore('border-bottom'),
+				},
+			],
 		},
 		{
 			description: '15',
@@ -412,6 +419,23 @@ testRule({
 					background-repeat: no-repeat;
 				}
 			`,
+			warnings: [
+				{
+					message: messages.expected('height', 'font-size'),
+				},
+				{
+					message: messages.expectedEmptyLineBefore('font-size'),
+				},
+				{
+					message: messages.expectedEmptyLineBefore('height'),
+				},
+				{
+					message: messages.expectedEmptyLineBefore('font-family'),
+				},
+				{
+					message: messages.expectedEmptyLineBefore('background-repeat'),
+				},
+			],
 		},
 		{
 			description: 'fix empty line before, order is fine',
@@ -435,6 +459,14 @@ testRule({
 					background-repeat: no-repeat;
 				}
 			`,
+			warnings: [
+				{
+					message: messages.expectedEmptyLineBefore('font-size'),
+				},
+				{
+					message: messages.expectedEmptyLineBefore('background-repeat'),
+				},
+			],
 		},
 	],
 });
@@ -619,7 +651,15 @@ testRule({
 					border: 0;
 				}
 			`,
-			message: messages.rejectedEmptyLineBefore('height'),
+
+			warnings: [
+				{
+					message: messages.rejectedEmptyLineBefore('height'),
+				},
+				{
+					message: messages.expectedEmptyLineBefore('border'),
+				},
+			],
 		},
 		{
 			description: 'example-reject-3',
@@ -641,7 +681,14 @@ testRule({
 					border: 0;
 				}
 			`,
-			message: messages.expectedEmptyLineBefore('height'),
+			warnings: [
+				{
+					message: messages.expectedEmptyLineBefore('height'),
+				},
+				{
+					message: messages.expectedEmptyLineBefore('border'),
+				},
+			],
 		},
 		{
 			description: 'example-reject-4',
@@ -822,7 +869,14 @@ testRule({
 					color: blue;
 				}
 			`,
-			message: messages.expectedEmptyLineBefore('border'),
+			warnings: [
+				{
+					message: messages.expectedEmptyLineBefore('border'),
+				},
+				{
+					message: messages.expectedEmptyLineBefore('color'),
+				},
+			],
 		},
 		{
 			description: 'mixed-reject-3',
@@ -851,7 +905,17 @@ testRule({
 					color: blue;
 				}
 			`,
-			message: messages.expectedEmptyLineBefore('border'),
+			warnings: [
+				{
+					message: messages.expectedEmptyLineBefore('border'),
+				},
+				{
+					message: messages.rejectedEmptyLineBefore('transform'),
+				},
+				{
+					message: messages.expectedEmptyLineBefore('color'),
+				},
+			],
 		},
 	],
 });

@@ -163,13 +163,13 @@ testRule({
 	reject: [
 		{
 			code: 'a { top: 0; color: pink; }',
-			fixed: 'a { top: 0; color: pink; }',
+			unfixable: true,
 			message: messages.expected('color', 'top'),
 			description: `shouldn't apply fixes`,
 		},
 		{
 			code: 'a { color: pink; transform: scale(1); top: 0; }',
-			fixed: 'a { color: pink; transform: scale(1); top: 0; }',
+			unfixable: true,
 			message: messages.expected('top', 'transform'),
 			description: `shouldn't apply fixes`,
 		},
@@ -244,8 +244,11 @@ testRule({
 					top: 0;
 				\`;
 			`,
+			message: messages.expected('color', 'top'),
 		},
 		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/115
+			skip: true,
 			code: `
 				const Component = styled.div\`
 					top: 0;
@@ -253,15 +256,12 @@ testRule({
 					color: tomato;
 				\`;
 			`,
-			fixed: `
-				const Component = styled.div\`
-					top: 0;
-					\${props => props.great && 'color: red;'}
-					color: tomato;
-				\`;
-			`,
+			unfixable: true,
+			message: messages.expected('color', 'top'),
 		},
 		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/115
+			skip: true,
 			code: `
 				const Component = styled.div\`
 					top: 0;
@@ -274,20 +274,12 @@ testRule({
 					}
 				\`;
 			`,
-			fixed: `
-				const Component = styled.div\`
-					top: 0;
-					\${props => props.great && 'color: red;'}
-					color: tomato;
-
-					a {
-						color: tomato;
-						top: 0;
-					}
-				\`;
-			`,
+			unfixable: true,
+			message: messages.expected('color', 'top'),
 		},
 		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/115
+			skip: true,
 			code: `
 				const Component = styled.div\`
 					color: tomato;
@@ -300,18 +292,8 @@ testRule({
 					}
 				\`;
 			`,
-			fixed: `
-				const Component = styled.div\`
-					color: tomato;
-					top: 0;
-
-					a {
-						top: 0;
-						\${props => props.great && 'color: red;'}
-						color: tomato;
-					}
-				\`;
-			`,
+			unfixable: true,
+			message: messages.expected('color', 'top'),
 		},
 	],
 });

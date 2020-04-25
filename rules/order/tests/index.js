@@ -91,6 +91,7 @@ testRule({
 					display: none;
 				}
 			`,
+			message: messages.expected('$-variable', 'declaration'),
 		},
 		{
 			code: `
@@ -111,6 +112,7 @@ testRule({
 					}
 				}
 			`,
+			message: messages.expected('declaration', 'rule'),
 		},
 		{
 			code: `
@@ -131,6 +133,7 @@ testRule({
 					}
 				}
 			`,
+			message: messages.expected('$-variable', 'declaration'),
 		},
 		{
 			code: `
@@ -159,6 +162,7 @@ testRule({
 					@media (min-width: 100px) {}
 				}
 			`,
+			message: messages.expected('rule', 'at-rule'),
 		},
 	],
 });
@@ -237,6 +241,7 @@ testRule({
 					@include hello;
 				}
 			`,
+			message: messages.expected('@include with a block', '@include'),
 		},
 		{
 			code: `
@@ -259,6 +264,7 @@ testRule({
 					}
 				}
 			`,
+			message: messages.expected('@include with a block', 'at-rule with a block'),
 		},
 		{
 			code: `
@@ -281,6 +287,7 @@ testRule({
 					}
 				}
 			`,
+			message: messages.expected('@include "media" with a block', 'at-rule with a block'),
 		},
 		{
 			code: `
@@ -299,6 +306,7 @@ testRule({
 					@extend .something;
 				}
 			`,
+			message: messages.expected('at-rule with a block', 'at-rule'),
 		},
 		{
 			code: `
@@ -313,6 +321,7 @@ testRule({
 					@extend .something;
 				}
 			`,
+			message: messages.expected('@include', 'at-rule'),
 		},
 	],
 });
@@ -451,6 +460,7 @@ testRule({
 					@extend .something;
 				}
 			`,
+			message: messages.expected('@include with a block', '@include'),
 		},
 		{
 			code: `
@@ -469,6 +479,7 @@ testRule({
 					}
 				}
 			`,
+			message: messages.expected('@include "media"', '@include "media" with a block'),
 		},
 		{
 			code: `
@@ -491,6 +502,7 @@ testRule({
 					}
 				}
 			`,
+			message: messages.expected('at-rule with a block', '@include "media" with a block'),
 		},
 	],
 });
@@ -585,6 +597,7 @@ testRule({
 					display: none;
 				}
 			`,
+			message: messages.expected('blockless at-rule', 'declaration'),
 		},
 	],
 });
@@ -626,6 +639,7 @@ testRule({
 					@include hello;
 				}
 			`,
+			message: messages.expected('declaration', 'at-rule'),
 		},
 	],
 });
@@ -660,6 +674,7 @@ testRule({
 					@include hello;
 				}
 			`,
+			message: messages.expected('declaration', 'at-rule'),
 		},
 	],
 });
@@ -707,32 +722,28 @@ testRule({
 
 	reject: [
 		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/85
+			skip: true,
 			code: `
 				a {
 					display: none;
 					$width: 5px;
 				}
 			`,
-			fixed: `
-				a {
-					display: none;
-					$width: 5px;
-				}
-			`,
+			unfixable: true,
+			warnings: [{ message: messages.expected('$-variable', 'declaration') }],
 		},
 		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/85
+			skip: true,
 			code: `
 				a {
 					--height: 10px;
 					$width: 5px;
 				}
 			`,
-			fixed: `
-				a {
-					--height: 10px;
-					$width: 5px;
-				}
-			`,
+			unfixable: true,
+			message: messages.expected('$-variable', 'custom property'),
 		},
 	],
 });
@@ -781,6 +792,7 @@ testRule({
 					$width: 5px;
 				}
 			`,
+			message: messages.expected('declaration', '$-variable'),
 		},
 		{
 			code: `
@@ -795,6 +807,7 @@ testRule({
 					$width: 5px;
 				}
 			`,
+			message: messages.expected('custom property', '$-variable'),
 		},
 	],
 });
@@ -867,6 +880,10 @@ testRule({
 					span {}
 				}
 			`,
+			message: messages.expected(
+				'rule with selector matching "^a"',
+				'rule with selector matching "/^&/"'
+			),
 		},
 		{
 			code: `
@@ -881,6 +898,7 @@ testRule({
 					span {}
 				}
 			`,
+			message: messages.expected('rule with selector matching "/^&/"', 'rule'),
 		},
 		{
 			code: `
@@ -895,6 +913,7 @@ testRule({
 					span {}
 				}
 			`,
+			message: messages.expected('rule with selector matching "^a"', 'rule'),
 		},
 	],
 });
@@ -955,6 +974,7 @@ testRule({
 					b & {}
 				}
 			`,
+			message: messages.expected('rule with selector matching "/^&/"', 'rule'),
 		},
 		{
 			code: `
@@ -971,6 +991,7 @@ testRule({
 					b & {}
 				}
 			`,
+			message: messages.expected('rule with selector matching "/^&/"', 'rule'),
 		},
 	],
 });
@@ -1030,6 +1051,10 @@ testRule({
 					& b {}
 				}
 			`,
+			message: messages.expected(
+				'rule with selector matching "/^&:\\w/"',
+				'rule with selector matching "/^&/"'
+			),
 		},
 		{
 			code: `
@@ -1044,6 +1069,7 @@ testRule({
 					&:hover {}
 				}
 			`,
+			message: messages.expected('rule', 'rule with selector matching "/^&:\\w/"'),
 		},
 	],
 });
@@ -1101,6 +1127,7 @@ testRule({
 					}
 				}
 			`,
+			message: messages.expected('@-variable', 'declaration'),
 		},
 	],
 });
@@ -1196,12 +1223,7 @@ testRule({
 					--width: 10px;
 				}
 			`,
-			fixed: `
-				a {
-					display: none;
-					--width: 10px;
-				}
-			`,
+			unfixable: true,
 			message: messages.expected('custom property', 'declaration'),
 			description: `shouldn't apply fixes`,
 		},
@@ -1213,13 +1235,8 @@ testRule({
 					$height: 20px;
 				}
 			`,
-			fixed: `
-				a {
-					--width: 10px;
-					display: none;
-					$height: 20px;
-				}
-			`,
+			unfixable: true,
+			message: messages.expected('$-variable', 'declaration'),
 			description: `shouldn't apply fixes`,
 		},
 	],
@@ -1344,6 +1361,14 @@ testRule({
 					}
 				\`;
 			`,
+			warnings: [
+				{
+					message: messages.expected('rule', 'at-rule'),
+				},
+				{
+					message: messages.expected('declaration', 'rule'),
+				},
+			],
 		},
 		{
 			code: `
@@ -1366,6 +1391,7 @@ testRule({
 					}
 				\`;
 			`,
+			message: messages.expected('declaration', 'rule'),
 		},
 		{
 			code: `
@@ -1396,6 +1422,14 @@ testRule({
 					}
 				\`;
 			`,
+			warnings: [
+				{
+					message: messages.expected('declaration', 'rule'),
+				},
+				{
+					message: messages.expected('rule', 'at-rule'),
+				},
+			],
 		},
 		{
 			code: `
@@ -1430,6 +1464,14 @@ testRule({
 					}
 				\`;
 			`,
+			warnings: [
+				{
+					message: messages.expected('declaration', 'rule'),
+				},
+				{
+					message: messages.expected('rule', 'at-rule'),
+				},
+			],
 		},
 		{
 			code: `
@@ -1454,6 +1496,7 @@ testRule({
 					}
 				\`;
 			`,
+			message: messages.expected('declaration', 'rule'),
 		},
 	],
 });

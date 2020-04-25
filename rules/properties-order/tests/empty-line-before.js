@@ -1386,15 +1386,7 @@ testRule({
 					font-style: italic;
 				}
 			`,
-			fixed: `
-				a {
-					display: none;
-					position: absolute;
-
-					border-bottom: 1px solid red;
-					font-style: italic;
-				}
-			`,
+			unfixable: true,
 			message: messages.expectedEmptyLineBefore('position'),
 			description: `shouldn't apply fixes`,
 		},
@@ -1408,15 +1400,7 @@ testRule({
 					font-style: italic;
 				}
 			`,
-			fixed: `
-				a {
-					display: none;
-
-					position: absolute;
-					border-bottom: 1px solid red;
-					font-style: italic;
-				}
-			`,
+			unfixable: true,
 			message: messages.expectedEmptyLineBefore('border-bottom'),
 			description: `shouldn't apply fixes`,
 		},
@@ -1466,6 +1450,23 @@ testRule({
 					background-repeat: no-repeat;
 				}
 			`,
+			warnings: [
+				{
+					message: messages.expected('height', 'font-size'),
+				},
+				{
+					message: messages.expectedEmptyLineBefore('font-size'),
+				},
+				{
+					message: messages.expectedEmptyLineBefore('height'),
+				},
+				{
+					message: messages.expectedEmptyLineBefore('font-family'),
+				},
+				{
+					message: messages.expectedEmptyLineBefore('background-repeat'),
+				},
+			],
 		},
 		{
 			description: 'fix empty line before, order is fine',
@@ -1489,6 +1490,14 @@ testRule({
 					background-repeat: no-repeat;
 				}
 			`,
+			warnings: [
+				{
+					message: messages.expectedEmptyLineBefore('font-size'),
+				},
+				{
+					message: messages.expectedEmptyLineBefore('background-repeat'),
+				},
+			],
 		},
 	],
 });
