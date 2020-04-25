@@ -3,8 +3,13 @@ const _ = require('lodash');
 const checkAlphabeticalOrder = require('../checkAlphabeticalOrder');
 
 // eslint-disable-next-line consistent-return
-module.exports = function checkOrder({ firstPropData, secondPropData, allPropData, unspecified }) {
-	function report(isCorrect, firstNode = firstPropData, secondNode = secondPropData) {
+module.exports = function checkOrder({
+	firstPropertyData,
+	secondPropertyData,
+	allPropertiesData,
+	unspecified,
+}) {
+	function report(isCorrect, firstNode = firstPropertyData, secondNode = secondPropertyData) {
 		return {
 			isCorrect,
 			firstNode,
@@ -12,11 +17,11 @@ module.exports = function checkOrder({ firstPropData, secondPropData, allPropDat
 		};
 	}
 
-	if (firstPropData.unprefixedName === secondPropData.unprefixedName) {
+	if (firstPropertyData.unprefixedName === secondPropertyData.unprefixedName) {
 		// If first property has no prefix and second property has prefix
 		if (
-			!postcss.vendor.prefix(firstPropData.name).length &&
-			postcss.vendor.prefix(secondPropData.name).length
+			!postcss.vendor.prefix(firstPropertyData.name).length &&
+			postcss.vendor.prefix(secondPropertyData.name).length
 		) {
 			return report(false);
 		}
@@ -24,20 +29,21 @@ module.exports = function checkOrder({ firstPropData, secondPropData, allPropDat
 		return report(true);
 	}
 
-	const firstPropIsSpecified = Boolean(firstPropData.orderData);
-	const secondPropIsSpecified = Boolean(secondPropData.orderData);
+	const firstPropIsSpecified = Boolean(firstPropertyData.orderData);
+	const secondPropIsSpecified = Boolean(secondPropertyData.orderData);
 
 	// Check actual known properties
 	if (firstPropIsSpecified && secondPropIsSpecified) {
 		return report(
-			firstPropData.orderData.expectedPosition <= secondPropData.orderData.expectedPosition
+			firstPropertyData.orderData.expectedPosition <=
+				secondPropertyData.orderData.expectedPosition
 		);
 	}
 
 	if (!firstPropIsSpecified && secondPropIsSpecified) {
 		// If first prop is unspecified, look for a specified prop before it to
 		// compare to the current prop
-		const priorSpecifiedPropData = _.findLast(allPropData.slice(0, -1), (d) =>
+		const priorSpecifiedPropData = _.findLast(allPropertiesData.slice(0, -1), (d) =>
 			Boolean(d.orderData)
 		);
 
@@ -45,9 +51,9 @@ module.exports = function checkOrder({ firstPropData, secondPropData, allPropDat
 			priorSpecifiedPropData &&
 			priorSpecifiedPropData.orderData &&
 			priorSpecifiedPropData.orderData.expectedPosition >
-				secondPropData.orderData.expectedPosition
+				secondPropertyData.orderData.expectedPosition
 		) {
-			return report(false, priorSpecifiedPropData, secondPropData);
+			return report(false, priorSpecifiedPropData, secondPropertyData);
 		}
 	}
 
@@ -58,7 +64,7 @@ module.exports = function checkOrder({ firstPropData, secondPropData, allPropDat
 	}
 
 	if (unspecified === 'bottomAlphabetical' && !firstPropIsSpecified && !secondPropIsSpecified) {
-		if (checkAlphabeticalOrder(firstPropData, secondPropData)) {
+		if (checkAlphabeticalOrder(firstPropertyData, secondPropertyData)) {
 			return report(true);
 		}
 

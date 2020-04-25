@@ -1,21 +1,13 @@
 const stylelint = require('stylelint');
 const _ = require('lodash');
-const { namespace, getContainingNode, isRuleWithNodes } = require('../../utils');
+const { getContainingNode, isRuleWithNodes } = require('../../utils');
 const checkNodeForOrder = require('./checkNodeForOrder');
 const checkNodeForEmptyLines = require('./checkNodeForEmptyLines');
 const createOrderInfo = require('./createOrderInfo');
 const validatePrimaryOption = require('./validatePrimaryOption');
 
-const ruleName = namespace('properties-order');
-
-const messages = stylelint.utils.ruleMessages(ruleName, {
-	expected: (first, second, groupName) =>
-		`Expected "${first}" to come before "${second}"${
-			groupName ? ` in group "${groupName}"` : ''
-		}`,
-	expectedEmptyLineBefore: (property) => `Expected an empty line before property "${property}"`,
-	rejectedEmptyLineBefore: (property) => `Unexpected empty line before property "${property}"`,
-});
+const ruleName = require('./ruleName');
+const messages = require('./messages');
 
 function rule(primaryOption, options = {}, context = {}) {
 	return function ruleBody(root, result) {
@@ -42,20 +34,8 @@ function rule(primaryOption, options = {}, context = {}) {
 			return;
 		}
 
-		let disableFix = options.disableFix || false;
-
-		let sharedInfo = {
-			context,
-			emptyLineBeforeUnspecified: options.emptyLineBeforeUnspecified,
-			emptyLineMinimumPropertyThreshold: options.emptyLineMinimumPropertyThreshold || 0,
-			expectedOrder: createOrderInfo(primaryOption),
-			isFixEnabled: context.fix && !disableFix,
-			messages,
-			primaryOption,
-			result,
-			ruleName,
-			unspecified: options.unspecified || 'ignore',
-		};
+		let isFixEnabled = context.fix && !options.disableFix;
+		let expectedOrder = createOrderInfo(primaryOption);
 
 		let processedParents = [];
 
@@ -71,8 +51,27 @@ function rule(primaryOption, options = {}, context = {}) {
 			processedParents.push(node);
 
 			if (isRuleWithNodes(node)) {
-				checkNodeForOrder(node, sharedInfo, input);
-				checkNodeForEmptyLines(node, sharedInfo);
+				checkNodeForOrder({
+					node,
+					originalNode: input,
+					isFixEnabled,
+					primaryOption,
+					unspecified: options.unspecified || 'ignore',
+					result,
+					expectedOrder,
+				});
+
+				checkNodeForEmptyLines({
+					node,
+					context,
+					emptyLineBeforeUnspecified: options.emptyLineBeforeUnspecified,
+					emptyLineMinimumPropertyThreshold:
+						options.emptyLineMinimumPropertyThreshold || 0,
+					expectedOrder,
+					isFixEnabled,
+					primaryOption,
+					result,
+				});
 			}
 		});
 	};

@@ -3,13 +3,20 @@ const checkEmptyLineBefore = require('./checkEmptyLineBefore');
 const checkEmptyLineBeforeFirstProp = require('./checkEmptyLineBeforeFirstProp');
 const getNodeData = require('./getNodeData');
 
-module.exports = function checkNode(node, sharedInfo) {
-	sharedInfo.lastKnownSeparatedGroup = 1;
+module.exports = function checkNodeForEmptyLines({
+	node,
+	context,
+	emptyLineBeforeUnspecified,
+	emptyLineMinimumPropertyThreshold,
+	expectedOrder,
+	isFixEnabled,
+	primaryOption,
+	result,
+}) {
+	let lastKnownSeparatedGroup = 1;
 
 	let propsCount = node.nodes.filter((item) => isProperty(item)).length;
-	let allNodesData = node.nodes.map(function collectDataForEveryNode(child) {
-		return getNodeData(child, sharedInfo.expectedOrder);
-	});
+	let allNodesData = node.nodes.map((child) => getNodeData(child, expectedOrder));
 
 	allNodesData.forEach(function checkEveryPropForEmptyLine(nodeData, index) {
 		let previousNodeData = allNodesData[index - 1];
@@ -33,11 +40,29 @@ module.exports = function checkNode(node, sharedInfo) {
 			return;
 		}
 
-		checkEmptyLineBefore(previousNodeData, nodeData, sharedInfo, propsCount);
+		checkEmptyLineBefore({
+			firstPropData: previousNodeData,
+			secondPropData: nodeData,
+			propsCount,
+			lastKnownSeparatedGroup,
+			context,
+			emptyLineBeforeUnspecified,
+			emptyLineMinimumPropertyThreshold,
+			isFixEnabled,
+			primaryOption,
+			result,
+		});
 	});
 
 	// Check if empty line before first prop should be removed
 	if (isProperty(allNodesData[0].node)) {
-		checkEmptyLineBeforeFirstProp(allNodesData[0], sharedInfo);
+		checkEmptyLineBeforeFirstProp({
+			propData: allNodesData[0],
+			primaryOption,
+			emptyLineBeforeUnspecified,
+			isFixEnabled,
+			context,
+			result,
+		});
 	}
 };
