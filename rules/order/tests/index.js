@@ -722,8 +722,6 @@ testRule({
 
 	reject: [
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/85
-			skip: true,
 			code: `
 				a {
 					display: none;
@@ -734,8 +732,6 @@ testRule({
 			warnings: [{ message: messages.expected('$-variable', 'declaration') }],
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/85
-			skip: true,
 			code: `
 				a {
 					--height: 10px;

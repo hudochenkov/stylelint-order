@@ -1,6 +1,5 @@
 const stylelint = require('stylelint');
 const _ = require('lodash');
-const postcssSorting = require('postcss-sorting');
 const { namespace, getContainingNode, isRuleWithNodes } = require('../../utils');
 const checkNode = require('./checkNode');
 const createOrderInfo = require('./createOrderInfo');
@@ -47,17 +46,13 @@ function rule(primaryOption, options = {}, context = {}) {
 			result,
 			isFixEnabled,
 			shouldFix: false,
+			primaryOption,
 		};
 
 		let processedParents = [];
 
 		// Check all rules and at-rules recursively
 		root.walk(function processRulesAndAtrules(input) {
-			// return early if we know there is a violation and auto fix should be applied
-			if (isFixEnabled && sharedInfo.shouldFix) {
-				return;
-			}
-
 			let node = getContainingNode(input);
 
 			// Avoid warnings duplication, caused by interfering in `root.walk()` algorigthm with `getContainingNode()`
@@ -68,13 +63,9 @@ function rule(primaryOption, options = {}, context = {}) {
 			processedParents.push(node);
 
 			if (isRuleWithNodes(node)) {
-				checkNode(node, sharedInfo);
+				checkNode(node, sharedInfo, input);
 			}
 		});
-
-		if (sharedInfo.shouldFix) {
-			postcssSorting({ order: primaryOption })(root);
-		}
 	};
 }
 
