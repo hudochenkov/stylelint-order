@@ -17,58 +17,52 @@ module.exports = function checkNodeForOrder({
 	result,
 	expectedOrder,
 }) {
-	let allPropertiesData = getAllPropertiesData(node);
+	if (isFixEnabled) {
+		let allPropertiesData = getAllPropertiesData(node);
+		let shouldFixOrder = false;
 
-	if (!isFixEnabled) {
-		allPropertiesData.forEach(checkEveryPropertyForOrder);
+		// Check if there order violation to avoid running re-ordering unnecessery
+		allPropertiesData.forEach(function checkEveryPropForOrder2(propertyData, index) {
+			// Skip first decl
+			if (index === 0) {
+				return;
+			}
 
-		return;
-	}
+			// return early if we know there is a violation and auto fix should be applied
+			if (shouldFixOrder) {
+				return;
+			}
 
-	let shouldFixOrder = false;
+			let previousPropertyData = allPropertiesData[index - 1];
 
-	// Check if there order violation to avoid running re-ordering unnecessery
-	allPropertiesData.forEach(function checkEveryPropForOrder2(propertyData, index) {
-		// Skip first decl
-		if (index === 0) {
-			return;
-		}
+			let checkedOrder = checkOrder({
+				firstPropertyData: previousPropertyData,
+				secondPropertyData: propertyData,
+				unspecified,
+				allPropertiesData: allPropertiesData.slice(0, index),
+			});
 
-		// return early if we know there is a violation and auto fix should be applied
-		if (shouldFixOrder) {
-			return;
-		}
-
-		let previousPropertyData = allPropertiesData[index - 1];
-
-		let checkedOrder = checkOrder({
-			firstPropertyData: previousPropertyData,
-			secondPropertyData: propertyData,
-			unspecified,
-			allPropertiesData: allPropertiesData.slice(0, index),
+			if (!checkedOrder.isCorrect) {
+				shouldFixOrder = true;
+			}
 		});
 
-		if (!checkedOrder.isCorrect) {
-			shouldFixOrder = true;
+		if (shouldFixOrder) {
+			let sortingOptions = {
+				'properties-order': createFlatOrder(primaryOption),
+				'unspecified-properties-position':
+					unspecified === 'ignore' ? 'bottom' : unspecified,
+			};
+
+			// creating PostCSS Root node with current node as a child,
+			// so PostCSS Sorting can process it
+			let tempRoot = postcss.root({ nodes: [originalNode] });
+
+			postcssSorting(sortingOptions)(tempRoot);
 		}
-	});
-
-	if (shouldFixOrder) {
-		let sortingOptions = {
-			'properties-order': createFlatOrder(primaryOption),
-			'unspecified-properties-position': unspecified === 'ignore' ? 'bottom' : unspecified,
-		};
-
-		// creating PostCSS Root node with current node as a child,
-		// so PostCSS Sorting can process it
-		let tempRoot = postcss.root({ nodes: [originalNode] });
-
-		postcssSorting(sortingOptions)(tempRoot);
-
-		getAllPropertiesData(node).forEach(checkEveryPropertyForOrder);
 	}
 
-	function checkEveryPropertyForOrder(propertyData, index, listOfProperties) {
+	getAllPropertiesData(node).forEach((propertyData, index, listOfProperties) => {
 		// Skip first decl
 		if (index === 0) {
 			return;
@@ -97,7 +91,7 @@ module.exports = function checkNodeForOrder({
 				ruleName,
 			});
 		}
-	}
+	});
 
 	function getAllPropertiesData(inputNode) {
 		return inputNode.nodes
