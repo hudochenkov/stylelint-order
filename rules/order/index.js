@@ -1,15 +1,11 @@
 const stylelint = require('stylelint');
 const _ = require('lodash');
-const { namespace, getContainingNode, isRuleWithNodes } = require('../../utils');
+const { getContainingNode, isRuleWithNodes } = require('../../utils');
 const checkNode = require('./checkNode');
 const createOrderInfo = require('./createOrderInfo');
 const validatePrimaryOption = require('./validatePrimaryOption');
-
-const ruleName = namespace('order');
-
-const messages = stylelint.utils.ruleMessages(ruleName, {
-	expected: (first, second) => `Expected ${first} to come before ${second}`,
-});
+const ruleName = require('./ruleName');
+const messages = require('./messages');
 
 function rule(primaryOption, options = {}, context = {}) {
 	return function ruleBody(root, result) {
@@ -36,24 +32,14 @@ function rule(primaryOption, options = {}, context = {}) {
 
 		let disableFix = options.disableFix || false;
 		let isFixEnabled = context.fix && !disableFix;
-
-		// Contains information which will be shared in many files and this info would be mutated to share state between them
-		let sharedInfo = {
-			orderInfo: createOrderInfo(primaryOption),
-			unspecified: options.unspecified || 'ignore',
-			messages,
-			ruleName,
-			result,
-			isFixEnabled,
-			shouldFix: false,
-			primaryOption,
-		};
+		let unspecified = options.unspecified || 'ignore';
+		let orderInfo = createOrderInfo(primaryOption);
 
 		let processedParents = [];
 
 		// Check all rules and at-rules recursively
-		root.walk(function processRulesAndAtrules(input) {
-			let node = getContainingNode(input);
+		root.walk(function processRulesAndAtrules(originalNode) {
+			let node = getContainingNode(originalNode);
 
 			// Avoid warnings duplication, caused by interfering in `root.walk()` algorigthm with `getContainingNode()`
 			if (processedParents.includes(node)) {
@@ -63,7 +49,15 @@ function rule(primaryOption, options = {}, context = {}) {
 			processedParents.push(node);
 
 			if (isRuleWithNodes(node)) {
-				checkNode(node, sharedInfo, input);
+				checkNode({
+					node,
+					originalNode,
+					isFixEnabled,
+					orderInfo,
+					primaryOption,
+					result,
+					unspecified,
+				});
 			}
 		});
 	};

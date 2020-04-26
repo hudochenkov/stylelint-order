@@ -3,9 +3,19 @@ const postcss = require('postcss');
 const postcssSorting = require('postcss-sorting');
 const checkOrder = require('./checkOrder');
 const getOrderData = require('./getOrderData');
+const ruleName = require('./ruleName');
+const messages = require('./messages');
 
-module.exports = function checkNode(node, sharedInfo, originalNode) {
-	if (sharedInfo.isFixEnabled) {
+module.exports = function checkNode({
+	node,
+	originalNode,
+	isFixEnabled,
+	orderInfo,
+	primaryOption,
+	result,
+	unspecified,
+}) {
+	if (isFixEnabled) {
 		let shouldFix = false;
 		let allNodesData = [];
 
@@ -28,7 +38,7 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 
 		if (shouldFix) {
 			let sortingOptions = {
-				order: sharedInfo.primaryOption,
+				order: primaryOption,
 			};
 
 			// creating PostCSS Root node with current node as a child,
@@ -56,13 +66,10 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 		}
 
 		stylelint.utils.report({
-			message: sharedInfo.messages.expected(
-				nodeData.description,
-				previousNodeData.description
-			),
+			message: messages.expected(nodeData.description, previousNodeData.description),
 			node: child,
-			result: sharedInfo.result,
-			ruleName: sharedInfo.ruleName,
+			result,
+			ruleName,
 		});
 	});
 
@@ -75,7 +82,7 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 		}
 
 		// Receive node description and expectedPosition
-		let nodeOrderData = getOrderData(sharedInfo.orderInfo, child);
+		let nodeOrderData = getOrderData(orderInfo, child);
 
 		let nodeData = {
 			node: child,
@@ -95,7 +102,14 @@ module.exports = function checkNode(node, sharedInfo, originalNode) {
 		}
 
 		return {
-			isCorrectOrder: checkOrder(previousNodeData, nodeData, allNodes, sharedInfo),
+			isCorrectOrder: checkOrder({
+				firstNodeData: previousNodeData,
+				secondNodeData: nodeData,
+				allNodesData: allNodes,
+				isFixEnabled,
+				result,
+				unspecified,
+			}),
 			nodeData,
 			previousNodeData,
 		};

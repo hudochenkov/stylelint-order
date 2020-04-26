@@ -1,8 +1,17 @@
 let stylelint = require('stylelint');
 let _ = require('lodash');
+let ruleName = require('./ruleName');
+let messages = require('./messages');
 
 // eslint-disable-next-line max-params, consistent-return
-module.exports = function checkOrder(firstNodeData, secondNodeData, allNodesData, sharedInfo) {
+module.exports = function checkOrder({
+	firstNodeData,
+	secondNodeData,
+	allNodesData,
+	isFixEnabled,
+	result,
+	unspecified,
+}) {
 	let firstNodeIsSpecified = Boolean(firstNodeData.expectedPosition);
 	let secondNodeIsSpecified = Boolean(secondNodeData.expectedPosition);
 
@@ -23,21 +32,19 @@ module.exports = function checkOrder(firstNodeData, secondNodeData, allNodesData
 			priorSpecifiedNodeData.expectedPosition &&
 			priorSpecifiedNodeData.expectedPosition > secondNodeData.expectedPosition
 		) {
-			if (sharedInfo.isFixEnabled) {
-				sharedInfo.shouldFix = true;
-
+			if (isFixEnabled) {
 				// Don't go further, fix will be applied
-				return; // eslint-disable-line consistent-return
+				return false;
 			}
 
 			stylelint.utils.report({
-				message: sharedInfo.messages.expected(
+				message: messages.expected(
 					secondNodeData.description,
 					priorSpecifiedNodeData.description
 				),
 				node: secondNodeData.node,
-				result: sharedInfo.result,
-				ruleName: sharedInfo.ruleName,
+				result,
+				ruleName,
 			});
 
 			// avoid logging another warning
@@ -48,8 +55,6 @@ module.exports = function checkOrder(firstNodeData, secondNodeData, allNodesData
 	if (!firstNodeIsSpecified && !secondNodeIsSpecified) {
 		return true;
 	}
-
-	let { unspecified } = sharedInfo;
 
 	if (unspecified === 'ignore' && (!firstNodeIsSpecified || !secondNodeIsSpecified)) {
 		return true;
