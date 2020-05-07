@@ -1,6 +1,8 @@
-# stylelint-order [![Build Status][ci-img]][ci] [![npm version][npm-version-img]][npm] [![npm downloads last month][npm-downloads-img]][npm]
+# stylelint-order
 
-A plugin pack of order-related linting rules for [stylelint]. Every rule support autofixing (`stylelint --fix`).
+[![npm version][npm-version-img]][npm] [![npm downloads last month][npm-downloads-img]][npm]
+
+A plugin pack of order-related linting rules for [stylelint]. Every rule supports autofixing (`stylelint --fix`).
 
 ## Installation
 
@@ -71,8 +73,6 @@ Less may work but isn't officially supported.
 
 `properties-order` and `properties-alphabetical-order` code and README are based on the `declaration-block-properties-order` rule which was a core rule prior to stylelint 8.0.0.
 
-[ci-img]: https://travis-ci.org/hudochenkov/stylelint-order.svg
-[ci]: https://travis-ci.org/hudochenkov/stylelint-order
 [npm-version-img]: https://img.shields.io/npm/v/stylelint-order.svg
 [npm-downloads-img]: https://img.shields.io/npm/dm/stylelint-order.svg
 [npm]: https://www.npmjs.com/package/stylelint-order
