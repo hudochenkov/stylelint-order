@@ -1,6 +1,11 @@
 # Change Log
+
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
+
+## Head
+
+* Fixed `order` not reporting warnings, if autofix didn't fix them.
 
 ## 4.0.0
 
