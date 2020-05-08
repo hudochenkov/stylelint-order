@@ -12,10 +12,6 @@
   "author": "Aleks Hudochenkov <aleks@hudochenkov.com>",
   "license": "MIT",
   "repository": "hudochenkov/stylelint-order",
-  "bugs": {
-    "url": "https://github.com/hudochenkov/stylelint-order/issues"
-  },
-  "homepage": "https://github.com/hudochenkov/stylelint-order",
   "files": [
     "rules",
     "utils",
