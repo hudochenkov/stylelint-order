@@ -12,7 +12,7 @@ A plugin pack of order-related linting rules for [stylelint]. Every rule support
 npm install stylelint --save-dev
 ```
 
-2.  Install `stylelint-oder`:
+2.  Install `stylelint-order`:
 
 ```
 npm install stylelint-order --save-dev
