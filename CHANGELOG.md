@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## Head
 
 * Fixed `order` not reporting warnings, if autofix didn't fix them.
+* Added `name` option to extended rule object to improve error messaging.
 
 ## 4.0.0
 
