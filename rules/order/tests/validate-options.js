@@ -58,6 +58,11 @@ testConfig({
 		},
 		{
 			type: 'rule',
+			selector: /^&::\w/,
+			name: 'Pseudo',
+		},
+		{
+			type: 'rule',
 		},
 	],
 });

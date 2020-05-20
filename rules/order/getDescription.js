@@ -35,7 +35,10 @@ module.exports = function getDescription(item) {
 		if (item.type === 'rule') {
 			text = 'rule';
 
-			if (item.selector) {
+			if (item.name) {
+				// Prefer 'name' property for better error messaging
+				text += ` "${item.name}"`;
+			} else if (item.selector) {
 				text += ` with selector matching "${item.selector}"`;
 			}
 		}

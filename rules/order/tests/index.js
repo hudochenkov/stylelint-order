@@ -1072,6 +1072,83 @@ testRule({
 
 testRule({
 	ruleName,
+	config: [
+		[
+			{
+				type: 'rule',
+			},
+			{
+				type: 'rule',
+				selector: /^&:\w/,
+				name: 'State',
+			},
+			{
+				type: 'rule',
+				selector: /^&/,
+				name: 'Child',
+			},
+		],
+	],
+	fix: true,
+
+	accept: [
+		{
+			code: `
+				a {
+					b & {}
+					&:hover {}
+					& b {}
+				}
+			`,
+		},
+		{
+			code: `
+				a {
+					b & {}
+					& b {}
+				}
+			`,
+		},
+	],
+
+	reject: [
+		{
+			code: `
+				a {
+					b & {}
+					& b {}
+					&:hover {}
+				}
+			`,
+			fixed: `
+				a {
+					b & {}
+					&:hover {}
+					& b {}
+				}
+			`,
+			message: messages.expected('rule "State"', 'rule "Child"'),
+		},
+		{
+			code: `
+				a {
+					&:hover {}
+					b & {}
+				}
+			`,
+			fixed: `
+				a {
+					b & {}
+					&:hover {}
+				}
+			`,
+			message: messages.expected('rule', 'rule "State"'),
+		},
+	],
+});
+
+testRule({
+	ruleName,
 	syntax: 'less',
 	config: [['custom-properties', 'at-variables', 'declarations', 'rules', 'at-rules']],
 	fix: true,
