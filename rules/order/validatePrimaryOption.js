@@ -65,6 +65,10 @@ module.exports = function validatePrimaryOption(actualOptions) {
 						(_.isString(item.selector) && item.selector.length) ||
 						_.isRegExp(item.selector);
 				}
+
+				if (result && !_.isUndefined(item.name)) {
+					result = _.isString(item.name) && item.name.length;
+				}
 			}
 
 			return result;
