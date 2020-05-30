@@ -271,6 +271,60 @@ testConfig({
 
 testConfig({
 	ruleName,
+	description: 'invalid. name is empty',
+	valid: false,
+	config: [
+		{
+			type: 'rule',
+			name: '',
+		},
+	],
+	message: `Invalid option "[{"type":"rule","name":""}]" for rule ${ruleName}`,
+});
+
+testConfig({
+	ruleName,
+	description: 'invalid. name is not a string',
+	valid: false,
+	config: [
+		{
+			type: 'rule',
+			name: null,
+		},
+	],
+	message: `Invalid option "[{"type":"rule","name":null}]" for rule ${ruleName}`,
+});
+
+testConfig({
+	ruleName,
+	description: 'invalid. selector is valid, but name is invalid',
+	valid: false,
+	config: [
+		{
+			type: 'rule',
+			selector: '^&:hover',
+			name: null,
+		},
+	],
+	message: `Invalid option "[{"type":"rule","selector":"^&:hover","name":null}]" for rule ${ruleName}`,
+});
+
+testConfig({
+	ruleName,
+	description: 'invalid. name is valid, but select is invalid',
+	valid: false,
+	config: [
+		{
+			type: 'rule',
+			selector: null,
+			name: 'Element',
+		},
+	],
+	message: `Invalid option "[{"type":"rule","selector":null,"name":"Element"}]" for rule ${ruleName}`,
+});
+
+testConfig({
+	ruleName,
 	description: 'disableFix true',
 	valid: true,
 	config: [
