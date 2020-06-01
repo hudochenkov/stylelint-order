@@ -22,7 +22,7 @@ This rule ignores variables (`$sass`, `@less`, `--custom-property`).
 
 ### Primary option
 
-Value type: `boolean`.
+Value type: `boolean`.<br>
 Default value: none.
 
 ```json
@@ -89,7 +89,7 @@ a {
 
 ### `disableFix`
 
-Value type: `boolean`.
+Value type: `boolean`.<br>
 Default value: none.
 
 Disable autofixing. Autofixing is enabled by default if it's enabled in stylelint configuration.

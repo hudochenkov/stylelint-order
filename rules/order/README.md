@@ -186,7 +186,7 @@ type SecondaryOptions = {
 
 ### `unspecified`
 
-Value type: `"top" | "bottom" | "ignore"`.
+Value type: `"top" | "bottom" | "ignore"`.<br>
 Default value: `"ignore"`.
 
 Default behavior is the same as `"ignore"`: an unspecified element can appear before or after any other property.
@@ -195,7 +195,7 @@ With `"top"`, unspecified elements are expected _before_ any specified propertie
 
 ### `disableFix`
 
-Value type: `boolean`.
+Value type: `boolean`.<br>
 Default value: none.
 
 Disable autofixing. Autofixing is enabled by default if it's enabled in stylelint configuration.

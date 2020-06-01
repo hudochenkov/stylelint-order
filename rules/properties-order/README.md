@@ -514,7 +514,7 @@ type SecondaryOptions = {
 
 ### `unspecified`
 
-Value type: `"top" | "bottom" | "bottomAlphabetical" | "ignore"`.
+Value type: `"top" | "bottom" | "bottomAlphabetical" | "ignore"`.<br>
 Default value: `"ignore"`.
 
 These options only apply if you've defined your own array of properties.
@@ -679,7 +679,7 @@ a {
 
 ### `emptyLineBeforeUnspecified`
 
-Value type: `"always" | "never" | "threshold"`.
+Value type: `"always" | "never" | "threshold"`.<br>
 Default value: none.
 
 Default behavior does not enforce the presence of an empty line before an unspecified block of properties (`"ignore"`).
@@ -731,7 +731,7 @@ a {
 
 ### `emptyLineMinimumPropertyThreshold`
 
-Value type: `number`.
+Value type: `number`.<br>
 Default value: none.
 
 If a group is configured with `emptyLineBefore: "threshold"`, the empty line behaviour toggles based on the number of properties in the rule.
@@ -862,7 +862,7 @@ a {
 
 ### `disableFix`
 
-Value type: `boolean`.
+Value type: `boolean`.<br>
 Default value: none.
 
 Disable autofixing. Autofixing is enabled by default if it's enabled in stylelint configuration.
