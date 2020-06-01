@@ -32,7 +32,10 @@ Add `stylelint-order` to your stylelint config `plugins` array, then add rules y
 			"custom-properties",
 			"declarations"
 		],
-		"order/properties-alphabetical-order": true
+		"order/properties-order": [
+			"width",
+			"height"
+		]
 	}
 }
 ```
@@ -80,7 +83,7 @@ All these configs have `properties-order` configured  with logical properties gr
 
 ## Thanks
 
-`properties-order` and `properties-alphabetical-order` code and README are based on the `declaration-block-properties-order` rule which was a core rule prior to stylelint 8.0.0.
+`properties-order` and `properties-alphabetical-order` code and README were based on the `declaration-block-properties-order` rule which was a core rule prior to stylelint 8.0.0.
 
 [npm-version-img]: https://img.shields.io/npm/v/stylelint-order.svg
 [npm-downloads-img]: https://img.shields.io/npm/dm/stylelint-order.svg

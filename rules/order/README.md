@@ -13,7 +13,7 @@ Specify the order of content within declaration blocks.
 
 ## Options
 
-```js
+```json
 ["array", "of", "keywords", "or", "expanded", "at-rule", "objects"]
 ```
 
@@ -29,21 +29,21 @@ Within an order array, you can include:
 	- `less-mixins` — Mixins in Less syntax (e. g., `.mixin();`)
 - extended at-rule objects:
 
-	```js
+	```json
 	{
-		type: 'at-rule',
-		name: 'include',
-		parameter: 'hello',
-		hasBlock: true
+		"type": "at-rule",
+		"name": "include",
+		"parameter": "hello",
+		"hasBlock": true
 	}
 	```
 
 - extended rule objects:
 
-	```js
+	```json
 	{
-		type: 'rule',
-		selector: 'div'
+		"type": "rule",
+		"selector": "div"
 	}
 	```
 
@@ -64,9 +64,9 @@ Always specify `name` if `parameter` is specified.
 
 Matches all at-rules:
 
-```js
+```json
 {
-	type: 'at-rule'
+	"type": "at-rule"
 }
 ```
 
@@ -74,54 +74,54 @@ Or keyword `at-rules`.
 
 Matches all at-rules, which have nested elements:
 
-```js
+```json
 {
-	type: 'at-rule',
-	hasBlock: true
+	"type": "at-rule",
+	"hasBlock": true
 }
 ```
 
 Matches all at-rules with specific name:
 
-```js
+```json
 {
-	type: 'at-rule',
-	name: 'media'
+	"type": "at-rule",
+	"name": "media"
 }
 ```
 
 Matches all at-rules with specific name, which have nested elements:
 
-```js
+```json
 {
-	type: 'at-rule',
-	name: 'media',
-	hasBlock: true
+	"type": "at-rule",
+	"name": "media",
+	"hasBlock": true
 }
 ```
 
 Matches all at-rules with specific name and parameter:
 
-```js
+```json
 {
-	type: 'at-rule',
-	name: 'include',
-	parameter: 'icon'
+	"type": "at-rule",
+	"name": "include",
+	"parameter": "icon"
 }
 ```
 
 Matches all at-rules with specific name and parameter, which have nested elements:
 
-```js
+```json
 {
-	type: 'at-rule',
-	name: 'include',
-	parameter: 'icon',
-	hasBlock: true
+	"type": "at-rule",
+	"name": "include",
+	"parameter": "icon",
+	"hasBlock": true
 }
 ```
 
-Each described above variant has more priority than its previous variant. For example, `{ type: 'at-rule', name: 'media' }` will be applied to an element if both `{ type: 'at-rule', name: 'media' }` and `{ type: 'at-rule', hasBlock: true }` can be applied to an element.
+Each described above variant has more priority than its previous variant. For example, `{ "type": "at-rule", "name": "media" }` will be applied to an element if both `{ "type": "at-rule", "name": "media" }` and `{ "type": "at-rule", "hasBlock": true }` can be applied to an element.
 
 ### Extended rule objects
 
@@ -135,9 +135,9 @@ Object parameters:
 
 Matches all rules:
 
-```js
+```json
 {
-	type: 'rule'
+	"type": "rule"
 }
 ```
 
@@ -145,17 +145,17 @@ Or keyword `rules`.
 
 Matches all rules with selector matching pattern:
 
-```js
+```json
 {
-	type: 'rule',
-	selector: 'div'
+	"type": "rule",
+	"selector": "div"
 }
 ```
 
-```js
+```json
 {
-	type: 'rule',
-	selector: /^&:\w+$/
+	"type": "rule",
+	"selector": "/^&:\\w+$/"
 }
 ```
 
@@ -183,8 +183,16 @@ Keyword `less-mixins` aren't supported.
 
 Given:
 
-```js
-["custom-properties", "dollar-variables", "declarations", "rules", "at-rules"]
+```json
+{
+	"order/order": [
+		"custom-properties",
+		"dollar-variables",
+		"declarations",
+		"rules",
+		"at-rules"
+	]
+}
 ```
 
 The following patterns are considered warnings:
@@ -228,25 +236,27 @@ a {
 
 Given:
 
-```js
-[
-	{
-		type: 'at-rule',
-		name: 'include',
-	},
-	{
-		type: 'at-rule',
-		name: 'include',
-		hasBlock: true
-	},
-	{
-		type: 'at-rule',
-		hasBlock: true
-	},
-	{
-		type: 'at-rule',
-	}
-]
+```json
+{
+	"order/order": [
+		{
+			"type": "at-rule",
+			"name": "include"
+		},
+		{
+			"type": "at-rule",
+			"name": "include",
+			"hasBlock": true
+		},
+		{
+			"type": "at-rule",
+			"hasBlock": true
+		},
+		{
+			"type": "at-rule"
+		}
+	]
+}
 ```
 
 The following patterns are considered warnings:
@@ -297,25 +307,27 @@ a {
 
 Given:
 
-```js
-[
-	{
-		type: 'at-rule',
-		name: 'include',
-		hasBlock: true
-	},
-	{
-		type: 'at-rule',
-		name: 'include',
-		parameter: 'icon',
-		hasBlock: true
-	},
-	{
-		type: 'at-rule',
-		name: 'include',
-		parameter: 'icon'
-	}
-]
+```json
+{
+	"order/order": [
+		{
+			"type": "at-rule",
+			"name": "include",
+			"hasBlock": true
+		},
+		{
+			"type": "at-rule",
+			"name": "include",
+			"parameter": "icon",
+			"hasBlock": true
+		},
+		{
+			"type": "at-rule",
+			"name": "include",
+			"parameter": "icon"
+		}
+	]
+}
 ```
 
 The following patterns are considered warnings:
@@ -368,15 +380,17 @@ a {
 
 Given:
 
-```js
-[
-	'custom-properties',
-	{
-		type: 'at-rule',
-		hasBlock: true,
-	},
-	'declarations'
-]
+```json
+{
+	"order/order": [
+		"custom-properties",
+		{
+			"type": "at-rule",
+			"hasBlock": true
+		},
+		"declarations"
+	]
+}
 ```
 
 The following patterns are considered warnings:
@@ -442,18 +456,20 @@ a {
 
 Given:
 
-```js
-[
-	{
-		type: 'rule',
-		selector: '^a'
-	},
-	{
-		type: 'rule',
-		selector: /^&/
-	},
-	'rules'
-]
+```json
+{
+	"order/order": [
+		{
+			"type": "rule",
+			"selector": "^a"
+		},
+		{
+			"type": "rule",
+			"selector": "/^&/"
+		},
+		"rules"
+	]
+}
 ```
 
 The following patterns are considered warnings:
@@ -510,17 +526,19 @@ a {
 
 Given:
 
-```js
-[
-	{
-		type: 'rule',
-		selector: /^&/
-	},
-	{
-		type: 'rule',
-		selector: /^&:\w/
-	}
-]
+```json
+{
+	"order/order": [
+		{
+			"type": "rule",
+			"selector": "/^&/"
+		},
+		{
+			"type": "rule",
+			"selector": "/^&:\\w/"
+		}
+	]
+}
 ```
 
 The following patterns are _not_ considered warnings:
@@ -543,17 +561,19 @@ a {
 
 Given:
 
-```js
-[
-	{
-		type: 'rule',
-		selector: /^&:\w/
-	},
-	{
-		type: 'rule',
-		selector: /^&/
-	}
-]
+```json
+{
+	"order/order": [
+		{
+			"type": "rule",
+			"selector": "/^&:\\w/"
+		},
+		{
+			"type": "rule",
+			"selector": "/^&/"
+		}
+	]
+}
 ```
 
 The following pattern is considered warnings:
@@ -578,15 +598,17 @@ a {
 
 Given:
 
-```js
-[
-	[
-		"declarations"
-	],
-	{
-		unspecified: "ignore"
-	}
-]
+```json
+{
+	"order/order": [
+		[
+			"declarations"
+		],
+		{
+			"unspecified": "ignore"
+		}
+	]
+}
 ```
 
 The following patterns are _not_ considered warnings:
@@ -619,15 +641,17 @@ a {
 
 Given:
 
-```js
-[
-	[
-		"declarations"
-	],
-	{
-		unspecified: "top"
-	}
-]
+```json
+{
+	"order/order": [
+		[
+			"declarations"
+		],
+		{
+			"unspecified": "top"
+		}
+	]
+}
 ```
 
 The following patterns are considered warnings:
@@ -670,15 +694,17 @@ a {
 
 Given:
 
-```js
-[
-	[
-		"declarations"
-	],
-	{
-		unspecified: "bottom"
-	}
-]
+```json
+{
+	"order/order": [
+		[
+			"declarations"
+		],
+		{
+			"unspecified": "bottom"
+		}
+	]
+}
 ```
 
 The following patterns are considered warnings:

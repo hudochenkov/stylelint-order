@@ -25,7 +25,7 @@ This rule ignores variables (`$sass`, `@less`, `--custom-property`).
 
 ## Options
 
-```
+```json
 ["array", "of", "unprefixed", "property", "names", "or", "group", "objects"]
 ```
 
@@ -52,8 +52,14 @@ There are some important details to keep in mind:
 
 Given:
 
-```js
-["transform", "top", "color"]
+```json
+{
+	"order/properties-order": [
+		"transform",
+		"top",
+		"color"
+	]
+}
 ```
 
 The following patterns are considered warnings:
@@ -100,8 +106,14 @@ a {
 
 Given:
 
-```js
-["padding", "color", "padding-top"]
+```json
+{
+	"order/properties-order": [
+		"padding",
+		"color",
+		"padding-top"
+	]
+}
 ```
 
 The following patterns are considered warnings:
@@ -138,8 +150,13 @@ a {
 
 Given:
 
-```js
-["font-smoothing", "color"]
+```json
+{
+	"order/properties-order": [
+		"font-smoothing",
+		"color"
+	]
+}
 ```
 
 Where `font-smoothing` is the unprefixed version of proprietary browser property `-webkit-font-smoothing`.
@@ -178,8 +195,17 @@ a {
 
 Given:
 
-```js
-["padding", "padding-top", "padding-right", "padding-bottom", "padding-left", "color"]
+```json
+{
+	"order/properties-order": [
+		"padding",
+		"padding-top",
+		"padding-right",
+		"padding-bottom",
+		"padding-left",
+		"color"
+	]
+}
 ```
 
 The following patterns are considered warnings:
@@ -216,25 +242,27 @@ a {
 
 Given:
 
-```js
-[
-	{
-		groupName: "dimensions",
-		emptyLineBefore: "always",
-		properties: [
-			"height",
-			"width",
-		],
-	},
-	{
-		groupName: "font",
-		emptyLineBefore: "always",
-		properties: [
-			"font-size",
-			"font-weight",
-		],
-	},
-]
+```json
+{
+	"order/properties-order": [
+		{
+			"groupName": "dimensions",
+			"emptyLineBefore": "always",
+			"properties": [
+				"height",
+				"width"
+			]
+		},
+		{
+			"groupName": "font",
+			"emptyLineBefore": "always",
+			"properties": [
+				"font-size",
+				"font-weight"
+			]
+		}
+	]
+}
 ```
 
 The following patterns are considered warnings:
@@ -282,23 +310,25 @@ a {
 
 Given:
 
-```js
-[
-	{
-		emptyLineBefore: "never",
-		properties: [
-			"height",
-			"width",
-		],
-	},
-	{
-		emptyLineBefore: "never",
-		properties: [
-			"font-size",
-			"font-weight",
-		],
-	},
-]
+```json
+{
+	"order/properties-order": [
+		{
+			"emptyLineBefore": "never",
+			"properties": [
+				"height",
+				"width"
+			]
+		},
+		{
+			"emptyLineBefore": "never",
+			"properties": [
+				"font-size",
+				"font-weight"
+			]
+		}
+	]
+}
 ```
 
 The following patterns are considered warnings:
@@ -346,25 +376,27 @@ a {
 
 Given:
 
-```js
-[
-	{
-		emptyLineBefore: "always",
-		noEmptyLineBetween: true,
-		properties: [
-			"height",
-			"width",
-		],
-	},
-	{
-		emptyLineBefore: "always",
-		noEmptyLineBetween: true,
-		properties: [
-			"font-size",
-			"font-weight",
-		],
-	},
-]
+```json
+{
+	"order/properties-order": [
+		{
+			"emptyLineBefore": "always",
+			"noEmptyLineBetween": true,
+			"properties": [
+				"height",
+				"width"
+			]
+		},
+		{
+			"emptyLineBefore": "always",
+			"noEmptyLineBetween": true,
+			"properties": [
+				"font-size",
+				"font-weight"
+			]
+		}
+	]
+}
 ```
 
 The following pattern is considered warnings:
@@ -395,19 +427,21 @@ a {
 
 Given:
 
-```js
-[
-	"height",
-	"width",
-	{
-		order: "flexible",
-		properties: [
-			"color",
-			"font-size",
-			"font-weight",
-		],
-	},
-]
+```json
+{
+	"order/properties-order": [
+		"height",
+		"width",
+		{
+			"order": "flexible",
+			"properties": [
+				"color",
+				"font-size",
+				"font-weight"
+			]
+		}
+	]
+}
 ```
 
 The following patterns are considered warnings:
@@ -471,8 +505,13 @@ With `"top"`, unspecified properties are expected *before* any specified propert
 
 Given:
 
-```js
-[["color", "background"], { unspecified: "ignore" }]
+```json
+{
+	"order/properties-order": [
+		["color", "background"],
+		{ "unspecified": "ignore" }
+	]
+}
 ```
 
 The following patterns are *not* considered warnings:
@@ -503,8 +542,13 @@ a {
 
 Given:
 
-```js
-[["color", "background"], { unspecified: "top" }]
+```json
+{
+	"order/properties-order": [
+		["color", "background"],
+		{ "unspecified": "top" }
+	]
+}
 ```
 
 The following patterns are considered warnings:
@@ -537,8 +581,13 @@ a {
 
 Given:
 
-```js
-[["color", "background"], { unspecified: "bottom" }]
+```json
+{
+	"order/properties-order": [
+		["color", "background"],
+		{ "unspecified": "bottom" }
+	]
+}
 ```
 
 The following patterns are considered warnings:
@@ -571,8 +620,13 @@ a {
 
 Given:
 
-```js
-[["composes"], { unspecified: "bottomAlphabetical" }]
+```json
+{
+	"order/properties-order": [
+		["composes"],
+		{ "unspecified": "bottomAlphabetical" }
+	]
+}
 ```
 
 The following patterns are considered warnings:
@@ -616,17 +670,19 @@ If `emptyLineBeforeUnspecified` specified, regardless of it's value, if the firs
 
 Given:
 
-```js
-[
-    [
-        "height",
-        "width",
-    ],
-    {
-        unspecified: "bottom",
-        emptyLineBeforeUnspecified: "always"
-    }
-]
+```json
+{
+	"order/properties-order": [
+		[
+			"height",
+			"width",
+		],
+		{
+			"unspecified": "bottom",
+			"emptyLineBeforeUnspecified": "always"
+		}
+	]
+}
 ```
 
 The following pattern is considered warnings:
@@ -662,32 +718,34 @@ The same behaviour is applied to unspecified groups when `emptyLineBeforeUnspeci
 
 Given:
 
-```js
-[
-    [
-        {
-            emptyLineBefore: 'threshold',
-            properties: ['display'],
-        },
-        {
-            emptyLineBefore: 'threshold',
-            properties: ['height', 'width'],
-        },
-        {
-            emptyLineBefore: 'always',
-            properties: ['border'],
-        },
-        {
-            emptyLineBefore: 'never',
-            properties: ['transform'],
-        },
-    ],
-    {
-       unspecified: 'bottom',
-       emptyLineBeforeUnspecified: 'threshold',
-       emptyLineMinimumPropertyThreshold: 4,
-    }
-]
+```json
+{
+	"order/properties-order": [
+		[
+			{
+				"emptyLineBefore": "threshold",
+				"properties": ["display"]
+			},
+			{
+				"emptyLineBefore": "threshold",
+				"properties": ["height", "width"]
+			},
+			{
+				"emptyLineBefore": "always",
+				"properties": ["border"]
+			},
+			{
+				"emptyLineBefore": "never",
+				"properties": ["transform"]
+			},
+		],
+		{
+			"unspecified": "bottom",
+			"emptyLineBeforeUnspecified": "threshold",
+			"emptyLineMinimumPropertyThreshold": 4
+		}
+	]
+}
 ```
 
 The following patterns are considered warnings:
@@ -779,6 +837,15 @@ a {
 ### `disableFix: true`
 
 Disable autofixing. Autofixing is enabled by default if it's enabled in stylelint configuration.
+
+```json
+{
+	"order/properties-order": [
+		["color", "background"],
+		{ "disableFix": true }
+	]
+}
+```
 
 ## Autofixing caveats
 

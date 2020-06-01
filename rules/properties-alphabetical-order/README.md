@@ -22,6 +22,10 @@ This rule ignores variables (`$sass`, `@less`, `--custom-property`).
 
 ### `true`
 
+```json
+{ "order/properties-alphabetical-order": true }
+```
+
 The following patterns are considered warnings:
 
 ```css
@@ -83,3 +87,12 @@ a {
 ### `disableFix: true`
 
 Disable autofixing. Autofixing is enabled by default if it's enabled in stylelint configuration.
+
+```json
+{
+	"order/properties-alphabetical-order": [
+		true,
+		{ "diableFix": true }
+	]
+}
+```
