@@ -69,6 +69,15 @@ Autofixing is enabled by default if it's enabled in stylelint's configuration fi
 
 Less may work but isn't officially supported.
 
+## Example configs
+
+All these configs have `properties-order` configured  with logical properties groups:
+
+* [`stylelint-config-idiomatic-order`](https://github.com/ream88/stylelint-config-idiomatic-order)
+* [`stylelint-config-hudochenkov/order`](https://github.com/hudochenkov/stylelint-config-hudochenkov/blob/master/order.js)
+* [`stylelint-config-recess-order`](https://github.com/stormwarning/stylelint-config-recess-order)
+* [`stylelint-config-property-sort-order-smacss`](https://github.com/cahamilton/stylelint-config-property-sort-order-smacss)
+
 ## Thanks
 
 `properties-order` and `properties-alphabetical-order` code and README are based on the `declaration-block-properties-order` rule which was a core rule prior to stylelint 8.0.0.
