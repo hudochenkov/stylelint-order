@@ -20,7 +20,10 @@ This rule ignores variables (`$sass`, `@less`, `--custom-property`).
 
 ## Options
 
-### `true`
+### Primary option
+
+Value type: `boolean`.
+Default value: none.
 
 ```json
 { "order/properties-alphabetical-order": true }
@@ -84,7 +87,10 @@ a {
 
 ## Optional secondary options
 
-### `disableFix: true`
+### `disableFix`
+
+Value type: `boolean`.
+Default value: none.
 
 Disable autofixing. Autofixing is enabled by default if it's enabled in stylelint configuration.
 

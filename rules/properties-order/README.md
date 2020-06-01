@@ -17,25 +17,32 @@ This rule ignores variables (`$sass`, `@less`, `--custom-property`).
 
 * Options
 * Optional secondary options
-	* [`unspecified: "top"|"bottom"|"bottomAlphabetical"|"ignore"`](#unspecified-topbottombottomalphabeticalignore)
-	* [`emptyLineBeforeUnspecified: "always"|"never"|"threshold"`](#emptyLineBeforeUnspecified-alwaysneverthreshold)
-	* [`emptyLineMinimumPropertyThreshold: <number>`](#emptylineminimumpropertythreshold-number)
-	* [`disableFix: true`](#disablefix-true)
+	* [`unspecified`](#unspecified)
+	* [`emptyLineBeforeUnspecified`](#emptyLineBeforeUnspecified)
+	* [`emptyLineMinimumPropertyThreshold`](#emptylineminimumpropertythreshold)
+	* [`disableFix`](#disablefix)
 * [Autofixing caveats](#autofixing-caveats)
 
 ## Options
 
-```json
-["array", "of", "unprefixed", "property", "names", "or", "group", "objects"]
+```ts
+type PrimaryOption = Array<string | Group>;
+
+type Group = {
+	properties: Array<string>,
+	emptyLineBefore?: 'always' | 'never' | 'threshold',
+	noEmptyLineBetween?: boolean,
+	groupName?: string
+	order?: 'flexible,
+};
 ```
 
-Within an order array, you can include
+Array of unprefixed property names or group objects. Within an order array, you can include:
 
 * unprefixed property names
 * group objects with these properties:
-	* `order: "flexible"`: If property isn't set (the default), the properties in this group must come in the order specified. If `"flexible"`, the properties can be in any order as long as they are grouped correctly.
-	* `properties (array of strings)`: The properties in this group.
-	* `emptyLineBefore ("always"|"never"|"threshold")`: If `always`, this group must be separated from other properties by an empty newline. If emptyLineBefore is `never`, the group must have no empty lines separating it from other properties. By default this property isn't set.
+	* `properties` (array of strings): The properties in this group.
+	* `emptyLineBefore: "always" | "never" | "threshold": If `always`, this group must be separated from other properties by an empty newline. If emptyLineBefore is `never`, the group must have no empty lines separating it from other properties. By default this property isn't set.
 
 		Rule will check empty lines between properties _only_. However, shared-line comments ignored by rule. Shared-line comment is a comment on the same line as declaration before this comment.
 
@@ -45,6 +52,7 @@ Within an order array, you can include
 
 	* `noEmptyLineBetween`: If `true`, properties within group should not have empty lines between them.
 	* `groupName`: An optional name for the group. This will be used in error messages.
+	* `order: "flexible"`: If property isn't set (the default), the properties in this group must come in the order specified. If `"flexible"`, the properties can be in any order as long as they are grouped correctly.
 
 There are some important details to keep in mind:
 
@@ -495,7 +503,19 @@ a {
 
 ## Optional secondary options
 
-### `unspecified: "top"|"bottom"|"bottomAlphabetical"|"ignore"`
+```ts
+type SecondaryOptions = {
+	unspecified?: "top" | "bottom" | "bottomAlphabetical" | "ignore",
+	emptyLineBeforeUnspecified?: "always" | "never" | "threshold",
+	emptyLineMinimumPropertyThreshold?: number,
+	disableFix?: boolean
+};
+```
+
+### `unspecified`
+
+Value type: `"top" | "bottom" | "bottomAlphabetical" | "ignore"`.
+Default value: `"ignore"`.
 
 These options only apply if you've defined your own array of properties.
 
@@ -657,9 +677,12 @@ a {
 }
 ```
 
-### `emptyLineBeforeUnspecified: "always"|"never"|"threshold"`
+### `emptyLineBeforeUnspecified`
 
-Default behavior does not enforce the presence of an empty line before an unspecified block of properties.
+Value type: `"always" | "never" | "threshold"`.
+Default value: none.
+
+Default behavior does not enforce the presence of an empty line before an unspecified block of properties (`"ignore"`).
 
 If `"always"`, the unspecified group must be separated from other properties by an empty newline.
 If `"never"`, the unspecified group must have no empty lines separating it from other properties.
@@ -706,13 +729,16 @@ a {
 }
 ```
 
-### `emptyLineMinimumPropertyThreshold: <number>`
+### `emptyLineMinimumPropertyThreshold`
 
-If a group is configured with `emptyLineBefore: 'threshold'`, the empty line behaviour toggles based on the number of properties in the rule.
+Value type: `number`.
+Default value: none.
+
+If a group is configured with `emptyLineBefore: "threshold"`, the empty line behaviour toggles based on the number of properties in the rule.
 
 When the configured minimum property threshold is reached, empty lines are **inserted**.  When the number of properties is **less than** the minimum property threshold, empty lines are **removed**.
 
- _e.g. threshold set to **3**, and there are **5** properties in total, then groups set to `'threshold'` will have an empty line inserted._
+ _e.g. threshold set to **3**, and there are **5** properties in total, then groups set to `"threshold"` will have an empty line inserted._
 
 The same behaviour is applied to unspecified groups when `emptyLineBeforeUnspecified: "threshold"`
 
@@ -834,7 +860,10 @@ a {
 }
 ```
 
-### `disableFix: true`
+### `disableFix`
+
+Value type: `boolean`.
+Default value: none.
 
 Disable autofixing. Autofixing is enabled by default if it's enabled in stylelint configuration.
 

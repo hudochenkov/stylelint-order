@@ -13,8 +13,23 @@ Specify the order of content within declaration blocks.
 
 ## Options
 
-```json
-["array", "of", "keywords", "or", "expanded", "at-rule", "objects"]
+```ts
+type PrimaryOption = Array<Keyword | AtRule | Rule>;
+
+type Keyword = "custom-properties" | "dollar-variables" | "at-variables" | "declarations" | "rules" | "at-rules" | "less-mixins";
+
+type AtRule = {
+	type: 'at-rule',
+	name?: string,
+	parameter?: string | RegExp,
+	hasBlock?: boolean
+};
+
+type Rule = {
+	type: 'rule',
+	selector?: string | RegExp,
+	name?: string
+};
 ```
 
 Within an order array, you can include:
@@ -43,7 +58,8 @@ Within an order array, you can include:
 	```json
 	{
 		"type": "rule",
-		"selector": "div"
+		"selector": "div",
+		"name": "tag selector"
 	}
 	```
 
@@ -57,7 +73,7 @@ Object parameters:
 
 * `type`: always `"at-rule"`
 * `name`: `string`. E. g., `name: "include"` for `@include`
-* `parameter`: `string`|`regex`. A string will be translated into a RegExp — `new RegExp(yourString)` — so _be sure to escape properly_. E. g., `parameter: "icon"` for `@include icon(20px);`
+* `parameter`: `string | RegExp`. A string will be translated into a RegExp — `new RegExp(yourString)` — so _be sure to escape properly_. E. g., `parameter: "icon"` for `@include icon(20px);`
 * `hasBlock`: `boolean`. E. g., `hasBlock: true` for `@include icon { color: red; }` and not for `@include icon;`
 
 Always specify `name` if `parameter` is specified.
@@ -128,7 +144,7 @@ Each described above variant has more priority than its previous variant. For ex
 Object parameters:
 
 * `type`: always `"rule"`
-* `selector`: `string`|`regex`. Selector pattern. A string will be translated into a RegExp — `new RegExp(yourString)` — so _be sure to escape properly_. Examples:
+* `selector`: `string | RegExp`. Selector pattern. A string will be translated into a RegExp — `new RegExp(yourString)` — so _be sure to escape properly_. Examples:
 	* `selector: /^&:[\w-]+$/` matches simple pseudo-classes. E. g., `&:hover`, `&:first-child`. Doesn't match complex pseudo-classes, e. g. `&:not(.is-visible)`.
 	* `selector: /^&::[\w-]+$/` matches pseudo-elements. E. g. `&::before`, `&::placeholder`.
 * `name`: `string`. Selector name (optional). Will be used in error output to help identify extended rule object.
@@ -161,15 +177,26 @@ Matches all rules with selector matching pattern:
 
 ## Optional secondary options
 
-### `unspecified: "top"|"bottom"|"ignore"`
+```ts
+type SecondaryOptions = {
+	unspecified?: "top" | "bottom" | "ignore",
+	disableFix?: boolean
+};
+```
 
-Thes option only applies if you've defined your own array of elements.
+### `unspecified`
+
+Value type: `"top" | "bottom" | "ignore"`.
+Default value: `"ignore"`.
 
 Default behavior is the same as `"ignore"`: an unspecified element can appear before or after any other property.
 
 With `"top"`, unspecified elements are expected _before_ any specified properties. With `"bottom"`, unspecified properties are expected _after_ any specified properties.
 
-### `disableFix: true`
+### `disableFix`
+
+Value type: `boolean`.
+Default value: none.
 
 Disable autofixing. Autofixing is enabled by default if it's enabled in stylelint configuration.
 
