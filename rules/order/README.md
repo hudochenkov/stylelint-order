@@ -6,8 +6,8 @@ Specify the order of content within declaration blocks.
 	* [Extended at-rule objects](#extended-at-rule-objects)
 	* [Extended rule objects](#extended-rule-objects)
 * Optional secondary options
-	* [`unspecified: "top"|"bottom"|"ignore"`](#unspecified-topbottomignore)
-	* [`disableFix: true`](#disablefix-true)
+	* [`unspecified`](#unspecified)
+	* [`disableFix`](#disablefix)
 * [Autofixing caveats](#autofixing-caveats)
 * [Examples](#examples)
 
