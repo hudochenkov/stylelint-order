@@ -98,7 +98,7 @@ Disable autofixing. Autofixing is enabled by default if it's enabled in stylelin
 {
 	"order/properties-alphabetical-order": [
 		true,
-		{ "diableFix": true }
+		{ "disableFix": true }
 	]
 }
 ```
