@@ -1,8 +1,7 @@
 let stylelint = require('stylelint');
 let _ = require('lodash');
-let postcss = require('postcss');
 let checkAlphabeticalOrder = require('../checkAlphabeticalOrder');
-let { isStandardSyntaxProperty, isCustomProperty } = require('../../utils');
+let { isStandardSyntaxProperty, isCustomProperty, vendor } = require('../../utils');
 
 // eslint-disable-next-line max-params
 module.exports = function checkNode(node, result, ruleName, messages) {
@@ -23,7 +22,7 @@ module.exports = function checkNode(node, result, ruleName, messages) {
 			return;
 		}
 
-		let unprefixedPropName = postcss.vendor.unprefixed(prop);
+		let unprefixedPropName = vendor.unprefixed(prop);
 
 		// Hack to allow -moz-osx-font-smoothing to be understood
 		// just like -webkit-font-smoothing
