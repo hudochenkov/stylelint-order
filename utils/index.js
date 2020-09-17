@@ -8,4 +8,5 @@ module.exports = {
 	isAtVariable: require('./isAtVariable'),
 	isRuleWithNodes: require('./isRuleWithNodes'),
 	isLessMixin: require('./isLessMixin'),
+	vendor: require('./vendor'),
 };

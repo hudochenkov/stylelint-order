@@ -1,6 +1,6 @@
-const postcss = require('postcss');
 const _ = require('lodash');
 const checkAlphabeticalOrder = require('../checkAlphabeticalOrder');
+const { vendor } = require('../../utils');
 
 // eslint-disable-next-line consistent-return
 module.exports = function checkOrder({
@@ -20,8 +20,8 @@ module.exports = function checkOrder({
 	if (firstPropertyData.unprefixedName === secondPropertyData.unprefixedName) {
 		// If first property has no prefix and second property has prefix
 		if (
-			!postcss.vendor.prefix(firstPropertyData.name).length &&
-			postcss.vendor.prefix(secondPropertyData.name).length
+			!vendor.prefix(firstPropertyData.name).length &&
+			vendor.prefix(secondPropertyData.name).length
 		) {
 			return report(false);
 		}

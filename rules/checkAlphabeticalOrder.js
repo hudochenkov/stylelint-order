@@ -1,5 +1,5 @@
-const postcss = require('postcss');
 const shorthandData = require('./shorthandData');
+const { vendor } = require('../utils');
 
 function isShorthand(a, b) {
 	const longhands = shorthandData[a] || [];
@@ -22,8 +22,8 @@ module.exports = function checkAlphabeticalOrder(firstPropData, secondPropData) 
 	if (firstPropData.unprefixedName === secondPropData.unprefixedName) {
 		// If first property has no prefix and second property has prefix
 		if (
-			!postcss.vendor.prefix(firstPropData.name).length &&
-			postcss.vendor.prefix(secondPropData.name).length
+			!vendor.prefix(firstPropData.name).length &&
+			vendor.prefix(secondPropData.name).length
 		) {
 			return false;
 		}
