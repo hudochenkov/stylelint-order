@@ -8,7 +8,7 @@ const createFlatOrder = require('./createFlatOrder');
 const ruleName = require('./ruleName');
 const messages = require('./messages');
 
-module.exports = function checkNodeForOrder({
+module.exports = async function checkNodeForOrder({
 	node,
 	originalNode,
 	isFixEnabled,
@@ -58,7 +58,14 @@ module.exports = function checkNodeForOrder({
 			// so PostCSS Sorting can process it
 			let tempRoot = postcss.root({ nodes: [originalNode] });
 
-			postcssSorting(sortingOptions)(tempRoot);
+			try {
+				await postcss([postcssSorting(sortingOptions)]).process(tempRoot, {
+					from: result.from,
+				});
+			} catch (e) {
+				// With CSS-in-JS syntax PostCSS throws stringify error for node.type `literal`. Why it's even tries to stringify?!
+				// If syntax is provided to both `tempRoot` and to `postcss().process()`, then CSS-in-JS syntax fails with exceeded call stack
+			}
 		}
 	}
 
