@@ -40,7 +40,7 @@ function rule(primaryOption, options = {}, context = {}) {
 		let processedParents = [];
 
 		// Check all rules and at-rules recursively
-		root.walk(function processRulesAndAtrules(input) {
+		root.walk(async function processRulesAndAtrules(input) {
 			let node = getContainingNode(input);
 
 			// Avoid warnings duplication, caused by interfering in `root.walk()` algorigthm with `getContainingNode()`
@@ -51,7 +51,7 @@ function rule(primaryOption, options = {}, context = {}) {
 			processedParents.push(node);
 
 			if (isRuleWithNodes(node)) {
-				checkNodeForOrder({
+				await checkNodeForOrder({
 					node,
 					originalNode: input,
 					isFixEnabled,
