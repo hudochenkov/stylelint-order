@@ -42,7 +42,7 @@ Array of unprefixed property names or group objects. Within an order array, you 
 * unprefixed property names
 * group objects with these properties:
 	* `properties` (array of strings): The properties in this group.
-	* `emptyLineBefore: "always" | "never" | "threshold": If `always`, this group must be separated from other properties by an empty newline. If emptyLineBefore is `never`, the group must have no empty lines separating it from other properties. By default this property isn't set.
+	* `emptyLineBefore: "always" | "never" | "threshold"`: If `always`, this group must be separated from other properties by an empty newline. If emptyLineBefore is `never`, the group must have no empty lines separating it from other properties. By default this property isn't set.
 
 		Rule will check empty lines between properties _only_. However, shared-line comments ignored by rule. Shared-line comment is a comment on the same line as declaration before this comment.
 
