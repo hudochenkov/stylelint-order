@@ -49,6 +49,8 @@ Array of unprefixed property names or group objects. Within an order array, you 
 		If `emptyLineBefore` specified, regardless of it's value, the first property in a rule would be forced to not have an empty line before it.
 
 		For `threshold`, refer to the [`emptyLineMinimumPropertyThreshold` documentation](#emptylineminimumpropertythreshold-number).
+		
+		If you extend [`stylelint-config-standard`](https://github.com/stylelint/stylelint-config-standard), be aware, that it enables the `declaration-empty-line-before` rule, which will interfere with the `emptyLineBefore` option of the `properties-order` rule. So you might need to disable the `declaration-empty-line-before` in order for the `properties-order` rule to work correctly.
 
 	* `noEmptyLineBetween`: If `true`, properties within group should not have empty lines between them.
 	* `groupName`: An optional name for the group. This will be used in error messages.
