@@ -21,7 +21,7 @@
   ],
   "main": "index.js",
   "dependencies": {
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "postcss": "^7.0.35",
     "postcss-sorting": "^5.0.1"
   },
@@ -29,19 +29,19 @@
     "stylelint": "^10.0.1 || ^11.0.0 || ^12.0.0 || ^13.0.0"
   },
   "devDependencies": {
-    "eslint": "^7.10.0",
+    "eslint": "^7.27.0",
     "eslint-config-hudochenkov": "^7.2.0",
     "eslint-config-prettier": "^6.12.0",
-    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-unicorn": "^22.0.0",
-    "husky": "^4.3.0",
-    "jest": "^26.4.2",
-    "jest-preset-stylelint": "^3.0.0",
-    "jest-watch-typeahead": "^0.6.1",
-    "lint-staged": "^10.4.0",
-    "prettier": "~2.1.2",
+    "husky": "^6.0.0",
+    "jest": "^27.0.4",
+    "jest-preset-stylelint": "^4.1.1",
+    "jest-watch-typeahead": "^0.6.4",
+    "lint-staged": "^11.0.0",
+    "prettier": "~2.3.0",
     "prettier-config-hudochenkov": "^0.2.0",
-    "stylelint": "^13.7.2"
+    "stylelint": "^13.13.1"
   },
   "scripts": {
     "pretest": "eslint . --max-warnings=0 && prettier '**/*.js' --check",
@@ -49,7 +49,8 @@
     "jest": "jest",
     "watch": "jest --watch",
     "coverage": "jest --coverage",
-    "fix": "eslint . --fix --max-warnings=0 && prettier '**/*.js' --write"
+    "fix": "eslint . --fix --max-warnings=0 && prettier '**/*.js' --write",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.js": [
@@ -68,11 +69,6 @@
     ],
     "testEnvironment": "node",
     "testRegex": ".*\\.test\\.js$|rules/.*/tests/.*\\.js$"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "prettier": "prettier-config-hudochenkov"
 }

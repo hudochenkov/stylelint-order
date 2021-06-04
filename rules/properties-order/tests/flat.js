@@ -18,12 +18,10 @@ testRule({
 			code: 'a { top: 0; color: pink; }',
 		},
 		{
-			code:
-				'a { -moz-transform: scale(1); -webkit-transform: scale(1); transform: scale(1); }',
+			code: 'a { -moz-transform: scale(1); -webkit-transform: scale(1); transform: scale(1); }',
 		},
 		{
-			code:
-				'a { -webkit-transform: scale(1); -moz-transform: scale(1); transform: scale(1); }',
+			code: 'a { -webkit-transform: scale(1); -moz-transform: scale(1); transform: scale(1); }',
 		},
 		{
 			code: 'a { -webkit-font-smoothing: antialiased; top: 0; color: pink; }',
@@ -64,10 +62,8 @@ testRule({
 			message: messages.expected('transform', 'top'),
 		},
 		{
-			code:
-				'a { -moz-transform: scale(1); transform: scale(1); -webkit-transform: scale(1); }',
-			fixed:
-				'a { -moz-transform: scale(1); -webkit-transform: scale(1); transform: scale(1); }',
+			code: 'a { -moz-transform: scale(1); transform: scale(1); -webkit-transform: scale(1); }',
+			fixed: 'a { -moz-transform: scale(1); -webkit-transform: scale(1); transform: scale(1); }',
 			message: messages.expected('-webkit-transform', 'transform'),
 		},
 		{
@@ -138,8 +134,7 @@ testRule({
 			code: 'a { padding-top: 1px; padding-right: 0; color: pink; }',
 		},
 		{
-			code:
-				'a { border: 1px solid #fff; border-right: 2px solid #fff; border-right-color: #000; }',
+			code: 'a { border: 1px solid #fff; border-right: 2px solid #fff; border-right-color: #000; }',
 		},
 		{
 			code: 'a { border: 1px solid #fff; border-top: none; border-right-color: #000; }',
@@ -182,8 +177,7 @@ testRule({
 
 	accept: [
 		{
-			code:
-				'a { padding-bottom: 0; padding-top: 1px; padding-right: 0; padding-left: 0; color: pink; }',
+			code: 'a { padding-bottom: 0; padding-top: 1px; padding-right: 0; padding-left: 0; color: pink; }',
 		},
 		{
 			code: 'a { padding: 1px; padding-bottom: 0; padding-left: 0; color: pink; }',
@@ -352,7 +346,7 @@ testRule({
 testRule({
 	ruleName,
 	config: [['top', 'color']],
-	syntax: 'css-in-js',
+	customSyntax: '@stylelint/postcss-css-in-js',
 	fix: true,
 
 	accept: [
@@ -468,7 +462,7 @@ testRule({
 testRule({
 	ruleName,
 	config: [['top', 'color']],
-	syntax: 'html',
+	customSyntax: 'postcss-html',
 	fix: true,
 
 	accept: [

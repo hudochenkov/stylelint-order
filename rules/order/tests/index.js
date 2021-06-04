@@ -1149,7 +1149,7 @@ testRule({
 
 testRule({
 	ruleName,
-	syntax: 'less',
+	customSyntax: 'postcss-less',
 	config: [['custom-properties', 'at-variables', 'declarations', 'rules', 'at-rules']],
 	fix: true,
 
@@ -1208,7 +1208,7 @@ testRule({
 // Doesn't has fix, because postcss-sorting doesn't know about less-mixins
 testRule({
 	ruleName,
-	syntax: 'less',
+	customSyntax: 'postcss-less',
 	config: [['less-mixins', 'rules']],
 
 	accept: [
@@ -1344,7 +1344,7 @@ testRule({
 testRule({
 	ruleName,
 	config: [['declarations', 'rules', 'at-rules']],
-	syntax: 'css-in-js',
+	customSyntax: '@stylelint/postcss-css-in-js',
 	fix: true,
 
 	accept: [
