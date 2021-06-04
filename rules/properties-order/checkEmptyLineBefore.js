@@ -1,5 +1,5 @@
 let stylelint = require('stylelint');
-let _ = require('lodash');
+const { isString } = require('../../utils/validateType');
 let addEmptyLineBefore = require('./addEmptyLineBefore');
 let hasEmptyLineBefore = require('./hasEmptyLineBefore');
 let removeEmptyLinesBefore = require('./removeEmptyLinesBefore');
@@ -37,9 +37,10 @@ module.exports = function checkEmptyLineBefore({
 
 	if (startOfSpecifiedGroup || startOfUnspecifiedGroup) {
 		// Get an array of just the property groups, remove any solo properties
-		let groups = _.reject(primaryOption, _.isString);
+		let groups = primaryOption.filter((item) => !isString(item));
 
-		let emptyLineBefore = _.get(groups[secondPropGroup - 2], 'emptyLineBefore');
+		let emptyLineBefore =
+			groups[secondPropGroup - 2] && groups[secondPropGroup - 2].emptyLineBefore;
 
 		if (startOfUnspecifiedGroup) {
 			emptyLineBefore = emptyLineBeforeUnspecified;

@@ -1,5 +1,4 @@
 let stylelint = require('stylelint');
-let _ = require('lodash');
 let checkAlphabeticalOrder = require('../checkAlphabeticalOrder');
 let { isStandardSyntaxProperty, isCustomProperty, vendor } = require('../../utils');
 
@@ -37,7 +36,7 @@ module.exports = function checkNode(node, result, ruleName, messages) {
 			node: child,
 		};
 
-		let previousPropData = _.last(allPropData);
+		let previousPropData = allPropData[allPropData.length - 1];
 
 		allPropData.push(propData);
 

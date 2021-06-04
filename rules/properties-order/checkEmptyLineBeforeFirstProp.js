@@ -1,5 +1,5 @@
 const stylelint = require('stylelint');
-const _ = require('lodash');
+const { isString } = require('../../utils/validateType');
 const ruleName = require('./ruleName');
 const messages = require('./messages');
 const hasEmptyLineBefore = require('./hasEmptyLineBefore');
@@ -17,9 +17,11 @@ module.exports = function checkEmptyLineBeforeFirstProp({
 
 	if (propData.orderData) {
 		// Get an array of just the property groups, remove any solo properties
-		let groups = _.reject(primaryOption, _.isString);
+		let groups = primaryOption.filter((item) => !isString(item));
 
-		emptyLineBefore = _.get(groups[propData.orderData.separatedGroup - 2], 'emptyLineBefore');
+		emptyLineBefore =
+			groups[propData.orderData.separatedGroup - 2] &&
+			groups[propData.orderData.separatedGroup - 2].emptyLineBefore;
 	} else if (emptyLineBeforeUnspecified) {
 		emptyLineBefore = true;
 	}

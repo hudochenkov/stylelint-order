@@ -1,4 +1,4 @@
-const _ = require('lodash');
+const { isObject, isString } = require('../../utils/validateType');
 
 module.exports = function validatePrimaryOption(actualOptions) {
 	// Otherwise, begin checking array options
@@ -10,7 +10,7 @@ module.exports = function validatePrimaryOption(actualOptions) {
 	// with a "type" property
 	if (
 		!actualOptions.every((item) => {
-			if (_.isString(item)) {
+			if (isString(item)) {
 				return [
 					'custom-properties',
 					'dollar-variables',
@@ -22,13 +22,13 @@ module.exports = function validatePrimaryOption(actualOptions) {
 				].includes(item);
 			}
 
-			return _.isPlainObject(item) && !_.isUndefined(item.type);
+			return isObject(item) && item.type !== undefined;
 		})
 	) {
 		return false;
 	}
 
-	const objectItems = actualOptions.filter(_.isPlainObject);
+	const objectItems = actualOptions.filter(isObject);
 
 	if (
 		!objectItems.every((item) => {
@@ -40,34 +40,34 @@ module.exports = function validatePrimaryOption(actualOptions) {
 
 			if (item.type === 'at-rule') {
 				// if parameter is specified, name should be specified also
-				if (!_.isUndefined(item.parameter) && _.isUndefined(item.name)) {
+				if (item.parameter !== undefined && item.name === undefined) {
 					return false;
 				}
 
-				if (!_.isUndefined(item.hasBlock)) {
+				if (item.hasBlock !== undefined) {
 					result = item.hasBlock === true || item.hasBlock === false;
 				}
 
-				if (!_.isUndefined(item.name)) {
-					result = _.isString(item.name) && item.name.length;
+				if (item.name !== undefined) {
+					result = isString(item.name) && item.name.length;
 				}
 
-				if (!_.isUndefined(item.parameter)) {
+				if (item.parameter !== undefined) {
 					result =
-						(_.isString(item.parameter) && item.parameter.length) ||
-						_.isRegExp(item.parameter);
+						(isString(item.parameter) && item.parameter.length) ||
+						isRegExp(item.parameter);
 				}
 			}
 
 			if (item.type === 'rule') {
-				if (!_.isUndefined(item.selector)) {
+				if (item.selector !== undefined) {
 					result =
-						(_.isString(item.selector) && item.selector.length) ||
-						_.isRegExp(item.selector);
+						(isString(item.selector) && item.selector.length) ||
+						isRegExp(item.selector);
 				}
 
-				if (result && !_.isUndefined(item.name)) {
-					result = _.isString(item.name) && item.name.length;
+				if (result && item.name !== undefined) {
+					result = isString(item.name) && item.name.length;
 				}
 			}
 
@@ -79,3 +79,7 @@ module.exports = function validatePrimaryOption(actualOptions) {
 
 	return true;
 };
+
+function isRegExp(value) {
+	return Object.prototype.toString.call(value) === '[object RegExp]';
+}

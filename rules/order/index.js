@@ -1,6 +1,6 @@
 const stylelint = require('stylelint');
-const _ = require('lodash');
 const { getContainingNode, isRuleWithNodes } = require('../../utils');
+const { isBoolean } = require('../../utils/validateType');
 const checkNode = require('./checkNode');
 const createOrderInfo = require('./createOrderInfo');
 const validatePrimaryOption = require('./validatePrimaryOption');
@@ -20,7 +20,7 @@ function rule(primaryOption, options = {}, context = {}) {
 				actual: options,
 				possible: {
 					unspecified: ['top', 'bottom', 'ignore'],
-					disableFix: _.isBoolean,
+					disableFix: isBoolean,
 				},
 				optional: true,
 			}

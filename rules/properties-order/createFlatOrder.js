@@ -1,4 +1,4 @@
-const _ = require('lodash');
+const { isString } = require('../../utils/validateType');
 
 module.exports = function createFlatOrder(order) {
 	const flatOrder = [];
@@ -10,7 +10,7 @@ module.exports = function createFlatOrder(order) {
 	}
 
 	function appendItem(item) {
-		if (_.isString(item)) {
+		if (isString(item)) {
 			flatOrder.push(item);
 
 			return;

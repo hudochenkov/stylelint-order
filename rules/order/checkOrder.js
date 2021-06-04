@@ -1,5 +1,4 @@
 let stylelint = require('stylelint');
-let _ = require('lodash');
 let ruleName = require('./ruleName');
 let messages = require('./messages');
 
@@ -23,9 +22,10 @@ module.exports = function checkOrder({
 	if (!firstNodeIsSpecified && secondNodeIsSpecified) {
 		// If first node is unspecified, look for a specified node before it
 		// to compare to the current node
-		let priorSpecifiedNodeData = _.findLast(allNodesData.slice(0, -1), (d) =>
-			Boolean(d.expectedPosition)
-		);
+		let priorSpecifiedNodeData = allNodesData
+			.slice(0, -1)
+			.reverse()
+			.find((node) => Boolean(node.expectedPosition));
 
 		if (
 			priorSpecifiedNodeData &&

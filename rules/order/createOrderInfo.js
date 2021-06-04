@@ -1,5 +1,5 @@
-const _ = require('lodash');
 const getDescription = require('./getDescription');
+const { isString } = require('../../utils/validateType');
 
 module.exports = function createOrderInfo(input) {
 	let order = {};
@@ -31,7 +31,7 @@ module.exports = function createOrderInfo(input) {
 			if (item.selector) {
 				nodeData.selector = item.selector;
 
-				if (_.isString(item.selector)) {
+				if (isString(item.selector)) {
 					nodeData.selector = new RegExp(item.selector);
 				}
 			}
@@ -64,19 +64,19 @@ module.exports = function createOrderInfo(input) {
 			if (item.parameter) {
 				nodeData.parameter = item.parameter;
 
-				if (_.isString(item.parameter)) {
+				if (isString(item.parameter)) {
 					nodeData.parameter = new RegExp(item.parameter);
 				}
 			}
 
-			if (!_.isUndefined(item.hasBlock)) {
+			if (item.hasBlock !== undefined) {
 				nodeData.hasBlock = item.hasBlock;
 			}
 
 			order[item.type].push(nodeData);
 		}
 
-		if (_.isString(item)) {
+		if (isString(item)) {
 			order[item] = {
 				expectedPosition,
 				description: getDescription(item),

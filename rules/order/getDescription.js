@@ -1,4 +1,4 @@
-const _ = require('lodash');
+const { isObject } = require('../../utils/validateType');
 
 module.exports = function getDescription(item) {
 	const descriptions = {
@@ -9,7 +9,7 @@ module.exports = function getDescription(item) {
 		declarations: 'declaration',
 	};
 
-	if (_.isPlainObject(item)) {
+	if (isObject(item)) {
 		let text;
 
 		if (item.type === 'at-rule') {

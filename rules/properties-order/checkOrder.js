@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const checkAlphabeticalOrder = require('../checkAlphabeticalOrder');
 const { vendor } = require('../../utils');
 
@@ -43,9 +42,10 @@ module.exports = function checkOrder({
 	if (!firstPropIsSpecified && secondPropIsSpecified) {
 		// If first prop is unspecified, look for a specified prop before it to
 		// compare to the current prop
-		const priorSpecifiedPropData = _.findLast(allPropertiesData.slice(0, -1), (d) =>
-			Boolean(d.orderData)
-		);
+		let priorSpecifiedPropData = allPropertiesData
+			.slice(0, -1)
+			.reverse()
+			.find((declaration) => Boolean(declaration.orderData));
 
 		if (
 			priorSpecifiedPropData &&

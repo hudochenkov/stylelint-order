@@ -1,4 +1,4 @@
-const _ = require('lodash');
+const { isString } = require('../../utils/validateType');
 
 module.exports = function createOrderInfo(input) {
 	let order = {};
@@ -14,7 +14,7 @@ module.exports = function createOrderInfo(input) {
 	}
 
 	function appendItem(item, inFlexibleGroup, group) {
-		if (_.isString(item)) {
+		if (isString(item)) {
 			// In flexible groups, the expectedPosition does not ascend
 			// to make that flexibility work;
 			// otherwise, it will always ascend

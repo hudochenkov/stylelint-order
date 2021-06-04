@@ -1,6 +1,6 @@
 const stylelint = require('stylelint');
-const _ = require('lodash');
 const { getContainingNode, isRuleWithNodes } = require('../../utils');
+const { isBoolean, isNumber } = require('../../utils/validateType');
 const checkNodeForOrder = require('./checkNodeForOrder');
 const checkNodeForEmptyLines = require('./checkNodeForEmptyLines');
 const createOrderInfo = require('./createOrderInfo');
@@ -23,8 +23,8 @@ function rule(primaryOption, options = {}, context = {}) {
 				possible: {
 					unspecified: ['top', 'bottom', 'ignore', 'bottomAlphabetical'],
 					emptyLineBeforeUnspecified: ['always', 'never', 'threshold'],
-					disableFix: _.isBoolean,
-					emptyLineMinimumPropertyThreshold: _.isNumber,
+					disableFix: isBoolean,
+					emptyLineMinimumPropertyThreshold: isNumber,
 				},
 				optional: true,
 			}

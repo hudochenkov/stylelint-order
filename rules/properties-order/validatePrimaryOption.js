@@ -1,4 +1,4 @@
-const _ = require('lodash');
+const { isBoolean, isString, isObject } = require('../../utils/validateType');
 
 module.exports = function validatePrimaryOption(actualOptions) {
 	// Begin checking array options
@@ -10,17 +10,17 @@ module.exports = function validatePrimaryOption(actualOptions) {
 	// with a "properties" property
 	if (
 		!actualOptions.every((item) => {
-			if (_.isString(item)) {
+			if (isString(item)) {
 				return true;
 			}
 
-			return _.isPlainObject(item) && !_.isUndefined(item.properties);
+			return isObject(item) && item.properties !== undefined;
 		})
 	) {
 		return false;
 	}
 
-	const objectItems = actualOptions.filter(_.isPlainObject);
+	const objectItems = actualOptions.filter(isObject);
 
 	// Every object-item's "properties" should be an array with no items, or with strings
 	if (
@@ -29,7 +29,7 @@ module.exports = function validatePrimaryOption(actualOptions) {
 				return false;
 			}
 
-			return item.properties.every((property) => _.isString(property));
+			return item.properties.every((property) => isString(property));
 		})
 	) {
 		return false;
@@ -38,7 +38,7 @@ module.exports = function validatePrimaryOption(actualOptions) {
 	// Every object-item's "emptyLineBefore" must be "always" or "never"
 	if (
 		!objectItems.every((item) => {
-			if (_.isUndefined(item.emptyLineBefore)) {
+			if (item.emptyLineBefore === undefined) {
 				return true;
 			}
 
@@ -51,11 +51,11 @@ module.exports = function validatePrimaryOption(actualOptions) {
 	// Every object-item's "noEmptyLineBetween" must be a boolean
 	if (
 		!objectItems.every((item) => {
-			if (_.isUndefined(item.noEmptyLineBetween)) {
+			if (item.noEmptyLineBetween === undefined) {
 				return true;
 			}
 
-			return _.isBoolean(item.noEmptyLineBetween);
+			return isBoolean(item.noEmptyLineBetween);
 		})
 	) {
 		return false;
