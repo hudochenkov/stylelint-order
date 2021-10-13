@@ -1,12 +1,12 @@
 {
-  "ignore": {
-    "postcss": {
-      "versions": "^8.0.0",
-      "reason": "Waiting for stylelint@14."
-    },
-    "postcss-sorting": {
-      "versions": "^6.0.0",
-      "reason": "Waiting for stylelint@14."
-    }
-  }
+	"ignore": {
+		"postcss": {
+			"versions": "^8.0.0",
+			"reason": "Waiting for stylelint@14."
+		},
+		"postcss-sorting": {
+			"versions": "^6.0.0",
+			"reason": "Waiting for stylelint@14."
+		}
+	}
 }
