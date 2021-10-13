@@ -21,11 +21,11 @@
 	],
 	"main": "index.js",
 	"dependencies": {
-		"postcss": "^7.0.35",
-		"postcss-sorting": "^5.0.1"
+		"postcss": "^8.3.9",
+		"postcss-sorting": "^7.0.0"
 	},
 	"peerDependencies": {
-		"stylelint": "^10.0.1 || ^11.0.0 || ^12.0.0 || ^13.0.0"
+		"stylelint": "^14.0.0"
 	},
 	"devDependencies": {
 		"@stylelint/postcss-css-in-js": "^0.37.2",
@@ -44,7 +44,7 @@
 		"postcss-less": "^5.0.0",
 		"prettier": "~2.4.1",
 		"prettier-config-hudochenkov": "^0.3.0",
-		"stylelint": "^13.13.1"
+		"stylelint": "stylelint/stylelint#v14"
 	},
 	"scripts": {
 		"pretest": "eslint . --max-warnings=0 && prettier '**/*.js' --check",
