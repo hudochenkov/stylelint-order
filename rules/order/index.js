@@ -1,6 +1,5 @@
 const stylelint = require('stylelint');
 const { getContainingNode, isRuleWithNodes } = require('../../utils');
-const { isBoolean } = require('../../utils/validateType');
 const checkNode = require('./checkNode');
 const createOrderInfo = require('./createOrderInfo');
 const validatePrimaryOption = require('./validatePrimaryOption');
@@ -20,7 +19,6 @@ function rule(primaryOption, options = {}, context = {}) {
 				actual: options,
 				possible: {
 					unspecified: ['top', 'bottom', 'ignore'],
-					disableFix: isBoolean,
 				},
 				optional: true,
 			}
@@ -30,8 +28,6 @@ function rule(primaryOption, options = {}, context = {}) {
 			return;
 		}
 
-		let disableFix = options.disableFix || false;
-		let isFixEnabled = context.fix && !disableFix;
 		let unspecified = options.unspecified || 'ignore';
 		let orderInfo = createOrderInfo(primaryOption);
 
@@ -51,7 +47,7 @@ function rule(primaryOption, options = {}, context = {}) {
 			if (isRuleWithNodes(node)) {
 				checkNode({
 					node,
-					isFixEnabled,
+					isFixEnabled: context.fix,
 					orderInfo,
 					primaryOption,
 					result,

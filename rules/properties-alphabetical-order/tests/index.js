@@ -136,41 +136,6 @@ testRule({
 
 testRule({
 	ruleName,
-	config: [
-		true,
-		{
-			disableFix: true,
-		},
-	],
-	fix: true,
-
-	accept: [
-		{
-			code: 'a { color: pink; top: 0; }',
-		},
-		{
-			code: 'a { border: 1px solid pink; border-left-width: 0; }',
-		},
-	],
-
-	reject: [
-		{
-			code: 'a { top: 0; color: pink; }',
-			unfixable: true,
-			message: messages.expected('color', 'top'),
-			description: `shouldn't apply fixes`,
-		},
-		{
-			code: 'a { color: pink; transform: scale(1); top: 0; }',
-			unfixable: true,
-			message: messages.expected('top', 'transform'),
-			description: `shouldn't apply fixes`,
-		},
-	],
-});
-
-testRule({
-	ruleName,
 	config: [true],
 	customSyntax: '@stylelint/postcss-css-in-js',
 	fix: true,

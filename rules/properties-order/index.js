@@ -1,6 +1,6 @@
 const stylelint = require('stylelint');
 const { getContainingNode, isRuleWithNodes } = require('../../utils');
-const { isBoolean, isNumber } = require('../../utils/validateType');
+const { isNumber } = require('../../utils/validateType');
 const checkNodeForOrder = require('./checkNodeForOrder');
 const checkNodeForEmptyLines = require('./checkNodeForEmptyLines');
 const createOrderInfo = require('./createOrderInfo');
@@ -23,7 +23,6 @@ function rule(primaryOption, options = {}, context = {}) {
 				possible: {
 					unspecified: ['top', 'bottom', 'ignore', 'bottomAlphabetical'],
 					emptyLineBeforeUnspecified: ['always', 'never', 'threshold'],
-					disableFix: isBoolean,
 					emptyLineMinimumPropertyThreshold: isNumber,
 				},
 				optional: true,
@@ -34,7 +33,7 @@ function rule(primaryOption, options = {}, context = {}) {
 			return;
 		}
 
-		let isFixEnabled = context.fix && !options.disableFix;
+		let isFixEnabled = context.fix;
 		let expectedOrder = createOrderInfo(primaryOption);
 
 		let processedParents = [];

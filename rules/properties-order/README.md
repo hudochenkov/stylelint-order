@@ -20,7 +20,6 @@ This rule ignores variables (`$sass`, `@less`, `--custom-property`).
 	* [`unspecified`](#unspecified)
 	* [`emptyLineBeforeUnspecified`](#emptyLineBeforeUnspecified)
 	* [`emptyLineMinimumPropertyThreshold`](#emptylineminimumpropertythreshold)
-	* [`disableFix`](#disablefix)
 * [Autofixing caveats](#autofixing-caveats)
 
 ## Options
@@ -49,9 +48,9 @@ Array of unprefixed property names or group objects. Within an order array, you 
 		If `emptyLineBefore` specified, regardless of it's value, the first property in a rule would be forced to not have an empty line before it.
 
 		For `threshold`, refer to the [`emptyLineMinimumPropertyThreshold` documentation](#emptylineminimumpropertythreshold-number).
-		
+
 		If this option is not working as expected, make sure you don't have `declaration-empty-line-before` configured in a conflicting way in your stylelint config or config you're extending (e. g. [`stylelint-config-standard`](https://github.com/stylelint/stylelint-config-standard)).
-		
+
 
 	* `noEmptyLineBetween`: If `true`, properties within group should not have empty lines between them.
 	* `groupName`: An optional name for the group. This will be used in error messages.
@@ -511,7 +510,6 @@ type SecondaryOptions = {
 	unspecified?: "top" | "bottom" | "bottomAlphabetical" | "ignore",
 	emptyLineBeforeUnspecified?: "always" | "never" | "threshold",
 	emptyLineMinimumPropertyThreshold?: number,
-	disableFix?: boolean
 };
 ```
 
@@ -860,22 +858,6 @@ a {
     transform: none;
 
     color: blue;
-}
-```
-
-### `disableFix`
-
-Value type: `boolean`.<br>
-Default value: none.
-
-Disable autofixing. Autofixing is enabled by default if it's enabled in stylelint configuration.
-
-```json
-{
-	"order/properties-order": [
-		["color", "background"],
-		{ "disableFix": true }
-	]
 }
 ```
 

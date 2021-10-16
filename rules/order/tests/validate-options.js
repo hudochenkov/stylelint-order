@@ -322,27 +322,3 @@ testConfig({
 	],
 	message: `Invalid option "[{"type":"rule","selector":null,"name":"Element"}]" for rule ${ruleName}`,
 });
-
-testConfig({
-	ruleName,
-	description: 'disableFix true',
-	valid: true,
-	config: [
-		['custom-properties', 'dollar-variables'],
-		{
-			disableFix: true,
-		},
-	],
-});
-
-testConfig({
-	ruleName,
-	description: 'disableFix false',
-	valid: true,
-	config: [
-		['custom-properties', 'dollar-variables'],
-		{
-			disableFix: false,
-		},
-	],
-});

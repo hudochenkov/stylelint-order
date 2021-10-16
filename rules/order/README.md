@@ -7,7 +7,6 @@ Specify the order of content within declaration blocks.
 	* [Extended rule objects](#extended-rule-objects)
 * Optional secondary options
 	* [`unspecified`](#unspecified)
-	* [`disableFix`](#disablefix)
 * [Autofixing caveats](#autofixing-caveats)
 * [Examples](#examples)
 
@@ -180,7 +179,6 @@ Matches all rules with selector matching pattern:
 ```ts
 type SecondaryOptions = {
 	unspecified?: "top" | "bottom" | "ignore",
-	disableFix?: boolean
 };
 ```
 
@@ -192,13 +190,6 @@ Default value: `"ignore"`.
 Default behavior is the same as `"ignore"`: an unspecified element can appear before or after any other property.
 
 With `"top"`, unspecified elements are expected _before_ any specified properties. With `"bottom"`, unspecified properties are expected _after_ any specified properties.
-
-### `disableFix`
-
-Value type: `boolean`.<br>
-Default value: none.
-
-Disable autofixing. Autofixing is enabled by default if it's enabled in stylelint configuration.
 
 ## Autofixing caveats
 
