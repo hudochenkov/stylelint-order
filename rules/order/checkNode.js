@@ -1,6 +1,5 @@
 const stylelint = require('stylelint');
-const postcss = require('postcss');
-const postcssSorting = require('postcss-sorting');
+const sortNode = require('postcss-sorting/lib/order/sortNode');
 const checkOrder = require('./checkOrder');
 const getOrderData = require('./getOrderData');
 const ruleName = require('./ruleName');
@@ -8,7 +7,6 @@ const messages = require('./messages');
 
 module.exports = function checkNode({
 	node,
-	originalNode,
 	isFixEnabled,
 	orderInfo,
 	primaryOption,
@@ -37,15 +35,7 @@ module.exports = function checkNode({
 		});
 
 		if (shouldFix) {
-			let sortingOptions = {
-				order: primaryOption,
-			};
-
-			// creating PostCSS Root node with current node as a child,
-			// so PostCSS Sorting can process it
-			let tempRoot = postcss.root({ nodes: [originalNode] });
-
-			postcssSorting(sortingOptions)(tempRoot);
+			sortNode(node, primaryOption);
 		}
 	}
 

@@ -51,7 +51,6 @@ function rule(primaryOption, options = {}, context = {}) {
 			if (isRuleWithNodes(node)) {
 				checkNode({
 					node,
-					originalNode,
 					isFixEnabled,
 					orderInfo,
 					primaryOption,

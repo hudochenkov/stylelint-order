@@ -1,5 +1,5 @@
 let stylelint = require('stylelint');
-let postcssSorting = require('postcss-sorting');
+let sortNodeProperties = require('postcss-sorting/lib/properties-order/sortNodeProperties');
 let { namespace, getContainingNode, isRuleWithNodes } = require('../../utils');
 let checkNode = require('./checkNode');
 
@@ -33,12 +33,6 @@ function rule(actual, options = {}, context = {}) {
 
 		let disableFix = options.disableFix || false;
 
-		if (context.fix && !disableFix) {
-			postcssSorting({ 'properties-order': 'alphabetical' })(root);
-
-			return;
-		}
-
 		let processedParents = [];
 
 		root.walk(function processRulesAndAtrules(input) {
@@ -52,7 +46,11 @@ function rule(actual, options = {}, context = {}) {
 			processedParents.push(node);
 
 			if (isRuleWithNodes(node)) {
-				checkNode(node, result, ruleName, messages);
+				if (context.fix && !disableFix) {
+					sortNodeProperties(node, { order: 'alphabetical' });
+				} else {
+					checkNode(node, result, ruleName, messages);
+				}
 			}
 		});
 	};

@@ -22,7 +22,7 @@
 	"main": "index.js",
 	"dependencies": {
 		"postcss": "^8.3.9",
-		"postcss-sorting": "^7.0.0"
+		"postcss-sorting": "^7.0.1"
 	},
 	"peerDependencies": {
 		"stylelint": "^14.0.0"
