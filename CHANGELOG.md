@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 5.0.0
+
+* Breaking change: Dropped Node.js 8 support. Node.js 12 or greater is now required.
+* Breaking change: Dropped support for Stylelint 13 and earlier.
+* Added support for Stylelint 14.
+
 ## 4.1.0
 
 * Added `name` option to extended rule object to improve error messaging (for `order`).
