@@ -44,7 +44,7 @@
 		"postcss-less": "^5.0.0",
 		"prettier": "~2.4.1",
 		"prettier-config-hudochenkov": "^0.3.0",
-		"stylelint": "stylelint/stylelint#v14"
+		"stylelint": "^14.0.0"
 	},
 	"scripts": {
 		"pretest": "eslint . --max-warnings=0 && prettier '**/*.js' --check",
