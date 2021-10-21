@@ -84,21 +84,3 @@ a {
 	transform: scale(1);
 }
 ```
-
-## Optional secondary options
-
-### `disableFix`
-
-Value type: `boolean`.<br>
-Default value: none.
-
-Disable autofixing. Autofixing is enabled by default if it's enabled in stylelint configuration.
-
-```json
-{
-	"order/properties-alphabetical-order": [
-		true,
-		{ "disableFix": true }
-	]
-}
-```

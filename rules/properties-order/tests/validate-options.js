@@ -119,27 +119,3 @@ testConfig({
 	],
 	message: `Invalid option "[{"emptyLineBefore":"always","order":"flexible","properties":null}]" for rule ${ruleName}`,
 });
-
-testConfig({
-	ruleName,
-	description: 'disableFix true',
-	valid: true,
-	config: [
-		['height', 'width'],
-		{
-			disableFix: true,
-		},
-	],
-});
-
-testConfig({
-	ruleName,
-	description: 'disableFix false',
-	valid: true,
-	config: [
-		['height', 'width'],
-		{
-			disableFix: false,
-		},
-	],
-});

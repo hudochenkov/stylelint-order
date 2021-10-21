@@ -1,6 +1,6 @@
 const stylelint = require('stylelint');
 const { getContainingNode, isRuleWithNodes } = require('../../utils');
-const { isBoolean, isNumber } = require('../../utils/validateType');
+const { isNumber } = require('../../utils/validateType');
 const checkNodeForOrder = require('./checkNodeForOrder');
 const checkNodeForEmptyLines = require('./checkNodeForEmptyLines');
 const createOrderInfo = require('./createOrderInfo');
@@ -23,7 +23,6 @@ function rule(primaryOption, options = {}, context = {}) {
 				possible: {
 					unspecified: ['top', 'bottom', 'ignore', 'bottomAlphabetical'],
 					emptyLineBeforeUnspecified: ['always', 'never', 'threshold'],
-					disableFix: isBoolean,
 					emptyLineMinimumPropertyThreshold: isNumber,
 				},
 				optional: true,
@@ -34,13 +33,13 @@ function rule(primaryOption, options = {}, context = {}) {
 			return;
 		}
 
-		let isFixEnabled = context.fix && !options.disableFix;
+		let isFixEnabled = context.fix;
 		let expectedOrder = createOrderInfo(primaryOption);
 
 		let processedParents = [];
 
 		// Check all rules and at-rules recursively
-		root.walk(async function processRulesAndAtrules(input) {
+		root.walk(function processRulesAndAtrules(input) {
 			let node = getContainingNode(input);
 
 			// Avoid warnings duplication, caused by interfering in `root.walk()` algorigthm with `getContainingNode()`
@@ -51,9 +50,8 @@ function rule(primaryOption, options = {}, context = {}) {
 			processedParents.push(node);
 
 			if (isRuleWithNodes(node)) {
-				await checkNodeForOrder({
+				checkNodeForOrder({
 					node,
-					originalNode: input,
 					isFixEnabled,
 					primaryOption,
 					unspecified: options.unspecified || 'ignore',

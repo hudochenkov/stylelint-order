@@ -54,23 +54,7 @@ Automatic sorting has some limitations that are described for every rule, if any
 
 CSS-in-JS styles with template interpolation [could be ignored by autofixing](https://github.com/hudochenkov/postcss-sorting#css-in-js) to avoid style corruption.
 
-Autofixing is enabled by default if it's enabled in stylelint's configuration file. It can be disabled on a per rule basis using the secondary option `disableFix: true`. Here's an example:
-
-```json
-	"rules": {
-		"order/order": [
-			[
-				"custom-properties",
-				"declarations"
-			],
-			{
-				"disableFix": true
-			}
-		]
-	}
-```
-
-Less may work but isn't officially supported.
+Autofixing in Less syntax may work but isn't officially supported.
 
 ## Example configs
 

@@ -1,6 +1,5 @@
 const stylelint = require('stylelint');
-const postcss = require('postcss');
-const postcssSorting = require('postcss-sorting');
+const sortNodeProperties = require('postcss-sorting/lib/properties-order/sortNodeProperties');
 const { isProperty } = require('../../utils');
 const checkOrder = require('./checkOrder');
 const getNodeData = require('./getNodeData');
@@ -8,9 +7,8 @@ const createFlatOrder = require('./createFlatOrder');
 const ruleName = require('./ruleName');
 const messages = require('./messages');
 
-module.exports = async function checkNodeForOrder({
+module.exports = function checkNodeForOrder({
 	node,
-	originalNode,
 	isFixEnabled,
 	primaryOption,
 	unspecified,
@@ -48,24 +46,10 @@ module.exports = async function checkNodeForOrder({
 		});
 
 		if (shouldFixOrder) {
-			let sortingOptions = {
-				'properties-order': createFlatOrder(primaryOption),
-				'unspecified-properties-position':
-					unspecified === 'ignore' ? 'bottom' : unspecified,
-			};
-
-			// creating PostCSS Root node with current node as a child,
-			// so PostCSS Sorting can process it
-			let tempRoot = postcss.root({ nodes: [originalNode] });
-
-			try {
-				await postcss([postcssSorting(sortingOptions)]).process(tempRoot, {
-					from: result.from,
-				});
-			} catch (e) {
-				// With CSS-in-JS syntax PostCSS throws stringify error for node.type `literal`. Why it's even tries to stringify?!
-				// If syntax is provided to both `tempRoot` and to `postcss().process()`, then CSS-in-JS syntax fails with exceeded call stack
-			}
+			sortNodeProperties(node, {
+				order: createFlatOrder(primaryOption),
+				unspecifiedPropertiesPosition: unspecified === 'ignore' ? 'bottom' : unspecified,
+			});
 		}
 	}
 

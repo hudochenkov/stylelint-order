@@ -1,5 +1,5 @@
 let stylelint = require('stylelint');
-let postcssSorting = require('postcss-sorting');
+let sortNodeProperties = require('postcss-sorting/lib/properties-order/sortNodeProperties');
 let { namespace, getContainingNode, isRuleWithNodes } = require('../../utils');
 let checkNode = require('./checkNode');
 
@@ -9,33 +9,14 @@ let messages = stylelint.utils.ruleMessages(ruleName, {
 	expected: (first, second) => `Expected ${first} to come before ${second}`,
 });
 
-function rule(actual, options = {}, context = {}) {
+function rule(actual, options, context = {}) {
 	return function ruleBody(root, result) {
-		let validOptions = stylelint.utils.validateOptions(
-			result,
-			ruleName,
-			{
-				actual,
-				possible: Boolean,
-			},
-			{
-				actual: options,
-				possible: {
-					disableFix: Boolean,
-				},
-				optional: true,
-			}
-		);
+		let validOptions = stylelint.utils.validateOptions(result, ruleName, {
+			actual,
+			possible: Boolean,
+		});
 
 		if (!validOptions) {
-			return;
-		}
-
-		let disableFix = options.disableFix || false;
-
-		if (context.fix && !disableFix) {
-			postcssSorting({ 'properties-order': 'alphabetical' })(root);
-
 			return;
 		}
 
@@ -52,7 +33,11 @@ function rule(actual, options = {}, context = {}) {
 			processedParents.push(node);
 
 			if (isRuleWithNodes(node)) {
-				checkNode(node, result, ruleName, messages);
+				if (context.fix) {
+					sortNodeProperties(node, { order: 'alphabetical' });
+				} else {
+					checkNode(node, result, ruleName, messages);
+				}
 			}
 		});
 	};
