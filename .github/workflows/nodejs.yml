@@ -26,7 +26,13 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
+      - run: npm -v
+
       - run: npm ci
+
+      - run: npm ls @stylelint/postcss-css-in-js
+
+      - run: npm ls
 
       - name: Lint and Test
         run: npm test
