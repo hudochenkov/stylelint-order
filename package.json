@@ -21,7 +21,7 @@
 	],
 	"main": "index.js",
 	"dependencies": {
-		"postcss": "^8.3.9",
+		"postcss": "^8.3.11",
 		"postcss-sorting": "^7.0.1"
 	},
 	"peerDependencies": {
