@@ -29,13 +29,7 @@ jobs:
       - name: Install latest npm
         run: npm install --global npm@latest
 
-      - run: npm -v
-
       - run: npm ci
-
-      - run: npm ls @stylelint/postcss-css-in-js
-
-      - run: npm ls
 
       - name: Lint and Test
         run: npm test
