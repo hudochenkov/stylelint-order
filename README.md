@@ -2,11 +2,11 @@
 
 [![npm version][npm-version-img]][npm] [![npm downloads last month][npm-downloads-img]][npm]
 
-A plugin pack of order-related linting rules for [stylelint]. Every rule supports autofixing (`stylelint --fix`).
+A plugin pack of order-related linting rules for [Stylelint]. Every rule supports autofixing (`stylelint --fix`).
 
 ## Installation
 
-1. If you haven't, install [stylelint]:
+1. If you haven't, install [Stylelint]:
 
 ```
 npm install stylelint --save-dev
@@ -20,7 +20,7 @@ npm install stylelint-order --save-dev
 
 ## Usage
 
-Add `stylelint-order` to your stylelint config `plugins` array, then add rules you need to the rules list. All rules from stylelint-order need to be namespaced with `order`.
+Add `stylelint-order` to your Stylelint config `plugins` array, then add rules you need to the rules list. All rules from stylelint-order need to be namespaced with `order`.
 
 ```json
 {
@@ -67,10 +67,10 @@ All these configs have `properties-order` configured  with logical properties gr
 
 ## Thanks
 
-`properties-order` and `properties-alphabetical-order` code and README were based on the `declaration-block-properties-order` rule which was a core rule prior to stylelint 8.0.0.
+`properties-order` and `properties-alphabetical-order` code and README were based on the `declaration-block-properties-order` rule which was a core rule prior to Stylelint 8.0.0.
 
 [npm-version-img]: https://img.shields.io/npm/v/stylelint-order.svg
 [npm-downloads-img]: https://img.shields.io/npm/dm/stylelint-order.svg
 [npm]: https://www.npmjs.com/package/stylelint-order
-[stylelint]: https://stylelint.io/
+[Stylelint]: https://stylelint.io/
 [postcss-sorting]: https://github.com/hudochenkov/postcss-sorting
