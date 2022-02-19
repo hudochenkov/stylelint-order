@@ -18,16 +18,16 @@ type PrimaryOption = Array<Keyword | AtRule | Rule>;
 type Keyword = "custom-properties" | "dollar-variables" | "at-variables" | "declarations" | "rules" | "at-rules" | "less-mixins";
 
 type AtRule = {
-	type: 'at-rule',
-	name?: string,
-	parameter?: string | RegExp,
-	hasBlock?: boolean
+	type: 'at-rule';
+	name?: string;
+	parameter?: string | RegExp;
+	hasBlock?: boolean;
 };
 
 type Rule = {
-	type: 'rule',
-	selector?: string | RegExp,
-	name?: string
+	type: 'rule';
+	selector?: string | RegExp;
+	name?: string;
 };
 ```
 
@@ -178,7 +178,7 @@ Matches all rules with selector matching pattern:
 
 ```ts
 type SecondaryOptions = {
-	unspecified?: "top" | "bottom" | "ignore",
+	unspecified?: "top" | "bottom" | "ignore";
 };
 ```
 

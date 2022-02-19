@@ -19,7 +19,7 @@ This rule ignores variables (`$sass`, `@less`, `--custom-property`).
 * Optional secondary options
 	* [`unspecified`](#unspecified)
 	* [`emptyLineBeforeUnspecified`](#emptyLineBeforeUnspecified)
-	* [`emptyLineMinimumPropertyThreshold`](#emptylineminimumpropertythreshold)
+	* [`emptyLineMinimumPropertyThreshold`](#emptyLineMinimumPropertyThreshold)
 * [Autofixing caveats](#autofixing-caveats)
 
 ## Options
@@ -28,11 +28,11 @@ This rule ignores variables (`$sass`, `@less`, `--custom-property`).
 type PrimaryOption = Array<string | Group>;
 
 type Group = {
-	properties: Array<string>,
-	emptyLineBefore?: 'always' | 'never' | 'threshold',
-	noEmptyLineBetween?: boolean,
-	groupName?: string
-	order?: 'flexible,
+	properties: Array<string>;
+	emptyLineBefore?: 'always' | 'never' | 'threshold';
+	noEmptyLineBetween?: boolean;
+	groupName?: string;
+	order?: 'flexible';
 };
 ```
 
@@ -47,7 +47,7 @@ Array of unprefixed property names or group objects. Within an order array, you 
 
 		If `emptyLineBefore` specified, regardless of it's value, the first property in a rule would be forced to not have an empty line before it.
 
-		For `threshold`, refer to the [`emptyLineMinimumPropertyThreshold` documentation](#emptylineminimumpropertythreshold-number).
+		For `threshold`, refer to the [`emptyLineMinimumPropertyThreshold` documentation](#emptyLineMinimumPropertyThreshold).
 
 		If this option is not working as expected, make sure you don't have `declaration-empty-line-before` configured in a conflicting way in your Stylelint config or config you're extending (e. g. [`stylelint-config-standard`](https://github.com/stylelint/stylelint-config-standard)).
 
@@ -507,9 +507,9 @@ a {
 
 ```ts
 type SecondaryOptions = {
-	unspecified?: "top" | "bottom" | "bottomAlphabetical" | "ignore",
-	emptyLineBeforeUnspecified?: "always" | "never" | "threshold",
-	emptyLineMinimumPropertyThreshold?: number,
+	unspecified?: "top" | "bottom" | "bottomAlphabetical" | "ignore";
+	emptyLineBeforeUnspecified?: "always" | "never" | "threshold";
+	emptyLineMinimumPropertyThreshold?: number;
 };
 ```
 
@@ -688,7 +688,7 @@ Default behavior does not enforce the presence of an empty line before an unspec
 If `"always"`, the unspecified group must be separated from other properties by an empty newline.
 If `"never"`, the unspecified group must have no empty lines separating it from other properties.
 
-For `"threshold"`, see the [`emptyLineMinimumPropertyThreshold` documentation](#emptylineminimumpropertythreshold-number) for more information.
+For `"threshold"`, see the [`emptyLineMinimumPropertyThreshold` documentation](#emptyLineMinimumPropertyThreshold) for more information.
 
 If `emptyLineBeforeUnspecified` specified, regardless of it's value, if the first property in a rule is target of this option, that property would be forced to not have an empty line before it.
 
