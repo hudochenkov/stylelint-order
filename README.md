@@ -64,6 +64,7 @@ All these configs have `properties-order` configured  with logical properties gr
 * [`stylelint-config-hudochenkov/order`](https://github.com/hudochenkov/stylelint-config-hudochenkov/blob/master/order.js)
 * [`stylelint-config-recess-order`](https://github.com/stormwarning/stylelint-config-recess-order)
 * [`stylelint-config-property-sort-order-smacss`](https://github.com/cahamilton/stylelint-config-property-sort-order-smacss)
+* [`stylelint-config-clean-order`](https://github.com/kutsan/stylelint-config-clean-order)
 
 ## Thanks
 
