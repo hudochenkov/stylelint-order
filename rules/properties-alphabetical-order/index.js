@@ -13,10 +13,16 @@ function rule(actual, options, context = {}) {
 	return function ruleBody(root, result) {
 		let validOptions = stylelint.utils.validateOptions(result, ruleName, {
 			actual,
-			possible: Boolean,
+			possible: (option) => typeof option === 'boolean',
 		});
 
 		if (!validOptions) {
+			// this means the option is invalid.
+			return;
+		}
+
+		if(!actual) {
+			// this means the option is false.
 			return;
 		}
 
