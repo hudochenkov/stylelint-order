@@ -1,0 +1,27 @@
+name: Lint
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  lint:
+    name: Lint on Node.js LTS
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+
+      - run: npm ci
+
+      - name: Lint and Test
+        run: npm run lint

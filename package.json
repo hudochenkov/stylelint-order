@@ -47,9 +47,8 @@
 		"stylelint": "^14.0.0"
 	},
 	"scripts": {
-		"pretest": "eslint . --max-warnings=0 && prettier '**/*.js' --check",
+		"lint": "eslint . --max-warnings=0 && prettier '**/*.js' --check",
 		"test": "jest",
-		"jest": "jest",
 		"watch": "jest --watch",
 		"coverage": "jest --coverage",
 		"fix": "eslint . --fix --max-warnings=0 && prettier '**/*.js' --write",

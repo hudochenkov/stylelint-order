@@ -1,4 +1,4 @@
-name: CI
+name: Test
 
 on:
   push:
@@ -10,26 +10,23 @@ on:
 
 jobs:
   test:
-    name: Lint and test on Node.js ${{ matrix.node }}
+    name: Test on Node.js ${{ matrix.node }}
 
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
-        node: [12, 14, 16]
+        node: [12, 14, 16, 18]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Install latest npm
-        run: npm install --global npm@latest
-
       - run: npm ci
 
-      - name: Lint and Test
+      - name: Test
         run: npm test
