@@ -97,7 +97,7 @@ testConfig({
 	description: 'invalid keyword',
 	valid: false,
 	config: ['custom-property'],
-	message: `Invalid option "["custom-property"]" for rule ${ruleName}`,
+	message: `Invalid option "["custom-property"]" for rule "${ruleName}"`,
 });
 
 testConfig({
@@ -109,7 +109,7 @@ testConfig({
 			type: 'atrule',
 		},
 	],
-	message: `Invalid option "[{"type":"atrule"}]" for rule ${ruleName}`,
+	message: `Invalid option "[{"type":"atrule"}]" for rule "${ruleName}"`,
 });
 
 testConfig({
@@ -122,7 +122,7 @@ testConfig({
 			hasBlock: 'yes',
 		},
 	],
-	message: `Invalid option "[{"type":"at-rule","hasBlock":"yes"}]" for rule ${ruleName}`,
+	message: `Invalid option "[{"type":"at-rule","hasBlock":"yes"}]" for rule "${ruleName}"`,
 });
 
 testConfig({
@@ -135,7 +135,7 @@ testConfig({
 			name: '',
 		},
 	],
-	message: `Invalid option "[{"type":"at-rule","name":""}]" for rule ${ruleName}`,
+	message: `Invalid option "[{"type":"at-rule","name":""}]" for rule "${ruleName}"`,
 });
 
 testConfig({
@@ -149,7 +149,7 @@ testConfig({
 			name: '',
 		},
 	],
-	message: `Invalid option "[{"type":"at-rule","hasBlock":true,"name":""}]" for rule ${ruleName}`,
+	message: `Invalid option "[{"type":"at-rule","hasBlock":true,"name":""}]" for rule "${ruleName}"`,
 });
 
 testConfig({
@@ -189,7 +189,7 @@ testConfig({
 			parameter: '',
 		},
 	],
-	message: `Invalid option "[{"type":"at-rule","name":"include","parameter":""}]" for rule ${ruleName}`,
+	message: `Invalid option "[{"type":"at-rule","name":"include","parameter":""}]" for rule "${ruleName}"`,
 });
 
 testConfig({
@@ -203,7 +203,7 @@ testConfig({
 			parameter: null,
 		},
 	],
-	message: `Invalid option "[{"type":"at-rule","name":"include","parameter":null}]" for rule ${ruleName}`,
+	message: `Invalid option "[{"type":"at-rule","name":"include","parameter":null}]" for rule "${ruleName}"`,
 });
 
 testConfig({
@@ -216,7 +216,7 @@ testConfig({
 			parameter: 'media',
 		},
 	],
-	message: `Invalid option "[{"type":"at-rule","parameter":"media"}]" for rule ${ruleName}`,
+	message: `Invalid option "[{"type":"at-rule","parameter":"media"}]" for rule "${ruleName}"`,
 });
 
 testConfig({
@@ -253,7 +253,7 @@ testConfig({
 			selector: '',
 		},
 	],
-	message: `Invalid option "[{"type":"rule","selector":""}]" for rule ${ruleName}`,
+	message: `Invalid option "[{"type":"rule","selector":""}]" for rule "${ruleName}"`,
 });
 
 testConfig({
@@ -266,7 +266,7 @@ testConfig({
 			selector: null,
 		},
 	],
-	message: `Invalid option "[{"type":"rule","selector":null}]" for rule ${ruleName}`,
+	message: `Invalid option "[{"type":"rule","selector":null}]" for rule "${ruleName}"`,
 });
 
 testConfig({
@@ -279,7 +279,7 @@ testConfig({
 			name: '',
 		},
 	],
-	message: `Invalid option "[{"type":"rule","name":""}]" for rule ${ruleName}`,
+	message: `Invalid option "[{"type":"rule","name":""}]" for rule "${ruleName}"`,
 });
 
 testConfig({
@@ -292,7 +292,7 @@ testConfig({
 			name: null,
 		},
 	],
-	message: `Invalid option "[{"type":"rule","name":null}]" for rule ${ruleName}`,
+	message: `Invalid option "[{"type":"rule","name":null}]" for rule "${ruleName}"`,
 });
 
 testConfig({
@@ -306,7 +306,7 @@ testConfig({
 			name: null,
 		},
 	],
-	message: `Invalid option "[{"type":"rule","selector":"^&:hover","name":null}]" for rule ${ruleName}`,
+	message: `Invalid option "[{"type":"rule","selector":"^&:hover","name":null}]" for rule "${ruleName}"`,
 });
 
 testConfig({
@@ -320,5 +320,5 @@ testConfig({
 			name: 'Element',
 		},
 	],
-	message: `Invalid option "[{"type":"rule","selector":null,"name":"Element"}]" for rule ${ruleName}`,
+	message: `Invalid option "[{"type":"rule","selector":null,"name":"Element"}]" for rule "${ruleName}"`,
 });
