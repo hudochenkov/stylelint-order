@@ -82,7 +82,7 @@ module.exports = function checkNode({
 
 		allNodes.push(nodeData);
 
-		let previousNodeData = allNodes[allNodes.length - 2];
+		let previousNodeData = allNodes[allNodes.length - 2]; // eslint-disable-line unicorn/prefer-at -- Need to support older Node.js
 
 		// Skip first node
 		if (!previousNodeData) {

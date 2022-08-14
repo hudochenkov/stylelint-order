@@ -36,7 +36,7 @@ module.exports = function checkNode(node, result, ruleName, messages) {
 			node: child,
 		};
 
-		let previousPropData = allPropData[allPropData.length - 1];
+		let previousPropData = allPropData[allPropData.length - 1]; // eslint-disable-line unicorn/prefer-at -- Need to support older Node.js
 
 		allPropData.push(propData);
 
