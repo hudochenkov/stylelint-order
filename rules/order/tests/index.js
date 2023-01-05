@@ -1282,7 +1282,7 @@ testRule({
 testRule({
 	ruleName,
 	config: [['declarations', 'rules', 'at-rules']],
-	customSyntax: '@stylelint/postcss-css-in-js',
+	customSyntax: 'postcss-styled-syntax',
 	fix: true,
 
 	accept: [

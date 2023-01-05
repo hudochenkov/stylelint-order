@@ -111,7 +111,7 @@ testRule({
 			},
 		],
 	],
-	customSyntax: '@stylelint/postcss-css-in-js',
+	customSyntax: 'postcss-styled-syntax',
 	fix: true,
 
 	accept: [

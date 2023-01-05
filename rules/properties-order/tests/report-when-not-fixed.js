@@ -20,7 +20,7 @@ test(`show warning if --fix enabled, but it didn't fix`, () => {
 	const options = {
 		code,
 		config: stylelintConfig,
-		customSyntax: '@stylelint/postcss-css-in-js',
+		customSyntax: 'postcss-styled-syntax',
 		fix: true,
 	};
 
@@ -58,7 +58,7 @@ test(`show warning if --fix enabled, and it fixed`, () => {
 	const options = {
 		code,
 		config: stylelintConfig,
-		customSyntax: '@stylelint/postcss-css-in-js',
+		customSyntax: 'postcss-styled-syntax',
 		fix: true,
 	};
 
