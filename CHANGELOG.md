@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 6.0.0
+* Dropped Node.js 12 and 14 support.
+* Added support for `postcss-styled-syntax`.
+
 ## 5.0.0
 
 * Breaking change: Dropped Node.js 8 support. Node.js 12 or greater is now required.
