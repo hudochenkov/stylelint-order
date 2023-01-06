@@ -58,6 +58,14 @@ testRule({
 				}
 			`,
 		},
+		{
+			description: 'should not report things in css root',
+			code: `
+				@media (min-width: 100px) {}
+
+				display: none;
+			`,
+		},
 	],
 
 	reject: [

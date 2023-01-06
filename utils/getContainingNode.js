@@ -1,6 +1,15 @@
 module.exports = function getContainingNode(node) {
-	// For styled-components: declarations are children of Root node
-	if (node.type !== 'rule' && node.type !== 'atrule' && node.parent.type === 'root') {
+	if (node.type === 'rule' || node.type === 'atrule') {
+		return node;
+	}
+
+	// postcss-styled-syntax: declarations are children of Root node
+	if (node.parent?.type === 'root' && node.parent?.raws.styledSyntaxIsComponent) {
+		return node.parent;
+	}
+
+	// @stylelint/postcss-css-in-js: declarations are children of Root node
+	if (node.parent?.document?.nodes?.some((item) => item.type === 'root')) {
 		return node.parent;
 	}
 
