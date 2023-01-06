@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 6.0.1
+* Fix regression causing root of CSS or SCSS to report violations
+
 ## 6.0.0
 * Dropped Node.js 12 and 14 support.
 * Added support for `postcss-styled-syntax`.
