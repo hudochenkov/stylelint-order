@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 6.0.2
+* Added Stylelint v15 to peerDependencies
+
 ## 6.0.1
 * Fix regression causing root of CSS or SCSS to report violations
 
