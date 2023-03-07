@@ -22,7 +22,7 @@
 	"main": "index.js",
 	"dependencies": {
 		"postcss": "^8.4.21",
-		"postcss-sorting": "^8.0.1"
+		"postcss-sorting": "^8.0.2"
 	},
 	"peerDependencies": {
 		"stylelint": "^14.0.0 || ^15.0.0"
@@ -38,10 +38,10 @@
 		"lint-staged": "^13.1.1",
 		"postcss-html": "^1.5.0",
 		"postcss-less": "^6.0.0",
-		"postcss-styled-syntax": "^0.3.1",
+		"postcss-styled-syntax": "^0.4.0",
 		"prettier": "~2.8.4",
 		"prettier-config-hudochenkov": "^0.3.0",
-		"stylelint": "^15.0.0"
+		"stylelint": "^15.2.0"
 	},
 	"scripts": {
 		"lint": "eslint . --max-warnings=0 && prettier '**/*.js' --check",

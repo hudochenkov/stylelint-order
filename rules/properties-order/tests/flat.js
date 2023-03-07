@@ -421,6 +421,26 @@ testRule({
 			unfixable: true,
 			message: messages.expected('top', 'color'),
 		},
+		{
+			code: `
+				const Component = styled.div\`
+					\${() => css\`
+						color: tomato;
+						top: 0;
+					\`}
+				\`;
+			`,
+			fixed: `
+				const Component = styled.div\`
+					\${() => css\`
+						top: 0;
+						color: tomato;
+					\`}
+				\`;
+			`,
+			description: 'sort inside css helper',
+			message: messages.expected('top', 'color'),
+		},
 	],
 });
 

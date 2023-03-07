@@ -4,7 +4,7 @@ module.exports = function getContainingNode(node) {
 	}
 
 	// postcss-styled-syntax: declarations are children of Root node
-	if (node.parent?.type === 'root' && node.parent?.raws.styledSyntaxIsComponent) {
+	if (node.parent?.type === 'root' && node.parent?.raws.isRuleLike) {
 		return node.parent;
 	}
 
