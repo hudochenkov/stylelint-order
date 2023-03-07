@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 6.0.3
+* Fixed sorting inside CSS-in-JS `css` helper
+
 ## 6.0.2
 * Added Stylelint v15 to peerDependencies
 
