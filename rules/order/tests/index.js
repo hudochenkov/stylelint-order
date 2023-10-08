@@ -886,7 +886,7 @@ testRule({
 			`,
 			message: messages.expected(
 				'rule with selector matching "^a"',
-				'rule with selector matching "/^&/"'
+				'rule with selector matching "/^&/"',
 			),
 		},
 		{
@@ -1057,7 +1057,7 @@ testRule({
 			`,
 			message: messages.expected(
 				'rule with selector matching "/^&:\\w/"',
-				'rule with selector matching "/^&/"'
+				'rule with selector matching "/^&/"',
 			),
 		},
 		{

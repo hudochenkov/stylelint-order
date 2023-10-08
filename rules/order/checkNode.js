@@ -44,7 +44,7 @@ module.exports = function checkNode({
 	node.each(function processEveryNode(child) {
 		let { shouldSkip, isCorrectOrder, nodeData, previousNodeData } = handleCycle(
 			child,
-			allNodesData
+			allNodesData,
 		);
 
 		if (shouldSkip) {

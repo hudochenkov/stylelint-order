@@ -40,7 +40,7 @@ module.exports = function checkOrder({
 			stylelint.utils.report({
 				message: messages.expected(
 					secondNodeData.description,
-					priorSpecifiedNodeData.description
+					priorSpecifiedNodeData.description,
 				),
 				node: secondNodeData.node,
 				result,

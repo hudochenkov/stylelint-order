@@ -21,7 +21,7 @@ function rule(primaryOption, options = {}, context = {}) {
 					unspecified: ['top', 'bottom', 'ignore'],
 				},
 				optional: true,
-			}
+			},
 		);
 
 		if (!validOptions) {

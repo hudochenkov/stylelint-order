@@ -26,7 +26,7 @@ function rule(primaryOption, options = {}, context = {}) {
 					emptyLineMinimumPropertyThreshold: isNumber,
 				},
 				optional: true,
-			}
+			},
 		);
 
 		if (!validOptions) {

@@ -35,7 +35,7 @@ module.exports = function checkOrder({
 	if (firstPropIsSpecified && secondPropIsSpecified) {
 		return report(
 			firstPropertyData.orderData.expectedPosition <=
-				secondPropertyData.orderData.expectedPosition
+				secondPropertyData.orderData.expectedPosition,
 		);
 	}
 

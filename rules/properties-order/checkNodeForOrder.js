@@ -75,7 +75,7 @@ module.exports = function checkNodeForOrder({
 				message: messages.expected(
 					checkedOrder.secondNode.name,
 					checkedOrder.firstNode.name,
-					orderData && orderData.groupName
+					orderData && orderData.groupName,
 				),
 				node: checkedOrder.secondNode.node,
 				result,
