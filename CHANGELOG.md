@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 6.0.4
+* Added support for Stylelint 16
+
 ## 6.0.3
 * Fixed sorting inside CSS-in-JS `css` helper
 
