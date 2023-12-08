@@ -22,6 +22,7 @@ test(`show warning if --fix enabled, but it didn't fix`, () => {
 		config: stylelintConfig,
 		customSyntax: 'postcss-styled-syntax',
 		fix: true,
+		quietDeprecationWarnings: true,
 	};
 
 	return stylelint.lint(options).then((output) => {
@@ -60,6 +61,7 @@ test(`show warning if --fix enabled, and it fixed`, () => {
 		config: stylelintConfig,
 		customSyntax: 'postcss-styled-syntax',
 		fix: true,
+		quietDeprecationWarnings: true,
 	};
 
 	return stylelint.lint(options).then((output) => {

@@ -25,7 +25,7 @@
 		"postcss-sorting": "^8.0.2"
 	},
 	"peerDependencies": {
-		"stylelint": "^14.0.0 || ^15.0.0"
+		"stylelint": "^14.0.0 || ^15.0.0 || ^16.0.1"
 	},
 	"devDependencies": {
 		"eslint": "^8.55.0",
@@ -33,7 +33,7 @@
 		"eslint-config-prettier": "^9.1.0",
 		"husky": "^8.0.3",
 		"jest": "^29.7.0",
-		"jest-preset-stylelint": "^6.3.0",
+		"jest-preset-stylelint": "^7.0.0",
 		"jest-watch-typeahead": "^2.2.2",
 		"lint-staged": "^15.2.0",
 		"postcss-html": "^1.5.0",
@@ -41,13 +41,13 @@
 		"postcss-styled-syntax": "^0.5.0",
 		"prettier": "~3.1.0",
 		"prettier-config-hudochenkov": "^0.4.0",
-		"stylelint": "^15.10.3"
+		"stylelint": "^16.0.1"
 	},
 	"scripts": {
 		"lint": "eslint . --max-warnings=0 && prettier '**/*.js' --check",
-		"test": "jest",
-		"watch": "jest --watch",
-		"coverage": "jest --coverage",
+		"test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest",
+		"watch": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --watch",
+		"coverage": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --coverage",
 		"fix": "eslint . --fix --max-warnings=0 && prettier '**/*.js' --write",
 		"prepare": "husky install"
 	},

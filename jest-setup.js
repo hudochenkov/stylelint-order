@@ -27,6 +27,7 @@ global.testConfig = (input) => {
 			.lint({
 				code: '',
 				config,
+				quietDeprecationWarnings: true,
 			})
 			.then((data) => {
 				const { invalidOptionWarnings } = data.results[0];
