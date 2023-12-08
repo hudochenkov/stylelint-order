@@ -33,6 +33,7 @@
 		"eslint-config-prettier": "^9.1.0",
 		"husky": "^8.0.3",
 		"jest": "^29.7.0",
+		"jest-light-runner": "^0.6.0",
 		"jest-preset-stylelint": "^7.0.0",
 		"jest-watch-typeahead": "^2.2.2",
 		"lint-staged": "^15.2.0",
@@ -45,9 +46,9 @@
 	},
 	"scripts": {
 		"lint": "eslint . --max-warnings=0 && prettier '**/*.js' --check",
-		"test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest",
-		"watch": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --watch",
-		"coverage": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --coverage",
+		"test": "jest",
+		"watch": "jest --watch",
+		"coverage": "jest --coverage",
 		"fix": "eslint . --fix --max-warnings=0 && prettier '**/*.js' --write",
 		"prepare": "husky install"
 	},
@@ -58,6 +59,7 @@
 		]
 	},
 	"jest": {
+		"runner": "jest-light-runner",
 		"preset": "jest-preset-stylelint",
 		"setupFiles": [
 			"./jest-setup.js"
