@@ -25,7 +25,7 @@
 		"postcss-sorting": "^8.0.2"
 	},
 	"peerDependencies": {
-		"stylelint": "^14.0.0 || ^15.0.0"
+		"stylelint": "^14.0.0 || ^15.0.0 || ^16.0.0"
 	},
 	"devDependencies": {
 		"eslint": "^8.51.0",
