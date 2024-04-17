@@ -1,6 +1,6 @@
-const { isString } = require('../../utils/validateType');
+import { isString } from '../../utils/validateType.js';
 
-module.exports = function createFlatOrder(order) {
+export function createFlatOrder(order) {
 	const flatOrder = [];
 
 	appendGroup(order);
@@ -20,4 +20,4 @@ module.exports = function createFlatOrder(order) {
 	}
 
 	return flatOrder;
-};
+}

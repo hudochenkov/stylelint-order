@@ -1,6 +1,6 @@
-const { isObject } = require('../../utils/validateType');
+import { isObject } from '../../utils/validateType.js';
 
-module.exports = function getDescription(item) {
+export function getDescription(item) {
 	const descriptions = {
 		'custom-properties': 'custom property',
 		'dollar-variables': '$-variable',
@@ -48,4 +48,4 @@ module.exports = function getDescription(item) {
 
 	// Return description for keyword patterns
 	return descriptions[item];
-};
+}

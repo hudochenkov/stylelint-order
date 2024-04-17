@@ -1,9 +1,9 @@
-const { isProperty } = require('../../utils');
-const checkEmptyLineBefore = require('./checkEmptyLineBefore');
-const checkEmptyLineBeforeFirstProp = require('./checkEmptyLineBeforeFirstProp');
-const getNodeData = require('./getNodeData');
+import { isProperty } from '../../utils/isProperty.js';
+import { checkEmptyLineBefore } from './checkEmptyLineBefore.js';
+import { checkEmptyLineBeforeFirstProp } from './checkEmptyLineBeforeFirstProp.js';
+import { getNodeData } from './getNodeData.js';
 
-module.exports = function checkNodeForEmptyLines({
+export function checkNodeForEmptyLines({
 	node,
 	context,
 	emptyLineBeforeUnspecified,
@@ -65,4 +65,4 @@ module.exports = function checkNodeForEmptyLines({
 			result,
 		});
 	}
-};
+}

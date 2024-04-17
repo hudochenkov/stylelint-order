@@ -5,6 +5,6 @@
  * @return {boolean} If `true`, property is a $-variable
  */
 
-module.exports = function isDollarVariable(property) {
+export function isDollarVariable(property) {
 	return property.startsWith('$');
-};
+}

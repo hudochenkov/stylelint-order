@@ -1,4 +1,6 @@
-const { ruleName } = require('..');
+import { rule } from '../index.js';
+
+const { ruleName } = rule;
 
 testConfig({
 	ruleName,

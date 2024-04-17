@@ -1,18 +1,11 @@
-const stylelint = require('stylelint');
-const sortNode = require('postcss-sorting/lib/order/sortNode');
-const checkOrder = require('./checkOrder');
-const getOrderData = require('./getOrderData');
-const ruleName = require('./ruleName');
-const messages = require('./messages');
+import stylelint from 'stylelint';
+import sortNode from 'postcss-sorting/lib/order/sortNode.js';
+import { checkOrder } from './checkOrder.js';
+import { getOrderData } from './getOrderData.js';
+import { ruleName } from './ruleName.js';
+import { messages } from './messages.js';
 
-module.exports = function checkNode({
-	node,
-	isFixEnabled,
-	orderInfo,
-	primaryOption,
-	result,
-	unspecified,
-}) {
+export function checkNode({ node, isFixEnabled, orderInfo, primaryOption, result, unspecified }) {
 	if (isFixEnabled) {
 		let shouldFix = false;
 		let allNodesData = [];
@@ -104,4 +97,4 @@ module.exports = function checkNode({
 			previousNodeData,
 		};
 	}
-};
+}

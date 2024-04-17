@@ -1,7 +1,7 @@
-const getDescription = require('./getDescription');
-const { isString } = require('../../utils/validateType');
+import { getDescription } from './getDescription.js';
+import { isString } from '../../utils/validateType.js';
 
-module.exports = function createOrderInfo(input) {
+export function createOrderInfo(input) {
 	let order = {};
 	let expectedPosition = 0;
 
@@ -85,4 +85,4 @@ module.exports = function createOrderInfo(input) {
 	});
 
 	return order;
-};
+}

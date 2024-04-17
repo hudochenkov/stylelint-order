@@ -5,7 +5,7 @@
  * @return {boolean} If `true`, the property is standard
  */
 
-module.exports = function isStandardSyntaxProperty(property) {
+export function isStandardSyntaxProperty(property) {
 	// SCSS var (e.g. $var: x), list (e.g. $list: (x)) or map (e.g. $map: (key:value))
 	if (property.startsWith('$')) {
 		return false;
@@ -22,4 +22,4 @@ module.exports = function isStandardSyntaxProperty(property) {
 	}
 
 	return true;
-};
+}

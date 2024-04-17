@@ -1,5 +1,5 @@
 const prefix = 'order';
 
-module.exports = function namespace(ruleName) {
+export function namespace(ruleName) {
 	return `${prefix}/${ruleName}`;
-};
+}

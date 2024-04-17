@@ -1,4 +1,4 @@
-module.exports = function calcAtRulePatternPriority(pattern, node) {
+export function calcAtRulePatternPriority(pattern, node) {
 	// 0 — it pattern doesn't match
 	// 1 — pattern without `name` and `hasBlock`
 	// 10010 — pattern match `hasBlock`
@@ -57,4 +57,4 @@ module.exports = function calcAtRulePatternPriority(pattern, node) {
 	}
 
 	return priority;
-};
+}

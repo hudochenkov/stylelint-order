@@ -1,9 +1,11 @@
-let stylelint = require('stylelint');
-let checkAlphabeticalOrder = require('../checkAlphabeticalOrder');
-let { isStandardSyntaxProperty, isCustomProperty, vendor } = require('../../utils');
+import stylelint from 'stylelint';
+import { checkAlphabeticalOrder } from '../checkAlphabeticalOrder.js';
+import { isCustomProperty } from '../../utils/isCustomProperty.js';
+import { isStandardSyntaxProperty } from '../../utils/isStandardSyntaxProperty.js';
+import * as vendor from '../../utils/vendor.js';
 
 // eslint-disable-next-line max-params
-module.exports = function checkNode(node, result, ruleName, messages) {
+export function checkNode(node, result, ruleName, messages) {
 	let allPropData = [];
 
 	node.each(function processEveryNode(child) {
@@ -58,4 +60,4 @@ module.exports = function checkNode(node, result, ruleName, messages) {
 			ruleName,
 		});
 	});
-};
+}

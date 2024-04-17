@@ -5,6 +5,6 @@
  * @return {boolean} If `true`, property is a custom one
  */
 
-module.exports = function isCustomProperty(property) {
+export function isCustomProperty(property) {
 	return property.startsWith('--');
-};
+}

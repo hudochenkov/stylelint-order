@@ -1,7 +1,9 @@
-let stylelint = require('stylelint');
-let sortNodeProperties = require('postcss-sorting/lib/properties-order/sortNodeProperties');
-let { namespace, getContainingNode, isRuleWithNodes } = require('../../utils');
-let checkNode = require('./checkNode');
+import stylelint from 'stylelint';
+import sortNodeProperties from 'postcss-sorting/lib/properties-order/sortNodeProperties.js';
+import { checkNode } from './checkNode.js';
+import { namespace } from '../../utils/namespace.js';
+import { getContainingNode } from '../../utils/getContainingNode.js';
+import { isRuleWithNodes } from '../../utils/isRuleWithNodes.js';
 
 let ruleName = namespace('properties-alphabetical-order');
 
@@ -9,7 +11,7 @@ let messages = stylelint.utils.ruleMessages(ruleName, {
 	expected: (first, second) => `Expected ${first} to come before ${second}`,
 });
 
-function rule(actual, options, context = {}) {
+export function rule(actual, options, context = {}) {
 	return function ruleBody(root, result) {
 		let validOptions = stylelint.utils.validateOptions(result, ruleName, {
 			actual,
@@ -45,5 +47,3 @@ function rule(actual, options, context = {}) {
 
 rule.ruleName = ruleName;
 rule.messages = messages;
-
-module.exports = rule;

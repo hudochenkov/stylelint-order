@@ -1,9 +1,10 @@
-const { createPlugin } = require('stylelint');
-const { namespace } = require('./utils');
-const rules = require('./rules');
+import stylelint from 'stylelint';
+import { rules } from './rules/index.js';
+import { namespace } from './utils/namespace.js';
 
 const rulesPlugins = Object.keys(rules).map((ruleName) => {
-	return createPlugin(namespace(ruleName), rules[ruleName]);
+	return stylelint.createPlugin(namespace(ruleName), rules[ruleName]);
 });
 
-module.exports = rulesPlugins;
+// eslint-disable-next-line import/no-default-export
+export default rulesPlugins;

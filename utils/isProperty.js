@@ -1,9 +1,9 @@
 // Check whether a property is a CSS property
-const isCustomProperty = require('./isCustomProperty');
-const isStandardSyntaxProperty = require('./isStandardSyntaxProperty');
+import { isCustomProperty } from './isCustomProperty.js';
+import { isStandardSyntaxProperty } from './isStandardSyntaxProperty.js';
 
-module.exports = function isProperty(node) {
+export function isProperty(node) {
 	return (
 		node.type === 'decl' && isStandardSyntaxProperty(node.prop) && !isCustomProperty(node.prop)
 	);
-};
+}

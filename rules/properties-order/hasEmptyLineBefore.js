@@ -1,4 +1,4 @@
-module.exports = function hasEmptyLineBefore(decl) {
+export function hasEmptyLineBefore(decl) {
 	if (/\r?\n\s*\r?\n/.test(decl.raw('before'))) {
 		return true;
 	}
@@ -18,4 +18,4 @@ module.exports = function hasEmptyLineBefore(decl) {
 	}
 
 	return false;
-};
+}

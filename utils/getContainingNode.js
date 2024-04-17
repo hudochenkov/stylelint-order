@@ -1,4 +1,4 @@
-module.exports = function getContainingNode(node) {
+export function getContainingNode(node) {
 	if (node.type === 'rule' || node.type === 'atrule') {
 		return node;
 	}
@@ -14,4 +14,4 @@ module.exports = function getContainingNode(node) {
 	}
 
 	return node;
-};
+}

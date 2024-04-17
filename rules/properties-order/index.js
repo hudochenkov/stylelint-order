@@ -1,15 +1,16 @@
-const stylelint = require('stylelint');
-const { getContainingNode, isRuleWithNodes } = require('../../utils');
-const { isNumber } = require('../../utils/validateType');
-const checkNodeForOrder = require('./checkNodeForOrder');
-const checkNodeForEmptyLines = require('./checkNodeForEmptyLines');
-const createOrderInfo = require('./createOrderInfo');
-const validatePrimaryOption = require('./validatePrimaryOption');
+import stylelint from 'stylelint';
+import { getContainingNode } from '../../utils/getContainingNode.js';
+import { isRuleWithNodes } from '../../utils/isRuleWithNodes.js';
+import { isNumber } from '../../utils/validateType.js';
+import { checkNodeForOrder } from './checkNodeForOrder.js';
+import { checkNodeForEmptyLines } from './checkNodeForEmptyLines.js';
+import { createOrderInfo } from './createOrderInfo.js';
+import { validatePrimaryOption } from './validatePrimaryOption.js';
 
-const ruleName = require('./ruleName');
-const messages = require('./messages');
+import { ruleName } from './ruleName.js';
+import { messages } from './messages.js';
 
-function rule(primaryOption, options = {}, context = {}) {
+export function rule(primaryOption, options = {}, context = {}) {
 	return function ruleBody(root, result) {
 		let validOptions = stylelint.utils.validateOptions(
 			result,
@@ -78,5 +79,3 @@ function rule(primaryOption, options = {}, context = {}) {
 rule.primaryOptionArray = true;
 rule.ruleName = ruleName;
 rule.messages = messages;
-
-module.exports = rule;

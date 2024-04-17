@@ -1,7 +1,5 @@
-'use strict';
-
 // See https://github.com/stylelint/stylelint/blob/10.1.0/lib/reference/shorthandData.js
-module.exports = {
+export const shorthandData = {
 	margin: ['margin-top', 'margin-bottom', 'margin-left', 'margin-right'],
 	padding: ['padding-top', 'padding-bottom', 'padding-left', 'padding-right'],
 	background: [

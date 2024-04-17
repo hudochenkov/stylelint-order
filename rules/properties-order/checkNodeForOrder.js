@@ -1,13 +1,13 @@
-const stylelint = require('stylelint');
-const sortNodeProperties = require('postcss-sorting/lib/properties-order/sortNodeProperties');
-const { isProperty } = require('../../utils');
-const checkOrder = require('./checkOrder');
-const getNodeData = require('./getNodeData');
-const createFlatOrder = require('./createFlatOrder');
-const ruleName = require('./ruleName');
-const messages = require('./messages');
+import stylelint from 'stylelint';
+import sortNodeProperties from 'postcss-sorting/lib/properties-order/sortNodeProperties.js';
+import { isProperty } from '../../utils/isProperty.js';
+import { checkOrder } from './checkOrder.js';
+import { getNodeData } from './getNodeData.js';
+import { createFlatOrder } from './createFlatOrder.js';
+import { ruleName } from './ruleName.js';
+import { messages } from './messages.js';
 
-module.exports = function checkNodeForOrder({
+export function checkNodeForOrder({
 	node,
 	isFixEnabled,
 	primaryOption,
@@ -89,4 +89,4 @@ module.exports = function checkNodeForOrder({
 			.filter((item) => isProperty(item))
 			.map((item) => getNodeData(item, expectedOrder));
 	}
-};
+}

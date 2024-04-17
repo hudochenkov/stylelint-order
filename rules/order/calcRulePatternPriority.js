@@ -1,4 +1,4 @@
-module.exports = function calcRulePatternPriority(pattern, node) {
+export function calcRulePatternPriority(pattern, node) {
 	// 0 — it pattern doesn't match
 	// 1 — pattern without `selector`
 	// 2 — pattern match `selector`
@@ -16,4 +16,4 @@ module.exports = function calcRulePatternPriority(pattern, node) {
 	}
 
 	return priority;
-};
+}

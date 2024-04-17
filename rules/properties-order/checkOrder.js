@@ -1,8 +1,8 @@
-const checkAlphabeticalOrder = require('../checkAlphabeticalOrder');
-const { vendor } = require('../../utils');
+import { checkAlphabeticalOrder } from '../checkAlphabeticalOrder.js';
+import * as vendor from '../../utils/vendor.js';
 
 // eslint-disable-next-line consistent-return
-module.exports = function checkOrder({
+export function checkOrder({
 	firstPropertyData,
 	secondPropertyData,
 	allPropertiesData,
@@ -98,4 +98,4 @@ module.exports = function checkOrder({
 	if (unspecified === 'bottom' && !firstPropIsSpecified) {
 		return report(false);
 	}
-};
+}

@@ -1,3 +1,3 @@
-const { namespace } = require('../../utils');
+import { namespace } from '../../utils/namespace.js';
 
-module.exports = namespace('order');
+export const ruleName = namespace('order');

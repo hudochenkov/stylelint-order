@@ -1,6 +1,6 @@
-const { isString } = require('../../utils/validateType');
+import { isString } from '../../utils/validateType.js';
 
-module.exports = function createOrderInfo(input) {
+export function createOrderInfo(input) {
 	let order = {};
 	let expectedPosition = 0;
 	let separatedGroup = 1;
@@ -51,4 +51,4 @@ module.exports = function createOrderInfo(input) {
 	}
 
 	return order;
-};
+}

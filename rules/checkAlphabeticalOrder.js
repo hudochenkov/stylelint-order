@@ -1,5 +1,5 @@
-const shorthandData = require('./shorthandData');
-const { vendor } = require('../utils');
+import { shorthandData } from './shorthandData.js';
+import * as vendor from '../utils/vendor.js';
 
 function isShorthand(a, b) {
 	const longhands = shorthandData[a] || [];
@@ -7,7 +7,7 @@ function isShorthand(a, b) {
 	return longhands.includes(b);
 }
 
-module.exports = function checkAlphabeticalOrder(firstPropData, secondPropData) {
+export function checkAlphabeticalOrder(firstPropData, secondPropData) {
 	// OK if the first is shorthand for the second:
 	if (isShorthand(firstPropData.unprefixedName, secondPropData.unprefixedName)) {
 		return true;
@@ -32,4 +32,4 @@ module.exports = function checkAlphabeticalOrder(firstPropData, secondPropData) 
 	}
 
 	return firstPropData.unprefixedName < secondPropData.unprefixedName;
-};
+}

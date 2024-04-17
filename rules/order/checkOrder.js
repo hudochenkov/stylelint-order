@@ -1,9 +1,9 @@
-let stylelint = require('stylelint');
-let ruleName = require('./ruleName');
-let messages = require('./messages');
+import stylelint from 'stylelint';
+import { ruleName } from './ruleName.js';
+import { messages } from './messages.js';
 
 // eslint-disable-next-line max-params, consistent-return
-module.exports = function checkOrder({
+export function checkOrder({
 	firstNodeData,
 	secondNodeData,
 	allNodesData,
@@ -75,4 +75,4 @@ module.exports = function checkOrder({
 	if (unspecified === 'bottom' && !firstNodeIsSpecified) {
 		return false;
 	}
-};
+}

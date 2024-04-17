@@ -1,11 +1,11 @@
-const stylelint = require('stylelint');
-const { isString } = require('../../utils/validateType');
-const ruleName = require('./ruleName');
-const messages = require('./messages');
-const hasEmptyLineBefore = require('./hasEmptyLineBefore');
-const removeEmptyLinesBefore = require('./removeEmptyLinesBefore');
+import stylelint from 'stylelint';
+import { isString } from '../../utils/validateType.js';
+import { ruleName } from './ruleName.js';
+import { messages } from './messages.js';
+import { hasEmptyLineBefore } from './hasEmptyLineBefore.js';
+import { removeEmptyLinesBefore } from './removeEmptyLinesBefore.js';
 
-module.exports = function checkEmptyLineBeforeFirstProp({
+export function checkEmptyLineBeforeFirstProp({
 	propData,
 	primaryOption,
 	emptyLineBeforeUnspecified,
@@ -38,4 +38,4 @@ module.exports = function checkEmptyLineBeforeFirstProp({
 			});
 		}
 	}
-};
+}

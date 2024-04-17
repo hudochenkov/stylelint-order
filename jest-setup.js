@@ -1,6 +1,6 @@
-const stylelint = require('stylelint');
+import stylelint from 'stylelint';
 // eslint-disable-next-line import/no-extraneous-dependencies
-const getTestRule = require('jest-preset-stylelint/getTestRule');
+import { getTestRule } from 'jest-preset-stylelint';
 
 global.testRule = getTestRule({ plugins: ['./'] });
 
@@ -27,7 +27,6 @@ global.testConfig = (input) => {
 			.lint({
 				code: '',
 				config,
-				quietDeprecationWarnings: true,
 			})
 			.then((data) => {
 				const { invalidOptionWarnings } = data.results[0];

@@ -1,21 +1,25 @@
-const utils = require('../../utils');
-const calcAtRulePatternPriority = require('./calcAtRulePatternPriority');
-const calcRulePatternPriority = require('./calcRulePatternPriority');
-const getDescription = require('./getDescription');
+import { calcAtRulePatternPriority } from './calcAtRulePatternPriority.js';
+import { calcRulePatternPriority } from './calcRulePatternPriority.js';
+import { getDescription } from './getDescription.js';
+import { isAtVariable } from '../../utils/isAtVariable.js';
+import { isCustomProperty } from '../../utils/isCustomProperty.js';
+import { isDollarVariable } from '../../utils/isDollarVariable.js';
+import { isLessMixin } from '../../utils/isLessMixin.js';
+import { isStandardSyntaxProperty } from '../../utils/isStandardSyntaxProperty.js';
 
-module.exports = function getOrderData(orderInfo, node) {
+export function getOrderData(orderInfo, node) {
 	let nodeType;
 
-	if (utils.isAtVariable(node)) {
+	if (isAtVariable(node)) {
 		nodeType = 'at-variables';
-	} else if (utils.isLessMixin(node)) {
+	} else if (isLessMixin(node)) {
 		nodeType = 'less-mixins';
 	} else if (node.type === 'decl') {
-		if (utils.isCustomProperty(node.prop)) {
+		if (isCustomProperty(node.prop)) {
 			nodeType = 'custom-properties';
-		} else if (utils.isDollarVariable(node.prop)) {
+		} else if (isDollarVariable(node.prop)) {
 			nodeType = 'dollar-variables';
-		} else if (utils.isStandardSyntaxProperty(node.prop)) {
+		} else if (isStandardSyntaxProperty(node.prop)) {
 			nodeType = 'declarations';
 		}
 	} else if (node.type === 'rule') {
@@ -89,4 +93,4 @@ module.exports = function getOrderData(orderInfo, node) {
 	return {
 		description: getDescription(nodeType),
 	};
-};
+}

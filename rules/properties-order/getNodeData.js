@@ -1,6 +1,7 @@
-const { isProperty, vendor } = require('../../utils');
+import { isProperty } from '../../utils/isProperty.js';
+import * as vendor from '../../utils/vendor.js';
 
-module.exports = function getNodeData(node, expectedOrder) {
+export function getNodeData(node, expectedOrder) {
 	if (isProperty(node)) {
 		let { prop } = node;
 		let unprefixedName = vendor.unprefixed(prop);
@@ -22,4 +23,4 @@ module.exports = function getNodeData(node, expectedOrder) {
 	return {
 		node,
 	};
-};
+}

@@ -1,4 +1,4 @@
-const createFlatOrder = require('../createFlatOrder');
+import { createFlatOrder } from '../createFlatOrder.js';
 
 describe('createFlatOrder', () => {
 	it('valid group and declaration', () => {

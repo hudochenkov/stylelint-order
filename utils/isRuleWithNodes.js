@@ -1,3 +1,3 @@
-module.exports = function isRuleWithNodes(node) {
+export function isRuleWithNodes(node) {
 	return node.nodes && node.nodes.length;
-};
+}

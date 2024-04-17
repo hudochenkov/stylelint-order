@@ -1,6 +1,6 @@
-const { isBoolean, isString, isObject } = require('../../utils/validateType');
+import { isBoolean, isString, isObject } from '../../utils/validateType.js';
 
-module.exports = function validatePrimaryOption(actualOptions) {
+export function validatePrimaryOption(actualOptions) {
 	// Begin checking array options
 	if (!Array.isArray(actualOptions)) {
 		return false;
@@ -62,4 +62,4 @@ module.exports = function validatePrimaryOption(actualOptions) {
 	}
 
 	return true;
-};
+}

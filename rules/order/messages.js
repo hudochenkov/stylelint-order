@@ -1,6 +1,6 @@
-const stylelint = require('stylelint');
-const ruleName = require('./ruleName');
+import stylelint from 'stylelint';
+import { ruleName } from './ruleName.js';
 
-module.exports = stylelint.utils.ruleMessages(ruleName, {
+export const messages = stylelint.utils.ruleMessages(ruleName, {
 	expected: (first, second) => `Expected ${first} to come before ${second}`,
 });

@@ -1,5 +1,5 @@
-const addEmptyLineBefore = require('../addEmptyLineBefore');
-const postcss = require('postcss');
+import { addEmptyLineBefore } from '../addEmptyLineBefore.js';
+import postcss from 'postcss';
 
 function addEmptyLine(css, lineEnding) {
 	const root = postcss.parse(css);

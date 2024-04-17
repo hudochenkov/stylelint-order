@@ -1,5 +1,7 @@
-const stylelint = require('stylelint');
-const { ruleName } = require('..');
+import stylelint from 'stylelint';
+import { rule } from '../index.js';
+
+const { ruleName } = rule;
 
 test(`show warning if --fix enabled, but it didn't fix`, () => {
 	const code = `
@@ -22,7 +24,6 @@ test(`show warning if --fix enabled, but it didn't fix`, () => {
 		config: stylelintConfig,
 		customSyntax: 'postcss-styled-syntax',
 		fix: true,
-		quietDeprecationWarnings: true,
 	};
 
 	return stylelint.lint(options).then((output) => {
@@ -61,7 +62,6 @@ test(`show warning if --fix enabled, and it fixed`, () => {
 		config: stylelintConfig,
 		customSyntax: 'postcss-styled-syntax',
 		fix: true,
-		quietDeprecationWarnings: true,
 	};
 
 	return stylelint.lint(options).then((output) => {

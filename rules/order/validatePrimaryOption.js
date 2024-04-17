@@ -1,6 +1,6 @@
-const { isObject, isString } = require('../../utils/validateType');
+import { isObject, isString } from '../../utils/validateType.js';
 
-module.exports = function validatePrimaryOption(actualOptions) {
+export function validatePrimaryOption(actualOptions) {
 	// Otherwise, begin checking array options
 	if (!Array.isArray(actualOptions)) {
 		return false;
@@ -78,7 +78,7 @@ module.exports = function validatePrimaryOption(actualOptions) {
 	}
 
 	return true;
-};
+}
 
 function isRegExp(value) {
 	return Object.prototype.toString.call(value) === '[object RegExp]';

@@ -1,4 +1,4 @@
-const rule = require('..');
+import { rule } from '../index.js';
 
 const { ruleName, messages } = rule;
 

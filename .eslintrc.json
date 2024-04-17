@@ -9,8 +9,20 @@
 		"es6": true,
 		"jest": true
 	},
+	"parserOptions": {
+		"sourceType": "module",
+		"ecmaVersion": "latest"
+	},
 	"globals": {
 		"testConfig": true,
 		"testRule": true
+	},
+	"rules": {
+		"import/extensions": ["error", "always", { "ignorePackages": true } ],
+		"import/no-default-export": "error",
+		"import/no-useless-path-segments": ["warn", { "commonjs": false, "noUselessIndex": false }],
+		"import/prefer-default-export": "off",
+		"unicorn/prefer-module": "error",
+		"unicorn/prefer-node-protocol": "error"
 	}
 }
