@@ -1,5 +1,4 @@
 import stylelint from 'stylelint';
-import sortNodeProperties from 'postcss-sorting/lib/properties-order/sortNodeProperties.js';
 import { checkNode } from './checkNode.js';
 import { namespace } from '../../utils/namespace.js';
 import { getContainingNode } from '../../utils/getContainingNode.js';
@@ -35,11 +34,7 @@ export function rule(actual, options, context = {}) {
 			processedParents.push(node);
 
 			if (isRuleWithNodes(node)) {
-				if (context.fix) {
-					sortNodeProperties(node, { order: 'alphabetical' });
-				} else {
-					checkNode(node, result, ruleName, messages);
-				}
+				checkNode(node, result, ruleName, messages, context.fix);
 			}
 		});
 	};
