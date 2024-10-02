@@ -3,15 +3,10 @@ import { checkAlphabeticalOrder } from '../checkAlphabeticalOrder.js';
 import { isCustomProperty } from '../../utils/isCustomProperty.js';
 import { isStandardSyntaxProperty } from '../../utils/isStandardSyntaxProperty.js';
 import * as vendor from '../../utils/vendor.js';
-import sortNodeProperties from 'postcss-sorting/lib/properties-order/sortNodeProperties.js';
 
 // eslint-disable-next-line max-params
-export function checkNode(node, result, ruleName, messages, isFixEnabled) {
+export function checkNode(node, result, ruleName, messages) {
 	let allPropData = [];
-
-	if (isFixEnabled) {
-		sortNodeProperties(node, { order: 'alphabetical' });
-	}
 
 	node.each(function processEveryNode(child) {
 		if (child.type !== 'decl') {
