@@ -205,8 +205,6 @@ testRule({
 			message: messages.expected('color', 'top'),
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/115
-			skip: true,
 			code: `
 				const Component = styled.div\`
 					top: 0;
@@ -218,8 +216,6 @@ testRule({
 			message: messages.expected('color', 'top'),
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/115
-			skip: true,
 			code: `
 				const Component = styled.div\`
 					top: 0;
@@ -236,8 +232,6 @@ testRule({
 			message: messages.expected('color', 'top'),
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/115
-			skip: true,
 			code: `
 				const Component = styled.div\`
 					color: tomato;

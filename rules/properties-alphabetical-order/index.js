@@ -37,6 +37,9 @@ export function rule(actual, options, context = {}) {
 			if (isRuleWithNodes(node)) {
 				if (context.fix) {
 					sortNodeProperties(node, { order: 'alphabetical' });
+
+					// log warnings if any problems weren't fixed
+					checkNode(node, result, ruleName, messages);
 				} else {
 					checkNode(node, result, ruleName, messages);
 				}
