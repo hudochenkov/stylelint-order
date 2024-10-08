@@ -121,3 +121,33 @@ testConfig({
 	],
 	message: `Invalid option "[{"emptyLineBefore":"always","order":"flexible","properties":null}]" for rule "${ruleName}"`,
 });
+
+testConfig({
+	// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+	skip: true,
+	ruleName,
+	description: 'no duplicates in properties',
+	valid: false,
+	config: [
+		{
+			properties: ['top', 'top'],
+		},
+	],
+	message: `Invalid option "[{"properties":["top", "top"]}]" for rule "${ruleName}"`,
+});
+
+testConfig({
+	// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+	skip: true,
+	ruleName,
+	description: 'no duplicates in properties (case insensitive)',
+	valid: false,
+	config: [
+		{
+			emptyLineBefore: 'always',
+			order: 'flexible',
+			properties: ['top', 'Top'],
+		},
+	],
+	message: `Invalid option "[{"properties":["top", "Top"]}]" for rule "${ruleName}"`,
+});

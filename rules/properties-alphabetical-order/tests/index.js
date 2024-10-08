@@ -83,6 +83,16 @@ testRule({
 			skip: true,
 			code: 'a { align: center; Border-width: 1px; Border-top-width: 2px; color: red; }',
 		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { align: center; border-width: 1px; Border-top-width: 2px; color: red; }',
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { align: center; Border-width: 1px; border-top-width: 2px; color: red; }',
+		},
 	],
 
 	reject: [
@@ -152,6 +162,34 @@ testRule({
 			code: 'a { align: center; Border-top-width: 2px; Border-width: 1px; color: red; }',
 			fixed: 'a { align: center; Border-width: 1px; Border-top-width: 2px; color: red; }',
 			message: messages.expected('Border-width', 'Border-top-width'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { align: center; Border-top-width: 2px; border-width: 1px; color: red; }',
+			fixed: 'a { align: center; border-width: 1px; Border-top-width: 2px; color: red; }',
+			message: messages.expected('border-width', 'Border-top-width'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { align: center; border-top-width: 2px; Border-width: 1px; color: red; }',
+			fixed: 'a { align: center; Border-width: 1px; border-top-width: 2px; color: red; }',
+			message: messages.expected('Border-width', 'border-top-width'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { color: red; align: center; margin: 1px; Margin: 1px; }',
+			fixed: 'a { align: center; color: red; margin: 1px; Margin: 1px; }',
+			message: messages.expected('align', 'color'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { color: red; Color: red; margin-top: 1px; margin: 1px; }',
+			fixed: 'a { color: red; Color: red; margin: 1px; margin-top: 1px; }',
+			message: messages.expected('margin', 'margin-top'),
 		},
 	],
 });

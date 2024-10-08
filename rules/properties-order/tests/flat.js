@@ -48,6 +48,16 @@ testRule({
 		{
 			code: 'a { top: 0; color: pink; display: none; width: 0; height: 0; }',
 		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { top: 0; Top: 0; color: pink; }',
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { Top: 0; top: 0; color: pink; }',
+		},
 	],
 
 	reject: [
@@ -55,6 +65,34 @@ testRule({
 			code: 'a { color: pink; top: 0;  }',
 			fixed: 'a { top: 0; color: pink;  }',
 			message: messages.expected('top', 'color'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { Color: pink; top: 0;  }',
+			fixed: 'a { top: 0; Color: pink;  }',
+			message: messages.expected('top', 'Color'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { color: pink; Top: 0; }',
+			fixed: 'a { Top: 0; color: pink; }',
+			message: messages.expected('Top', 'color'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { Top: 0; color: pink; top: 0; }',
+			fixed: 'a { Top: 0; top: 0; color: pink; }',
+			message: messages.expected('top', 'color'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { top: 0; color: pink; Top: 0; }',
+			fixed: 'a { top: 0; Top: 0; color: pink; }',
+			message: messages.expected('Top', 'color'),
 		},
 		{
 			code: 'a { top: 0; transform: scale(1); color: pink; }',
@@ -200,7 +238,17 @@ testRule({
 			code: 'a { top: 0; height: 1px; color: pink; }',
 		},
 		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { top: 0; height: 1px; Color: pink; }',
+		},
+		{
 			code: 'a { bottom: 0; top: 0; }',
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { Bottom: 0; top: 0; }',
 		},
 	],
 
@@ -209,6 +257,27 @@ testRule({
 			code: 'a { height: 1px; top: 0; }',
 			fixed: 'a { top: 0; height: 1px; }',
 			message: messages.expected('top', 'height'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { Height: 1px; top: 0; }',
+			fixed: 'a { top: 0; Height: 1px; }',
+			message: messages.expected('top', 'Height'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { height: 1px; Top: 0; }',
+			fixed: 'a { Top: 0; height: 1px; }',
+			message: messages.expected('Top', 'height'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { Height: 1px; Top: 0; }',
+			fixed: 'a { Top: 0; Height: 1px; }',
+			message: messages.expected('Top', 'Height'),
 		},
 		{
 			code: 'a { color: 1px; top: 0; }',
@@ -233,7 +302,17 @@ testRule({
 			code: 'a { height: 1px; color: pink; bottom: 0; }',
 		},
 		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { Height: 1px; color: pink; bottom: 0; }',
+		},
+		{
 			code: 'a { bottom: 0; top: 0; }',
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { bottom: 0; Top: 0; }',
 		},
 	],
 
@@ -242,6 +321,27 @@ testRule({
 			code: 'a { bottom: 0; height: 1px; }',
 			fixed: 'a { height: 1px; bottom: 0; }',
 			message: messages.expected('height', 'bottom'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { Bottom: 0; height: 1px; }',
+			fixed: 'a { height: 1px; Bottom: 0; }',
+			message: messages.expected('height', 'Bottom'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { bottom: 0; Height: 1px; }',
+			fixed: 'a { Height: 1px; bottom: 0; }',
+			message: messages.expected('Height', 'bottom'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { Bottom: 0; Height: 1px; }',
+			fixed: 'a { Height: 1px; Bottom: 0; }',
+			message: messages.expected('Height', 'Bottom'),
 		},
 		{
 			code: 'a { bottom: 0; color: 1px; }',
@@ -271,6 +371,21 @@ testRule({
 		{
 			code: 'a { all: initial; compose: b; bottom: 0; top: 0; }',
 		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { all: initial; Compose: b; bottom: 0; top: 0; }',
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { all: initial; compose: b; Bottom: 0; top: 0; }',
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { all: initial; Compose: b; Bottom: 0; top: 0; }',
+		},
 	],
 
 	reject: [
@@ -278,6 +393,27 @@ testRule({
 			code: 'a { align-items: flex-end; all: initial; }',
 			fixed: 'a { all: initial; align-items: flex-end; }',
 			message: messages.expected('all', 'align-items'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { Align-items: flex-end; all: initial; }',
+			fixed: 'a { all: initial; Align-items: flex-end; }',
+			message: messages.expected('all', 'Align-items'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { align-items: flex-end; All: initial; }',
+			fixed: 'a { All: initial; align-items: flex-end; }',
+			message: messages.expected('All', 'align-items'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: 'a { Align-items: flex-end; All: initial; }',
+			fixed: 'a { All: initial; Align-items: flex-end; }',
+			message: messages.expected('All', 'Align-items'),
 		},
 		{
 			code: 'a { compose: b; top: 0; bottom: 0; }',
@@ -304,6 +440,27 @@ testRule({
 			code: '.foo { margin: 0; color: pink; left: 0; }',
 			fixed: '.foo { left: 0; margin: 0; color: pink; }',
 			message: messages.expected('left', 'margin'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: '.foo { margin: 0; color: pink; Left: 0; }',
+			fixed: '.foo { Left: 0; margin: 0; color: pink; }',
+			message: messages.expected('Left', 'margin'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: '.foo { Margin: 0; color: pink; left: 0; }',
+			fixed: '.foo { left: 0; Margin: 0; color: pink; }',
+			message: messages.expected('left', 'Margin'),
+		},
+		{
+			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
+			skip: true,
+			code: '.foo { Margin: 0; color: pink; Left: 0; }',
+			fixed: '.foo { Left: 0; Margin: 0; color: pink; }',
+			message: messages.expected('Left', 'Margin'),
 		},
 	],
 });
