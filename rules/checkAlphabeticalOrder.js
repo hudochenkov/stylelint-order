@@ -7,32 +7,29 @@ function isShorthand(a, b) {
 	return longhands.includes(b);
 }
 
-function hasPrefix(propName) {
-	return vendor.prefix(propName).length > 0;
-}
-
 export function checkAlphabeticalOrder(firstPropData, secondPropData) {
-	const firstUnprefixedNameLC = firstPropData.unprefixedName.toLowerCase();
-	const secondUnprefixedNameLC = secondPropData.unprefixedName.toLowerCase();
-
 	// OK if the first is shorthand for the second:
-	if (isShorthand(firstUnprefixedNameLC, secondUnprefixedNameLC)) {
+	if (isShorthand(firstPropData.unprefixedName, secondPropData.unprefixedName)) {
 		return true;
 	}
 
 	// Not OK if the second is shorthand for the first:
-	if (isShorthand(firstUnprefixedNameLC, secondUnprefixedNameLC)) {
+	if (isShorthand(secondPropData.unprefixedName, firstPropData.unprefixedName)) {
 		return false;
 	}
 
 	// If unprefixed prop names are the same, compare the prefixed versions
-	if (firstUnprefixedNameLC === secondUnprefixedNameLC) {
-		if (!hasPrefix(firstPropData.name) && hasPrefix(secondPropData.name)) {
+	if (firstPropData.unprefixedName === secondPropData.unprefixedName) {
+		// If first property has no prefix and second property has prefix
+		if (
+			!vendor.prefix(firstPropData.name).length &&
+			vendor.prefix(secondPropData.name).length
+		) {
 			return false;
 		}
 
 		return true;
 	}
 
-	return firstUnprefixedNameLC < secondUnprefixedNameLC;
+	return firstPropData.unprefixedName < secondPropData.unprefixedName;
 }
