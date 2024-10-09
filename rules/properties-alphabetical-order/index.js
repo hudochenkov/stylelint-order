@@ -4,6 +4,7 @@ import { checkNode } from './checkNode.js';
 import { namespace } from '../../utils/namespace.js';
 import { getContainingNode } from '../../utils/getContainingNode.js';
 import { isRuleWithNodes } from '../../utils/isRuleWithNodes.js';
+import { isOrderCorrect } from './isOrderCorrect.js';
 
 let ruleName = namespace('properties-alphabetical-order');
 
@@ -35,7 +36,7 @@ export function rule(actual, options, context = {}) {
 			processedParents.push(node);
 
 			if (isRuleWithNodes(node)) {
-				if (context.fix) {
+				if (context.fix && !isOrderCorrect(node)) {
 					sortNodeProperties(node, { order: 'alphabetical' });
 
 					// log warnings if any problems weren't fixed
