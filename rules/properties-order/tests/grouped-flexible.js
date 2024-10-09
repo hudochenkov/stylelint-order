@@ -21,11 +21,6 @@ testRule({
 			code: 'a { height: 1px; width: 2px; color: pink; font-size: 2px; font-weight: bold; }',
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { Height: 1px; Width: 2px; Color: pink; Font-size: 2px; Font-weight: bold; }',
-		},
-		{
 			code: 'a { height: 1px; width: 2px; font-size: 2px; color: pink; font-weight: bold; }',
 		},
 		{
@@ -58,18 +53,8 @@ testRule({
 			description: 'unspecified after groupless specified',
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { Height: 10px; background: orange; }',
-		},
-		{
 			code: 'a { font-weight: bold; background: orange; }',
 			description: 'unspecified after grouped specified',
-		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { Font-weight: bold; background: orange; }',
 		},
 	],
 
@@ -78,33 +63,6 @@ testRule({
 			code: 'a { height: 1px; font-weight: bold; width: 2px; }',
 			fixed: 'a { height: 1px; width: 2px; font-weight: bold; }',
 			message: messages.expected('width', 'font-weight'),
-			line: 1,
-			column: 37,
-		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { height: 1px; Font-weight: bold; Width: 2px; }',
-			fixed: 'a { height: 1px; Width: 2px; Font-weight: bold; }',
-			message: messages.expected('Width', 'Font-weight'),
-			line: 1,
-			column: 37,
-		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { height: 1px; Font-weight: bold; width: 2px; }',
-			fixed: 'a { height: 1px; width: 2px; Font-weight: bold; }',
-			message: messages.expected('width', 'Font-weight'),
-			line: 1,
-			column: 37,
-		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { height: 1px; font-weight: bold; Width: 2px; }',
-			fixed: 'a { height: 1px; Width: 2px; font-weight: bold; }',
-			message: messages.expected('Width', 'font-weight'),
 			line: 1,
 			column: 37,
 		},
@@ -151,45 +109,11 @@ testRule({
 		{
 			code: 'a { font-size: 2px; font-weight: bold; height: 1px; width: 2px; }',
 		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { Font-size: 2px; Font-weight: bold; height: 1px; width: 2px; }',
-		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { Font-size: 2px; Font-weight: bold; Height: 1px; Width: 2px; }',
-		},
 	],
 	reject: [
 		{
 			code: 'a { height: 1px; font-weight: bold; }',
 			message: messages.expected('font-weight', 'height', 'font'),
-			line: 1,
-			column: 18,
-		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { height: 1px; Font-weight: bold; }',
-			message: messages.expected('Font-weight', 'height', 'font'),
-			line: 1,
-			column: 18,
-		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { Height: 1px; font-weight: bold; }',
-			message: messages.expected('font-weight', 'Height', 'font'),
-			line: 1,
-			column: 18,
-		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { Height: 1px; Font-weight: bold; }',
-			message: messages.expected('Font-weight', 'Height', 'font'),
 			line: 1,
 			column: 18,
 		},
@@ -217,16 +141,6 @@ testRule({
 			code: 'a { height: 1px; width: 2px; color: pink; font-size: 2px; font-weight: bold; }',
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { Height: 1px; width: 2px; Color: pink; Font-size: 2px; font-weight: bold; }',
-		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { Height: 1px; Width: 2px; Color: pink; Font-size: 2px; Font-weight: bold; }',
-		},
-		{
 			code: 'a { width: 2px; height: 1px; font-size: 2px; color: pink; font-weight: bold; }',
 		},
 		{
@@ -242,33 +156,6 @@ testRule({
 			code: 'a { height: 1px; font-weight: bold; width: 2px; }',
 			fixed: 'a { width: 2px; height: 1px; font-weight: bold; }',
 			message: messages.expected('width', 'font-weight'),
-			line: 1,
-			column: 37,
-		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { height: 1px; font-weight: bold; Width: 2px; }',
-			fixed: 'a { Width: 2px; height: 1px; font-weight: bold; }',
-			message: messages.expected('Width', 'font-weight'),
-			line: 1,
-			column: 37,
-		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { height: 1px; Font-weight: bold; width: 2px; }',
-			fixed: 'a { width: 2px; height: 1px; Font-weight: bold; }',
-			message: messages.expected('width', 'Font-weight'),
-			line: 1,
-			column: 37,
-		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { height: 1px; Font-weight: bold; Width: 2px; }',
-			fixed: 'a { Width: 2px; height: 1px; Font-weight: bold; }',
-			message: messages.expected('Width', 'Font-weight'),
 			line: 1,
 			column: 37,
 		},
@@ -311,49 +198,12 @@ testRule({
 		{
 			code: 'a { height: 1px; width: 2px; color: pink; font-size: 2px; font-weight: bold; }',
 		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { Height: 1px; width: 2px; Color: pink; font-size: 2px; font-weight: bold; }',
-		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { Height: 1px; Width: 2px; Color: pink; Font-size: 2px; Font-weight: bold; }',
-		},
 	],
 	reject: [
 		{
 			code: 'a { height: 1px; font-weight: bold; width: 2px; }',
 			fixed: 'a { width: 2px; height: 1px; font-weight: bold; }',
 			message: messages.expected('width', 'font-weight', 'dimensions'),
-			line: 1,
-			column: 37,
-		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { height: 1px; font-weight: bold; Width: 2px; }',
-			fixed: 'a { Width: 2px; height: 1px; font-weight: bold; }',
-			message: messages.expected('Width', 'font-weight', 'dimensions'),
-			line: 1,
-			column: 37,
-		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { height: 1px; Font-weight: bold; width: 2px; }',
-			fixed: 'a { width: 2px; height: 1px; Font-weight: bold; }',
-			message: messages.expected('width', 'Font-weight', 'dimensions'),
-			line: 1,
-			column: 37,
-		},
-		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { height: 1px; Font-weight: bold; Width: 2px; }',
-			fixed: 'a { Width: 2px; height: 1px; Font-weight: bold; }',
-			message: messages.expected('Width', 'Font-weight', 'dimensions'),
 			line: 1,
 			column: 37,
 		},
