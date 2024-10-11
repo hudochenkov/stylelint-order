@@ -69,7 +69,7 @@ testRule({
 			code: 'a { font-size: 1px; -moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialised; font-weight: bold; }',
 		},
 		{
-			code: 'a { color: #000; padding: { bottom: 1em; top: 1em; } width: 25%;}',
+			code: 'a { color: #000; span { bottom: 1em; top: 1em; } width: 25%;}',
 		},
 		{
 			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
