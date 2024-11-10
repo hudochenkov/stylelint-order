@@ -2,7 +2,7 @@ import stylelint from 'stylelint';
 import { ruleName } from './ruleName.js';
 import { messages } from './messages.js';
 
-// eslint-disable-next-line max-params, consistent-return
+// eslint-disable-next-line consistent-return
 export function checkOrder({
 	firstNodeData,
 	secondNodeData,
