@@ -15,7 +15,14 @@ Specify the order of content within declaration blocks.
 ```ts
 type PrimaryOption = Array<Keyword | AtRule | Rule>;
 
-type Keyword = "custom-properties" | "dollar-variables" | "at-variables" | "declarations" | "rules" | "at-rules" | "less-mixins";
+type Keyword =
+	| 'custom-properties'
+	| 'dollar-variables'
+	| 'at-variables'
+	| 'declarations'
+	| 'rules'
+	| 'at-rules'
+	| 'less-mixins';
 
 type AtRule = {
 	type: 'at-rule';
