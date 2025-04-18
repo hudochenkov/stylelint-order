@@ -78,4 +78,5 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = {
 	fixable: true,
+	url: 'https://github.com/hudochenkov/stylelint-order/blob/master/rules/properties-order/README.md',
 };

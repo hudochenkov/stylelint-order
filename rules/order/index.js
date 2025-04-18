@@ -63,4 +63,5 @@ rule.messages = messages;
 rule.primaryOptionArray = true;
 rule.meta = {
 	fixable: true,
+	url: 'https://github.com/hudochenkov/stylelint-order/blob/master/rules/order/README.md',
 };
