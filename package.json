@@ -23,7 +23,7 @@
 	"type": "module",
 	"exports": "./index.js",
 	"engines": {
-		"node": ">=18.12.0"
+		"node": ">=20.19.0"
 	},
 	"dependencies": {
 		"postcss": "^8.5.3",
