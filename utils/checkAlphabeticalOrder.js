@@ -1,11 +1,5 @@
-import { shorthandData } from './shorthandData.js';
-import * as vendor from '../utils/vendor.js';
-
-function isShorthand(a, b) {
-	const longhands = shorthandData[a] || [];
-
-	return longhands.includes(b);
-}
+import { isShorthand } from './isShorthand.js';
+import * as vendor from './vendor.js';
 
 export function checkAlphabeticalOrder(firstPropData, secondPropData) {
 	let firstPropName = firstPropData.name.toLowerCase();

@@ -1,7 +1,7 @@
 import { isStandardSyntaxProperty } from '../../utils/isStandardSyntaxProperty.js';
 import { isCustomProperty } from '../../utils/isCustomProperty.js';
 import * as vendor from '../../utils/vendor.js';
-import { checkAlphabeticalOrder } from '../checkAlphabeticalOrder.js';
+import { checkAlphabeticalOrder } from '../../utils/checkAlphabeticalOrder.js';
 
 export function checkChild(child, allPropData) {
 	if (child.type !== 'decl') {

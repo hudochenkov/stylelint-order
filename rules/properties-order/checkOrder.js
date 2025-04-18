@@ -1,4 +1,4 @@
-import { checkAlphabeticalOrder } from '../checkAlphabeticalOrder.js';
+import { checkAlphabeticalOrder } from '../../utils/checkAlphabeticalOrder.js';
 import * as vendor from '../../utils/vendor.js';
 
 // eslint-disable-next-line consistent-return
