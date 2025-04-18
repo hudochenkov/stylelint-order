@@ -160,6 +160,20 @@ testRule({
 			message: messages.expected('color', 'top'),
 		},
 		{
+			description: 'Fix should apply, when disable comments were used',
+			code: `
+				/* stylelint-disable order/properties-alphabetical-order */
+				/* stylelint-enable order/properties-alphabetical-order */
+				a { top: 0; color: pink; }
+			`,
+			fixed: `
+				/* stylelint-disable order/properties-alphabetical-order */
+				/* stylelint-enable order/properties-alphabetical-order */
+				a { color: pink; top: 0; }
+			`,
+			message: messages.expected('color', 'top'),
+		},
+		{
 			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
 			skip: true,
 			code: 'a { align: center; Border-top-width: 2px; Border-width: 1px; color: red; }',

@@ -2,7 +2,7 @@ import stylelint from 'stylelint';
 import { checkChild } from './checkChild.js';
 
 // eslint-disable-next-line max-params
-export function checkNode(node, result, ruleName, messages) {
+export function checkNode(node, result, ruleName, messages, fix) {
 	let allPropData = [];
 
 	node.each(function processEveryNode(child) {
@@ -14,6 +14,7 @@ export function checkNode(node, result, ruleName, messages) {
 				node: child,
 				result,
 				ruleName,
+				fix,
 			});
 		}
 	});
