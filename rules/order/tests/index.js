@@ -172,6 +172,24 @@ testRule({
 			`,
 			message: messages.expected('rule', 'at-rule'),
 		},
+		{
+			description: 'Fix should apply, when disable comments were used',
+			code: `
+				a {
+					display: none;
+					--width: 10px;
+				}
+				/* stylelint-disable order/order */
+			`,
+			fixed: `
+				a {
+					--width: 10px;
+					display: none;
+				}
+				/* stylelint-disable order/order */
+			`,
+			message: messages.expected('custom property', 'declaration'),
+		},
 	],
 });
 

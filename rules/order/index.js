@@ -7,7 +7,7 @@ import { validatePrimaryOption } from './validatePrimaryOption.js';
 import { ruleName } from './ruleName.js';
 import { messages } from './messages.js';
 
-export function rule(primaryOption, options = {}, context = {}) {
+export function rule(primaryOption, options = {}) {
 	return function ruleBody(root, result) {
 		let validOptions = stylelint.utils.validateOptions(
 			result,
@@ -48,7 +48,6 @@ export function rule(primaryOption, options = {}, context = {}) {
 			if (isRuleWithNodes(node)) {
 				checkNode({
 					node,
-					isFixEnabled: context.fix,
 					orderInfo,
 					primaryOption,
 					result,
@@ -62,3 +61,6 @@ export function rule(primaryOption, options = {}, context = {}) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.primaryOptionArray = true;
+rule.meta = {
+	fixable: true,
+};

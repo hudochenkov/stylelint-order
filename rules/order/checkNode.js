@@ -5,96 +5,84 @@ import { getOrderData } from './getOrderData.js';
 import { ruleName } from './ruleName.js';
 import { messages } from './messages.js';
 
-export function checkNode({ node, isFixEnabled, orderInfo, primaryOption, result, unspecified }) {
-	if (isFixEnabled) {
-		let shouldFix = false;
+export function checkNode({ node, orderInfo, primaryOption, result, unspecified }) {
+	let hasRunFixer = false;
+
+	checkAndReport(fixer);
+
+	function checkAndReport(fix) {
 		let allNodesData = [];
 
 		node.each(function processEveryNode(child) {
-			// return early if we know there is a violation and auto fix should be applied
-			if (shouldFix) {
+			if (child.type === 'comment') {
 				return;
 			}
 
-			let { shouldSkip, isCorrectOrder } = handleCycle(child, allNodesData);
+			// Receive node description and expectedPosition
+			let nodeOrderData = getOrderData(orderInfo, child);
 
-			if (shouldSkip) {
+			let nodeData = {
+				node: child,
+				description: nodeOrderData.description,
+				expectedPosition: nodeOrderData.expectedPosition,
+			};
+
+			allNodesData.push(nodeData);
+
+			let previousNodeData = allNodesData[allNodesData.length - 2]; // eslint-disable-line unicorn/prefer-at -- Need to support older Node.js
+
+			// Skip first node
+			if (!previousNodeData) {
 				return;
 			}
 
-			if (!isCorrectOrder) {
-				shouldFix = true;
+			// Try to find the specified node before the current one,
+			// or use the previous one
+			let priorSpecifiedNodeData = previousNodeData;
+
+			if (!previousNodeData.expectedPosition) {
+				let priorSpecifiedNodeData2 = allNodesData
+					.slice(0, -1)
+					.reverse()
+					.find((node2) => Boolean(node2.expectedPosition));
+
+				if (priorSpecifiedNodeData2) {
+					priorSpecifiedNodeData = priorSpecifiedNodeData2;
+				}
 			}
+
+			let isCorrectOrder = checkOrder({
+				firstNodeData: priorSpecifiedNodeData,
+				secondNodeData: nodeData,
+				unspecified,
+			});
+
+			if (isCorrectOrder) {
+				return;
+			}
+
+			stylelint.utils.report({
+				message: messages.expected(
+					nodeData.description,
+					priorSpecifiedNodeData.description,
+				),
+				node: child,
+				result,
+				ruleName,
+				fix,
+			});
 		});
-
-		if (shouldFix) {
-			sortNode(node, primaryOption);
-		}
 	}
 
-	let allNodesData = [];
-
-	node.each(function processEveryNode(child) {
-		let { shouldSkip, isCorrectOrder, nodeData, previousNodeData } = handleCycle(
-			child,
-			allNodesData,
-		);
-
-		if (shouldSkip) {
+	function fixer() {
+		if (hasRunFixer) {
 			return;
 		}
 
-		if (isCorrectOrder) {
-			return;
-		}
+		sortNode(node, primaryOption);
 
-		stylelint.utils.report({
-			message: messages.expected(nodeData.description, previousNodeData.description),
-			node: child,
-			result,
-			ruleName,
-		});
-	});
+		hasRunFixer = true;
 
-	function handleCycle(child, allNodes) {
-		// Skip comments
-		if (child.type === 'comment') {
-			return {
-				shouldSkip: true,
-			};
-		}
-
-		// Receive node description and expectedPosition
-		let nodeOrderData = getOrderData(orderInfo, child);
-
-		let nodeData = {
-			node: child,
-			description: nodeOrderData.description,
-			expectedPosition: nodeOrderData.expectedPosition,
-		};
-
-		allNodes.push(nodeData);
-
-		let previousNodeData = allNodes[allNodes.length - 2]; // eslint-disable-line unicorn/prefer-at -- Need to support older Node.js
-
-		// Skip first node
-		if (!previousNodeData) {
-			return {
-				shouldSkip: true,
-			};
-		}
-
-		return {
-			isCorrectOrder: checkOrder({
-				firstNodeData: previousNodeData,
-				secondNodeData: nodeData,
-				allNodesData: allNodes,
-				isFixEnabled,
-				result,
-				unspecified,
-			}),
-			nodeData,
-			previousNodeData,
-		};
+		checkAndReport();
 	}
 }
