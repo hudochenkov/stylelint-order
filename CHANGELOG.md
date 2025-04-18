@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 7.0.0
+* Dropped Node.js 18 support
+* Dropped support for Stylelint older than 16.18.0
+* Changed: Ignore properties case for `properties-order` and `properties-alphabetical-order`
+* Added support for more properties shorthands
+* Fixed `order` autofix not applied, when Stylelint disable comments are present
+* Fixed `properties-alphabetical-order` autofix not applied, when Stylelint disable comments are present
+* Fixed `properties-order` autofix not applied, when Stylelint disable comments are present
+* Fixed: Don't apply `properties-alphabetical-order` autofixing if there are no violations
+* Fixed: Report warnings if they weren't fixed by autofix in `properties-alphabetical-order`
+
 ## 6.0.4
 * Added support for Stylelint 16
 
