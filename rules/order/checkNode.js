@@ -29,7 +29,7 @@ export function checkNode({ node, orderInfo, primaryOption, result, unspecified 
 
 			allNodesData.push(nodeData);
 
-			let previousNodeData = allNodesData[allNodesData.length - 2]; // eslint-disable-line unicorn/prefer-at -- Need to support older Node.js
+			let previousNodeData = allNodesData.at(-2);
 
 			// Skip first node
 			if (!previousNodeData) {

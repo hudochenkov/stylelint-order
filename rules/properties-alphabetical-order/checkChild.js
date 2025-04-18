@@ -33,7 +33,7 @@ export function checkChild(child, allPropData) {
 		node: child,
 	};
 
-	let previousPropData = allPropData[allPropData.length - 1]; // eslint-disable-line unicorn/prefer-at -- Need to support older Node.js
+	let previousPropData = allPropData.at(-1);
 
 	allPropData.push(propData);
 

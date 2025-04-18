@@ -28,9 +28,6 @@ export function checkEmptyLineBefore({
 		? secondPropData.orderData.separatedGroup
 		: lastKnownSeparatedGroup;
 
-	// eslint-disable-next-line no-param-reassign
-	lastKnownSeparatedGroup = secondPropGroup;
-
 	let startOfSpecifiedGroup = secondPropIsSpecified && firstPropGroup !== secondPropGroup;
 	let startOfUnspecifiedGroup = firstPropIsSpecified && !secondPropIsSpecified;
 
