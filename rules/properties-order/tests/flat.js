@@ -49,33 +49,25 @@ testRule({
 			code: 'a { top: 0; color: pink; display: none; width: 0; height: 0; }',
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
 			code: 'a { top: 0; Top: 0; color: pink; }',
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
 			code: 'a { Top: 0; top: 0; color: pink; }',
 		},
 	],
 
 	reject: [
 		{
-			code: 'a { color: pink; top: 0;  }',
-			fixed: 'a { top: 0; color: pink;  }',
+			code: 'a { color: pink; top: 0; }',
+			fixed: 'a { top: 0; color: pink; }',
 			message: messages.expected('top', 'color'),
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
-			code: 'a { Color: pink; top: 0;  }',
-			fixed: 'a { top: 0; Color: pink;  }',
+			code: 'a { Color: pink; top: 0; }',
+			fixed: 'a { top: 0; Color: pink; }',
 			message: messages.expected('top', 'Color'),
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
 			code: 'a { Top: 0; color: pink; top: 0; }',
 			fixed: 'a { Top: 0; top: 0; color: pink; }',
 			message: messages.expected('top', 'color'),

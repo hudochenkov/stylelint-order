@@ -4,7 +4,7 @@ import * as vendor from '../../utils/vendor.js';
 export function getNodeData(node, expectedOrder) {
 	if (isProperty(node)) {
 		let { prop } = node;
-		let unprefixedName = vendor.unprefixed(prop);
+		let unprefixedName = vendor.unprefixed(prop).toLowerCase();
 
 		// Hack to allow -moz-osx-font-smoothing to be understood
 		// just like -webkit-font-smoothing

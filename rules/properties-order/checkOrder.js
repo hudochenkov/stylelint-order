@@ -16,12 +16,14 @@ export function checkOrder({
 		};
 	}
 
-	if (firstPropertyData.unprefixedName === secondPropertyData.unprefixedName) {
+	let firstPropName = firstPropertyData.name.toLowerCase();
+	let secondPropName = secondPropertyData.name.toLowerCase();
+	let firstPropUnprefixedName = firstPropertyData.unprefixedName.toLowerCase();
+	let secondPropUnprefixedName = secondPropertyData.unprefixedName.toLowerCase();
+
+	if (firstPropUnprefixedName === secondPropUnprefixedName) {
 		// If first property has no prefix and second property has prefix
-		if (
-			!vendor.prefix(firstPropertyData.name).length &&
-			vendor.prefix(secondPropertyData.name).length
-		) {
+		if (!vendor.prefix(firstPropName).length && vendor.prefix(secondPropName).length) {
 			return report(false);
 		}
 

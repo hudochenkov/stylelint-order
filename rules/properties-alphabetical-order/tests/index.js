@@ -72,28 +72,18 @@ testRule({
 			code: 'a { color: #000; span { bottom: 1em; top: 1em; } width: 25%;}',
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
 			code: 'a { display: block; margin: 0 auto 5px 0; Margin: 0 auto 5px 0; width: auto; }',
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
 			code: 'a { display: block; Margin: 0 auto 5px 0; margin: 0 auto 5px 0; width: auto; }',
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
 			code: 'a { align: center; Border-width: 1px; Border-top-width: 2px; color: red; }',
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
 			code: 'a { align: center; border-width: 1px; Border-top-width: 2px; color: red; }',
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
 			code: 'a { align: center; Border-width: 1px; border-top-width: 2px; color: red; }',
 		},
 	],
@@ -174,22 +164,16 @@ testRule({
 			message: messages.expected('color', 'top'),
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
 			code: 'a { align: center; Border-top-width: 2px; Border-width: 1px; color: red; }',
 			fixed: 'a { align: center; Border-width: 1px; Border-top-width: 2px; color: red; }',
 			message: messages.expected('Border-width', 'Border-top-width'),
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
 			code: 'a { align: center; Border-top-width: 2px; border-width: 1px; color: red; }',
 			fixed: 'a { align: center; border-width: 1px; Border-top-width: 2px; color: red; }',
 			message: messages.expected('border-width', 'Border-top-width'),
 		},
 		{
-			// blocked by https://github.com/hudochenkov/stylelint-order/issues/78
-			skip: true,
 			code: 'a { align: center; border-top-width: 2px; Border-width: 1px; color: red; }',
 			fixed: 'a { align: center; Border-width: 1px; border-top-width: 2px; color: red; }',
 			message: messages.expected('Border-width', 'border-top-width'),
