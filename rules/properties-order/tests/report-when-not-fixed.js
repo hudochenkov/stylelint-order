@@ -35,7 +35,7 @@ test(`show warning if --fix enabled, but it didn't fix`, () => {
 	});
 });
 
-test(`show warning if --fix enabled, and it fixed`, () => {
+test(`don't show warning if --fix enabled, and it fixed`, () => {
 	const code = `
 		const Component = styled.div\`
 			color: tomato;

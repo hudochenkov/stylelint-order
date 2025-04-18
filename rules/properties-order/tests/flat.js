@@ -559,3 +559,34 @@ testRule({
 		},
 	],
 });
+
+testRule({
+	ruleName,
+	config: [['width', 'height']],
+	fix: true,
+
+	reject: [
+		{
+			description: 'Fix should apply, when disable comments were used',
+			code: `
+				/* stylelint-disable order/properties-order */
+				/* stylelint-enable order/properties-order */
+
+				a {
+					height: 0;
+					width: 0;
+				}
+			`,
+			fixed: `
+				/* stylelint-disable order/properties-order */
+				/* stylelint-enable order/properties-order */
+
+				a {
+					width: 0;
+					height: 0;
+				}
+			`,
+			message: messages.expected('width', 'height'),
+		},
+	],
+});

@@ -9,7 +9,6 @@ export function checkNodeForEmptyLines({
 	emptyLineBeforeUnspecified,
 	emptyLineMinimumPropertyThreshold,
 	expectedOrder,
-	isFixEnabled,
 	primaryOption,
 	result,
 }) {
@@ -48,7 +47,6 @@ export function checkNodeForEmptyLines({
 			context,
 			emptyLineBeforeUnspecified,
 			emptyLineMinimumPropertyThreshold,
-			isFixEnabled,
 			primaryOption,
 			result,
 		});
@@ -60,7 +58,6 @@ export function checkNodeForEmptyLines({
 			propData: allNodesData[0],
 			primaryOption,
 			emptyLineBeforeUnspecified,
-			isFixEnabled,
 			context,
 			result,
 		});

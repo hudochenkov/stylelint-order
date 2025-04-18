@@ -9,7 +9,6 @@ export function checkEmptyLineBeforeFirstProp({
 	propData,
 	primaryOption,
 	emptyLineBeforeUnspecified,
-	isFixEnabled,
 	context,
 	result,
 }) {
@@ -27,15 +26,14 @@ export function checkEmptyLineBeforeFirstProp({
 	}
 
 	if (emptyLineBefore && hasEmptyLineBefore(propData.node)) {
-		if (isFixEnabled) {
-			removeEmptyLinesBefore(propData.node, context.newline);
-		} else {
-			stylelint.utils.report({
-				message: messages.rejectedEmptyLineBefore(propData.name),
-				node: propData.node,
-				result,
-				ruleName,
-			});
-		}
+		stylelint.utils.report({
+			message: messages.rejectedEmptyLineBefore(propData.name),
+			node: propData.node,
+			result,
+			ruleName,
+			fix: () => {
+				removeEmptyLinesBefore(propData.node, context.newline);
+			},
+		});
 	}
 }

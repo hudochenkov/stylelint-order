@@ -14,7 +14,6 @@ export function checkEmptyLineBefore({
 	context,
 	emptyLineBeforeUnspecified,
 	emptyLineMinimumPropertyThreshold,
-	isFixEnabled,
 	primaryOption,
 	result,
 }) {
@@ -57,30 +56,28 @@ export function checkEmptyLineBefore({
 			(emptyLineBefore === 'always' || emptyLineThresholdInsertLines) &&
 			!hasEmptyLineBefore(secondPropData.node)
 		) {
-			if (isFixEnabled) {
-				addEmptyLineBefore(secondPropData.node, context.newline);
-			} else {
-				stylelint.utils.report({
-					message: messages.expectedEmptyLineBefore(secondPropData.name),
-					node: secondPropData.node,
-					result,
-					ruleName,
-				});
-			}
+			stylelint.utils.report({
+				message: messages.expectedEmptyLineBefore(secondPropData.name),
+				node: secondPropData.node,
+				result,
+				ruleName,
+				fix: () => {
+					addEmptyLineBefore(secondPropData.node, context.newline);
+				},
+			});
 		} else if (
 			(emptyLineBefore === 'never' || emptyLineThresholdRemoveLines) &&
 			hasEmptyLineBefore(secondPropData.node)
 		) {
-			if (isFixEnabled) {
-				removeEmptyLinesBefore(secondPropData.node, context.newline);
-			} else {
-				stylelint.utils.report({
-					message: messages.rejectedEmptyLineBefore(secondPropData.name),
-					node: secondPropData.node,
-					result,
-					ruleName,
-				});
-			}
+			stylelint.utils.report({
+				message: messages.rejectedEmptyLineBefore(secondPropData.name),
+				node: secondPropData.node,
+				result,
+				ruleName,
+				fix: () => {
+					removeEmptyLinesBefore(secondPropData.node, context.newline);
+				},
+			});
 		}
 	}
 
@@ -94,16 +91,15 @@ export function checkEmptyLineBefore({
 			secondPropData.orderData.noEmptyLineBeforeInsideGroup &&
 			hasEmptyLineBefore(secondPropData.node)
 		) {
-			if (isFixEnabled) {
-				removeEmptyLinesBefore(secondPropData.node, context.newline);
-			} else {
-				stylelint.utils.report({
-					message: messages.rejectedEmptyLineBefore(secondPropData.name),
-					node: secondPropData.node,
-					result,
-					ruleName,
-				});
-			}
+			stylelint.utils.report({
+				message: messages.rejectedEmptyLineBefore(secondPropData.name),
+				node: secondPropData.node,
+				result,
+				ruleName,
+				fix: () => {
+					removeEmptyLinesBefore(secondPropData.node, context.newline);
+				},
+			});
 		}
 	}
 }

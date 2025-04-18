@@ -34,7 +34,6 @@ export function rule(primaryOption, options = {}, context = {}) {
 			return;
 		}
 
-		let isFixEnabled = context.fix;
 		let expectedOrder = createOrderInfo(primaryOption);
 
 		let processedParents = [];
@@ -53,7 +52,6 @@ export function rule(primaryOption, options = {}, context = {}) {
 			if (isRuleWithNodes(node)) {
 				checkNodeForOrder({
 					node,
-					isFixEnabled,
 					primaryOption,
 					unspecified: options.unspecified || 'ignore',
 					result,
@@ -67,7 +65,6 @@ export function rule(primaryOption, options = {}, context = {}) {
 					emptyLineMinimumPropertyThreshold:
 						options.emptyLineMinimumPropertyThreshold || 0,
 					expectedOrder,
-					isFixEnabled,
 					primaryOption,
 					result,
 				});
@@ -79,3 +76,6 @@ export function rule(primaryOption, options = {}, context = {}) {
 rule.primaryOptionArray = true;
 rule.ruleName = ruleName;
 rule.messages = messages;
+rule.meta = {
+	fixable: true,
+};
