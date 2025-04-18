@@ -16,6 +16,7 @@
 		"rules",
 		"utils",
 		"!**/tests",
+		"!**/__tests__",
 		"index.js",
 		"!.DS_Store"
 	],
