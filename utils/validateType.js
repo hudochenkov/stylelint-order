@@ -4,7 +4,7 @@
  * @returns {boolean}
  */
 export function isBoolean(value) {
-	return typeof value === 'boolean' || value instanceof Boolean;
+	return typeof value === 'boolean';
 }
 
 /**
@@ -13,7 +13,7 @@ export function isBoolean(value) {
  * @returns {boolean}
  */
 export function isNumber(value) {
-	return typeof value === 'number' || value instanceof Number;
+	return typeof value === 'number';
 }
 
 /**
@@ -31,7 +31,7 @@ export function isRegExp(value) {
  * @returns {boolean}
  */
 export function isString(value) {
-	return typeof value === 'string' || value instanceof String;
+	return typeof value === 'string';
 }
 
 /**
