@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 8.0.0
+
+* Added limited autofix for properties in rules containing interpolation in CSS-in-JS syntax. Previosly such rules were ignored by autofix. Now groups of properties are sorted. See [`postcss-sorting` documentation](https://github.com/hudochenkov/postcss-sorting#css-in-js) for an example.
+
 ## 7.0.1
 * Added support for Stylelint 17
 
