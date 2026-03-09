@@ -397,6 +397,40 @@ testRule({
 		{
 			code: `
 				const Component = styled.div\`
+					\${props => props.great && 'color: red;'}
+					color: tomato;
+					top: 0;
+				\`;
+			`,
+			fixed: `
+				const Component = styled.div\`
+					\${props => props.great && 'color: red;'}
+					top: 0;
+					color: tomato;
+				\`;
+			`,
+			message: messages.expected('top', 'color'),
+		},
+		{
+			code: `
+				const Component = styled.div\`
+					color: tomato;
+					top: 0;
+					\${props => props.great && 'color: red;'}
+				\`;
+			`,
+			fixed: `
+				const Component = styled.div\`
+					top: 0;
+					color: tomato;
+					\${props => props.great && 'color: red;'}
+				\`;
+			`,
+			message: messages.expected('top', 'color'),
+		},
+		{
+			code: `
+				const Component = styled.div\`
 					color: tomato;
 					\${props => props.great && 'color: red;'}
 					top: 0;
@@ -456,6 +490,44 @@ testRule({
 			`,
 			description: 'sort inside css helper',
 			message: messages.expected('top', 'color'),
+		},
+	],
+});
+
+testRule({
+	ruleName,
+	config: [['top', 'color', 'position', 'display']],
+	customSyntax: 'postcss-styled-syntax',
+	fix: true,
+
+	reject: [
+		{
+			code: `
+				const Component = styled.div\`
+					color: tomato;
+					top: 0;
+					\${props => props.great && 'color: red;'}
+					display: block;
+					position: relative;
+				\`;
+			`,
+			fixed: `
+				const Component = styled.div\`
+					top: 0;
+					color: tomato;
+					\${props => props.great && 'color: red;'}
+					position: relative;
+					display: block;
+				\`;
+			`,
+			warnings: [
+				{
+					message: messages.expected('top', 'color'),
+				},
+				{
+					message: messages.expected('position', 'display'),
+				},
+			],
 		},
 	],
 });

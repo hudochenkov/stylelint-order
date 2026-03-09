@@ -52,7 +52,7 @@ Every rule supports autofixing with `stylelint --fix`. [postcss-sorting] is used
 
 Automatic sorting has some limitations that are described for every rule, if any. Please, take a look at [how comments are handled](https://github.com/hudochenkov/postcss-sorting#handling-comments) by `postcss-sorting`.
 
-CSS-in-JS styles with template interpolation [could be ignored by autofixing](https://github.com/hudochenkov/postcss-sorting#css-in-js) to avoid style corruption.
+CSS-in-JS styles with template interpolation [has limited autofixing](https://github.com/hudochenkov/postcss-sorting#css-in-js) to avoid style corruption.
 
 Autofixing in Less syntax may work but isn't officially supported.
 
