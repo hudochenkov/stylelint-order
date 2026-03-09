@@ -8,7 +8,7 @@ export function getContainingNode(node) {
 		return node.parent;
 	}
 
-	// @stylelint/postcss-css-in-js: declarations are children of Root node
+	// postcss-html `style` attributes: declarations are children of Root node
 	if (node.parent?.document?.nodes?.some((item) => item.type === 'root')) {
 		return node.parent;
 	}
