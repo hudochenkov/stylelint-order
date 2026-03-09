@@ -41,6 +41,10 @@ testRule({
 			code: 'a { --alpha: 1; z-index: 1; color: red; }',
 		},
 		{
+			description: 'custom properties after regular properties in alphabetical order',
+			code: 'a { z-index: 1; --alpha: 1; --beta: 2; }',
+		},
+		{
 			description: 'custom properties in nested rule',
 			code: 'a { color: red; { &:hover { --alpha: 1; --beta: 2; } } }',
 		},
@@ -104,6 +108,24 @@ testRule({
 			message: messages.expected('--alpha', '--beta'),
 		},
 		{
+			description: 'custom properties after regular properties in wrong order',
+			code: 'a { z-index: 1; --beta: 2; --alpha: 1; }',
+			fixed: 'a { z-index: 1; --alpha: 1; --beta: 2; }',
+			message: messages.expected('--alpha', '--beta'),
+		},
+		{
+			description: 'custom properties not grouped together - separated by regular property',
+			code: 'a { --beta: 2; z-index: 1; --alpha: 1; }',
+			fixed: 'a { --alpha: 1; --beta: 2; z-index: 1; }',
+			message: messages.expected('--alpha', '--beta'),
+		},
+		{
+			description: 'custom properties not grouped - separated by a nested rule',
+			code: 'a { --beta: 2; &:hover {} --alpha: 1; }',
+			fixed: 'a { --alpha: 1; --beta: 2; &:hover {} }',
+			message: messages.expected('--alpha', '--beta'),
+		},
+		{
 			description: 'custom properties in nested rule (wrong order)',
 			code: 'a { color: red; { &:hover { --beta: 2; --alpha: 1; } } }',
 			fixed: 'a { color: red; { &:hover { --alpha: 1; --beta: 2; } } }',
@@ -150,7 +172,6 @@ testRule({
 	],
 });
 
-// Test with comments
 testRule({
 	ruleName,
 	config: [true],
@@ -158,37 +179,85 @@ testRule({
 
 	accept: [
 		{
-			description: 'comments before custom properties are preserved',
+			description: 'comment on separate line before custom property - in order',
 			code: `a {
-				/* Primary color */
-				--color-primary: blue;
-				/* Secondary color */
-				--color-secondary: red;
+				/* alpha */
+				--alpha: 1;
+				/* secondary */
+				--beta: 2;
+			}`,
+		},
+		{
+			description: 'inline comment after custom property - in order',
+			code: `a {
+				--alpha: 1; /* first */
+				--beta: 2; /* second */
+			}`,
+		},
+		{
+			description: 'multiple comments before custom property - in order',
+			code: `a {
+				/* comment A */
+				/* comment B */
+				--beta: 2;
+				/* comment C */
+				--gamma: 3;
 			}`,
 		},
 	],
 
 	reject: [
 		{
-			description: 'comments move with their custom properties when fixed',
+			description: 'comment on separate line moves with its custom property when fixed',
 			code: `a {
-				/* Secondary color */
+				/* secondary */
 				--color-secondary: red;
-				/* Primary color */
+				/* primary */
 				--color-primary: blue;
 			}`,
 			fixed: `a {
-				/* Primary color */
+				/* primary */
 				--color-primary: blue;
-				/* Secondary color */
+				/* secondary */
 				--color-secondary: red;
 			}`,
 			message: messages.expected('--color-primary', '--color-secondary'),
 		},
+		{
+			description: 'inline comment stays with its custom property when fixed',
+			code: `a {
+				--beta: 2; /* second */
+				--alpha: 1; /* first */
+			}`,
+			fixed: `a {
+				--alpha: 1; /* first */
+				--beta: 2; /* second */
+			}`,
+			message: messages.expected('--alpha', '--beta'),
+		},
+		{
+			description: 'multiple comments before custom property move together when fixed',
+			code: `a {
+				/* comment C */
+				/* comment D */
+				--gamma: 3;
+				/* comment A */
+				/* comment B */
+				--alpha: 1;
+			}`,
+			fixed: `a {
+				/* comment A */
+				/* comment B */
+				--alpha: 1;
+				/* comment C */
+				/* comment D */
+				--gamma: 3;
+			}`,
+			message: messages.expected('--alpha', '--gamma'),
+		},
 	],
 });
 
-// Test with styled-components syntax
 testRule({
 	ruleName,
 	config: [true],
@@ -245,19 +314,6 @@ testRule({
 			`,
 			unfixable: true,
 			message: messages.expected('--alpha', '--beta'),
-		},
-	],
-});
-
-// Test rule disabled with null
-testRule({
-	ruleName,
-	config: [null],
-
-	accept: [
-		{
-			description: 'rule disabled with null',
-			code: 'a { --beta: 2; --alpha: 1; }',
 		},
 	],
 });

@@ -1,5 +1,5 @@
-import getComments from 'postcss-sorting/lib/getComments.js';
-import isAllowedToProcess from 'postcss-sorting/lib/isAllowedToProcess.js';
+import { getComments } from './getComments.js';
+import { isAllowedToProcess } from './isAllowedToProcess.js';
 import { isStandardSyntaxProperty } from '../../utils/isStandardSyntaxProperty.js';
 import { isCustomProperty } from '../../utils/isCustomProperty.js';
 
@@ -22,8 +22,7 @@ export function sortCustomProperties(node) {
 			isCustomProperty(childNode.prop)
 		) {
 			let propData = {
-				name: childNode.prop,
-				unprefixedName: childNode.prop.toLowerCase(),
+				name: childNode.prop.toLowerCase(),
 				node: childNode,
 				initialIndex: index,
 			};
@@ -42,13 +41,12 @@ export function sortCustomProperties(node) {
 	});
 
 	// Sort custom properties alphabetically
-	// Simple comparison - no shorthand or vendor prefix logic needed
 	declarations.sort((a, b) => {
-		if (a.unprefixedName === b.unprefixedName) {
+		if (a.name === b.name) {
 			return a.initialIndex - b.initialIndex;
 		}
 
-		return a.unprefixedName <= b.unprefixedName ? -1 : 1;
+		return a.name <= b.name ? -1 : 1;
 	});
 
 	let foundDeclarations = false;

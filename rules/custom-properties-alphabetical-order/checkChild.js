@@ -17,10 +17,8 @@ export function checkChild(child, allPropData) {
 		return null;
 	}
 
-	// Custom properties don't have vendor prefixes, so we use the prop name as-is
 	let propData = {
 		name: prop,
-		unprefixedName: prop.toLowerCase(),
 		index: allPropData.length,
 		node: child,
 	};
@@ -35,8 +33,7 @@ export function checkChild(child, allPropData) {
 	}
 
 	// Simple alphabetical comparison for custom properties
-	// No shorthand or vendor prefix logic needed
-	let isCorrectOrder = previousPropData.unprefixedName <= propData.unprefixedName;
+	let isCorrectOrder = previousPropData.name.toLowerCase() <= propData.name.toLowerCase();
 
 	if (isCorrectOrder) {
 		return null;
