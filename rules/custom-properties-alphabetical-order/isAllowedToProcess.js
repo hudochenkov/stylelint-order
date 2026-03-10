@@ -19,10 +19,5 @@ export function isAllowedToProcess(node) {
 		return false;
 	}
 
-	// @stylelint/postcss-css-in-js only
-	if (node.nodes.some((item) => item.type === 'literal')) {
-		return false;
-	}
-
 	return true;
 }

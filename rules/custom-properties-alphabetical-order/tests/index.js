@@ -183,7 +183,20 @@ testRule({
 			code: `a {
 				/* alpha */
 				--alpha: 1;
-				/* secondary */
+				/* beta */
+				--beta: 2;
+			}`,
+		},
+		{
+			description: 'multiple comments on separate lines before custom property - in order',
+			code: `a {
+				/* alpha 1 */
+				/* alpha 2 */
+				/* alpha 3 */
+				--alpha: 1;
+				/* beta 1 */
+				/* beta 2 */
+				/* beta 3 */
 				--beta: 2;
 			}`,
 		},
@@ -195,13 +208,10 @@ testRule({
 			}`,
 		},
 		{
-			description: 'multiple comments before custom property - in order',
+			description: 'multiple inline comments after custom property - in order',
 			code: `a {
-				/* comment A */
-				/* comment B */
-				--beta: 2;
-				/* comment C */
-				--gamma: 3;
+				--alpha: 1; /* comment 1 */ /* comment 2 */ /* comment 3 */
+				--beta: 2; /* comment 4 */ /* comment 5 */ /* comment 6 */
 			}`,
 		},
 	],
@@ -224,6 +234,31 @@ testRule({
 			message: messages.expected('--color-primary', '--color-secondary'),
 		},
 		{
+			description:
+				'multiple comments on separate lines move together with their custom property when fixed',
+			code: `a {
+				/* beta 1 */
+				/* beta 2 */
+				/* beta 3 */
+				--beta: 2;
+				/* alpha 1 */
+				/* alpha 2 */
+				/* alpha 3 */
+				--alpha: 1;
+			}`,
+			fixed: `a {
+				/* alpha 1 */
+				/* alpha 2 */
+				/* alpha 3 */
+				--alpha: 1;
+				/* beta 1 */
+				/* beta 2 */
+				/* beta 3 */
+				--beta: 2;
+			}`,
+			message: messages.expected('--alpha', '--beta'),
+		},
+		{
 			description: 'inline comment stays with its custom property when fixed',
 			code: `a {
 				--beta: 2; /* second */
@@ -236,24 +271,16 @@ testRule({
 			message: messages.expected('--alpha', '--beta'),
 		},
 		{
-			description: 'multiple comments before custom property move together when fixed',
+			description: 'multiple inline comments stay with their custom property when fixed',
 			code: `a {
-				/* comment C */
-				/* comment D */
-				--gamma: 3;
-				/* comment A */
-				/* comment B */
-				--alpha: 1;
+				--beta: 2; /* b1 */ /* b2 */ /* b3 */
+				--alpha: 1; /* a1 */ /* a2 */ /* a3 */
 			}`,
 			fixed: `a {
-				/* comment A */
-				/* comment B */
-				--alpha: 1;
-				/* comment C */
-				/* comment D */
-				--gamma: 3;
+				--alpha: 1; /* a1 */ /* a2 */ /* a3 */
+				--beta: 2; /* b1 */ /* b2 */ /* b3 */
 			}`,
-			message: messages.expected('--alpha', '--gamma'),
+			message: messages.expected('--alpha', '--beta'),
 		},
 	],
 });

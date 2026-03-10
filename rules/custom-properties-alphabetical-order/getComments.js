@@ -1,5 +1,5 @@
 // eslint-disable-next-line max-params
-function beforeDeclaration(comments, previousNode, nodeData, currentInitialIndex) {
+export function beforeDeclaration(comments, previousNode, nodeData, currentInitialIndex) {
 	if (!previousNode || previousNode.type !== 'comment') {
 		return comments;
 	}
@@ -26,7 +26,7 @@ function beforeDeclaration(comments, previousNode, nodeData, currentInitialIndex
 }
 
 // eslint-disable-next-line max-params
-function afterDeclaration(comments, nextNode, nodeData, currentInitialIndex) {
+export function afterDeclaration(comments, nextNode, nodeData, currentInitialIndex) {
 	if (!nextNode || nextNode.type !== 'comment') {
 		return comments;
 	}
@@ -54,8 +54,3 @@ function afterDeclaration(comments, nextNode, nodeData, currentInitialIndex) {
 		commentData.initialIndex,
 	);
 }
-
-export const getComments = {
-	beforeDeclaration,
-	afterDeclaration,
-};

@@ -1,4 +1,4 @@
-import { getComments } from './getComments.js';
+import { beforeDeclaration, afterDeclaration } from './getComments.js';
 import { isAllowedToProcess } from './isAllowedToProcess.js';
 import { isStandardSyntaxProperty } from '../../utils/isStandardSyntaxProperty.js';
 import { isCustomProperty } from '../../utils/isCustomProperty.js';
@@ -31,10 +31,10 @@ export function sortCustomProperties(node) {
 			childNode.sortProperty = true;
 
 			// If comment on separate line before node, use node's indexes for comment
-			let commentsBefore = getComments.beforeDeclaration([], childNode.prev(), propData);
+			let commentsBefore = beforeDeclaration([], childNode.prev(), propData);
 
 			// If comment on same line with the node and node, use node's indexes for comment
-			let commentsAfter = getComments.afterDeclaration([], childNode.next(), propData);
+			let commentsAfter = afterDeclaration([], childNode.next(), propData);
 
 			declarations = [...declarations, ...commentsBefore, propData, ...commentsAfter];
 		}
