@@ -45,6 +45,7 @@ Add `stylelint-order` to your Stylelint config `plugins` array, then add rules y
 * [`order`](./rules/order/README.md): Specify the order of content within declaration blocks.
 * [`properties-order`](./rules/properties-order/README.md): Specify the order of properties within declaration blocks.
 * [`properties-alphabetical-order`](./rules/properties-alphabetical-order/README.md): Specify the alphabetical order of properties within declaration blocks.
+* [`custom-properties-alphabetical-order`](./rules/custom-properties-alphabetical-order/README.md): Specify the alphabetical order of custom properties (CSS variables) within declaration blocks.
 
 ## Autofixing
 
