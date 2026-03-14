@@ -566,6 +566,15 @@ testRule({
 				</html>
 			`,
 		},
+		{
+			description: 'ignore top-level declarations in style tag',
+			code: `
+				<style>
+					color: tomato;
+					top: 0;
+				</style>
+			`,
+		},
 	],
 
 	reject: [

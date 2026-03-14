@@ -9,7 +9,7 @@ export function getContainingNode(node) {
 	}
 
 	// postcss-html `style` attributes: declarations are children of Root node
-	if (node.parent?.document?.nodes?.some((item) => item.type === 'root')) {
+	if (node.parent?.source.inline === true) {
 		return node.parent;
 	}
 
