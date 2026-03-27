@@ -4,6 +4,7 @@ import { checkNode } from './checkNode.js';
 import { namespace } from '../../utils/namespace.js';
 import { getContainingNode } from '../../utils/getContainingNode.js';
 import { isRuleWithNodes } from '../../utils/isRuleWithNodes.js';
+import { formatInlineStyleNode } from '../../utils/formatInlineStyleNode.js';
 
 let ruleName = namespace('properties-alphabetical-order');
 
@@ -42,6 +43,7 @@ export function rule(actual) {
 				}
 
 				sortNodeProperties(node, { order: 'alphabetical' });
+				formatInlineStyleNode(node);
 
 				hasRunFixer = true;
 

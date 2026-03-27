@@ -561,7 +561,7 @@ testRule({
 				<!DOCTYPE html>
 				<html>
 				<body>
-					<div style="top: 0;color: tomato;"></div>
+					<div style="top: 0; color: tomato"></div>
 				</body>
 				</html>
 			`,
@@ -624,11 +624,213 @@ testRule({
 				<!DOCTYPE html>
 				<html>
 				<body>
-					<div style="top: 0;color: tomato;"></div>
+					<div style="top: 0; color: tomato"></div>
 				</body>
 				</html>
 			`,
 			message: messages.expected('top', 'color'),
+		},
+		{
+			description: 'trim leading and trailing spaces in inline style while fixing order',
+			code: `
+				<!DOCTYPE html>
+				<html>
+				<body>
+					<div style="  color: tomato;top: 0;   "></div>
+				</body>
+				</html>
+			`,
+			fixed: `
+				<!DOCTYPE html>
+				<html>
+				<body>
+					<div style="top: 0; color: tomato"></div>
+				</body>
+				</html>
+			`,
+			message: messages.expected('top', 'color'),
+		},
+		{
+			description: 'fix multiline inline style value order only',
+			code: `
+				<!DOCTYPE html>
+				<html>
+				<body>
+					<div style="
+						color: tomato;
+						top: 0;
+					"></div>
+				</body>
+				</html>
+			`,
+			fixed: `
+				<!DOCTYPE html>
+				<html>
+				<body>
+					<div style="
+						top: 0;
+						color: tomato;
+					"></div>
+				</body>
+				</html>
+			`,
+			message: messages.expected('top', 'color'),
+		},
+	],
+});
+
+testRule({
+	ruleName,
+	config: [['width', 'height', 'overflow']],
+	customSyntax: 'postcss-html',
+	fix: true,
+
+	reject: [
+		{
+			description:
+				'inline style: full HTML document with four inline styles (wrong order overflow before height)',
+			code: `
+				<!DOCTYPE html>
+				<html>
+				<body>
+					<div style="width: 20px; overflow: hidden; height: 10px;"></div>
+					<div style=" width: 20px;  overflow: hidden;   height: 10px "></div>
+
+					<div
+						style=" width: 20px;
+							overflow: hidden;
+							height: 10px;
+						"
+					></div>
+
+					<button
+						style="
+							width: 20px;
+							overflow: hidden;
+							height: 10px;
+						"
+						type="button"
+					></button>
+				</body>
+				</html>
+			`,
+			fixed: `
+				<!DOCTYPE html>
+				<html>
+				<body>
+					<div style="width: 20px; height: 10px; overflow: hidden"></div>
+					<div style="width: 20px; height: 10px; overflow: hidden"></div>
+
+					<div
+						style="width: 20px;
+							height: 10px;
+							overflow: hidden;
+						"
+					></div>
+
+					<button
+						style="
+							width: 20px;
+							height: 10px;
+							overflow: hidden;
+						"
+						type="button"
+					></button>
+				</body>
+				</html>
+			`,
+			warnings: [
+				{
+					message: messages.expected('height', 'overflow'),
+					line: 5,
+					column: 49,
+					endLine: 5,
+					endColumn: 62,
+				},
+				{
+					message: messages.expected('height', 'overflow'),
+					line: 6,
+					column: 53,
+					endLine: 6,
+					endColumn: 65,
+				},
+				{
+					message: messages.expected('height', 'overflow'),
+					line: 11,
+					column: 8,
+					endLine: 11,
+					endColumn: 21,
+				},
+				{
+					message: messages.expected('height', 'overflow'),
+					line: 19,
+					column: 8,
+					endLine: 19,
+					endColumn: 21,
+				},
+			],
+		},
+	],
+});
+
+testRule({
+	ruleName,
+	config: [
+		[
+			'width',
+			'height',
+			'margin-right',
+			'background-image',
+			'background-repeat',
+			'background-position',
+			'background-size',
+		],
+	],
+	customSyntax: 'postcss-html',
+	fix: true,
+
+	reject: [
+		{
+			description: 'inline style: multiline img with indented property lines',
+			code: `
+				<!DOCTYPE html>
+				<html>
+				<body>
+    <img
+      style="
+        height: 34px;
+        width: 48px;
+        margin-right: 4px;
+        background-image: url('https://placehold.co/600x400');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 16px 16px;
+      "
+      src="https://placehold.co/600x400"
+    />
+				</body>
+				</html>
+			`,
+			fixed: `
+				<!DOCTYPE html>
+				<html>
+				<body>
+    <img
+      style="
+        width: 48px;
+        height: 34px;
+        margin-right: 4px;
+        background-image: url('https://placehold.co/600x400');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 16px 16px;
+      "
+      src="https://placehold.co/600x400"
+    />
+				</body>
+				</html>
+			`,
+			message: messages.expected('width', 'height'),
 		},
 	],
 });
