@@ -6,6 +6,7 @@ import { getNodeData } from './getNodeData.js';
 import { createFlatOrder } from './createFlatOrder.js';
 import { ruleName } from './ruleName.js';
 import { messages } from './messages.js';
+import { formatInlineStyleNode } from '../../utils/formatInlineStyleNode.js';
 
 export function checkNodeForOrder({ node, primaryOption, unspecified, result, expectedOrder }) {
 	/*
@@ -77,6 +78,7 @@ export function checkNodeForOrder({ node, primaryOption, unspecified, result, ex
 			order: createFlatOrder(primaryOption),
 			unspecifiedPropertiesPosition: unspecified === 'ignore' ? 'bottom' : unspecified,
 		});
+		formatInlineStyleNode(node);
 
 		hasRunFixer = true;
 
