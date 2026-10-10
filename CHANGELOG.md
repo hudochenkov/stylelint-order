@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 8.1.2
+
+* Fixed compatibility with the upcoming Stylelint v18
+
 ## 8.1.1
 
 * Fixed false positives for non-standard CSS (e.g. SCSS) in `<style>` tags, when using `postcss-html` custom syntax
