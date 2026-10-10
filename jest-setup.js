@@ -2,7 +2,9 @@ import stylelint from 'stylelint';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getTestRule } from 'jest-preset-stylelint';
 
-global.testRule = getTestRule({ plugins: ['./'] });
+import plugin from './index.js';
+
+global.testRule = getTestRule({ plugins: [plugin] });
 
 global.testConfig = (input) => {
 	let testFn;
@@ -17,7 +19,7 @@ global.testConfig = (input) => {
 
 	testFn(input.description, () => {
 		const config = {
-			plugins: ['./'],
+			plugins: [plugin],
 			rules: {
 				[input.ruleName]: input.config,
 			},
