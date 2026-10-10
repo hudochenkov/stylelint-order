@@ -1,4 +1,6 @@
 import stylelint from 'stylelint';
+
+import plugin from '../../../index.js';
 import { rule } from '../index.js';
 
 const { ruleName } = rule;
@@ -13,7 +15,7 @@ test(`show warning if --fix enabled, but it didn't fix`, () => {
 	`;
 
 	const stylelintConfig = {
-		plugins: ['./'],
+		plugins: [plugin],
 		rules: {
 			[ruleName]: [['top', 'color']],
 		},
@@ -51,7 +53,7 @@ test(`don't show warning if --fix enabled, and it fixed`, () => {
 	`;
 
 	const stylelintConfig = {
-		plugins: ['./'],
+		plugins: [plugin],
 		rules: {
 			[ruleName]: [['top', 'color']],
 		},
