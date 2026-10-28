@@ -53,8 +53,8 @@
 	"scripts": {
 		"lint": "eslint . --max-warnings 0 && prettier '**/*.js' --check",
 		"test": "jest",
-		"watch": "npm run test -- --watch",
-		"coverage": "npm run test -- --coverage",
+		"watch": "pnpm test --watch",
+		"coverage": "pnpm test --coverage",
 		"fix": "eslint . --fix --max-warnings 0 && prettier '**/*.js' --write",
 		"prepare": "husky"
 	},
