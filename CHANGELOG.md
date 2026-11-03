@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 8.1.3
+
+* Added support for Stylelint 18
+
 ## 8.1.2
 
 * Fixed compatibility with the upcoming Stylelint v18

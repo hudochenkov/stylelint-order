@@ -30,7 +30,7 @@
 		"postcss-sorting": "^10.0.0"
 	},
 	"peerDependencies": {
-		"stylelint": "^16.18.0 || ^17.0.0"
+		"stylelint": "^16.18.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
 		"eslint": "^9.39.4",
@@ -40,7 +40,7 @@
 		"husky": "^9.1.7",
 		"jest": "^30.5.2",
 		"jest-light-runner": "^0.8.2",
-		"jest-preset-stylelint": "^9.2.0",
+		"jest-preset-stylelint": "^10.0.0",
 		"jest-watch-typeahead": "^3.0.1",
 		"lint-staged": "^17.6.0",
 		"postcss-html": "^1.8.1",
@@ -48,7 +48,7 @@
 		"postcss-styled-syntax": "^0.7.3",
 		"prettier": "~3.9.9",
 		"prettier-config-hudochenkov": "^0.4.0",
-		"stylelint": "^17.16.0"
+		"stylelint": "^18.0.0"
 	},
 	"scripts": {
 		"lint": "eslint . --max-warnings 0 && prettier '**/*.js' --check",

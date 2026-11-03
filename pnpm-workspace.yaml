@@ -1,3 +1,6 @@
 allowBuilds:
   '@parcel/watcher': true
   unrs-resolver: true
+minimumReleaseAgeExclude:
+  - jest-preset-stylelint@10.0.0
+  - stylelint@18.0.0
