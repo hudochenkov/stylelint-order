@@ -86,6 +86,21 @@ testRule({
 		{
 			code: 'a { align: center; Border-width: 1px; border-top-width: 2px; color: red; }',
 		},
+		{
+			code: 'a { gap: 1px; column-gap: 2px; row-gap: 3px; }',
+		},
+		{
+			code: 'a { place-content: center; align-content: start; justify-content: end; }',
+		},
+		{
+			code: 'a { place-items: center; align-items: start; justify-items: end; }',
+		},
+		{
+			code: 'a { place-self: center; align-self: start; justify-self: end; }',
+		},
+		{
+			code: 'a { contain-intrinsic-size: 10px; contain-intrinsic-height: 20px; contain-intrinsic-width: 30px; }',
+		},
 	],
 
 	reject: [

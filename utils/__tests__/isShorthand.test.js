@@ -23,3 +23,19 @@ test('border-inline is shorthand for border-top-color', () => {
 test('border-top-color is not shorthand for border-inline', () => {
 	expect(isShorthand('border-top-color', 'border-inline')).toBe(false);
 });
+
+test.each([
+	['gap', 'column-gap'],
+	['place-content', 'justify-content'],
+	['place-items', 'align-items'],
+	['place-self', 'justify-self'],
+	['contain-intrinsic-size', 'contain-intrinsic-width'],
+	['font', 'font-variant-caps'],
+	['font-synthesis', 'font-synthesis-weight'],
+	['scroll-margin', 'scroll-margin-top'],
+	['scroll-padding-inline', 'scroll-padding-inline-end'],
+	['text-decoration', 'text-decoration-thickness'],
+])('%s is shorthand for %s', (shorthand, longhand) => {
+	expect(isShorthand(shorthand, longhand)).toBe(true);
+	expect(isShorthand(longhand, shorthand)).toBe(false);
+});
