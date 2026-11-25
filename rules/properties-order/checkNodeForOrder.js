@@ -1,5 +1,5 @@
 import stylelint from 'stylelint';
-import sortNodeProperties from 'postcss-sorting/lib/properties-order/sortNodeProperties.js';
+import { sortNodeProperties } from 'postcss-sorting';
 import { isProperty } from '../../utils/isProperty.js';
 import { checkOrder } from './checkOrder.js';
 import { getNodeData } from './getNodeData.js';

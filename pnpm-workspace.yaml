@@ -4,3 +4,4 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - jest-preset-stylelint@10.0.0
   - stylelint@18.0.0
+  - postcss-sorting

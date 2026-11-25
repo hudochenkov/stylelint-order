@@ -29,8 +29,8 @@
 		"node": ">=20.19.0"
 	},
 	"dependencies": {
-		"postcss": "^8.5.28",
-		"postcss-sorting": "^10.0.0"
+		"postcss": "^8.5.33",
+		"postcss-sorting": "^11.0.0"
 	},
 	"peerDependencies": {
 		"stylelint": "^16.18.0 || ^17.0.0 || ^18.0.0"
@@ -39,19 +39,19 @@
 		"eslint": "^9.39.4",
 		"eslint-config-hudochenkov": "^13.0.0",
 		"eslint-config-prettier": "^10.1.8",
-		"globals": "^17.13.0",
+		"globals": "^17.14.0",
 		"husky": "^9.1.7",
 		"jest": "^30.5.2",
 		"jest-light-runner": "^0.8.2",
 		"jest-preset-stylelint": "^10.0.0",
 		"jest-watch-typeahead": "^3.0.1",
-		"lint-staged": "^17.6.0",
+		"lint-staged": "^17.6.2",
 		"postcss-html": "^1.8.1",
 		"postcss-less": "^6.0.0",
-		"postcss-styled-syntax": "^0.7.3",
-		"prettier": "~3.9.9",
+		"postcss-styled-syntax": "^0.7.4",
+		"prettier": "~3.10.1",
 		"prettier-config-hudochenkov": "^0.4.0",
-		"stylelint": "^18.0.0"
+		"stylelint": "^18.1.0"
 	},
 	"scripts": {
 		"lint": "eslint . --max-warnings 0 && prettier '**/*.js' --check",

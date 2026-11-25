@@ -1,5 +1,5 @@
 import stylelint from 'stylelint';
-import sortNode from 'postcss-sorting/lib/order/sortNode.js';
+import { sortNode } from 'postcss-sorting';
 import { checkOrder } from './checkOrder.js';
 import { getOrderData } from './getOrderData.js';
 import { ruleName } from './ruleName.js';
