@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 9.0.0
+
+* Updated shorthand data with new properties, and fixed some incorrect shorthands
+* Removed Node.js 20 support
+
 ## 8.1.3
 
 * Added support for Stylelint 18
